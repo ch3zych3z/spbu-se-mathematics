@@ -1,0 +1,260 @@
+\documentclass[12pt]{article}
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+\usepackage{mathtools}
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\SEASON{a}
+
+%\input code-format.tex
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\title{Лекция по математическому анализу №2}
+\author{Дудников Илья}
+\date{\today}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{formula}{Формула}
+\newtheorem{statement}{Утверждение}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\newtheorem{consequence}{Следствие}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+%\renewcommand{\thetheorem}{}
+%\renewcommand{\thedefinition}{}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \section{Продолжение про вещественные числа}
+    \subsection{Теорема о вложенных отрезках}
+    
+    \begin{theorem}[Теорема о вложенных отрезка]
+        Пусть $[a_1, b_1] \supset [a_2, b_2] \supset [a_3, b_3] \supset ... \supset [a_n, b_n]$. Тогда $$\exists a \in \bigcap_{n = 1}^{\infty}[a_n, b_n]$$
+    \end{theorem}
+
+    \begin{proof}
+        $a_1 \leqslant a_2 \leqslant a_3 \leqslant ... \leqslant a_n \leqslant b_n \leqslant b_{n - 1} \leqslant ... \leqslant b_1$
+        
+        Значит, $\forall k, m \to a_k \leqslant b_m$ \\
+        Пусть $A = \{a_n\}, B = \{b_n\}$. По аксиоме полноты $\exists c \in \mathbb{R} : \forall k, m \in \mathbb{N} \to a_k \leqslant c \leqslant b_m \Rightarrow c \in \bigcap_{n = 1}^{\infty} [a_n, b_n]$  
+    \end{proof}
+    Замечания: 1) $\bigcap_{n = 1}^{\infty} \left(0; \frac{1}{n}\right] = \varnothing$. Важно, что именно отрезки, а не интервалы или полуинтервалы.  \\
+    2) $\bigcap_{n = 1}^{\infty} [n; +\infty) = ?$ \\
+    3) Без аксиомы полноты не работает. Например 
+    \[[1.4; 1.5] \supset [1.41; 1.42] \supset ...\]
+    \[\bigcap_{n = 1}^{\infty}[a_n, b_n] = \{\sqrt{2}\}, \text{но не в } \mathbb{Q}\]
+
+    \subsection{Принцип математической индукции}
+    $\{P_n\}_{n = 1}^{\infty}$ - утверждения. Если
+    \begin{enumerate}
+        \item $P_1$ верно - база
+        \item $\forall n \in \mathbb{N} \to P_n \Rightarrow P_{n + 1}$ - индукционный переход  
+    \end{enumerate}
+    Тогда $\forall n \in \mathbb{N} \to P_n$.
+    \begin{definition}
+        $M \subset \mathbb{R}$ - индуктивное, если $1 \in M \wedge (x \in M \Rightarrow x + 1 \in M)$.  
+    \end{definition} 
+
+    \begin{definition}
+        $\mathbb{N}$ - минимальное индуктивное подмножество $\mathbb{R}$  
+    \end{definition}
+
+    \begin{definition}[Сдвиг индекса суммирования]
+        $$\sum_{n = m}^k a_n = \sum_{j = m + p}^{k + p}{a_{j - p}}, p \in \mathbb{Z}$$
+    \end{definition}
+
+    \begin{definition}
+        $k!!$ - произведение целых чисел до $k$ включительно одной четности с $k$.
+    \end{definition}
+
+    \begin{definition}[Биномиальные коэффициенты]
+        $$C_n^k = \frac{n!}{k!(n - k)!} = \binom{n}{k}$$
+    \end{definition}
+
+    \begin{theorem}[Формула бинома Ньютона]
+        Пусть $n \in \mathbb{Z}, x, y, \in \mathbb{R}$. Тогда 
+        \[(x + y)^n = \sum_{k = 0}^{n}{C_n^k x^k y^{n - k}}\]
+    \end{theorem}
+
+    \begin{proof}
+        $n = 0 \to 1 = 1$, верно
+        
+        Индукционный переход: \\
+        \begin{align*}
+            &(x + y)^{n + 1} = (x + y)(x + y)^n = (x + y)(\sum_{k = 0}^{n}{C_n^k x^k y^{n - k}}) = \\
+            &=\sum_{k = 0}^{n}{C_n^k x^{k + 1}y^{n - k}} + \sum_{k = 0}^{n}C_n^k x^k y^{n - k + 1} = \sum_{j = 1}^{n + 1}C_n^{j - 1}x^j y^{n + 1 - j} + \sum_{k = 0}^{n}C_n^k x^k y^{n - k + 1} = \\
+            &=\sum_{k = 1}^{n + 1}C_n^{k - 1}x^k y^{n + 1 - k} + \sum_{k = 0}^{n}C_n^k x^k y^{n - k + 1} = C_n^n x^{n + 1} y^0 + \sum_{k = 1}^{n} \left(C_n^{k - 1} x^k y^{n + 1 - k} + C_n^k x^k y^{n + 1 - k}\right) + C_n^0 x^0 y^{n + 1} = \\
+            &=C_{n + 1}^{n + 1} x^{n + 1} y^0 + \sum_{k = 1}^{n} \left(C_n^{k - 1} + C_n^k\right)x^k y^{n + 1 - k} + C_{n + 1}^0 x^0 y^{n + 1} = \sum_{k = 0}^{n + 1}C_{n + 1}^k x^k y^{n + 1 - k} 
+        \end{align*}
+    \end{proof}
+
+    \subsection{Супремум и инфимум}
+
+
+    \begin{definition}
+        $E \subset \mathbb{R}$ - ограниченное сверху, если $\exists A : \forall x \in E \to x \leqslant A$ 
+    \end{definition}
+    
+    \begin{definition}
+        $E \subset \mathbb{R}$ - ограниченное снизу, если $\exists B : \forall x \in E \to x \geqslant B$  
+    \end{definition}
+
+    \begin{definition}
+        $E \subset \mathbb{R}$ - ограниченное, если оно ограничено и снизу, и сверху.
+    \end{definition}
+
+    \begin{definition}
+        $M \in \mathbb{R}$ называется максимумом мн-ва $E$, если $\forall x \in E \to x \leqslant M \wedge M \in E$ 
+    \end{definition}    
+
+    \begin{definition}
+        $K \in \mathbb{R}$ называется минимумом мн-ва $E$, если $\forall x \in E \to x \geqslant K \wedge K \in E$ 
+    \end{definition}
+
+    \begin{theorem}[Существование минимума и максимума у конечного множества из $\mathbb{R}$ ]
+        Во всяком конечном непустом подмножестве $\mathbb{R}$ есть наибольший и наименьший элементю
+    \end{theorem}
+
+    \begin{proof}
+        $n = 1$ - количество элементов (База) \\
+        Индукционный переход: $\exists \max\{x_1, x_2, ..., x_n\} = C$ \\
+        Добавим $x_{n + 1}$: если $x_{n + 1} > C \Rightarrow \max\{x_1, ..., x_{n + 1}\} = x_{n + 1}$ \\
+        если $x_{n + 1} \leqslant C \Rightarrow \max\{x_1, ..., x_{n + 1}\} = C$     
+    \end{proof}
+
+    \begin{consequence}
+        $\forall E \neq \varnothing \wedge E \subset \mathbb{Z}\wedge E \text{ - огр.} \to \exists \max E \wedge \min E $ 
+    \end{consequence}
+
+    \begin{consequence}
+        $\forall E \subset \mathbb{N}, E \neq \varnothing \to \exists \min E$ 
+    \end{consequence}
+
+    Далее везде $E \subset \mathbb{R}, E \neq \varnothing$ \\
+
+    \begin{definition}
+        Пусть $E$ ограничено сверху, тогда $\sup{E}$ - наименьшаяя из верхних границ. (точная верхняя граница)
+    \end{definition}
+
+    \begin{definition}
+        Пусть $E$ ограничено снизу, тогда $\inf{E}$ - наибольшая из нижних границ. (точная нижняя граница)
+    \end{definition}
+
+    \begin{theorem}
+        $E \neq \varnothing$. Если $E$ ограничено снизу, то $\exists ! \inf{E}$ 
+    \end{theorem}
+
+    \begin{proof}
+        Пусть $A$ - множество всех нижних границ $E (A \neq \varnothing)$ \\
+        $\forall a \in A, b \in E \to a \leqslant b$ \\
+        Тогда по аксиоме полноты $\Rightarrow \exists c \in \mathbb{R}: a \leqslant c \leqslant b \text{ } \forall a \in A, b \in E \Rightarrow \\ \Rightarrow \begin{cases}
+            c \leqslant b \text{ } \forall b \in E \text{ - } c \text{ - нижняя граница}, \\
+            c \geqslant a \text{ } \forall a \in A \text{ - } c \text{ - наибольшее}
+        \end{cases}$ 
+    \end{proof}
+
+    \begin{definition}
+        \begin{align*}
+            &l = \sup{E} \Leftrightarrow \begin{cases}
+                \forall x \in E \to x \leqslant l \\
+                \forall \varepsilon > 0 \to \exists y \in E : y > l - \varepsilon
+            \end{cases}\\
+            &m = \inf{E} \Leftrightarrow \begin{cases}
+                \forall x \in E \to x \geqslant m \\
+                \forall \varepsilon > 0 \to \exists y \in E: y < l + \varepsilon
+            \end{cases}
+        \end{align*}
+         
+    \end{definition}
+
+    Если $E$ не ограничено сверху, то $\sup{E} = +\infty$ \\
+    Если $E = \varnothing$, то чаще всего $\sup{E} \text{ и } \inf{E}$ не определены, но иногда $\sup{\varnothing} = -\infty, \inf{\varnothing} = +\infty$  
+
+    \begin{statement}
+        $\varnothing \neq B \subset A \subset \mathbb{R}$. Тогда если $A$ ограничено снизу, то $\inf{A} \leqslant \inf{B}$ 
+    \end{statement}
+
+    \begin{proof}
+        Если $C$ - нижняя граница $A$, то $\forall x \in A \to C \leqslant x \Rightarrow \forall y \in B \to C \leqslant y \Rightarrow C$ - нижняя граница $B \Rightarrow \inf{A}$ - тоже нижняя граница $B \Rightarrow \inf{A} \leqslant \inf{B}$  
+    \end{proof}
+
+    \begin{statement}
+        $\varnothing \neq B \subset A \subset \mathbb{R}$. Тогда если $A$ ограничено сверху, то $\sup{A} \geqslant \sup{B}$  
+    \end{statement}
+    \newpage
+
+    \section{Отображения}
+    $f: A \to B$ 
+    $f(x) = y \\
+    y - \text{образ элемента } X \\ 
+    x - \text{прообраз } y \\
+    f(A) - \text{образ множества } A \\
+    f^{-1}(B) - \text{прообраз множества } B
+    $ \\
+    $G_f = \{(x, y) : x \in A, y = f(x)\}$ 
+
+    \begin{definition}
+        $f: A \to B$. Если $f(A) = B$, то $f$ сюръективно.
+    \end{definition}
+    \begin{definition}
+        $f: A \to B$. Если $(x_1 \neq x_2 \in A) \Leftrightarrow (f(x_1) \neq f(x_2))$, то $f$ инъективно.
+    \end{definition}
+    \begin{definition}
+        Биекция - $f$ инъективно и сюръективно. 
+    \end{definition}
+    \begin{definition}[Композиция]
+        $g(x), f(x). \\h(x) = g \circ f(x) = g(f(x))$ \\
+        $f: X \to Y$
+        $g: Y_0 \to Z, f(x) \subset Y_0$   
+    \end{definition}
+    \begin{definition}
+        $id_x $ - тождественное отображение: $f(x) = x$  
+    \end{definition}
+    \begin{definition}
+        $f: X \to Y, X_0 \subset X \\ f |_{X_0}$ - сужение отображения $f$ на $X_0$ 
+    \end{definition}
+\end{document}
