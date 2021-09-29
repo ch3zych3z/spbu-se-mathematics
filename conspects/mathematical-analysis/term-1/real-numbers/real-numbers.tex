@@ -1,0 +1,489 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Вячеслав Бучин
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Вещественные числа}
+
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{unknown}
+\def\AuthorName{unknown}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Математический анализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+
+
+\Section{Аксиомы вещественных чисел}{}{Вячеслав Бучин}
+
+\Subsection{Аксиомы сложения ($\R \times \R \rightarrow \R$)}
+
+\begin{MyList}
+	\item $\forall a, b \in \R \rightarrow a + b = b + a$ (коммутативность сложения)
+	\item $ \forall a, b, c \in \R \rightarrow (a + b) + c = a + (b + c) $ (ассоциативность сложения)
+	\item $ \exists 0 \in \R: \forall a \in \R \rightarrow a + 0 = a$ (существование нуля)
+	\item $ \forall a \in \R \rightarrow \exists (-a) \in \R: a + (-a) = 0 $ ($(-a)$ --- противоположное число для $a$)
+\end{MyList}
+
+\Subsection{Аксиомы умножения ($\R \times \R \rightarrow \R$)}
+
+\begin{MyList}
+	\item $ \forall a, b \in \R \rightarrow a \cdot b = b \cdot a $ (коммутативность умножения)
+	\item $ \forall a, b, c \in \R \rightarrow (a \cdot b) \cdot c = a \cdot (b \cdot c) $ (ассоциативность умножения)
+	\item $ \exists 1 \in \R, 1 \neq 0:  \forall x \in \R \rightarrow 1 \cdot x = x $ (существование единицы)
+	\item $ \forall a \in \R, a \neq 0 \rightarrow \exists \frac{1}{a} : a \cdot \frac{1}{a} = 1 $ ($\frac{1}{a}$ --- обратное число для $a$)
+\end{MyList}
+
+\Subsection{Дистрибутивность умножения относительно сложения}
+
+$ \forall a, b, c \in \R \rightarrow (a + b) \cdot c = a \cdot c + b \cdot c $
+
+\Subsection{Аксиомы порядка ($ \forall a, b \in \R $ установлено отношение $ a \leq b $ или $ b \leq a $)}
+
+\begin{MyList}
+	\item $\forall a \in \R \rightarrow a \leq a$ (рефлексивность)
+	\item $\forall a, b, c \in \R : a \leq b , b \leq c \rightarrow a \leq c$ (транзитивность)
+	\item $\forall a, b \in \R : a \leq b, b \leq a \rightarrow a = b$ (антисимметричность)
+	\item $\forall a, b \in \R \rightarrow a \leq b \text{ или } b \leq a$
+	\item $\forall a, b, c \in \R : a \leq b \rightarrow a + c \leq b + c$
+	\item $\forall a, b \in R: 0 \leq a, 0 \leq b \rightarrow 0 \leq a \cdot b$
+\end{MyList}
+
+\Subsection{Ещё несколько определений}
+
+\begin{MyItemize}
+	\item $ a \leq b \EQ b \geq a $ (определение $\geq$)
+	\item $ a < b \EQ a \leq b \text{ и } a \neq b $ (определение $<$)
+	\item $ a > b \EQ b < a $ (определение $>$)
+\end{MyItemize}
+
+\Subsection{Аксиома полноты}
+
+$ \forall A, B \subset \R: A \neq \EMPTY , B \neq \EMPTY : \forall x \in A, \forall y \in B, x \leq y \rightarrow \exists c \in \R : x \leq c \leq y $
+
+\Section{Следствия из аксиом множества действительных чисел}{}{Вячеслав Бучин}
+\begin{Cons}
+	Число 0 единственно
+	\begin{proof}
+	Предположим обратное: $\exists 0' \neq 0$, тогда рассмотрим следующее:
+	$$
+		0' + 0 = 0'
+	$$
+	$$
+		0 + 0' = 0
+	$$
+	Теперь заметим, что левые части равны по аксиоме о коммутативности сложения $\SO 0' = 0$, что противоречит предполагаемому. 
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	Число 1 единственно
+	
+	Доказательство аналогично доказательству единственности нуля, только используется умножение вместо сложения.
+\end{Cons}
+
+\begin{Cons}
+	$\forall a, b, c \in \R : a = b \EQ a + c = b + c$
+	\begin{proof}
+		$$a = b \SO a \leq b \SO a + c \leq b + c$$
+		$$a = b \SO b \leq a \SO b + c \leq a + c$$
+		$$a + c \leq b + c,\text{ } b + c \leq a + c \SO a + c = b + c$$
+		
+		В обратную сторону аналогично:
+		
+		$$ a + c = b + c \SO a + c \leq b + c \SO a \leq b$$
+		$$ a + c = b + c \SO b + c \leq a + c \SO b \leq a$$
+		$$ a \leq b,\text{ } b \leq a \SO a = b$$
+		
+	\end{proof}
+
+\end{Cons}
+
+\begin{Cons}
+	$\forall a \in \R$ $(-a)$ единственно.
+	\begin{proof}
+		Пусть верно обратное: $\exists a \in \R : \exists (-a)_1, (-a)_2 \in \R : (-a)_1 \neq (-a)_2$
+		$$a + (-a)_1 = a + (-a)_2 = 0$$
+		Добавим к обеим частям $(-a)_1$:
+		$$(-a)_1 = (-a)_2$$
+		Пришли к противоречию.
+		
+		
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	$\forall a, b \in \R: a \leq b \rightarrow -b \leq -a$
+	\begin{proof}
+		$$a + ((-a) + (-b)) \leq b + ((-a) + (-b))$$
+		$$-b \leq -a$$
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	$\forall a, b, c \in \R: a = b, c \neq 0 \EQ a \cdot c = b \cdot c$
+	\begin{proof}
+		TODO.
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	$\forall a \in \R: a \neq 0$ $\exists! \frac{1}{a}$
+	\begin{proof}
+		TODO.
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	$\forall x \in \R \SO 0 \cdot x = 0$
+	\begin{proof}
+		$$0 \cdot x = 0 \cdot x + 0 \cdot x + (-0\cdot x) = x \cdot (0 + 0) + (-0 \cdot x) = 0 \cdot x + (-0\cdot x) = 0$$
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	$\forall x \in \R \rightarrow (-x) = (-1) \cdot x$
+	\begin{proof}
+		Предположим обратное: $\exists x \in \R: (-1) \cdot x = b, b \neq (-x)$
+		$$(-1) \cdot x + 1 \cdot x = b + 1 \cdot x$$
+		$$x \cdot (1 + (-1)) = b + 1 \cdot x$$
+		$$b + x = 0$$
+		$$b = -x$$
+		Противоречие.
+	\end{proof}
+\end{Cons}
+
+\begin{Cons}
+	0 < 1
+	\begin{proof}
+		Предположим обратное: $0 \geq 1$, вариант $0 = 1$ сразу отпадает из-за аксиомы о существовании единицы, значит $0 > 1 \EQ -1 > 0$
+		
+		Пусть $x \in \R$, $x > 0$, тогда $(-1) \cdot x \geq 0 \EQ (-1) \cdot x + 1 \cdot x \geq 1 \cdot x \EQ 0 \geq x$
+		
+		Противоречие.
+	\end{proof}
+\end{Cons}
+
+\Section{Принцип Архимеда}{}{Вячеслав Бучин}
+\begin{Prop}
+	$\forall x, y \in \R, y > 0 \rightarrow \exists n \in \N : x < n \cdot y$	
+\end{Prop}
+
+\begin{proof}
+	
+\end{proof}
+
+
+\end{document}
