@@ -1,0 +1,507 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 10/01/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Алгебра}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Алгебра 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Основы теории чисел}{Илья Дудников}
+
+\Subsection{Наименьшее общее кратное}
+
+\begin{Def}
+    Общим кратным $a_1, a_2, ..., a_n$ называется число $M > 0 : a_i | M \ \forall i = 1, ..., n$ 
+    
+    Наименьшее из общих кратных -- НОК.
+\end{Def}
+
+\begin{Thm}
+    $\lcm (a, b) = \frac{ab}{\gcd (a, b)}$ 
+\end{Thm}
+
+\begin{proof}
+    $a = a_1 d, b = b_1 d, (a_1, b_1) = 1$
+    \[M = at = bs \SO \frac{M}{b} = \frac{at}{b} = \frac{a_1 dt}{b_1 d} = \frac{a_1 t}{b_1} \SO M = \frac{b \cdot a_1 t}{b_1}\]
+    $t$ делится на $b_1$, т.е. $t = b_1 k$
+    \[M = \frac{b a_1 b_1 k}{b_1} = b a_1 k \text{ - минимально при } k = 1 \SO M = b a_1 = \frac{b a_1 d}{d} = \frac{ab}{\gcd(a, b)}\]  
+\end{proof}
+
+\Subsection{Математическая индукция}
+\begin{MyList}
+    \item Аксоима. $\forall$ подмножество $\N$ имеет наши элементы $\SO$ ММИ.
+    \item Аксиома. $A_1, A_n \SO A_{n + 1} \SO \forall A_n$ 
+\end{MyList}
+
+\begin{Cons}
+    Пусть $a_1, a_2, ..., a_n$ -- попарно взаимно-простые $\SO \lcm(a_1, a_2, ..., a_n) = a_1 \cdot a_2 \cdot ... \cdot a_n$  
+\end{Cons}
+
+\begin{proof}
+    $n = 2$. $\lcm (a_1, a_2) = \frac{a_1 a_2}{\gcd(a_1, a_2)} = a_1 \cdot a_2$
+    
+    Пусть верно для $n$. Тогда для $n + 1$
+    \[(a_i, a_n a_{n + 1}) = (a_i, a_{n + 1}) = 1 \SO a_1, a_2, ..., a_{n - 1}, a_n a_{n + 1} \SO\] 
+    \[\SO \lcm (a_1, ..., a_{n - 1}, a_n \cdot a_{n + 1}) = a_1 \cdot a_2 \cdot ... \cdot a_{n - 1} \cdot a_n \cdot a_{n + 1}\]  
+\end{proof}
+
+\Subsection{Простые числа}
+
+\begin{Def}
+    Число $p > 1$ называется простым, если оно делится только на $1$ и на $p$. Иначе число называется составным.
+\end{Def}
+
+\begin{Thm}[о наименьшем делителе]
+    Наименьший делитель $a > 1$ -- простое число
+\end{Thm}
+
+\begin{proof}
+    $M = \left\{d | d > 1, d | a\right\} \neq \varnothing$ Пусть $p$ - наименьший элемент $M$.
+    Предположим, что $p$ -- составное, т.е. $p = bq, q < p, q | p, p | a \SO q | a$ -- противоречие. 
+\end{proof}
+\Pagebreak
+
+\begin{Thm}
+    $p$ - наименьший делитель $ > 1$ числа $n \SO p \leqslant \sqrt{n}$  
+\end{Thm}
+
+\begin{proof}
+    \[n = mp, p \leqslant m \SO np \leqslant nm \SO mp \cdot p \leqslant nm \SO p^2 \leqslant n \SO p \leqslant \sqrt{n}\]
+\end{proof}
+
+\begin{Thm}[Теорема Евклида]
+    Простых чисел бесконечно много
+\end{Thm}
+
+\begin{proof}
+    Пусть $p_1, p_2, ..., p_n$ -- все простые числа, $a = p_1 \cdot p_2 \cdot ... \cdot p_n + 1$.
+    Если $a \vdots p_i$, то $1 \vdots p_i \SO a$ -- новое простое число.  
+\end{proof}
+
+\Subsection{Основная теорема арифметики}
+\begin{Lm}
+    $p$ -- простое $\SO \forall a > 1 \to p | a \vee (p, a) = 1$ 
+\end{Lm}
+
+\begin{proof}
+    \[(p, a) | p \SO (p, a) = 1 \vee (p, a) = p\] 
+\end{proof}
+
+\begin{Lm}
+    $p$ -- простое, $p | a_1 \cdot a_2 \cdot ... \cdot a_n \SO \exists i = 1, ..., n : p | a_i$ 
+\end{Lm}
+
+\begin{proof}
+    Если $(p, a_i) = 1, i = 1, ..., n \SO 1 = (p, a_1) = (p, a_1 a_2) = (p, a_1 a_2 a_3) = (p, a_1 \cdot ... \cdot a_n) = 1 \SO \exists a_i : p | a_i$ 
+\end{proof}
+
+\begin{Thm}[Основная теорема арифметики]
+    \begin{MyList}
+        \item $\forall a > 1 \to a = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot ... \cdot p_k^{\alpha_k}, p_1, p_2, ..., p_k$ -- различные простые, $\alpha_1, \alpha_2, ..., \alpha_k \geqslant 1$
+        \item с точностью до перестановки множителей это представление единственно  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item из всех делителей $a$ выбираем наименьший -- $p_1$ - простое $\SO a = p_1 \cdot a_1$.
+        Рассмотрим $a_1$ -- наименьший делитель - $p_2 \SO a_1 = p_1 \cdot p_2 \cdot a_2$ и т.д. 
+        \[a_1 > a_2 > a_3 > ... \SO \exists a_n = 1 \SO a = \text{ разложение на простые}\]
+        
+        \item Предположим, что представление не одно, то есть 
+        \[a = p_1 \cdot p_2 \cdot ... \cdot p_s = q_1 \cdot q_2 \cdot ... \cdot q_n\]
+        Не умаляя общности, пусть $n \geqslant s \SO p_1 | q_1 ... q_n$. Тогда, по лемме 2 $p_1 | q_i \SO p_1 = q_i$.
+        Перенумеруем $i = 1 \SO p_2 p_3 ... p_s = q_2 q_3 ... q_n \SO$ все $p_s$ сократятся, т.е. $1 = q_{s + 1} ... q_n \SO s = n$     
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    $a = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot p_k^{\alpha_k}$ --- каноническое разложение числа $a$ 
+\end{Def}
+
+\begin{Cons}
+    Любой делитель $a = p_a^{\alpha_1} ... p_k^{\alpha_k}$ имеет вид $b = p_1^{\beta_1} \cdot ... \cdot p_k^{\beta_k}, 0 \leqslant \beta_i \leqslant \alpha_i$  
+\end{Cons}
+
+\begin{proof}
+    $b | a \SO b$ содержит в разложении $p_i$  
+\end{proof}
+
+\Pagebreak
+\begin{Cons}
+    $\gcd (a_1, ..., a_n)$ имеет вид $p_1^{\alpha_1} p_2^{\alpha_2} ... p_k^{\alpha_k}$, где \\
+    $a_i = \min \left\{\text{показатель степени $p_i$, с которым $p_i$ входит в разложение } a_1, a_2, ..., a_n\right\}$   
+\end{Cons}
+
+\begin{Cons}
+    $\lcm (a_1, ..., a_n)$ имеет вид $p_1^{\alpha_1} p_2^{\alpha_2} ... p_k^{\alpha_k}$, где \\
+    $a_i = \max \left\{\text{показатель степени $p_i$, с которым $p_i$ входит в разложение } a_1, a_2, ..., a_n\right\}$   
+\end{Cons}
+
+\Subsection{Непрерывные дроби (Цепные дроби)}
+
+\begin{Def}
+    Выражение вида 
+    \[a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 + ...}}}\] 
+    называется непрерывной дробью. Обозначение: $[a_0, a_1, a_2, ...]$ 
+\end{Def}
+
+\begin{Thm}
+    Любое вещественное число может быть представлено в виде непрерывной дроби.
+
+    Если число иррационально -- в виде бесконечной дроби, если рациональное -- в виде конечной.
+\end{Thm}
+
+\begin{proof}
+    $a > b$
+    \[\frac{a}{b} = a_0 + \frac{r_1}{b} = a_0 + \frac{1}{\frac{b}{r_1}} = a_0 + \frac{1}{a_1 + \frac{r_2}{r_1}} = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{r_3}{r_2}}} \text { и т.д.}\]  
+
+    где
+    \begin{align*}
+        a &= b \cdot a_0 + r_1 \\
+        b &= r_1 \cdot a_1 + r_2 \\
+        r_1 &= r_2 \cdot a_2 + r_3 \\
+    \end{align*} 
+\end{proof}
+
+\begin{Def}
+    Для $\frac{a}{b} \ \delta_0 = \frac{a_0}{1}, \delta_1 = a_0 + \frac{1}{a_1}, \delta_2 = a_0 + \frac{1}{a_1 + \frac{1}{a_2}}$ и т.д. называются подходящими дробями. 
+\end{Def}
+
+\begin{Thm}[Формулы подходящих дробей]
+    $\delta_k = \frac{p_k}{q_k}, p_{-1} = 1, q_{-1} = 0, p_0 = a_0, q = 1$
+    \[\SO \begin{cases}
+        p_k = a_k \cdot p_{k - 1} + p_{k - 2} \\
+        q_k = a_k \cdot q_{k - 1} + q_{k - 2}
+    \end{cases}\] 
+\end{Thm}
+
+\begin{proof}
+    $\delta_1 = a_0 + \frac{1}{a_1} = \frac{a_0 a_1 + 1}{a_1 \cdot 1 + 0} = \frac{a_1 \cdot p_0 + p_{-1}}{a_1 \cdot q_0 + q_{-1}}$ 
+
+    Предположим, что для $k$ верно. Тогда для $k + 1$ 
+    \[\delta_{k + 1} = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + ... \frac{}{a_k + \frac{1}{a_{k + 1}}}}} = \frac{(a_k + \frac{1}{a_{k + 1}}) \cdot p_{k - 1} + p_{k - 2}}{(a_k + \frac{1}{a_{k + 1}})\cdot q_{k - 1} + q_{k - 2}} = \]
+    \Pagebreak
+    \[= \frac{(a_{k + 1} \cdot a_k + 1) \cdot p_{k - 1} + p_{k - 2} \cdot a_{k + 1}}{(a_{k + 1} \cdot a_k + 1) \cdot q_{k - 1} + q_{k - 2} \cdot a_{k + 1}} = \frac{a_{k + 1}(a_k \cdot p_{k - 1} + p_{k - 2}) + p_{k - 1}}{a_{k + 1}(a_k q_{k - 1} + q_{k - 2}) + q_{k - 1}} = \frac{a_{k + 1} \cdot p_k + p_{k - 1}}{a_{k + 1} \cdot q_k + q_{k - 1}}\]
+\end{proof}
+
+\end{document}
