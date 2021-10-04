@@ -331,7 +331,7 @@
 Тогда 
 
 \begin{align*}
-    \frac{y_{n - 1}}{y_n} &= \frac{\left(1 + \frac{1}{n - 1}\right)^n}{\left(1 + \frac{1}{n}\right)^n} = \frac{\left(\frac{n}{n - 1}\right)^n}{\left(\frac{n + 1}{n}\right)^n} = \frac{\frac{n^n}{(n - 1)^n}}{\frac{(n + 1)^{n + 1}}{n^{n + 1}}} = \frac{n^n}{(n - 1)^n} \cdot \frac{n^{n + 1}}{(n + 1)^{n + 1}} = \frac{n^{2n}}{(n^2 - 1)^n} \cdot \frac{n}{n + 1} \\
+    \frac{y_{n - 1}}{y_n} &= \frac{\left(1 + \frac{1}{n - 1}\right)^n}{\left(1 + \frac{1}{n}\right)^{n + 1}} = \frac{\left(\frac{n}{n - 1}\right)^n}{\left(\frac{n + 1}{n}\right)^{n + 1}} = \frac{\frac{n^n}{(n - 1)^n}}{\frac{(n + 1)^{n + 1}}{n^{n + 1}}} = \frac{n^n}{(n - 1)^n} \cdot \frac{n^{n + 1}}{(n + 1)^{n + 1}} = \frac{n^{2n}}{(n^2 - 1)^n} \cdot \frac{n}{n + 1} \\
     &= \frac{n^{2n + 2}}{(n^2 - 1)^{n + 1}} \cdot \frac{n - 1}{n} = \left(\frac{n^2}{n^2 - 1}\right)^{n + 1} \cdot \frac{n - 1}{n} = \left(1 + \frac{1}{n^2 - 1}\right)^{n + 1} \cdot \frac{n - 1}{n} \geqslant \\
     &\geqslant \left(1 + \frac{n + 1}{n^2 - 1}\right) \cdot \frac{n - 1}{n} = \left(1 + \frac{1}{n - 1}\right) \cdot \frac{n - 1}{n} = \frac{n}{n - 1} \cdot \frac{n - 1}{n} = 1 \Rightarrow \frac{y_{n - 1}}{y_n} \geqslant 1 \Rightarrow \\
     &\Rightarrow y_{n - 1} \geqslant y_n \Rightarrow y_n \text{ убывающая } \Rightarrow \exists \lim y_n \Rightarrow \exists \lim x_n \text{, т.к. } x_n = \frac{y_n}{1 + \frac{1}{n}} \Rightarrow \lim x_n = \lim y_n \\
