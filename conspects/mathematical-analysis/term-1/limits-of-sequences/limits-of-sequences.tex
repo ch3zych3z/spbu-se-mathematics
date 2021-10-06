@@ -389,7 +389,7 @@
             $$x_n - x_{n - 1} > y_n - y_{n - 1} \Leftrightarrow x_n - x_m > y_n - y_m \to +\infty$$
             Тогда $x_n$ возрастает и стремится к $+\infty$
             \[ \frac{y_n - y_{n - 1}}{x_n - x_{n - 1}} \to 0 \Rightarrow \frac{y_n}{x_n} \to 0 \Rightarrow \frac{x_n}{y_n} \to +\infty\]
-            \item $l \to -\infty$. \TODO
+            \item $l \to -\infty$. Следует рассмотреть $\{-x_n\}$ 
         \end{MyList}
     \end{proof}
 \end{Thm}
@@ -399,7 +399,15 @@
 \end{Thm}
 
 \begin{proof}
-    \TODO
+    Докажем для $l = 0$.
+    \[\varepsilon_k = \frac{x_k - x_{k - 1}}{y_k - y_{k - 1}}, \forall \varepsilon > 0 \ \exists N : \forall k \geqslant N \to |\varepsilon_k| < \varepsilon\]
+
+    Пусть $n > m \geqslant N$
+    \[|x_n - x_m| = \sum_{k=n + 1}^{m} |\varepsilon_k| \cdot |y_{k - 1} - y_k| \leqslant \varepsilon \sum_{k=n + 1}^{m} (y_k - y_{k - 1}) = \varepsilon (y_m - y_n)\] 
+    \[|x_n - x_m| \leqslant \varepsilon(y_m - y_n) \EQ |x_m| \leqslant \varepsilon \cdot y_m \SO \frac{|x_m|}{y_m} < \varepsilon\]
+    Доказали, что $\forall \varepsilon > 0 \ \exists N : \forall m \geqslant N  \to \left|\frac{x_m}{y_m}\right| < \varepsilon$
+    
+    Для $l \neq 0$ доказывается аналогично предыдущей теореме.
 \end{proof}
 
 \Pagebreak
@@ -501,6 +509,7 @@
     $\underline{\lim_{n \to \infty}} x_n = \liminf_{n \to \infty} x_k = \lim_{n \to \infty} \inf_{k \geqslant n} x_k$  -- нижний предел. 
 \end{Def} 
 
+\Pagebreak
 \begin{Thm}
     Пусть $y_n = \inf_{k \geqslant n}x_k, z_n = \sup_{k \geqslant n} x_k$. Тогда
     \[\exists \underline{\lim} x_n, \overline{\lim} x_n \wedge \underline{\lim} x_n \leqslant \overline{\lim} x_n\] 
@@ -510,8 +519,57 @@
     \begin{MyList}
         \item Если неограничена сверху, то $\overline{\lim x_n} = +\infty$
         \item Пусть $\left\{x_n\right\}$. $\forall n \to x_n \leqslant M$
-        \[z_1 \geqslant z_2 \geqslant z_3 \geqslant ... \wedge z_n \leqslant M\]
-        \[y_1 \leqslant y_2 \leqslant ...\]   
+        \[z_1 \geqslant z_2 \geqslant z_3 \geqslant ... \wedge z_n \leqslant M \SO \exists \lim z_n\]
+        \item Аналогично для $y_n$
+        \item $\forall n \to y_n \leqslant z_n \SO \underline{\lim}x_n \leqslant \overline{\lim}x_n$  
     \end{MyList}
+\end{proof}
+
+\begin{Thm}
+    \begin{MyList}
+        \item $\overline{\lim} x_n$ -- наибольший частичный предел $\{x_n\}$  
+        \item $\underline{\lim} x_n$ -- наименьший частичный предел $\{x_n\}$ 
+        \item $\exists \lim x_n$ в $\overline{\R} \EQ \overline{\lim}x_n = \underline{\lim}x_n$  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $\{x_n\}$ -- ограниченная последовательность, $b = \overline{\lim} x_n$. Построим $\{x_{n_k}\} : x_{n_k} \xrightarrow[k \to \infty]{} b$
+        $z_1 = \sup \{x_1, x_2, ...\} > b - \frac{1}{2} \SO \exists x_{n_1} > b - \frac{1}{2}$ \\
+        $z_{n_1} = \sup \{x_{n_1 + 1}, x_{n_1 + 2}, ...\} > b - \frac{1}{3} \SO \exists x_{n_2} > b - \frac{1}{3}, n_2 > n_1$  
+        
+        \[b - \frac{1}{k} < x_{n_k} \leqslant z_{n_k} \SO x_{n_k} \to b\]
+        Рассмотрим $x_{m_k} \to c$. Тогда $x_{m_k} \leqslant z_{m_k} \SO c \leqslant b$
+        
+        Если $\{x_n\}$ неограничена 
+        \begin{MyItemize}
+            \item сверху: $\exists \overline{\lim}x_n = +\infty \SO \exists \{x_{n_k}\} : x_{n_k} \to +\infty$
+            \item снизу: а) $\exists \overline{\lim} x_n = b \in \R$ -- аналогично п.1. б) $\exists \overline{\lim}x_n = -\infty \SO x_n \to -\infty$   
+        \end{MyItemize} 
+
+        \item Аналогично
+        \item "$\SO$". $\exists \lim x_n = l \SO \forall \{x_{n_k}\} \to \lim x_{n_k} = l \SO \overline{\lim} x_n = \underline{\lim} x_n = l$
+        
+        "$\Leftarrow$". $y_n \leqslant x_n \leqslant z_n \SO \underline{\lim}x_n \leqslant \lim x_n \leqslant \overline{\lim} x_n \SO \exists \lim x_n = \overline{\lim} x_n = \underline{\lim} x_n$ 
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[характеристические свойства $\overline{\lim}x_n$ и $\underline{\lim} x_n$]
+    \begin{MyList}
+        \item \[a = \underline{\lim} x_n \EQ \begin{cases}
+            \forall \varepsilon > 0 \ \exists N : \forall n \geqslant N \to x_n > a - \varepsilon \\
+            \forall \varepsilon > 0, \forall N \ \exists n \geqslant N : x_n < a + \varepsilon
+        \end{cases}\] 
+
+        \item \[b = \overline{\lim} x_n \EQ \begin{cases}
+            \forall \varepsilon > 0 \ \exists N : \forall n \geqslant N \to x_n < a + \varepsilon \\
+            \forall \varepsilon > 0, \forall N \ \exists n \geqslant N : x_n > a - \varepsilon
+        \end{cases}\]
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \TODO
 \end{proof}
 \end{document}
