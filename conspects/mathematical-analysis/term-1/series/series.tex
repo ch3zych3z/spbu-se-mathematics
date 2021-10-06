@@ -1,0 +1,402 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 10/06/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Дискретная математика}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+        Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Ряды}{}{Илья Дудников}
+
+\Subsection{Ряды}
+
+\begin{Def}
+    Дана $\{a_n\}_{n = 1}^\infty$. Рассмотрим $S_n = a_1 + a_2 + ... + a_n = \sum_{k=1}^{n} a_k$.
+    
+    Тогда ряд -- $\sum_{k=1}^{\infty} a_k = a_1 + a_2 + ...$  \\
+    Если $S_n \to S \in \R$, то $S$ называют суммой ряда $\sum_{k=1}^{\infty} a_k$ (ряд сходится к $S$). \\
+    Если $S_n$ не имеет предела в $\R$, то ряд называют расходящимся.  
+\end{Def}
+
+\begin{Example}
+    $\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + ...$, т.е.
+    \[S_n = \sum_{k=1}^{\infty} \frac{1}{2^k} = 1 - \frac{1}{2^n} \to 1\]   
+\end{Example}
+
+\begin{Example}
+    $1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + ...$. Пусть
+    \[\sum_{k=1}^{\infty} \frac{1}{k} = S\]
+    Тогда, если $S \in \R$, то $\frac{S}{2} = \frac{1}{2} + \frac{1}{4} + \frac{1}{6} + ...$. Значит
+    \[\frac{S}{2} = S - \frac{S}{2} = 1 + \frac{1}{3} + \frac{1}{5} + \frac{1}{7} > \frac{S}{2} \SO \sum_{k=1}^{\infty} \frac{1}{k} = +\infty\]
+    Данный ряд называется \textbf{гармоническим}  
+\end{Example}
+
+\begin{Rem}
+    $S_n$ частичные суммы ряда
+\end{Rem}
+
+\begin{Example} \label{one-minus-one}
+    $1 - 1 + 1 - 1 + 1 - 1 + ... = \sum_{k=1}^{\infty} (-1)^{k + 1}$
+    \[S_1 = 1, S_2 = 0, S_3 = 1, S_4 = 0 \SO S_n = \frac{1 + (-1)^{n + 1}}{2} \SO \text{ не существует } \lim S_n\] 
+\end{Example}
+
+\begin{Thm}[Необходимое условие сходимости ряда]
+    Если $\sum_{k=1}^{\infty} a_k$ сходится, то $\lim_{k \to \infty} a_k = 0$  
+\end{Thm}
+
+\begin{proof}
+    \[\exists \lim S_n = S, a_n = S_n - S_{n - 1} \SO a_n \to 0\]
+\end{proof}
+
+\begin{Example}
+    Гармонический ряд.
+
+    $H_n = 1 + \frac{1}{2} + \frac{1}{3} + ...$
+    \[\frac{1}{n + 1} + \frac{1}{n + 2} + \frac{1}{n + 3} + ... + \frac{1}{2n} \geqslant n \cdot \frac{1}{2n} = \frac{1}{2}\]
+    Тогда $H_{2^n} \geqslant \frac{1}{2}(n + 1) \to +\infty \SO H_n \to +\infty$ (т.к. $H_n$ возрастает)  
+\end{Example}
+
+\begin{Example}
+    $\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + ...$
+    \[S_n = \sum_{k=1}^{\infty} \frac{1}{k(k + 1)} = \sum_{k=1}^{\infty} \left(\frac{1}{k} - \frac{1}{k + 1}\right) = 1 - \frac{1}{n}\] 
+\end{Example}
+
+\Pagebreak
+\Subsection{Свойства рядов}
+
+\begin{MyList}
+    \item Ряд не может иметь двух различных сумм.
+    \item Если ряд сходится к $S$, то к $S$ сходится и ряд, полученный из данного любой расстановкой скобок.
+    \[a_1 + a_2 + a_3 + a_4 + a_5 + a_6 \SO (a_1 + a_2) + a_3 + (a_4 + a_5 + a_6)\]
+    Пусть $b_1 = a_1 + a_2, b_2 = a_3, b_3 = a_4 + a_5 + a_6$ и т.д.
+    Заметим, что $\{S_n^b\}$ является подпоследовательность $S_n^a$.  
+
+    \begin{Rem}
+        "раскрывать скобки" вообще говоря нельзя.
+        \[\sum_{k=1}^{\infty} (1 - 1) = (1 - 1) + (1 - 1) + ... = 0\]
+        Но если раскрыть скобки, то получится пример \ref{one-minus-one}    
+    \end{Rem}
+
+    \item Добавление или отбрасывание конечного числа слагаемых не влияет на сходимость (но может повлиять на сумму)
+\end{MyList}
+
+\end{document}
