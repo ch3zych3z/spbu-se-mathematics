@@ -1,0 +1,544 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников    
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция}
+
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+%\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Матанализ,
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Последовательности}{}{Илья Дудников}
+\begin{Def}
+    Последовательность --- это отображение $f: \mathbb{N} \to \mathbb{R}$ 
+\end{Def}
+
+\begin{Example}
+    $x_n = n^2 : x_n = \{1, 4, 9, ...\}$ 
+\end{Example}
+
+\Subsection{Предел последовательности и его свойства}
+
+\begin{Def}
+    Предел последовательности - это такое число $l = lim_{n \to \infty}x_n$, что 
+    \[\forall \varepsilon > 0 \to \exists N \in \mathbb{N} : \forall n \geqslant N \to |x_n - l| < \varepsilon\] 
+
+    Также говорят, что вне любого интервала, содержащего $l$, лежит лишь конечно число элементов $\{X_n\}_{n = 1}^{\infty}$ 
+\end{Def}
+
+\begin{Example}
+    $x_n = \frac{1}{n}, \frac{1}{n} < \varepsilon \Leftrightarrow n > \frac{1}{\varepsilon}$. Тогда 
+    $N_\varepsilon = \left[\frac{1}{\varepsilon} + 1\right]$  
+\end{Example}
+
+\begin{Rem}
+    $N$ необязательно наименьшее.
+\end{Rem}
+
+\begin{Def}
+    Последовательность называется \textbf{сходящейся}, если она имеет конечный предел.
+\end{Def}
+
+\begin{Def}
+    $\lim_{n \to \infty}x_n = +\infty \Leftrightarrow \forall E \in \mathbb{R} \to \exists N \in \mathbb{N} : \forall n \geqslant N \to x_n > E$ 
+\end{Def}
+
+\begin{Def}
+    $\lim_{n \to \infty}x_n = -\infty \Leftrightarrow \forall E \in \mathbb{R} \to \exists N \in \mathbb{N} : \forall n \geqslant N \to x_n < E$ 
+\end{Def}
+
+\begin{Def}[Беззнаковая бесконечность]
+    $$\lim_{n \to \infty}x_n = \infty \Leftrightarrow \forall E \in \mathbb{R} \to \exists N \in \mathbb{N} : \forall n \geqslant N \to |x_n| > E$$
+\end{Def}
+
+\begin{Def}
+    Последовательность называется бесконечно большой, если она стремится к бесконечности 
+\end{Def}
+
+\begin{Def}
+    Последовательность называется бесконечно малой, если она стремится к нулю
+\end{Def}
+
+Свойства пределов последовательности:
+\begin{MyList}
+    \item Последовательность не может иметь двух различных пределов.
+    
+    \begin{proof}
+        Пусть $a \neq b$ - пределы, $a < b$. Возьмем $\varepsilon = \left(\frac{b - a}{3}\right)$. Тогда по определнию предела вне $\varepsilon$-окрестности $a$ лежит конечно число членов последовательности, и
+        вне $\varepsilon$-окрестности $b$ лежит конечно число членов последовательности $\Rightarrow$ сама последовательности конечна !?    
+    \end{proof}
+    \item Сходящаяся последовательность ограничена.
+    \begin{proof}
+        Пусть $\lim \{x_n\} = a$. По определению предела для $\varepsilon = 1$ найдем номер $N$ такой, что при всех $n \geqslant N$ имеет место неравенство $|x_n - a| < 1$.
+        Так как модуль суммы не превосходит суммы модулей, то 
+        \[|x_n| = |x_n - a + a| \leqslant |x_n - a| + |a|\]
+
+        Поэтому при всех $n \geqslant N$ выполняется неравенство
+        \[|x_n| < 1 + |a|\]
+        Положим $M = \max(1 + |a|, |x_1|, ..., |x_{N - 1}|)$. Тогда $|x_n| \leqslant M \ \forall n \in \N$   
+    \end{proof}
+
+    \begin{Prop}
+        Пусть $\lim x_n = a, \lim y_n = b$. Тогда $$\forall \varepsilon > 0 \to \exists N \in \N : \forall n \geqslant N \to \begin{cases}
+            |x_n - a| < \varepsilon \\
+            |y_n - b| < \varepsilon
+        \end{cases}$$
+
+        \begin{proof}
+            $N_1$ - номер из определения $\lim x_n = a$ \\
+            $N_2$ - номер из определения $\lim y_n = b$ \\
+            $N = \max \{N_1; N_2\}$ 
+        \end{proof}
+    \end{Prop}
+    \item Пусть $\lim x_n = a, \lim y_n = b, \forall n \in \N \to x_n \leqslant y_n$. Тогда $a \leqslant b$ (предельный переход в неравенстве).
+    \begin{proof}
+        Пусть $a > b$. Тогда $\exists N$, начиная с которого в $\varepsilon$-окрестности $b$ лежит бесконечное число членов $y_n$, а $\varepsilon$-окрестности $a$ лежит бесконечное число 
+        членов $x_n$. Но тогда, если бы возьмем $\varepsilon = \frac{a - b}{3}$, то $\exists y_n \in (b - \varepsilon; b + \varepsilon) : y_n < x_n, x_n \in (a - \varepsilon; a + \varepsilon)$    
+    \end{proof}
+    \begin{Cons}
+        \begin{MyList}
+            \item $\lim x_n = a, \forall n \to x_n \leqslant b \Rightarrow a \leqslant b$ 
+            \item $\lim y_n = b, \forall n \to y_n \geqslant a \Rightarrow a \leqslant b$  
+        \end{MyList} 
+    \end{Cons}
+    \item \begin{Thm}[Теорема о сжатой последовательности, теорема о двух милиционерах]
+        Пусть $\forall n \in \N \to x_n \leqslant z_n \leqslant y_n \wedge \lim x_n = \lim y_n = a$. Тогда $\lim z_n = a$ 
+    \end{Thm}
+    \begin{proof}
+        $\forall \varepsilon > 0 \to \exists N \in \N : \forall n \geqslant N \to x_n, y_n \in (a - \varepsilon; a + \varepsilon)$. Т.к. $x_n \leqslant z_n \leqslant y_n \Rightarrow z_n \in (a - \varepsilon; a + \varepsilon)$  
+    \end{proof}
+\end{MyList}
+
+\Subsection{Монотонные последовательности}
+
+\begin{Def}
+    Последовательность называется возрастающей, если $x_1 \leqslant x_2 \leqslant x_3 \leqslant ...$ 
+\end{Def}
+\begin{Def}
+    Последовательность называется убывающей, если $x_1 \geqslant x_2 \geqslant x_3 \geqslant ...$ 
+\end{Def}
+
+\begin{Def}
+    Последовательность называется монотонной, если она возрастающая или убывающая.
+\end{Def}
+
+\begin{Thm}[О монотонной ограниченной последовательности]
+    \begin{MyList}
+        \item Возрастающая и ограниченная сверху последовательность сходится
+        \item Убывающая и ограниченная снизу последовательность сходится
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Пусть множество $E = \{x_1, x_2, ...\}, c = \sup E$ 
+
+    $\forall n \in \N \to x_n \leqslant c$. Тогда
+    \[\forall \varepsilon > 0 \to \exists N \in \N : x_N > c - \varepsilon\]
+    Т.к. $x_n$ возрастает, то \[\forall n > N \to x_n \geqslant x_N > c - \varepsilon \wedge x_n < c + \varepsilon \Leftrightarrow |x_n - c| < \varepsilon\] 
+\end{proof}
+\begin{Rem}
+    \begin{MyList}
+        \item Возрастающая и неограниченная сверху последовательность стремится к $+\infty$.
+        \item Убывающая и неограниченная снизу последовательность стремится к $-\infty$
+    \end{MyList}
+    \begin{proof}
+        $\forall E \to \exists N : x_N > E$ и $x_n \geqslant x_N$ $\forall n \geqslant N$  
+    \end{proof}
+\end{Rem}
+
+\Pagebreak
+\Subsection{Теорема об арифметических действиях с пределами}
+\begin{Thm}[Теорема об арифметических действиях с пределами]
+    Пусть $\lim x_n = a, \lim y_n = b, a, b \in \R$. Тогда
+    \begin{MyList}
+        \item $\lim |x_n| = |a|$ 
+        \item $\lim (x_n + y_n) = a + b$
+        \item $\lim (x_n - y_n) = a - b$ 
+        \item $\lim (x_n \cdot y_n) = a \cdot b$ 
+        \item $\forall n \in \N \to b \neq 0 \wedge y_n \neq 0$, то $\lim \frac{x_n}{y_n} = \frac{a}{b}$
+    \end{MyList} 
+
+    \begin{proof}
+        \begin{MyList}
+            \item $\forall \varepsilon > 0 \to \exists N : \forall n \geqslant N \to |x_n - a| < \varepsilon$. Заметим, что \[||x_n| - |a|| < |x_n - a| < \varepsilon\]
+            \item $|(x_n + y_n) - (a + b)| \leqslant |x_n - a| + |y_n - b| < \varepsilon$ 
+            \item Вместо $y_n$ рассмотрим $-y_n$
+            \item $\forall \varepsilon > 0 \to \exists N : \forall n \geqslant N \to \begin{cases}
+                |x_n - a| < \frac{\varepsilon}{M + |a|} \\
+                |y_n - b| < \frac{\varepsilon}{M + |a|}
+            \end{cases}, M : \forall n \to |y_n| < M$  \\
+            \begin{equation*}
+                |x_n \cdot y_n - ab| = |x_n y_n - ab - a \cdot y_n + a \cdot y_n| = |y_n (x_n - a) + a(y_n - b)| \leqslant |y_n||x_n - a| + |a||y_n - b| < \varepsilon
+            \end{equation*}
+            \item Достаточно доказать, что $\lim \frac{1}{y_n} = \frac{1}{b}$. 
+            \[\left|\frac{1}{y_n} - \frac{1}{b}\right| = \frac{|y_n - b}{|y_n||b|} \leqslant \frac{|y_n - b|}{|\frac{b}{2}||b|} < \frac{\frac{b^2 \varepsilon}{2}}{|\frac{b}{2}||b|} = \varepsilon\]
+        \end{MyList}
+    \end{proof}
+\end{Thm}
+
+\begin{Prop}
+    $x_n$ - бесконечно малая, $y_n$ - ограниченная. Тогда $\lim x_n \cdot y_n = 0$
+    \begin{proof}
+        $|x_n y_n| < |x_n| \cdot M < \varepsilon \cdot M, M : \forall n \in \N \to |y_n| < M$ 
+    \end{proof} 
+\end{Prop}
+
+\begin{Prop}
+    $\forall n \to x_n \neq 0$. Тогда $x_n$ - бесконечно большая $\Leftrightarrow \frac{1}{x_n}$ - бесконечно малая
+    
+    \begin{proof}
+        $|x_n| > E \Leftrightarrow \frac{1}{|x_n|} < \frac{1}{E}$ 
+    \end{proof}
+\end{Prop}
+
+\Pagebreak
+\Subsection{Арифметические действия с бесконечностями}
+\begin{MyList}
+    \item $\lim x_n = +\infty, y_n$ ограничено снизу. Тогда $\lim (x_n + y_n) = +\infty$
+    \item $\lim x_n = -\infty, y_n$ ограничено сверху. Тогда $\lim (x_n + y_n) = -\infty$
+    \item $\lim x_n = +\infty, y_n \geqslant c > 0$. Тогда $\lim (x_n \cdot y_n) = +\infty$
+    \item $\lim x_n = +\infty, y_n \leqslant c < 0$. Тогда $\lim (x_n \cdot y_n) = -\infty$
+    \item $\lim x_n = a \neq 0, \lim y_n = 0$. Тогда $\lim \left(\frac{x_n}{y_n}\right) = \infty$
+    \item $\lim x_n = a \in \R, \lim y_n = \infty$. Тогда $\lim \left( \frac{x_n}{y_n} \right) = 0$
+    \item $\lim x_n = \infty, \lim y_n = b \in \R \wedge y_n \neq 0$. Тогда $\lim \left( \frac{x_n}{y_n} \right) = \infty$
+\end{MyList}
+
+\begin{Rem}
+    $\lim x_n = a \in \overline{\R}, \lim y_n = b \in \overline{\R}$, то $\lim (x_n * y_n) = a * b$  
+\end{Rem}
+
+Запрещенные операции (неопределённости):
+\begin{MyList}
+    \item $\pm \infty + (\mp \infty)$ 
+    \item $\pm \infty - (\pm \infty)$
+    \item $0 \cdot \infty$ 
+    \item $\frac{0}{0}$ 
+    \item $\frac{\infty}{\infty}$  
+\end{MyList}
+\Pagebreak
+\Subsection{Неравенство Бернулли}
+\begin{Thm}[Неравенство Бернулли]
+    Пусть $x > -1, n \in \N$. Тогда $(1 + x)^n \geqslant 1 + nx$
+    
+    \begin{proof}
+        База $n = 1 : (1 + x)^1 \geqslant 1 + 1 \cdot x$ \\
+        Индукционный переход $n \to n + 1$
+        \[(1 + x)(1 + x)^n \geqslant (1 + x)(1 + nx) = 1 + n(x + 1) + nx^2 \geqslant 1 + (n + 1)x\] 
+    \end{proof}
+\end{Thm}
+\end{document}
