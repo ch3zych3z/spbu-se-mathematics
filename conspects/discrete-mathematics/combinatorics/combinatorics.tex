@@ -1,0 +1,426 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 09/25/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Дискретная математика}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Дискретная математика 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Основы комбинаторики}{}{Илья Дудников}
+
+\Subsection{Множества}
+
+\begin{Def}
+    Множество - совокупность объектов.
+\end{Def}
+
+\begin{Def}
+    Покрытием множества $A$ называется множество $B = \left\{B_1, B_2, ..., B_k\right\} : \bigcup_i B_i \supset A$ 
+\end{Def}
+
+\begin{Def}
+    Разбиением множества $A$ называется $\pi (X) = \{X_i\} : $
+    \[X_i \neq \varnothing, \bigcup_i X_i = A, \forall i \neq j \to X_i \cap X_j = \varnothing\] 
+\end{Def}
+
+\begin{Def}
+    Пусть $B, C$ -- разбиения $A$. $B$ называется измельчением $C$, если $B$ -- разбиение $A$ и $\forall i \ \exists j : B_i \subset C_j$   
+\end{Def}
+
+\Subsection{Мощность множества}
+
+\begin{MyList}
+    \item $|\varnothing| = 0$ 
+    \item $X = \left\{x_1, x_2, ..., x_n\right\} \SO |X| = n$ 
+    \item $\N$ -- счётное. $\Z$ -- тоже счётное:
+    \[f(x) = \begin{cases}
+        1, x = 0 \\
+        2x, x > 0 \\
+        2|x| + 1, x < 0
+    \end{cases}\]
+    \item $[0, 1]$. Пусть существует $q: \N \to [0, 1]$
+    
+    \begin{MyList}
+        \item $0, a_1 a_2 ... a_k ...$
+        \item $0, b_1 b_2 ... b_k ...$ 
+        \item $0, c_1 c_2 ... c_k ...$  
+    \end{MyList}
+    Рассмотрим $\alpha = 0, \alpha_1 \alpha_2 \alpha_3 ... \alpha_k ..., \alpha_1 \neq a_1, \alpha_2 \neq b_2, \alpha_3 \neq c_3$ и т.д. 
+    Таким образом, всегда найдётся не пронумерованное число. 
+
+    $|[0, 1]|$ -- континуум 
+\end{MyList}
+
+\begin{Def}
+    Множество всех подмножеств $A$ обозначается $2^A$ 
+\end{Def}
+
+\begin{Prop}
+    $|2^A| = 2^|A|$  
+\end{Prop}
+
+\begin{proof}
+    База: $A = \varnothing, |A| = 0, 2^A = \{\varnothing\} \SO |2^A| = 2^|A| = 1$
+    
+    Индукционное предположение: Пусть $\forall A : |A| \leqslant k \to |2^A| = 2^|A|$ \\
+    Индукционный переход:
+
+    Рассмотрим $A : |A| = k + 1, B_1 \in 2^{A \setminus \{x_{k + 1}\}}, B = \{x_{k + 1}\} \cup B_1$ 
+
+    $2^A = 2^{A \setminus \{x_{k + 1}\}} \cup \{B\}$ 
+
+    \[\begin{cases}
+        |2^{A \setminus \{x_{k + 1}\}}| = 2^k \\
+        |\{B\}| = 2^k
+    \end{cases} \SO 2^A = 2^k + 2^k = 2^{k + 1} = 2^|A|\]
+\end{proof}
+
+\Pagebreak
+\Subsection{Комбинаторика}
+
+\begin{MyList}
+    \item $A, B : A \cap B = \varnothing$ $$|A \cup B| = |A| + |B|$$
+    \item $A_1, ..., A_n, \forall i, j \to (i \neq j \SO A_i \cap A_j = \varnothing)$
+    \[|\bigcup_{i = 1}^n A_i| = \sum_{i=1}^{n} |A_i|\]
+    \item $A, B, A \cap B \neq \varnothing$ \[|A \cup B| = |A| + |B| - |A \cap B|\] 
+    \item $A_1, ..., A_n$ \[|\bigcup_{i = 1}^n A_i| = \sum_{i=1}^{n} |A_i| - \sum_{i, j=1}^{n} |A_i \cap A_j| + \sum_{i,j,k=1}^{n} |A_i \cap A_j \cap A_k - ... + (-1)^{n + 1}|\bigcap_{i = 1}^n A_i|\]
+    \item $A, B$ \[|A \times B| = |A| \cdot |B|\]
+    \item $A_1, ..., A_n$ \[|A_1 \times A_2 \times ... \times A_n| = \prod_{i = 1}^n |A_i|\]   
+\end{MyList}
+
+\begin{MyList}
+    \item Перестановки: $<a_1 ... a_n> = \overline{<a_1 ... a_n>, a_n}$. Тогда
+    \[|<1:n>| = |<1:n - 1> \times (1:n)| = |<1:n - 1>| \cdot n = 1 \cdot 2 \cdot ... \cdot n = n!\]
+
+    \item Размещения. $n \cdot (n - 1) \cdot ... \cdot (n - k + 1)$
+    \[A_n^k = \frac{n!}{(n - k)!}\]
+
+    \item Сочетания. 
+    \[A_n^k = C_n^k \cdot k! \EQ C_n^k = \frac{n!}{k!(n - k)!}\]
+
+    \item Сочетания с повторениями. Выставим все $k$ выбранных объектов в ряд и поставим между ними $n - 1$ перегородку: до первой перегородки будут элементы 1-го типа, от первой до второй перегородки -- 2-го типа и т.д.
+    Таким образом, всего $n + k - 1$ место. Нам нужно выбрать $n - 1$ перегородку из этих $n + k - 1$ мест
+    \[\overline{C}_n^k = C_{n + k - 1}^{n - 1} = C_{n + k - 1}^k\]
+\end{MyList}
+
+Пусть дан выпуклый $n$-угольник. Найти количество способов разбить его на треугольники с непересекающимися сторонами
+
+\[C_0 = 1, C_n = \sum_{i=0}^{n - 1} C_i \cdot C_{n - i - 1} -- \text{ Числа Каталана}\]
+\end{document}
