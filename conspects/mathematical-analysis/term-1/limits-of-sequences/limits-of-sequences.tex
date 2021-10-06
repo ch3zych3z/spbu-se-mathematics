@@ -1,0 +1,517 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 09/29/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Пределы последовательностей}{}{Илья Дудников}
+
+\Subsection{Число $e$}
+
+Пусть $x_n = \left(1 + \frac{1}{n}\right)^n, y_n = \left(1 + \frac{1}{n}\right)^{n + 1}$.
+Тогда 
+
+\begin{align*}
+    \frac{y_{n - 1}}{y_n} &= \frac{\left(1 + \frac{1}{n - 1}\right)^n}{\left(1 + \frac{1}{n}\right)^n} = \frac{\left(\frac{n}{n - 1}\right)^n}{\left(\frac{n + 1}{n}\right)^n} = \frac{\frac{n^n}{(n - 1)^n}}{\frac{(n + 1)^{n + 1}}{n^{n + 1}}} = \frac{n^n}{(n - 1)^n} \cdot \frac{n^{n + 1}}{(n + 1)^{n + 1}} = \frac{n^{2n}}{(n^2 - 1)^n} \cdot \frac{n}{n + 1} \\
+    &= \frac{n^{2n + 2}}{(n^2 - 1)^{n + 1}} \cdot \frac{n - 1}{n} = \left(\frac{n^2}{n^2 - 1}\right)^{n + 1} \cdot \frac{n - 1}{n} = \left(1 + \frac{1}{n^2 - 1}\right)^{n + 1} \cdot \frac{n - 1}{n} \geqslant \\
+    &\geqslant \left(1 + \frac{n + 1}{n^2 - 1}\right) \cdot \frac{n - 1}{n} = \left(1 + \frac{1}{n - 1}\right) \cdot \frac{n - 1}{n} = \frac{n}{n - 1} \cdot \frac{n - 1}{n} = 1 \Rightarrow \frac{y_{n - 1}}{y_n} \geqslant 1 \Rightarrow \\
+    &\Rightarrow y_{n - 1} \geqslant y_n \Rightarrow y_n \text{ убывающая } \Rightarrow \exists \lim y_n \Rightarrow \exists \lim x_n \text{, т.к. } x_n = \frac{y_n}{1 + \frac{1}{n}} \Rightarrow \lim x_n = \lim y_n \\
+\end{align*}
+
+\begin{Def}
+    $e = \lim_{n \to \infty}{\left(1 + \frac{1}{n}\right)^n}$ 
+\end{Def}
+
+\begin{Thm}
+    $x_n > 0 \wedge \lim \frac{x_{n + 1}}{x_n} < 1$. Тогда $\exists \lim x_n = 0$  
+\end{Thm}
+
+\begin{proof}
+    Пусть $q = \lim \frac{x_{n + 1}}{x_n}, q < 1$. $\exists N : \forall n \geqslant N \to \frac{x_{n + 1}}{x_n} < \frac{1 + q}{2}$. Тогда
+    \[0 < x_n = \frac{x_n}{x_{n - 1}} \cdot \frac{x_{n - 1}}{x_{n - 2}} \cdot \frac{x_{n - 2}}{x_{n - 3}} \cdot ... \cdot \frac{x_{N + 1}}{x_N} \cdot x_N \leqslant x_N \cdot \left(\frac{1 + q}{2}\right)^{n - N} \to 0\]
+\end{proof}
+
+\begin{Cons}
+    $a > 1, k \in \N, \lim \frac{n^k}{a^n} = 0$
+    \[\frac{x_{n + 1}}{x_n} = \frac{(n + 1)^k}{a^{n + 1}} \cdot \frac{a^n}{n^k} = \left(\frac{n + 1}{n}\right)^k \cdot \frac{1}{a} \to \frac{1}{a} < 1\] 
+\end{Cons}
+
+\begin{Cons}
+    $\lim \frac{a^n}{n!} = 0$ 
+    \[\frac{x_{n + 1}}{x_n} = \frac{a^{n + 1}}{(n + 1)!} \cdot \frac{n!}{a^n} = \frac{a}{n + 1} \to 0 < 1\]
+\end{Cons}
+
+\begin{Cons}
+    $\lim \frac{n!}{n^n} = 0$ 
+    \[ \frac{x_{n + 1}}{x_n} = \frac{(n + 1)!}{(n + 1)^{n + 1}} \cdot \frac{n^n}{n!} = \left(\frac{n}{n + 1}\right)^n = \frac{1}{\left(\frac{n + 1}{n}\right)^n} = \frac{1}{\left(1 + \frac{1}{n}\right)^n} \to \frac{1}{e} < 1 \]
+\end{Cons}
+
+\Pagebreak
+\Subsection{Теорема Штольца}
+
+\begin{Thm}[Теорема Штольца]
+        $y_1 < y_2 < y_3 < ...$. $\lim y_n = + \infty \wedge \lim \frac{x_n - x_{n - 1}}{y_n - y_{n - 1}} = l \in \overline{\R}$  
+        Тогда $\exists \lim \frac{x_n}{y_n} = l$
+    \begin{proof}
+        \begin{MyList}
+            \item $l = 0$. $\varepsilon_k = \frac{x_k - x_{k - 1}}{y_k - y_{k - 1}}$. $\forall \varepsilon > 0 \ \exists m : \forall k \geqslant m \to |\varepsilon_k| < \varepsilon$ \\
+            $x_k - x_{k - 1} = \varepsilon_k (y_k - y_{k - 1})$
+            \[x_n - x_m = (x_n - x_{n - 1}) + (x_{n - 1} - x_{n - 2}) + ... + (x_{m + 1} - x_m) = \sum_{k = m + 1}^{n}(x_k - x_{k - 1}) = \sum_{k=m + 1}^{n} \varepsilon_k (y_k - y_{k - 1})\]  
+            \[|x_n - x_m| = \sum_{k=m + 1}^{n} |\varepsilon_k|(y_k - y_{k - 1}) \leqslant \varepsilon \sum_{k=m + 1}^{n} (y_k - y_{k - 1}) = \varepsilon (y_n - y_m) \leqslant \varepsilon \cdot y_n\]  
+
+            Тогда $|x_n| \leqslant |x_m| + \varepsilon y_n$ 
+            \[0 \leqslant \left|\frac{x_n}{y_n}\right| \leqslant \left|\frac{x_m}{y_n}\right| + \varepsilon \Rightarrow \lim \frac{x_n}{y_n} = 0\]   
+        
+            \item $l \neq 0, l \in \R$. Рассмотрим $\widetilde{x}_n = x_n - l \cdot y_n$. Тогда
+            \[ \frac{\widetilde{x}_n - \widetilde{x}_{n - 1}}{y_n - y_{n - 1}} = \frac{x_n - l \cdot y_n - x_{n - 1} + l \cdot y_{n - 1}}{y_n - y_{n - 1}} = \frac{x_n - x_{n - 1}}{y_n - y_{n - 1}} - l \to 0 \]
+            Тогда по п. 1 $\frac{\widetilde{x}_n}{y_n} \to 0$. $ \frac{x_n}{y_n} = \frac{\widetilde{x}_n + l \cdot y_n}{y_n} = \frac{x_n}{y_n} + l \to l $  
+
+            \item $l = + \infty$. $ \frac{x_n - x_{n - 1}}{y_n - y_{n - 1}} \to +\infty$. Начиная с некоторого номера $> 1$ \\
+            $$x_n - x_{n - 1} > y_n - y_{n - 1} \Leftrightarrow x_n - x_m > y_n - y_m \to +\infty$$
+            Тогда $x_n$ возрастает и стремится к $+\infty$
+            \[ \frac{y_n - y_{n - 1}}{x_n - x_{n - 1}} \to 0 \Rightarrow \frac{y_n}{x_n} \to 0 \Rightarrow \frac{x_n}{y_n} \to +\infty\]
+            \item $l \to -\infty$. \TODO
+        \end{MyList}
+    \end{proof}
+\end{Thm}
+
+\begin{Thm}
+    $y_1 > y_2 > ... > 0 \wedge \lim y_n = \lim x_n = 0$. Если $\lim \frac{x_n - x_{n - 1}}{y_n - y_{n - 1}} = l \in \overline{\R}$, тогда $\exists \lim \frac{x_n}{y_n} = l$   
+\end{Thm}
+
+\begin{proof}
+    \TODO
+\end{proof}
+
+\Pagebreak
+\Subsection{Подпоследовательности}
+\begin{Def}
+    Пусть дана последовательность $\left\{x_n\right\}_{n = 1}^{\infty}$. Подпоследовательностью этой последовательности называется $\left\{x_{n_k}\right\}_{k = 1}^\infty : n_1 < n_2 < n_3 < ...$  
+\end{Def}
+
+\begin{Thm}[О стягивающихся отрезках]
+    $[a_1, b_1] \supset [a_2, b_2] \supset [a_3, b_3] \supset ..., \lim (b_n - a_n) = 0$. Тогда $\bigcap_{n = 1}^\infty [a_n, b_n]$ состоит из одной точки.
+    Если эта точка $c$, то $\lim a_n = \lim b_n = c$ 
+\end{Thm}
+
+\begin{proof}
+    $\bigcap_{n = 1}^\infty [a_n, b_n] \neq \varnothing$ (по лемме о вложенных отрезках). Пусть $c < d$ принадлежит этому пересечению.
+    \[0 < d - c \leqslant b_n - a_n \to 0 \SO 0 \leqslant c - a_n \leqslant 0 \SO \text{ точка единственна}\] 
+    \[0 \leqslant c - a_n \leqslant b_n - a_n \to \SO 0 \leqslant c - a_n \leqslant 0 \SO a_n \to c\]
+    \[0 \leqslant b_n - c \leqslant b_n - a_n \SO b_n \to c\]
+\end{proof}
+
+\begin{Thm}[Теорема Больцано-Вейерштрасса]
+    Из всякой ограниченной последовательности можно извлечь сходящуюся подпоследовательность.
+\end{Thm}
+
+\begin{proof}
+    Возьмем $a_1 \leqslant b_1$ так, чтобы вся последовательность лежала между ними. 
+    $x_{n_1} \in [a_1, b_1]$. Поделим отрезок пополам и возьмем ту половину, в которой лежит бесконечное число членов последовательности. Обозначим её $[a_2, b_2]$. 
+    Теперь возьмем $x_{n_2} \in [a_2, b_2]$ и $n_2 > n_1$. $[a_3, b_3]$ - ту половину $[a_2, b_2]$, в которой бесконечное число членов последовательности и т.д.
+    
+    \[[a_1, b_1] \supset [a_2, b_2] \supset [a_3, b_3] \supset ... \text{ и длина } [a_k, b_k] = \frac{b_1 - a_1}{2^k} \to 0\]
+
+    \[\bigcap_{n = 1}^\infty [a_n, b_n] = \left\{c\right\}, \lim a_n = \lim b_n = c\]
+
+    $n_1 < n_2 < n_3 < ...$. $\left\{x_{n_k}\right\}{k = 1}^{\infty}$ -- подпоследовательность $\left\{x_n\right\}$ и $$a_k \leqslant x_{n_k} \leqslant b_k \SO \lim_{k \to \infty} x_{n_k} = c$$    
+\end{proof}
+
+\begin{Thm}
+    \begin{MyList}
+        \item Если последовательность неограничена сверху, то из неё можно выделить подпоследовательность, стремящуюся к $+\infty$ 
+        \item Если неограничена снизу, то можно выделить подпоследовательность, стремящуюся к $-\infty$ 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{align*}
+        &\exists n_1 : x_{n_1} > 1 \\
+        &\exists n_2 : x_{n_2} > 2 \wedge n_2 > n_1 \\
+        &\exists n_k : x_{n_k} > k \wedge n_k > n_{k - 1}
+    \end{align*} 
+\end{proof}
+
+\Pagebreak
+\begin{Cons}
+    Из любой последовательсти можно выбрать подпоследовательность имеющую предел (конечный или бесконечный).
+\end{Cons}
+
+\begin{Def}
+    Частичные пределы последовательности $\left\{x_{n_k}\right\}_{n = 1}^\infty$ -- пределы её подпоследовательностей.
+    
+    \begin{Rem}
+        $\lim x_n = a, \left\{x_{n_k}\right\}$ - подпоследовательность $\SO x_{n_k} \to a$ 
+    \end{Rem}
+\end{Def}
+
+\begin{Def}
+    Последовательность $\left\{x_n\right\}$ -- фундаментальная, если 
+    \[\forall \varepsilon > 0 \ \exists N : \forall m, n \geqslant N \to |x_m - x_n| < \varepsilon\]
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item Фундаментальная последовательность ограничена
+    \item Сходящаяся последовательность фундмаентальна
+    \begin{proof}
+        $a = \lim x_n$
+        \[\forall \varepsilon > 0 \ \exists N : \forall n \geqslant N \to |x_n - a| < \frac{\varepsilon}{2}\]
+        \[|x_n - x_m| = |x_n - a + a - x_m| \leqslant |x_n - a| + |x_m - a| < \varepsilon\]  
+    \end{proof}
+    \item Если у фундаментальной последовательности есть сходящаяся подпоследовательность, то эта последовательность сходится.
+    \begin{proof}
+        $\lim_{k \to \infty} x_{n_k} = a, \forall \varepsilon > 0 \ \exists K : \forall k \geqslant K \to |x_{n_k} - a| < \frac{\varepsilon}{2}$ 
+        \[\forall \varepsilon > 0 \ \exists N : \forall m, n \geqslant N \to |x_n - x_m| < \frac{\varepsilon}{2}\]
+        $M = \max \left\{n_K, N\right\}$. Тогда $\forall n \geqslant M \to |x_n - a| \leqslant |x_n - x_{n_k}| + |x_{n_k} - a| < \varepsilon$ 
+    \end{proof}
+\end{MyList}
+
+\begin{Thm}[Критерий Коши сходимости последовательности]
+    Последовательность сходится $\EQ$ она фундаментальна
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". Свойство 2. \\
+    "$\Leftarrow$". Фундаментальа $\SO$ ограничена (свойство 1) $\SO \exists$ сходящаяся подпоследовательность (теорема Больцано-Вейерштрасса) $\SO$ сходится  
+\end{proof}
+
+\begin{Def}
+    $\left\{x_n\right\}$ -- ограничена сверху. \\
+    $\overline{\lim_{n \to \infty}} x_n = \limsup_{n \to \infty} = \lim_{n \to \infty} \sup_{k \geqslant n} x_k$  -- верхний предел. \\
+    $\underline{\lim_{n \to \infty}} x_n = \liminf_{n \to \infty} = \lim_{n \to \infty} \inf_{k \geqslant n} x_k$  -- нижний предел. 
+\end{Def} 
+
+\begin{Thm}
+    Пусть $y_n = \inf_{k \geqslant n}x_k, z_n = \sup_{k \geqslant n} x_k$. Тогда
+    \[\exists \underline{\lim} x_n, \overline{\lim} x_n \wedge \underline{\lim} x_n \leqslant \overline{\lim} x_n\] 
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Если неограничена сверху, то $\overline{\lim x_n} = +\infty$
+        \item Пусть $\left\{x_n\right\}$. $\forall n \to x_n \leqslant M$
+        \[z_1 \geqslant z_2 \geqslant z_3 \geqslant ... \wedge z_n \leqslant M\]
+        \[y_1 \leqslant y_2 \leqslant ...\]   
+    \end{MyList}
+\end{proof}
+\end{document}
