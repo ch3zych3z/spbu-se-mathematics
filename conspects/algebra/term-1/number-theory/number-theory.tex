@@ -1,0 +1,444 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 09/17/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Алгебра}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Алгебра 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Основы теории чисел}{}{Илья Дудников}
+\Subsection{Делимость}
+\begin{Def}
+    $a \vdots b$ или $b | a \Leftrightarrow \exists q : a = b \cdot q, b \neq 0$ 
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item Рефлексивность. $a \vdots a, a \neq 0$ 
+    \item Антисимметричность на $\N$. $a \vdots b, b \vdots a \Rightarrow a = b$
+    \item Транзитивность. $a \vdots b, \vdots c \Rightarrow a \vdots c$ 
+    \item $a | b, a | c \Rightarrow a | (b \pm c)$.
+    \begin{proof}
+        $b = a \cdot q_1, c = a q_2 \Rightarrow b \pm c = a q_1 \pm a q_2 = a(q_1 \pm q_2)$ 
+    \end{proof}
+    \item $a | b \Rightarrow \forall c \to a | bc$ 
+    \item Пусть $a | b_i, i = 1, ..., n, a | (b_1 + ... + b_n + c) \Rightarrow a | c$
+    \begin{proof}
+        $b_1 + ... + b_n + c = aq, a q_1 + a q_2 + ... + a q_n + c = aq \Rightarrow c = a(q - q_1 - ... - q_n) \\ \Rightarrow a | c$ 
+    \end{proof}
+    \item $a | b \Rightarrow \forall k \neq 0 \to ka | kb$ 
+    \item $ka | kb \Rightarrow a | b$ 
+\end{MyList}
+
+\begin{Thm}[О делении с остатком]
+    $$\forall a \wedge \forall b > 0 \ \exists ! q, r, 0 \leqslant r < b : a = bq + r$$
+\end{Thm}
+
+\begin{Def}
+    $a$ - делимое, $b$ - делитель, $q$ - частное (неполное частное), $r$ - остаток
+\end{Def}
+
+\begin{proof}
+    $\exists$-ние. Рассмотрим $a - bq$. Выберем $q$ так, чтобы $a - bq > 0$ было наименьшим. 
+    Положим $r = a - bq \geqslant 0 \Rightarrow a = bq + r$. По выбору $q \to a - b(q + 1) < 0 \Rightarrow a < b(q + 1) \Rightarrow \\ 
+    r = a - bq < b(q + 1) - bq = b$.
+
+    Единственность. Преположим, что $a = b q_1  + r_1 = b q_2 + r_2, 0 \leqslant r_1, r_2 < b$ 
+    \[|r_1 - r_2| < b, b q_1 + r_1 = b q_2 + r_2 \Rightarrow b(q_1 - q_2) = r_2 - r_1 \Rightarrow |b(q_1 - q_2)| \geqslant b\]
+    Но $|r_1 - r_2| < b$ - противоречие.
+\end{proof} 
+\Pagebreak
+
+\Subsection{Наибольший общий делитель}
+\begin{Def}
+    Общим делителем $a_1, a_2, ..., a_n$ называется $d: d | a_i, i = 1, ..., n$.
+\end{Def}
+
+\begin{Def}
+    Наибольший общий делитель $a_1, a_2, ..., a_n$ называется $d$ такое, что 
+    \begin{MyList}
+        \item $d > 0$ 
+        \item $d | a_i, i = 1, ..., n$ 
+        \item если $d' | a_i, i = 1, ..., n$, то $d' | d$ 
+    \end{MyList} 
+    Обозначается $\gcd(a_1, a_2, ..., a_n) = (a_1, a_2, ..., a_n)$ 
+
+    \begin{Rem}
+        По определению $\gcd(0, 0) = 0$. $a \neq 0$, то $\gcd(a, 0) = 0$   
+    \end{Rem}
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item $b | a \Rightarrow (a, b) = b$ 
+    \begin{proof}
+        Докажем, что множество делителей $(a, b)$ совпадает с множество делителей $b$. \\
+        $$d | (a, b) \Rightarrow d | b$$
+        $$d | b \Rightarrow d | a \text{(по транзитивности)}\Rightarrow d | (a, b)$$    
+    \end{proof}
+    \item $a = bq + c \Rightarrow (a, b) = (b, c)$
+    \item \begin{Algo}[Алгоритм Евклида]
+        \[a = b q_1 + r_1, 0 \leqslant r_1 < b\]
+        \[b = r_1 q_1 + r_2, 0 \leqslant r_2 < r_1\]
+        \[r_1 = r_2 q_3 + r_3, 0 \leqslant r_3 < r_2\]
+        \[...\]
+        \[r_{n - 2} = r_{n - 1} q_n + r_n, 0 \leqslant r_n < r_{n - 1}\]
+        \[r_{n - 1} = r_n q_{n + 1}\] 
+    \end{Algo} 
+    \begin{Thm}
+        $r_n = \gcd (a, b)$ 
+    \end{Thm}
+
+    \begin{proof}
+        $r_1 > r_2 > r_3 > ... \geqslant 0 \Rightarrow \exists r_{n + 1} = 0$. $r_n | r_{n - 1}$.  
+        \[r_n = (r_n, r_{n - 1}) = (r_{n - 1}, r_{n - 2}) = ... = (r_2, r_1) = (b, r_1) = (a, b)\] 
+    \end{proof}
+    \Pagebreak
+    \item $(ma, mb) = m \cdot (a, b)$ 
+    \item $d | a, d | b \Rightarrow \left(\frac{a}{d}, \frac{b}{d}\right) = \frac{(a, b)}{d}$
+    \begin{proof}
+        $(a, b) = \left(d \cdot \frac{a}{d}, d \cdot \frac{b}{d}\right) = d \cdot \left(\frac{a}{d}, \frac{b}{d}\right)$ 
+    \end{proof}
+    \item $(a, b) = 1 \Rightarrow (a, bc) = (a, c)$ 
+    \begin{proof}
+        Докажем, что $(a, bc) | (a, c)$ 
+        \[(a, bc) | a, (a, bc) | ac, (a, bc) | bc \Rightarrow (a, bc) | (ac, bc) \Rightarrow (a, bc) | (a, b) \cdot c = c\Rightarrow (a, bc) | (a, c)\]
+
+        Теперь докажем, что $(a, c) | (a, bc)$
+        \[(a, c) | a, (a, c) | c \Rightarrow (a, c) | bc \Rightarrow (a, c) | (a, bc) \Rightarrow (a, bc) = (a, c)\] 
+    \end{proof}
+    \item $(a, b) = 1, b | ac \Rightarrow b | c$
+    \begin{proof}
+        \[b | bc, b | ac \Rightarrow b | (bc, ac) = c\] 
+    \end{proof}
+    \item $(a, b) = (a - b, b)$
+\end{MyList}
+
+\begin{Thm}[Линейное представление НОД]
+    $$(a, b) = d \Rightarrow \exists u, v : u \cdot a + v \cdot b = d$$
+\end{Thm}
+
+\begin{proof}
+    Из алгоритма Евклида:
+    \[r_{n - 2} = r_{n - 1} \cdot q_n + r_n \Rightarrow d = r_n = r_{n - 2} - r_{n - 1} \cdot q_n\]
+    \[r_{n - 3} = r_{n - 2} \cdot q_{n - 1} + r_{n - 1} \Rightarrow d = r_{n - 2} - (r_{n - 3} - r_{n - 2} \cdot q_{n - 1}) q_n\]
+    Из следующей строки выражаем $r_{n - 2}$ и т.д. $\Rightarrow$ останутся $a$ и $b$ $\Rightarrow d = u \cdot a + v \cdot b$  
+\end{proof}
+\end{document}

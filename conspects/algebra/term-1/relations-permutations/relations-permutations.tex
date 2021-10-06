@@ -1,0 +1,653 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Вячеслав Бучин
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 09/17/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Алгебра}
+\def\AuthorName{Вячеслав Бучин, Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Алгебра 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Отношения и перестановки}{}{Вячеслав Бучин, Илья Дудников}
+
+\Subsection{Отношения}
+
+\begin{Def} Отношением $\omega$ на $X \times Y$ называется любое подмножество $X \times Y$.
+\end{Def}
+Если $X = Y$, то говорят про отношение на $X$.
+
+Отношение на $X$ называется:
+\begin{MyList}
+    \item рефлексивным, если $\forall x \in X (x,x) \in \omega$
+    \item антирефлексивным, если $(x, y) \in \omega \SO x \neq y$
+    \item симметричным, если $(x, y) \in \omega \SO (y, x) \in \omega$
+    \item антисимметричным, если $(x, y), (y, x) \in \omega \SO y = x$
+    \item транзитивным, если $(x, y), (y, z) \in \omega \SO (x, z) \in \omega$
+\end{MyList}
+
+\Subsection{Отношение эквивалентности}{}
+
+\begin{Def}
+    Отношение на $X$, которое является рефлексивным, симметричным, транзитивным, называется эквивалентностью и обозначается $x \sim y$
+\end{Def}
+
+\begin{Example}
+    $X = \Z$ $x \omega y \EQ x - y \vdots 5$
+    \begin{MyList}
+        \item $x - x \vdots 5$ --- рефлексивно
+        \item $x - y \vdots 5 \SO y - x \vdots 5$ --- симметрично
+        \item $x - y \vdots 5$, $y - z \vdots 5$ $x - z = (x - y) + (y - z) \vdots 5 \SO x - z \vdots 5$ --- транзитивно
+    \end{MyList}
+    $\SO \omega$ --- отношение эвивалентности
+\end{Example}
+
+\Subsection{Класс эквивалентности}{}
+
+\begin{Def}
+    Классом эквивалентности, содержащим $a \in X$, называется $[a] = \{x: x \in X, x \sim a\}$
+\end{Def}
+\begin{Def}
+    Разбиением множества $X$ называется  $\pi(X) = \{ X_i \}$:
+    \begin{MyList}
+        \item $X_1 \cup X_2 \cdots = X$
+        \item $\forall i, j: i \neq j, X_i \cap X_j = \EMPTY$
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}
+    Связь эквивалентности и разбиения множества
+
+    \begin{MyList}
+        \item Отношения эквивалентности на $X$ задаёт разбиение множества $\pi(X)$, $X_i$ --- классы эквивалентности
+        \item Разбиение $\pi(X)$ задаёт эквивалентность на $X$
+    \end{MyList}
+    \begin{proof}
+
+        \begin{MyList}
+            \item $X_i = [x] = \{y \in X: y \sim x\}$ --- перебираем все $x \in X \SO X = X_1 \cup X_2 \cup \cdots X_n \cup \cdots$
+
+            $X_i, X_j : X_i = [x_i], X_j = [x_j]$ предположим, что $a \in X_i \cap X_j \SO a \sim x_i, a \sim x_j \SO x_i \sim x_j \SO X_i = X_j \SO [x_i]$ задают разбиения
+            \item $\sim : x \sim y \EQ x, y \in X_i$, проверить, что $\sim$ --- эквивалентность:
+            \begin{MyList}
+                \item $x, x \in X_i \SO x \sim x$
+                \item $x, y \in X_i \SO y, x \in X_i$
+                \item $x, y, y, z \in X_i \SO x, z \in X_i$
+            \end{MyList}
+            $\SO \sim$ --- эквивалентность
+        \end{MyList}
+    \end{proof}
+\end{Thm}
+
+\begin{Def}
+    $\sim$ на $X$, тогда фактормножество $(X/\sim)$ --- множество, состоящее из классов эквивалентности
+\end{Def}
+
+
+\Subsection{Перестановка}{--- биективное отображение $X = \{1, 2,  \cdots, n\}$ в $X$
+
+Запись перестановки: $ \left(\begin{array}{cccc}
+            1 & 2 & 3 & 4 \\
+            2 & 4 & 1 & 3
+        \end{array}\right)$
+
+\begin{Def}
+    Композиция перестановок. ( $\sigma, \tau$  ) \\
+    $\sigma, \tau \Rightarrow \sigma \circ \tau = \sigma \tau$ --- выполняется справа налево.
+\end{Def}
+
+\begin{Def}
+    $e = \left(\begin{array}{cccc}
+            1 & 2 & ... & n \\
+            1 & 2 & ... & n
+        \end{array}\right)$ --- тождественная перестановка
+\end{Def}
+
+\begin{Prop} $\forall \sigma \to \exists \sigma^{-1}$ \end{Prop}
+
+Множество всех перестановок $X = \{1, 2, ..., n\}$ обозначается $S_n$
+
+\begin{Def}
+    Группой называется некоторое множество $G$, на котором определена бинарная операция: $\forall x, y \in G \to xy \in G$. При этом выполняются следующие аксиомы
+    \begin{MyList}
+        \item $\forall x, y, z \in G \to (xy)z = x(yz)$ - ассоциативность.
+        \item $\forall x \in G \to \exists e \in G : xe = ex = x$ - нейтральный элемент
+        \item $\forall x \in G \to \exists x^{-1} \in G : x x^{-1} = x^{-1} x = e$
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}
+    $S_n$ относительно композиции является группой.
+\end{Thm}
+
+\begin{Def}
+    Порядком группы $G$ называется количество элементов в $G$ \\
+    Обозначается $|G|$
+\end{Def}
+
+\begin{Def}
+    $\left(\begin{array}{ccccc}
+            1   & i_1 & i_2 & ... & i_k \\
+            i_1 & i_2 & i_3 & ... & 1
+        \end{array}\right)$ -- $k$-цикл \\
+    $\left(\begin{array}{cc}
+            i & j \\
+            j & i
+        \end{array}\right) = (ij)$ -- транспозиция.
+\end{Def}
+
+\begin{Example}
+
+    $\sigma = \left(\begin{array}{ccccc}
+            1 & 5 & 3 & 4 & 2
+        \end{array}\right) = \left(\begin{array}{ccccc}
+            1 & 2 & 3 & 4 & 5 \\
+            5 & 1 & 4 & 2 & 3
+        \end{array}\right)$  \\
+    $\sigma^2 = \left(\begin{array}{ccccc}
+            1 & 5 & 3 & 4 & 2
+        \end{array}\right)  \left(\begin{array}{ccccc}
+            1 & 5 & 3 & 4 & 2
+        \end{array}\right)  = \left(\begin{array}{ccccc}
+            1 & 3 & 2 & 5 & 4
+        \end{array}\right)$
+\end{Example}
+\begin{Thm} $\forall \sigma \in S_n $ может быть разложена в произведение независимых циклов.
+\end{Thm}
+\begin{proof}
+    $1 \leqslant i, j \leqslant n$. $i \thicksim j \Leftrightarrow \exists p \in \mathbb{Z} : \sigma^p (i) = j$
+
+    \begin{MyList}
+        \item $\sigma^0 (i) = i$ - рефлексивность
+        \item $\sigma^p (i) = j \Rightarrow \sigma^{-p} (j) = i$ - симметричность
+        \item $\sigma^p (i) = j, \sigma^q (j) = k \Rightarrow \sigma^{p + q} (i) = k$ - транзитивность
+    \end{MyList}
+    $\Rightarrow $ по теореме о разбиении множества $\Rightarrow X = X_1 \cup ... \cup X_s \Rightarrow \forall X_i $ соответствует цикл, длина которого равна $|X_i|$ \\
+    Пусть $j \in X_i$, тогда $\left(\begin{array}{ccccc}
+                j         & \sigma(j)   & \sigma^2(j) & ... & \sigma^p(j) \\
+                \sigma(j) & \sigma^2(j) & \sigma^3(j) & ... & j
+            \end{array}\right) \Rightarrow $ все такие циклы независимы.
+
+    \begin{Rem}Можно доказать, что это разложение единственно с точностью до порядка.
+    \end{Rem}
+
+\end{proof}
+
+\begin{Cons}
+    $\forall \sigma \in S_n$ раскладывается в произведение транспозиций
+\end{Cons}
+
+\begin{proof}
+    Рассмотрим какой-то $k$-цикл. \\
+    $$\left(\begin{array}{ccccc}
+            i_1 & i_2 & i_3 & ... & i_k \\
+            i_2 & i_3 & i_4 & ... & i_1
+        \end{array}\right) = \left(\begin{array}{cc}
+            i_1 & i_k \\
+            i_k & i_1
+        \end{array}\right) \left(\begin{array}{cc}
+            i_1       & i_{k - 1} \\
+            i_{k - 1} & i_1
+        \end{array}\right) ... \left(\begin{array}{cc}
+            i_1 & i_3 \\
+            i_3 & i_1
+        \end{array}\right) \left(\begin{array}{cc}
+            i_1 & i_2 \\
+            i_2 & i_1
+        \end{array}\right)$$
+\end{proof}
+
+\begin{Rem}Разложение перестановки в произведение транспозиций не является единственным.\end{Rem}
+
+\Subsection{Знак перестановки}
+\begin{Def}
+    $\sigma = \tau_1, \tau_2, ..., \tau_k, \tau_i, 1 \leqslant i \leqslant k$ - транспозиции. \\
+    Знаком перестановки $\sigma $ называется $\varepsilon_\sigma = (-1)^k$ \\
+    \begin{Rem}Если $\tau = (ij) \Rightarrow \tau^2 = (ij)^2 = e$ \end{Rem}
+\end{Def}
+
+\begin{Thm} О знаке перестановки
+    \begin{MyList}
+        \item $\varepsilon_\sigma$ не зависит от способа разложения $\sigma$ на произведение транспозиций
+        \item $\varepsilon_\sigma \varepsilon_\tau = \varepsilon_{\sigma \tau}$
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $\sigma = \tau_1 \tau_2 ... \tau_k = \tau_1 ' \tau_2 ' ... \tau_s ', \tau_i, \tau_j '$ - транспозиции. \\
+        $\Rightarrow \tau_1 \tau_2 ... \tau_k \tau_s ' = \tau_1 ' \tau_2 ' ... \tau_{s - 1} ' \Rightarrow  \tau_1 \tau_2 ... \tau_k \tau_s ' \tau_{s - 1} ' = \tau_1 ' \tau_2 ' ... \tau_{s - 2} '
+            \Rightarrow e = \tau_1 \tau_2 ... \tau_k \tau_s ' ... \tau_1 '$. \\ Если $k, s$ одной четности $\Rightarrow e $ раскладывается в четное число транспозиций \\
+        $k, s$ разной четности $\Rightarrow e$ раскладывается в нечетное число транспозиций.
+
+        Докажем, что $e$ не может быть разложена в нечётное число транспозиций. Найдем транспозицию, содержащую $i$ и будем двигать её влево\\
+        $e = \tau_1 \tau_2 ... (ij) ...$ \newpage Смотрим транспозицию слева от $(ij)$:
+        $$(ij)(ij) = e \Rightarrow$$ число транспозиций уменьшилось на $2$
+        $$(ik)(ij) = (ij)(jk)$$
+        $$(jk)(ij) = (ik)(jk)$$
+        $$(kl)(ij) = (ij)(kl)$$
+
+        $\Rightarrow$ если не будет пункта $1 \Rightarrow e = (it)...$ \\
+        $e(i) = i$. Однако правая часть $i \to t$, что невозможно. $\Rightarrow$ обязательно будет 1 $\Rightarrow$ число транспозиций уменьшится на 2
+
+        Было $k + s$ транспозиций. $k + s - 2, k + s - 4, ... = 0 \Rightarrow k + s$ - чётное.
+
+        \item $\varepsilon_\sigma \varepsilon_\tau = \varepsilon_{\sigma \tau}$ \\
+        $\sigma = \tau_1 ... \tau_k, \tau = \tau_1 ' ... \tau_s ' $ \\
+        $\varepsilon_\sigma \varepsilon = (-1)^k \cdot (-1)^s = (-1)^{k + s}$ \\
+        $\varepsilon_{\sigma \tau} = (-1)^{k + s}$
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    Если $\varepsilon = +1$, то перестановка называется четной
+\end{Def}
+
+\Subsection{Чётные перестановки}
+
+$A_n = \{\text{чётные перестановки в } S_n\}$
+
+$\overline{A_n} = S_n \setminus A_n$
+\begin{Prop}
+    $|A_n| = |\overline{A_n}| = \frac{n!}{2}$
+\end{Prop}
+
+\begin{proof}
+    Пусть $\tau = (ij), \sigma \in A_n, \varphi : A_n \to \overline{A_n}, \varphi (\sigma) = \tau \sigma \in \overline{A_n}$
+
+    Инъективность: $\sigma_1 \neq \sigma_2 \in A_n, \varphi(\sigma_1) = \tau \sigma_1, \varphi(\sigma_2) = \tau \sigma_2$
+
+    Если $\tau \sigma_1 = \tau \sigma_2 \Rightarrow \sigma_1 = \sigma_2$ - противоречие \\
+    Сюръективность: Пусть $\rho \in \overline{A_n} \Rightarrow \tau \rho \in A_n \Rightarrow \varphi (\tau \rho) = \tau(\tau \rho) = \rho \Rightarrow \varphi$ - биективно $\Rightarrow |A_n| = |\overline{A_n}|$
+\end{proof}
+
+\begin{Rem}
+    $e \in A_n, \sigma, \rho \in A_n \Rightarrow \sigma \rho \in A_n$.
+    \[\sigma = \tau_1 \tau_2 ... \tau_k, \sigma^{-1} = \tau_k \tau_{k - 1} ... \tau_1 \in A_n\]
+    Значит $A_n$ - группа относительно композиции.
+\end{Rem}
+
+\begin{Def}
+    $G$ - группа. Множество $H \subseteq G$ называется подгруппой $G$, если оно также образует группу.
+    Обозначение: $H \leqslant G$
+\end{Def}
+
+\begin{Thm}
+    $A_n \leqslant S_n \Rightarrow |A_n| = \frac{n!}{2}$
+\end{Thm}
+
+\begin{Def}
+    $A_n$ - знакопеременная группа (alternating)
+\end{Def}
+\Pagebreak
+
+\Subsection{Инверсии}
+\begin{Def}
+    $\sigma = \left(\begin{array}{ccccccc}
+    1 & ... & s & ... & t & ... & n \\ 
+    i & ... & i_s & ... & i_t & ... & i_n
+    \end{array}\right)$. Говорят, что $(s, t)$ образуют инверсию, если $s < t \wedge i_s > i_t$. Количество всех инверсий равно $inv(\sigma)$  
+\end{Def}
+
+\begin{Thm}[Инверсии и четность и перестановки]
+    $\sigma$ -- четная (нечетная) $\Leftrightarrow inv(\sigma)$ четно (нечетно) 
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Пусть $\sigma = \left(\begin{array}{cccc}
+        ... & s & t & ... \\ 
+        ... & i & j & ...
+        \end{array}\right), \tau = \left(\begin{array}{cc}
+        i & i + 1 \\ 
+        i + 1 & i
+        \end{array}\right), j = i + 1$ 
+        Хотим узнать, как меняется количество инверсий при умножении на $\tau$.
+        \[\tau \sigma = \left(\begin{array}{cc}
+        i & i + 1 \\ 
+        i + 1 & i
+        \end{array}\right) \left(\begin{array}{ccccc}
+        ... & s & ... & t & ... \\ 
+        ... & i & ... & i + 1 & ...
+        \end{array}\right) \Rightarrow\] 
+        количество инверсий изменится на 1. \\
+        Число инверсий в парах без $s$ и $t$ не поменялось. $(k, s), (m, t)$ - тоже не поменялось. $(s, t)$ - изменилось на 1.
+        \item $\tau = (ij)$ - произовальная транспозиция. $\sigma$ - произовальная перестановка.
+        
+        $\tau = \left(\begin{array}{cc}
+        i & i + 1
+        \end{array}\right) \left(\begin{array}{cc}
+        i + 1 & i + 2
+        \end{array}\right) ... \left(\begin{array}{cc}
+        i + k - 1 & j
+        \end{array}\right) \left(\begin{array}{cc}
+        i + k - 2 & i + k - 1
+        \end{array}\right) ... \left(\begin{array}{cc}
+        i + 1 & i + 2
+        \end{array}\right) \left(\begin{array}{cc}
+        i & i + 1
+        \end{array}\right)$ 
+
+        $\Rightarrow \tau$ раскладывается в $2(k - 1) + 1$ транспозицию соседних элементов $\Rightarrow$ число инверсий $\tau \sigma$ изменится на нечётное число.
+        
+        \item $\sigma = \sigma_1 \sigma_2 ... \sigma_l e$, где $\sigma_i$ -- независимые циклы. 
+        
+        Если $\sigma_l$ раскладывается в чётное число транспозиций, то в $\sigma_l e$ чётное число инверсий (т.к. каждая транспозиция меняет $inv(\sigma_l)$ на нечетное число). \\
+        Если $\sigma_l$ раскладывается в нечётное число транспозиций, то в $\sigma_l e$ нечётное число инверсий. 
+    \end{MyList}
+\end{proof}
+\end{document}
