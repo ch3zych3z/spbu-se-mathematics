@@ -1,0 +1,534 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 10/09/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Дискретная математика}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Дискретная математика 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Теория вероятности}{}{Илья Дудников}
+\subsection{Основы теории вероятности}
+
+\begin{Def}
+    $\Omega = \{a_1, a_2, ..., a_n\}$ -- множество всех взаимо-исключающих исходов эксперимента (пространство элементарных событий) \\
+    $X \subseteq A$ -- событие
+\end{Def}
+
+\begin{Def}
+    Дано $\Omega, \mathscr{A} \subset 2^\Omega$. Тогда $\mathscr{A}$ называется алгеброй, если 
+    \begin{MyList}
+        \item $\Omega \in \mathscr{A}$ 
+        \item $A \in \mathscr{A}, B \in \mathscr{B} \SO A \cup B \in \mathscr{A}$
+        \item $A \in \mathscr{A} \SO \overline{A} \in \mathscr{A}$  
+    \end{MyList}   
+\end{Def}
+
+\begin{Prop}
+    Если $\mathscr{A}$ -- алгебра, то 
+    \begin{MyList}
+        \item $\varnothing \in \mathscr{A}$ 
+        \item $A, B \in \mathscr{A} \SO A \cap B \in \mathscr{A}$ 
+        \item $A, B \in \mathscr{A} \SO A \setminus B \in \mathscr{A}$
+        \item $A_i \in \mathscr{A} \SO \bigcup A_i \in \mathscr{A}, \bigcap A_i \in \mathscr{A}$  
+    \end{MyList}
+\end{Prop}
+
+\begin{proof}
+    \begin{MyList}
+        \item $\Omega \in \mathscr{A} \SO \overline{\Omega} \in \mathscr{A} \SO \overline{\Omega} = \varnothing \SO \varnothing \in \mathscr{A}$
+        \item $\overline{A \cap B} = \overline{A} \cup \overline{B} \in \mathscr{A}$. Тогда $\overline{\overline{A \cap B}} = A \cap B \in \mathscr{A}$
+        \item $A \setminus B = A \cap \overline{B} \in \mathscr{A}$ 
+        \item Доказывается по индукции.  
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    $\mathscr{A}$ называется $\sigma$-алгеброй, если 
+    \begin{MyList}
+        \item $\Omega \in \mathscr{A}$ 
+        \item $A_i \in \mathscr{A}, i = 1, ..., n \SO \bigcup_{i = 1}^\infty A_i \in \mathscr{A}$
+        \item $A \in \mathscr{A} \SO \overline{A} \in \mathscr{A}$
+    \end{MyList} 
+\end{Def}
+
+\begin{Def}
+    Пусть есть пространство $\Omega$, определенная на нём $\mathscr{A}$ -- $\sigma$-алгебра и $f: \mathscr{A} \to \R$ -- функция над множеством.
+    Тогда вероятностью называется функция из $\mathscr{A}$ в $\R$ такая, что
+    \begin{MyList}
+        \item $P(A) \geqslant 0 \ \forall A \in \mathscr{A}$ 
+        \item $P(\Omega) = 1$
+        \item $A_1, A_2, ... : A_i \cap A_j = \varnothing \ \forall i, j \SO P(\bigcup_{i = 1}^\infty A_i) = \sum_{i=1}^{\infty} P(A_i)$  
+    \end{MyList}
+    Перечисленные выше свойства называются \textbf{аксиомами теории вероятности}
+    
+    $(\Omega, \mathscr{A}, P)$ -- вероятностное пространство.
+\end{Def}
+
+Свойства вероятности:
+\begin{MyList}
+    \item $P(\Omega) = 1$
+    \item $P(\varnothing) = 0$ 
+    \item Если $A_1, A_2 \in \mathscr{A}, A_1 \cap A_2 = \varnothing$, то \[P(A_1 \cup A_2) = P(A_1) + P(A_2)\]
+    \item Если $A_1, ..., A_n \in \mathscr{A}, A_i \cap A_j = \varnothing \ \forall i, j$, то \[P(\bigcup_{i = 1}^n A_i) = \sum_{i=1}^{n} P(A_i)\]
+    \item $P(\overline{A}) = 1 - P(A)$ 
+    \begin{proof}
+        \[P(\overline{A} \cup A) = P(\Omega) = P(A) + P(\overline{A})\] 
+    \end{proof}
+    \item Если $A, B \in \mathscr{A}$, то \[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]
+    \begin{proof}
+        \[A \cup B = (A \setminus B) \cup (B \setminus A) \cup (A \cap B)\]
+        
+        \[P(A \cup B) = P(A \setminus B) + P(B \setminus A) + P(A \cap B) = P((A \setminus B) \cup (A \cap B)) + P((B \setminus A) \cup (A \cap B)) - P(A \cap B) =\]
+        \[= P(A) + P(B) - P(A \cap B)\]
+    \end{proof}
+    \item $P(\bigcup_{i = 1}^n A_i) = \sum_{i=1}^{n} P(A_i) - \sum_{i, j=1}^{n} (A_i \cap A_j) + ...$
+    \item $A_1 \subset A_2 \subset ... \subset A_n \subset ...$
+    \[\lim_{n \to \infty} P(A_n) = P(\bigcup_{i = 1}^\infty A_i)\]
+    \begin{proof}
+        $A_{k - 1} \subset A_k$. Рассмотрим $A_k \setminus A_{k - 1}$. Пусть $A_0 = \varnothing$.
+        \[P(\bigcup_{i = 1}^\infty A_i) = \sum_{k=1}^{\infty} P(A_k \setminus A_{k - 1}) = \lim_{n \to \infty} \sum_{k=1}^{n} P(A_k \setminus A_{k - 1}) \lim_{n \to \infty} \sum_{k=1}^{n} P(A_k) - P(A_{k - 1}) =\]
+        \[= \lim_{n \to \infty} P(A_n) - P(\varnothing) = \lim_{n \to \infty} P(A_n)\]
+    \end{proof} 
+    \item $A_1 \supset A_2 \supset ... \supset A_n \supset ...$. Тогда 
+    \[\lim_{n \to \infty} P(A_n) = P(\bigcap_{i = 1}^\infty A_i)\]
+\end{MyList}
+
+\Pagebreak
+\begin{Example}
+    Два человека приходят на место в промежуток от 12 до 13ч и ждут 10 минут прежде чем уйти. Найти вероятность того, что они встретятся.
+\end{Example}
+
+\begin{Solution}
+    Пусть $t_1$ -- время, когда приходит первый, $t_2$ -- время, когда приходит второй.
+    \[|t_1 - t_2 \leqslant \frac{1}{6} \EQ \begin{cases}
+        t_2 \geqslant t_1 - \frac{1}{6} \\
+        t_2 \leqslant t_1 + \frac{1}{6}
+    \end{cases}\] 
+    Картинка \TODO
+
+    Тогда вероятность -- площадь заштрихованной фигуры:
+    \[S = 1 - 2 \cdot \frac{\frac{5}{6} \cdot \frac{5}{6}}{2} = 1 - \frac{25}{36} = \frac{11}{36}\]
+\end{Solution}
+
+\begin{Example}
+    На $[0, 1]$ выбираются два числа $x, y$. Найти вероятность того, что их произведение меньше $\frac{1}{2}$  
+\end{Example}
+
+\begin{Solution}
+    Картинка \TODO
+    \[f(x) = \begin{cases}
+        1, x \leqslant \frac{1}{2}, \\
+        \frac{1}{2x}, x > \frac{1}{2}
+    \end{cases}\]
+    Тогда искомая вероятность:
+    \[P(x \cdot y < \frac{1}{2}) = \int_{0}^{1} f(x)dx = \int_{0}^{\frac{1}{2}} f(x)dx + \int_{\frac{1}{2}}^{1} f(x)dx = \frac{1}{2} + \int_{\frac{1}{2}}^{1} \frac{1}{2x}dx = \frac{1}{2} + \frac{\ln 2}{2}\]
+\end{Solution}
+
+\Subsection{Условная вероятность}
+\begin{Def}
+    Вероятность события $A$ при условии, что выполняется событие $B$ равна
+    \[P(A | B) = \frac{P(A \cap B)}{P(B)}\] 
+\end{Def}
+
+\begin{Example}
+    Есть урна, в которой лежит $m$ белых и $n$ черных шаров. Вытащим из неё два шара. Какова вероятность того, что они оба белые?
+\end{Example}
+
+\begin{Solution}
+    \[P(\text{первый -- белый}) = \frac{m}{m + n}, P(\text{второй -- белый} | \text{первый -- белый}) = \frac{m - 1}{m + n - 1}\]
+    \[P(\text{оба белые}) = \frac{m - 1}{m + n - 1} \cdot \frac{m}{m + n}\]
+\end{Solution}
+
+\Pagebreak
+Свойства условной вероятности:
+\begin{MyList}
+    \item $P(\Omega | B) = 1$
+    \item $P(\varnothing | B) 0 $ 
+    \item $0 \leqslant P(A | B) \leqslant 1$ 
+    \item $A \subset C \SO P(A | B) \leqslant P(C | B)$
+    \item $P(\overline{A} | B) = 1 - P(A | B)$
+    \item $P(A \cup C | B) = P(A | B) + P(C | B) - P(A \cap C | B)$
+    \item $P(A \cap B) = P(A | B) \cdot P(B)$
+    \[P(A_1 \cap A_2 \cap ... \cap A_n) = P(A_1) \cdot P(A_2 | A_1) \cdot P(A_3 | A_2 \cap A_1) \cdot ... \cdot P(A_n | \bigcap_{i = 1}^{n - 1} A_i)\]
+    \[P((A_1 \cap ... \cap A_{n - 1}) \cap A_n) = P(A_n | A_1 \cap ... \cap A_{n - 1}) \cdot P(A_1 \cap ... \cap _{n - 1})\]
+\end{MyList}
+
+\begin{Example}
+    Бросаем 3 кубика. Найти вероятность того, что хотя бы на одном из них выпадет $1$ при условии, что на всех выпали разные значения.
+\end{Example}
+
+\begin{Solution}
+    \[P(A | B) = 1 - P(\overline{A} | B) = 1 - \frac{P(\overline{A} \cap B)}{P(B)} = 1 - \frac{1}{2} = \frac{1}{2}\]
+\end{Solution}
+
+\Subsection{Независимость событий}
+\begin{Def}
+    $A$ независимо от $B (P(B) \neq \varnothing)$, если $P(A | B) = P(A)$ 
+\end{Def}
+
+\begin{Prop}
+    Если $A$ независимо от $B \SO B$ независимо от $A$.   
+\end{Prop}
+
+\begin{proof}
+    \[P(B | A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A \cap B) \cdot P(B)}{P(A) \cdot P(B)} = P(A | B) \cdot \frac{P(B)}{P(A)} = P(B)\]
+\end{proof}
+
+\begin{Def}
+    $A, B$ -- независимые, если 
+    \[P(A \cap B) = P(A) \cap P(B)\]
+\end{Def}
+
+\begin{Def}
+    $A_1, ..., A_n$ -- независимы в совокупности, если 
+    \[P(\bigcap_{i = 1}^n) = \prod_{i = 1}^n P(A_i)\]
+\end{Def}
+
+\begin{Def}
+    $A_1, .., A_n$ -- попарно-независимы, если 
+    \[\forall i, j \to P(A_i \cap A_j) = P(A_i) \cdot P(A_j)\]
+\end{Def}
+
+\begin{Rem}
+    Если $A_1, ..., A_n$ попарно-независимы, то они необязательно независимы в совокупности.
+\end{Rem}
+
+\Pagebreak
+\Subsection{Формула полной вероятности}
+
+\begin{Def}
+    Пусть $H_1, ..., H_n$ -- разбиение $\Omega$. Тогда $H_1 \cup ... \cup H_n = \Omega$ называется полной группой событий.
+\end{Def}
+
+\begin{Thm}
+    $H_1, ..., H_n$ -- полная группа событий и $P(H_i) > 0 \ \forall i = 1, ..., n$. Тогда 
+    \[\forall A \to P(A) = \sum_{i=1}^{n} P(H_i) \cdot P(A | H_i)\] 
+\end{Thm}
+
+\begin{proof}
+    \[A = A \cap \Omega = A \cap (H_1 \cup ... \cup H_n) = (A \cap H_1) \cup (A \cap H_2) \cup ... \cup (A \cap H_n)\]
+    \[P((A \cap H_1) \cup ... \cup (A \cap H_n)) = \sum_{i=1}^{n} P(A \cap H_i) = \sum_{i=1}^{n} P(A | H_i) \cdot P(H_i)\] 
+\end{proof}
+
+\end{document}
