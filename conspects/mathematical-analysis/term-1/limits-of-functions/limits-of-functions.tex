@@ -373,7 +373,7 @@
 \Subsection{Предел функции}
 
 \begin{Def}
-    $f: D \to \R, D \subset \R a \in \R$ -- предельная точка $D$.
+    $f: D \to \R, D \subset \R, a \in \R$ -- предельная точка $D$.
 
     Число $A \in \R$ называется пределом $f$ в точке $a$
     \[\lim_{x \to a} f(x) = A \text{ или } f(x) \xrightarrow[x \to a]{} A\]
@@ -395,12 +395,12 @@
     1) $\SO$ 3). Рассмотрим какую-то $\{x_n\} : x_n \neq a, x_n \in D, x_n \to a$ (она существует по доказанному).
     Нужно доказать, что $f(x_n) \to A$.  \\
     Пусть $x_n \to a$, то 
-    \[\forall \delta > 0 \exists N : \forall n \geqslant N \to |x_n - a| < \delta \SO |f(x_n) - A| < \varepsilon\]
+    \[\forall \delta > 0 \ \exists N : \forall n \geqslant N \to |x_n - a| < \delta \SO |f(x_n) - A| < \varepsilon\]
 
     3) $\SO$ 1). Пусть это не так, т.е. 1) не выполнено
     \[\exists \varepsilon > 0 : \forall \delta > 0 \ \exists x \in D, x \neq a, |x - a| < \delta: |f(x) - A| \geqslant \varepsilon\]
     Возьмем последовательность $\delta_n = \frac{1}{n}$.
-    \[|x_n - a| < \frac{1}{n} \SO x_n \to a \SO f(x_n) \to A, \text{ но } |f(x) = A| \geqslant \varepsilon\] 
+    \[|x_n - a| < \frac{1}{n} \SO x_n \to a \SO f(x_n) \to A, \text{ но } |f(x_n) - A| \geqslant \varepsilon\] 
 \end{proof}
 
 \begin{Rem}
