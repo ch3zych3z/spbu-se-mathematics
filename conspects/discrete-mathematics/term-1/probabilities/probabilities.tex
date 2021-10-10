@@ -34,6 +34,11 @@
 %\usepackage{xifthen}
 %\listfiles
 
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
 \def\NAME{Лекция, 10/09/21}
 
 \sloppy
@@ -425,7 +430,10 @@
         t_2 \geqslant t_1 - \frac{1}{6} \\
         t_2 \leqslant t_1 + \frac{1}{6}
     \end{cases}\] 
-    Картинка \TODO
+    \begin{figure*}[ht]
+        \centering
+        \import{./img}{first_example.pdf_tex}
+    \end{figure*}
 
     Тогда вероятность -- площадь заштрихованной фигуры:
     \[S = 1 - 2 \cdot \frac{\frac{5}{6} \cdot \frac{5}{6}}{2} = 1 - \frac{25}{36} = \frac{11}{36}\]
@@ -436,15 +444,21 @@
 \end{Example}
 
 \begin{Solution}
-    Картинка \TODO
     \[f(x) = \begin{cases}
         1, x \leqslant \frac{1}{2}, \\
         \frac{1}{2x}, x > \frac{1}{2}
     \end{cases}\]
+    \begin{figure*}[ht]
+        \centering
+        \def\svgwidth{.3\columnwidth}
+        \import{./img/}{second_example.pdf_tex}
+    \end{figure*}
+
     Тогда искомая вероятность:
     \[P(x \cdot y < \frac{1}{2}) = \int_{0}^{1} f(x)dx = \int_{0}^{\frac{1}{2}} f(x)dx + \int_{\frac{1}{2}}^{1} f(x)dx = \frac{1}{2} + \int_{\frac{1}{2}}^{1} \frac{1}{2x}dx = \frac{1}{2} + \frac{\ln 2}{2}\]
 \end{Solution}
 
+\Pagebreak
 \Subsection{Условная вероятность}
 \begin{Def}
     Вероятность события $A$ при условии, что выполняется событие $B$ равна
