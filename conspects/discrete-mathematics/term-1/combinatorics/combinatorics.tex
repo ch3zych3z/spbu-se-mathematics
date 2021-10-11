@@ -373,13 +373,13 @@
 \end{Def}
 
 \begin{Prop}
-    $|2^A| = 2^|A|$  
+    $|2^A| = 2^{|A|}$  
 \end{Prop}
 
 \begin{proof}
-    База: $A = \varnothing, |A| = 0, 2^A = \{\varnothing\} \SO |2^A| = 2^|A| = 1$
+    База: $A = \varnothing, |A| = 0, 2^A = \{\varnothing\} \SO |2^A| = 2^{|A|} = 1$
     
-    Индукционное предположение: Пусть $\forall A : |A| \leqslant k \to |2^A| = 2^|A|$ \\
+    Индукционное предположение: Пусть $\forall A : |A| \leqslant k \to |2^A| = 2^{|A|}$ \\
     Индукционный переход:
 
     Рассмотрим $A : |A| = k + 1, B_1 \in 2^{A \setminus \{x_{k + 1}\}}, B = \{x_{k + 1}\} \cup B_1$ 
@@ -389,7 +389,7 @@
     \[\begin{cases}
         |2^{A \setminus \{x_{k + 1}\}}| = 2^k \\
         |\{B\}| = 2^k
-    \end{cases} \SO 2^A = 2^k + 2^k = 2^{k + 1} = 2^|A|\]
+    \end{cases} \SO 2^A = 2^k + 2^k = 2^{k + 1} = 2^{|A|}\]
 \end{proof}
 
 \Pagebreak
@@ -420,7 +420,10 @@
     \[\overline{C}_n^k = C_{n + k - 1}^{n - 1} = C_{n + k - 1}^k\]
 \end{MyList}
 
+\begin{Def}
 Пусть дан выпуклый $n$-угольник. Найти количество способов разбить его на треугольники с непересекающимися сторонами
 
-\[C_0 = 1, C_n = \sum_{i=0}^{n - 1} C_i \cdot C_{n - i - 1} -- \text{ Числа Каталана}\]
+\[C_0 = 1, C_n = \sum_{i=0}^{n - 1} C_i \cdot C_{n - i - 1} - \text{ Числа Каталана}\]
+
+\end{Def}
 \end{document}
