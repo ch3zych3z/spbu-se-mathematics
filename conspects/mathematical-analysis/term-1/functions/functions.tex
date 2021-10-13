@@ -1,0 +1,563 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/13/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\DeclareMathOperator{\sign}{sign}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Функции}{}{Илья Дудников}
+\Subsection{Свойства пределов функций}
+
+\begin{Thm}[Единственность предела функции]
+    Пусть $D \subset \R, a$ -- предельная точка $D$, $f: D \to R$. Если $A$ и $B \in \overline{\R}$ и $f(x) \xrightarrow[x \to a]{} A, f(x) \xrightarrow[x \to a]{} B \SO A = B$   
+\end{Thm}
+
+\begin{proof}
+    Возьмем $\{x_n\} : x_n \in D, x_n \neq a, x_n \to a$. По Гейне $f(x_n) \to A \wedge f(x_n) \to B$. Но $\{x_n\}$ имеет единственный предел $\SO A = B$.    
+\end{proof}
+
+\begin{Rem}
+    Беззнаковая бесконечность: $A = +\infty, B = -\infty \SO f(x) \xrightarrow[x \to a]{} \infty$ 
+\end{Rem}
+
+\begin{Thm}[Локальная ограниченность функции, имеющей предел]
+    $D \subset \R, a$ -- предельная точка $D$, $f: D \to \R, A \in \R, f(x) \xrightarrow[x \to a]{} A$. Тогда $\exists V(a) : f(x)$ ограничена в $D \cap V(a)$  
+\end{Thm}
+
+\begin{proof}
+    Пусть $\varepsilon = 1$. $\exists \dot{V}(a) : |f(x) - A| < 1 \ \forall x \in \dot{V}(a) \cap D$. Тогда $|f(x)| < |A| + 1$.
+
+    Если $a \in D$, то $|f(x)| < \max \{|A| + 1, f(a)\}$  
+\end{proof}
+
+\begin{Thm}[Стабилизация знака функции, имеющей предел]
+    $D \subset \R, a$ -- предельная точка~$D, f: D \to \R$. Пусть $\lim_{x \to a} f(x) = B \in \overline{\R} \setminus \{0\}$.
+    Тогда $\exists V(a)$ такая, что знаки $f(x)$ и $B$ совпадают на $\dot{V}(a) \cap D$     
+\end{Thm}
+
+\begin{proof}
+    Пусть $B > 0$. Докажем от противного, т.е.
+    \[\forall n \ \exists x_n \in \dot{V}_{\frac{1}{n}} (a) \cap D \wedge f(x_n) \leqslant 0\]
+    Тогда $x_n \to a, x_n \neq a \SO f(x_n) \to B$, но $f(x_n) \leqslant 0 \SO B \leqslant 0$.  
+\end{proof}
+
+\begin{Thm}[Арифметические действия над функциями, имеющими предел]
+    $D \subset \R$, \\ $a$ -- предельная точка $D$, $f, g : D \to \R, f \xrightarrow[x \to a]{} A, g \xrightarrow[x \to a]{} B$. Тогда 
+    \begin{MyList}
+        \item $f(x) + g(x) \to A + B$ 
+        \item $f(x) \cdot g(x) \to A \cdot B$ 
+        \item $f(x) - g(x) \to A - B$ 
+        \item $|f(x)| \to |A|$ 
+        \item Если $B \neq 0$, то $ \frac{f(x)}{g(x)} \to \frac{A}{B}$ 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим $\{x_n\} : x_n \to a, x_n \neq a, x_n \in D$. Тогда $f(x_n) \to A, g(x_n) \to B$. Достаточно применить теорему об арифметических действиях с пределами последовательностей.  
+\end{proof}
+
+\begin{Rem}
+    Пункт 5) т.к. $B \neq 0$, то $\exists V(a) : \sign (g(x)) = \sign B$ в $V(a)$. Поэтому излишне требовать $g(x) \neq 0$   
+\end{Rem}
+
+\Pagebreak
+\begin{Thm}[Предел композиции функций]
+    $f : D \to \R, g : E \to \R, f(D) \subset E$
+    \begin{MyList}
+        \item $f(x) \xrightarrow[x \to a]{} A \in \overline{\R}$
+        \item $A$ -- предельная точка множества $E$ и $g(x) \xrightarrow[x \to A]{} B \in \overline{R}$
+        \item $\exists V(a) : f(x) \neq A \ \forall x \in \dot{V}(a) \cap D$   
+    \end{MyList} 
+    Тогда $(g \circ f)(x) \xrightarrow[x \to a]{} B$ 
+\end{Thm}
+
+\begin{proof}
+    Возьмем $\{x_n\} : x_n \in D, x_n \to a, x_n \neq a$. \\ Обозначим $y_n = f(x_n) \SO y_n \in E, y_n \to A$.
+    По 3) начиная с некоторого номера $x_n \in V(a)$, а значит $y_n \neq A$. Тогда $g(y_n) \to B$, т.е. $g(f(x_n)) \xrightarrow[n \to \infty]{} B$.
+    Значит $(g \circ f)(x) \xrightarrow[x \to a]{} B$ 
+\end{proof}
+
+\begin{Thm}[Предельный переход в неравенстве]
+    $D \subset \R, a $ -- предельная точка $D$. $f,~g~:~D~\to~\R$.
+    \[f(x) \xrightarrow[x \to a]{}A \in \overline{\R}, g(x) \xrightarrow[x \to a]{} B \in \overline{\R}, f(x) \leqslant g(x) \ \forall x \in D \setminus \{a\}\] 
+    Тогда $A \leqslant B$ 
+\end{Thm}
+
+\begin{proof}
+    \[\{x_n\} : x_n \in D, x_n \to a, x_n \neq a \SO f(x_n) \to A, g(x_n) \to B = A \leqslant B\]
+\end{proof}
+
+\begin{Thm}[о сжатой функции]
+    $D \subset \R, a$ -- предельная точка $D$, $f, h, g : D \to \R$ и
+    \[f(x) \leqslant g(x) \leqslant h(x), \forall x \in D \setminus \{a\} \ f(x) \xrightarrow[x \to a]{} A, h(x) \xrightarrow[x \to a]{} A, A \in \R\]
+    Тогда $g(x) \xrightarrow[x \to a]{} A$  
+\end{Thm}
+
+\begin{proof}
+    $\{x_n\} : x_n \in D, x_n \to a, x_n \neq a \SO f(x_n) \to A, h(x_n) \to A$
+    \[f(x_n) \leqslant g(x_n) \leqslant h(x_n) \SO A \leqslant \lim_{n \to \infty} g(x_n) \leqslant A \SO \exists \lim_{n \to \infty} g(x_n) = A \SO g(x) \to A\] 
+\end{proof}
+
+\begin{Rem}
+    $f(x) \leqslant g(x) \ \forall x \in D \setminus \{a\}, f(x) \xrightarrow[x \to a]{} +\infty \SO g(x) \xrightarrow[x \to a]{} +\infty$ 
+\end{Rem}
+
+\begin{Def}
+    $f : D \to \R, a$ -- предельная точка $D_1 \subset D$. Тогда $\lim_{x \to a} f|_{D_1} (x)$ -- предел $f$ в точке $a$ по множеству $D_1$. 
+\end{Def}
+
+\begin{Def}
+    $f: D \to \R, D_1 = D \cap (-\infty, a), a$ -- предельная точка $D_1$. Предел $f$ в точке $a$ по множеству $D_1$ называется левосторонним пределом в точке $a$.
+
+    Обозначение: 
+    \[\lim_{x \to a-} f(x), \lim_{x \to a - 0} f(x)\]
+\end{Def}
+
+\begin{Def}
+    $f: D \to \R, D_1 = D \cap (a, +\infty), a$ -- предельная точка $D_1$. Правосторонний предел -- предел $f$ в точке $a$ по множеству $D_1$
+    
+    Обозначение:
+    \[\lim_{x \to a+} f(x), \lim_{x \to a + 0} f(x)\]
+\end{Def}
+
+\begin{Def}
+    Левосторонний предел на разных "языках".
+    \begin{MyItemize}
+        \item $\forall \varepsilon \ \exists \delta > 0 : \forall x \in D, 0 < a - x < \delta \to |f(x) - A| < \varepsilon$
+        \item $\forall V(A) \ \exists \delta > 0 : \forall x \in D, 0 < a - x < \delta \to f(x) \in V(A)$
+        \item $\forall \{x_n\} : x_n \in D, x_n \to a, x_n < a \ f(x_n) \to A$  
+    \end{MyItemize}
+\end{Def}
+
+\begin{Rem}
+    $f: D \to \R, a \in \R$ -- предельная точка для $D_1 = D \cap (-\infty, a), D_2 = D \cap (a, +\infty)$
+    Тогда 
+    \[\exists \lim_{x \to a} f(x) \EQ \exists \lim_{x \to a-} f(x), \exists \lim_{x \to a+} f(x) \wedge \lim_{x \to a-} f(x) = \lim_{x \to a+} f(x)\]  
+\end{Rem}
+
+\begin{proof}
+    "$\SO$". Очевидно. \\
+    "$\Leftarrow$". Возьмем $\delta_1$ из определения левостороннего предела, $\delta_2$ из определения правостороннего предела.
+    $\delta = \min \{\delta_1, \delta_2\}$. Тогда 
+    \[\forall \varepsilon > 0 \ \exists \delta : \forall x \in D : |x - a| < \delta \to |f(x) - A| < \varepsilon\]  
+\end{proof}
+
+\begin{Thm}[Предел монотонной функции]
+    $D \in \R, f : D \to \R, a \in (-\infty, +\infty]$ \\
+    $D_1 = D \cap (-\infty, a), a$ -- предельная точка $D$.
+    \begin{MyList}
+        \item Если $f$ возрастает и ограничена сверху на $D_1$, то $\exists \lim_{x \to a-} f(x) \in \R$
+        \item Если $f$ убывает и ограничена снизу на $D_1$, то $\exists \lim_{x \to a-} f(x) \in \R$  
+    \end{MyList} 
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Пусть $A = \sup_{x \in D_1} f(x)$. Тогда $A \in \R$, т.к. $f$ ограничена сверху. Докажем, что $\lim_{x \to a-} f(x) = A$
+        \[\forall \varepsilon > 0 \ \exists x_0 \in D_1 : f(x_0) > A - \varepsilon\]
+        Тогда $\forall x \in D_1 : x > x_0$
+        \[A - \varepsilon < f(x_0) \leqslant f(x) \leqslant A < A + \varepsilon\]
+        Пусть $\delta = a - x_0$. Тогда $|f(x) - A| < \varepsilon \ \forall x : 0 < a - x < \delta$
+        
+        Если $a = +\infty \SO \Delta = \max \{x_0, 1\}$ 
+    \end{MyList}
+\end{proof}
+
+\begin{Rem}
+    $f$ возрастает и не ограничена сверху $\SO \lim_{x \to a-} f(x) = +\infty$ 
+\end{Rem}
+
+\begin{Thm}[Критерий Больцано-Коши для функций]
+    $D \subset \R$. Тогда существование конечного $\lim_{x \to a} f(x)$ равносильно утверждению:
+    
+    \[\forall \varepsilon > 0 \ \exists V(a) : \forall x_1, x_2 \in \dot{V}(a) \cap D \to |f(x_1) - f(x_2)| < \varepsilon\]
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $\exists \lim_{x \to a} f(x) = A \in \R$. Возьмем $\varepsilon > 0$
+    Тогда $\exists V(a) : |f(x) - A| < \frac{\varepsilon}{2}$. Если $x_1, x_2 \in D \cap \dot{V}(a)$, то
+    \[|f(x_1) - A| + |f(x_2) - A| < \varepsilon\]
+    С другой стороный $|f(x_1) - f(x_2)| < |f(x_1) - A| + |f(x_2) - A| < \varepsilon$ \\
+    "$\Leftarrow$". $\{x_n\} : x_n \in D, x_n \neq a, x_n \to a$ и докажем, что $\exists \lim f(x_n) \in \R$. \\
+    Пусть $\varepsilon > 0$.
+    \[\exists N : \forall n \geqslant N \to x_n \in \dot{V}(a)\]
+    \[\forall n, l \geqslant N \to |f(x_n) = f(x_l)| < \varepsilon \SO \{f(x_n)\} \text { -- фундаментальна}\]
+    Значит $\{f(x_n)\}$ сходится. 
+\end{proof}
+
+\Subsection{Непрерывные функции}
+
+\begin{Def}
+    $D \subset \R, a \in D$. Функция $f$ называется непрерывной в точке $a$, если выполнено одно из следующих условий:
+
+    \begin{MyList}
+        \item Предел $f$ в точке $a$ существует и равен $f(a)$ (только если $a$ -- предельная точка).
+        \item $\forall \varepsilon > 0 \ \exists \delta > 0 : \forall x \in D : |x - a| < \delta \to |f(x) - f(a)| < \varepsilon$ 
+        \item $\forall V (f(a)) \ \exists V(a) : f(V(a) \cap D) \subset V(f(a))$
+        \item $\forall \{x_n\} : x_n \to a, x_n \in D \ f(x_n) \to f(a)$
+        \item Бесконечно малому приращению аргумента соответствует бесконечно малое приращение функции (если $a$ -- предельная точка)
+        \[\Delta x = x - a, \Delta f = f(x) - f(a) \SO \Delta f \xrightarrow[\Delta x \to 0]{} 0\]
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    Если $a$ -- изолированная точка $D$, то 
+    \[f(V(a) \cap D) = \{f(a)\} \subset V(f(a))\]
+    Т.е. любая $f$ непрерывна в точке $a$ 
+\end{Rem}
+
+\begin{Def}
+    $D \subset \R, a \in D, f : D \to \R$. \\
+    $a$ называется точкой разрыва $f$, если $f$ не непрерывна в точке $a$  
+\end{Def}
+
+\begin{Def}
+    $D_1 = D \cap (-\infty, a], D_2 = D \cap [a, +\infty)$. \\
+    Если сужение $f|_{D_1}$ непрерывно в точке $a$, то $f$ непрерывна в точке $a$ \textbf{слева}. \\
+    Если сужение $f|_{D_2}$ непрерывно в точке $a$, то $f$ непрерывна в точке $a$ \textbf{справа} 
+\end{Def}
+
+\begin{Def}
+    Если $\exists \lim_{x \to a+} f(x), \lim_{x \to a-} f(x), f(a)$ -- конечные, но не все равны, то $a$ -- точка разрыва I рода. \\  
+\end{Def}
+
+\begin{Def}
+    Если хотя бы один предел не существует или бесконечен -- II рода.
+\end{Def}
+
+\begin{Def}
+    Если в точке $a$ разрыв, но мы можем доопределить или переопределить $f$ в точке $a$ до непрерывности, то $a$ -- точка устранимого разрыва.
+\end{Def}
+
+\end{document}
