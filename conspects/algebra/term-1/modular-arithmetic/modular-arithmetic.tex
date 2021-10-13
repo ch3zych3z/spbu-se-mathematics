@@ -413,12 +413,12 @@
 \end{Lm}
 
 \begin{Thm}
-    $(a, m) = 1$. Если $x$ пробегает полную систему вычетов по $\Mod m \SO b \to ax + b$ тоже пробегает полную систему вычетов по $\Mod m$  
+    $(a, m) = 1$. Если $x$ пробегает полную систему вычетов по $\Mod m \SO \forall b \to ax + b$ тоже пробегает полную систему вычетов по $\Mod m$  
 \end{Thm}
 
 \begin{proof}
     $x$ принадлежит $m$ значений $\SO ax + b$ принадлежит $m$ значений. \\
-    Пусть $x_1 \not\equiv x_2 \Mod m$. Предположим, что $ax_1 + b \equiv ax_2 + b \Mod m \SO ax_1 \equiv ax_2 \Mod m \SO x_1 \equiv \Mod m$ 
+    Пусть $x_1 \not\equiv x_2 \Mod m$. Предположим, что $ax_1 + b \equiv ax_2 + b \Mod m \SO ax_1 \equiv ax_2 \Mod m \SO x_1 \equiv x_2 \Mod m$ 
 \end{proof}
 
 \Pagebreak
@@ -464,7 +464,7 @@
         \item $\exists 0 \in R : \forall x \in R \to x + 0 = x$ 
         \item $\forall x \in R \ \exists (-x) \in R : x + (-x) = 0$ 
         \item $\forall x, y \in R \to x + y = y + x$ 
-        \item $\forall x, y, z \in R x(y + z) = xy + xz, (x + y)z = xz + yz$ 
+        \item $\forall x, y, z \in R \to (y + z) = xy + xz, (x + y)z = xz + yz$ 
         \item $\forall x, y, z \in R \to (xy)z = x(yz)$ 
     \end{MyList}
 \end{Def}
@@ -506,7 +506,7 @@
     
     "$\Leftarrow$". $\overline{n} \cdot \overline{k} = \overline{0} \SO n \cdot k \equiv 0 \Mod m$
     
-    Преподоложим, что $m$ -- простое $\SO m | n \vee m | k \SO \overline{n} = \overline{0} \vee \overline{k} = \overline{0}$. Но $\overline{n}$ и $\overline{k}$ -- делители нуля, т.е. $\overline{n}, \overline{k} \neq 0 \SO m$ -- составное.   
+    Предположим, что $m$ -- простое $\SO m | n \vee m | k \SO \overline{n} = \overline{0} \vee \overline{k} = \overline{0}$. Но $\overline{n}$ и $\overline{k}$ -- делители нуля, т.е. $\overline{n}, \overline{k} \neq 0 \SO m$ -- составное.   
 
     $1) \SO 2)$ 
 \end{proof}
