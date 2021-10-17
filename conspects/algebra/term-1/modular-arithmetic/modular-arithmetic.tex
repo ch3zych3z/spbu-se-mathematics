@@ -552,4 +552,197 @@
     \[(a, b) = 1 \SO \Theta(ab) = \Theta(a) \cdot \Theta(b)\] 
 \end{Def}
 
+\begin{Thm}[Мультипликативность функции Эйлера]
+    $\varphi$ мультипликативна     
+\end{Thm}
+
+\begin{proof}
+    $(a, b) = 1$
+    \[\begin{array}{ccccc}
+    1 & 2 & 3 & ... & b \\ 
+    b + 1 & b + 2 & b + 3 & ... & 2b \\ 
+    ... & ... & ... & ... & ... \\ 
+    (a - 1)b + 1 & (a - 1)b + 2 & (a - 1)b + 3 & ... & ab
+    \end{array}\]
+    Количество чисел, взаимно-простых с $b : \forall$ строка $: kb + r, k = 0, ..., a - 1, 1 \leqslant r \leqslant b$.
+    Рассмотрим $k$-ю строку: $(kb + r, b) = 1 \SO (r, b) = 1$. Количество чисел $kb + r : (kb + r, b) = 1 = \varphi (b) \SO$
+    есть $\varphi(b)$ столбцов, в которых числа $(kb + r, b) = 1$. Найдем в этих столбцах числа, взаимно-простые с $a$.
+    $\forall$ столбец $: xb + r, x = 0, ..., a - 1 \SO xb + r$ -- полная система вычетов по $\Mod a \SO$ 
+    среди $\{xb + r\}$ чисел, взаимно-простых с $a = \varphi(a) \SO$ всего чисел, взаимно-простых с $ab = \varphi(a) \cdot \varphi(b)$          
+\end{proof}
+
+\begin{Cons}
+    $n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot ... \cdot p_k^{\alpha_k}$ -- каноническое разложение
+    $\SO \varphi(n) = (p_1^{\alpha_1} - p_1^{\alpha_1 - 1})(p_2^{\alpha_2} - p_2^{\alpha_2 - 1}) \cdot ... \cdot (p_k^{\alpha_k} - p_k^{\alpha_k - 1})$  
+\end{Cons}
+
+\begin{Rem}
+    $\varphi(n) = n(1 - \frac{1}{p_1})(1 - \frac{1}{p_2}) \cdot ... \cdot (1 - \frac{1}{p_k})$ 
+\end{Rem}
+
+\begin{Thm}[Теорема Эйлера]
+    $(m, a) = 1 \SO a^{\varphi(m)} \equiv 1 \Mod m$ 
+\end{Thm}
+
+\begin{proof}
+    $r_1, r_2, ..., r_{\varphi(m)}$ -- приведенная система вычетов по $\Mod m$
+    
+    $\SO ar_1, ar_2, ..., ar_{\varphi(m)}$ -- приведенная система вычетов по $\Mod m$. Пусть $ar_i = \rho_i$
+    \[\SO ar_1 \cdot ar_2 \cdot ... ar_{\varphi(m)} = \rho_1 \rho_2 \cdot ... \cdot \rho_{\varphi(m)}\]
+    \[a^{\varphi(m)} r_1 \cdot r_2 \cdot ... \cdot r_{\varphi(m)} = \rho_1 \cdot \rho_2 \cdot ... \cdot \rho_{\varphi(m)} \SO a^{\varphi(m)} \equiv 1 \Mod m\]   
+\end{proof}
+
+\begin{Thm}[Теорема Ферма]
+    $p$ -- простое, $(a, p) = 1 \SO a^{p - 1} \equiv 1 \Mod p$ 
+\end{Thm}
+
+\begin{proof}
+    $\varphi(p) = p - 1$ 
+\end{proof}
+
+\begin{Def}
+    $\Z_m^* = \{r : 0 \leqslant r < m, (r, m) = 1\}$ -- приведенная система вычетов по $\Mod m$ 
+\end{Def}
+
+\begin{Thm}
+    $\Z_m^*$ -- коммутативная группа по умножению
+\end{Thm}
+
+\begin{proof}
+    $r_1, r_2 \in \Z_m^*$. $(r_1, m) = (r_2, m) = 1 \SO (r_1 \cdot r_2, m) = 1 \SO r_1 \cdot r_2 \in \Z_m^*, 1 \in \Z_m^*$
+    
+    $r \in \Z_m^*$, то $r^{-1} = r^{\varphi(m) - 1} \SO r^{\varphi(m) - 1} \cdot r = r^{\varphi(m)} \equiv 1 \Mod m$  
+\end{proof}
+
+\Subsection{Сравнения с одним неизвестным}
+\begin{Def}
+    $f(x) \equiv 0 \Mod m$. Решением этого сравнения называется $x_0 : f(x_0) \equiv 0 \Mod m$. Решения $x_1$ и $x_2$ называются эквивалентными, если $x_1 \equiv x_2 \Mod m$
+
+    Решить сравнение -- найти решений из полной системы вычетов.
+\end{Def}
+
+\begin{Thm}[Решение линейного сравнения]
+    $ax \equiv b \Mod m , (a, m) = d$ 
+    \begin{MyList}
+        \item $d \not| \ b \SO$ решений нет.
+        \item $d | b \SO \exists d$ решений $ : x = x_0 + m_1 t, t = 0, 1, ..., d - 1, m_1 = \frac{m}{d}, x_0$ -- какое-то решение
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Очевидно
+        \item Если $(a, m) = 1, x$ пробегает полную систему вычетов по $\Mod m \SO ax$ -- полная система вычетов по $\Mod m \SO \exists x_0 : ax_0 \equiv b \Mod m$
+        
+        Если $(a, m) = d, a = a_1d, m = m_1d, b = b_1d, (a_1, m_1) = 1$ \\
+        $a_1x \equiv b_1 \Mod m$ -- $\exists$ решение $x_0 : a_1x_0 \equiv b_1 \Mod m_1$. $x = x_0 + m_1 t$ -- решение $ax \equiv b \Mod m$
+        \[a(x_0 + m_1t) = a_1dx_0 + a_1dm_1t = \equiv b_1d \Mod m\]
+        Посмотрим, какие решения принадлежат полной системе вычетов, т.е. $0 \leqslant x_0 + m_1 t < m$.
+        Ясно, что такие решения будут при $t = 0, 1, ..., d - 1$.       
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Методы решения $ax \equiv b \Mod m, (a, m) = 1$]
+    \begin{MyList}
+        \item $ax \equiv b \Mod m \SO x \equiv a^{\varphi(m) - 1} \cdot b \Mod m$ 
+        \item $ax \equiv b \Mod m \SO x \equiv (-1)^m p_{m - 1} \cdot b \Mod m$ \\
+        $\frac{m}{a}$ -- непрерывная дробь, $p_{m - 1}$ -- числитель $(m - 1)$-й подходящей дроби, $ \frac{p_n}{q_n} = \frac{m}{a}$  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $p_k \cdot q_{k - 1} - p_{k - 1} \cdot q_k = (-1)^{k - 1}$. $k = n$
+    \[m \cdot q_{n - 1} - p_{n - 1} \cdot a = (-1)^{n - 1} \SO -p_{n - 1} \cdot a \equiv (-1)^{n - 1} \Mod m\]
+    \[ap_{n - 1} b = (-1)^n b \Mod m \SO a \cdot (-1)^n p_{n - 1} \cdot b \equiv b \Mod m \SO x \equiv (-1)^n p_{n - 1} \cdot b \Mod m\]
+\end{proof}
+
+\Subsection{Диофантовы уравнения}
+
+\begin{Def}
+    Уравнение вида 
+    \[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b\]
+    где $a_i \in \Z, x_i$ -- переменные и $\exists i : a_i \neq 0$, называется диофантовым.  
+\end{Def}
+
+\begin{Lm}
+    $ax + by = c, a, b \neq 0$. Если $x_0 : ax_0 \equiv c \Mod b \SO (x_0, \frac{ax_0 - c}{b})$ -- решения уравнения 
+\end{Lm}
+
+\begin{proof}
+    $by \equiv c - ax$ при $x = x_0$ и $c - ax \ \vdots \ b \SO \frac{c - ax_0}{b} \in \Z$   
+\end{proof}
+
+\begin{Thm}
+    $ax + by = c, d = (a, b), d | c$. Пусть $(x_0, y_0)$ -- какое-то решение $\SO$ все решения:
+    \[\begin{cases}
+        x = x_0 - \frac{b}{d}t \\
+        y = y_0 + \frac{a}{d}t
+    \end{cases}, t \in \Z\]  
+\end{Thm}
+
+\Subsection{Системы сравнений}
+
+\[\begin{cases}
+    x \equiv b_1 \Mod m_1 \\
+    x \equiv b_2 \Mod m_2 \\
+    ... \\
+    x \equiv b_k \Mod m_k
+\end{cases}\]
+
+\begin{Thm}[Китайская теорема об остатках]
+    $(m_i, m_j) = 1, i \neq j$. Тогда
+    \begin{MyList}
+        \item Решение системы существует:
+        \[x \equiv \frac{M}{m_1} \cdot M_1' b_1 + \frac{M}{m_2} \cdot M_2' b_2 + ... + \frac{M}{m_k}M_k' b_k \Mod M\]
+        $M = m_1 \cdot m_2 \cdot ... \cdot m_k, M_i' : M_i' \cdot \frac{M}{m_i} \equiv 1 \Mod m_i$
+        \item Решение единственно 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        Подставим в $i$-е уравнение: 
+        \item \[x \equiv \frac{M}{m_i} M_i' b_i \Mod m_i \SO x \equiv b_i \Mod m_i\]
+        \item Без доказательства.
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Теорема Вильсона]
+    $p$ -- простое $\EQ$ $(p - 1)! \equiv -1 \Mod p$  
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $\Z_p^* = \{1, 2, ..., p - 1\}$ -- группа, $a \in \Z_p^*$
+    \[a^2 = 1 \SO a = \pm 1, 1 \cdot 2 \cdot ... \cdot (p - 1) \SO 1 \cdot (p - 1) \equiv -1 \Mod p\]
+    \[a \neq a^{-1} \SO 2 \cdot ... \cdot (p - 2) = 1\]
+    
+    "$\Leftarrow$". Предположим, что $$k | p, k > 1, k \neq p \SO k < p \SO 1 \cdot 2 \cdot ... \cdot (p - 1) \ \vdots \ k \SO (p - 1)! \equiv 0 \Mod p$$ 
+\end{proof}
+
+\begin{Algo}[Алгоритм RSA]
+    \begin{MyList}
+        \item Выбираем $p, q$ -- простые
+        \item $n = p \cdot q, \varphi(n) = (p - 1)(q - 1)$
+        \item Выбираем $e : (e, \varphi(n)) = 1$
+        \item Решаем $e \cdot d \equiv 1 \Mod \varphi(n) \SO$ находим $d$  
+    \end{MyList}
+
+    Шифрование:
+    \begin{MyList}
+        \item $m$ -- текст (в виде цифрового кода)
+        \item $c \equiv m^e \Mod n \SO c$ -- шифр
+    \end{MyList}
+
+    Ключи:
+    \begin{MyItemize}
+        \item $(e, n)$ -- открытый ключ
+        \item $(d, n)$ -- закрытый ключ
+    \end{MyItemize}
+
+    Дешифрование:
+    \[c^d \equiv m^{ed} \equiv m \Mod n\]
+
+    Трудность $n = p \cdot q$. 
+\end{Algo}
+
 \end{document}
