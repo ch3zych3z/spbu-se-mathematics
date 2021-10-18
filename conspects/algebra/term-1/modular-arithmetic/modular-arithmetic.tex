@@ -635,8 +635,8 @@
         \item Если $(a, m) = 1, x$ пробегает полную систему вычетов по $\Mod m \SO ax$ -- полная система вычетов по $\Mod m \SO \exists x_0 : ax_0 \equiv b \Mod m$
         
         Если $(a, m) = d, a = a_1d, m = m_1d, b = b_1d, (a_1, m_1) = 1$ \\
-        $a_1x \equiv b_1 \Mod m$ -- $\exists$ решение $x_0 : a_1x_0 \equiv b_1 \Mod m_1$. $x = x_0 + m_1 t$ -- решение $ax \equiv b \Mod m$
-        \[a(x_0 + m_1t) = a_1dx_0 + a_1dm_1t = \equiv b_1d \Mod m\]
+        $a_1x \equiv b_1 \Mod {m_1}$ -- $\exists$ решение $x_0 : a_1x_0 \equiv b_1 \Mod {m_1}$. $x = x_0 + m_1 t$ -- решение $ax \equiv b \Mod m$
+        \[a(x_0 + m_1t) = a_1dx_0 + a_1dm_1t \equiv b_1d \Mod m\]
         Посмотрим, какие решения принадлежат полной системе вычетов, т.е. $0 \leqslant x_0 + m_1 t < m$.
         Ясно, что такие решения будут при $t = 0, 1, ..., d - 1$.       
     \end{MyList}
@@ -645,8 +645,8 @@
 \begin{Thm}[Методы решения $ax \equiv b \Mod m, (a, m) = 1$]
     \begin{MyList}
         \item $ax \equiv b \Mod m \SO x \equiv a^{\varphi(m) - 1} \cdot b \Mod m$ 
-        \item $ax \equiv b \Mod m \SO x \equiv (-1)^m p_{m - 1} \cdot b \Mod m$ \\
-        $\frac{m}{a}$ -- непрерывная дробь, $p_{m - 1}$ -- числитель $(m - 1)$-й подходящей дроби, $ \frac{p_n}{q_n} = \frac{m}{a}$  
+        \item $ax \equiv b \Mod m \SO x \equiv (-1)^n p_{n - 1} \cdot b \Mod m$ \\
+        $\frac{m}{a}$ -- непрерывная дробь, $p_{n - 1}$ -- числитель $(n - 1)$-й подходящей дроби, $ \frac{p_n}{q_n} = \frac{m}{a}$  
     \end{MyList}
 \end{Thm}
 
@@ -701,8 +701,8 @@
 
 \begin{proof}
     \begin{MyList}
-        Подставим в $i$-е уравнение: 
-        \item \[x \equiv \frac{M}{m_i} M_i' b_i \Mod m_i \SO x \equiv b_i \Mod m_i\]
+        \item Подставим в $i$-е уравнение: 
+        \[x \equiv \frac{M}{m_i} M_i' b_i \Mod m_i \SO x \equiv b_i \Mod m_i\]
         \item Без доказательства.
     \end{MyList}
 \end{proof}
