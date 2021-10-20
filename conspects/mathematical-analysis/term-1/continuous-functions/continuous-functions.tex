@@ -1,0 +1,477 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/20/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Непрерывность}{}{Илья Дудников}
+
+\begin{Def}
+    Функция называется непрерывной на множестве $D$, если она непрерывна в каждой точке $D$. \\
+    $C(D)$ -- множество функций, непрерывных на $D$. $\langle a, b \rangle$ -- промежуток (неважно, включаются концы или нет).  
+\end{Def}
+
+\begin{Thm}[об арифметических действиях над непрерывными функциями]
+    $f, g : D \to \R, D \in \R$ -- непрерывны в точке $x_0 \in D$. Тогда $f + g, f - g, |f|, f \cdot g$ также непрерывны в точке $x_0$.
+    Если $g(x_0) \neq 0$, то $\frac{f}{g}$ тоже непрерывна в точке $x_0$.      
+\end{Thm}
+
+\begin{proof}
+    \begin{MyItemize}
+        \item $x_0$ -- изолированная точка $D$ -- очевидно.
+        \item $x_0$ -- предельная точка. 
+        $f(x) \xrightarrow[x \to x_0]{} f(x_0)$ и $g(x) \xrightarrow[x \to x_0]{} g(x_0)$. Тогда $f(x) + g(x) \xrightarrow[x \to x_0]{} f(x_0) + g(x_0)$.
+        Далее по теореме об арифметических действиях с пределами функций, имеющих предел.   
+    \end{MyItemize}
+\end{proof}
+
+\begin{Rem}
+    Если $f$ непрерывна в точке $x_0 \in D$ и $f(x_0) \neq 0$, то найдется $V(x_0)$, что знак $f$ в $V(x_0) \cap D$ совпадает со знаком $f(x_0)$ 
+\end{Rem}
+
+\begin{Thm}[О непрерывности композиции]
+    $f: D \to \R, g: E \to R, f(D) \subset E$. Пусть $f$ непрерывна в точке $x_0 \in D$ и $g$ непрерывна в точке $f(x_0)$. Тогда $g \circ f$ непрерывна в точке $x_0$.  
+\end{Thm}
+
+\begin{proof}
+    Пусть $x_n \in D, x_n \to x_0$. Обозначим $y_n = f(x_n), y_0 = f(x_0)$. Т.к. $f$ непрерывна в точке $x_0$, то $y_n \to y_0$. Тогда $g(y_n) \to g(y_0)$, т.к. $g$ непрерывна в точке $y_0$.
+    \[g(y_n) = g(f(x_n)) \to g(f(x_0))\]    
+\end{proof}
+
+\begin{Thm}[Первая теорема Вейерштрасса]
+    Непрерывная на отрезке функция ограничена.
+\end{Thm}
+
+\begin{proof}
+    $f \in C[a, b]$. Пусть $f$ не ограничена на $[a, b]$, т.е.
+    \[\forall n \in \N \exists x_n \in [a, b] : |f(x_n)| > n\]  
+    $x_n$ -- ограничена $\SO \exists \{f(x_{n_k})\}_{k = 1}^\infty : x_{n_k} \to c \in [a, b]$. Т.к. $f$ непрерывна, то $f(x_{n_k}) \to f(c) \SO \{f(x_{n_k})\}$ ограничена, т.к. сходится.
+    \[|f(x_{n_k})| > n_k \geqslant k \ \forall k \in \N\]   
+\end{proof}
+
+\begin{Rem}
+    Если возьмем интервал $(a, b)$, то теорема не выполняется. 
+\end{Rem}
+
+\begin{Thm}[Вторая теорема Вейерштрасса]
+    Непрерывная на отрезке функция принимает наибольшее и наименьшее значение.
+\end{Thm}
+
+\begin{proof}
+    $M = \sup_{x \in [a, b]} f(x_0)$. По первой теореме Вейерштрасса $f$ ограничена на $[a, b] \SO M \in \R$. Пусть $f$ не достигает $M$. Тогда $f(x) < M$ на $[a, b]$. 
+    Рассмотрим $\varphi(x) = \frac{1}{M - f(x)}$ -- непрерывна на $[a, b]$. Значит она ограничена на $[a, b]$. $\exists m : \varphi(x) \leqslant m \ \forall x \in [a, b]$
+    \[\frac{1}{M - f(x)} \leqslant m \EQ \frac{1}{m} \leqslant M - f(x) \EQ f(x) \leqslant M - \frac{1}{m}\]
+    Значит $M$ -- не супремум -- противоречие       
+\end{proof}
+
+\begin{Thm}[Больцано-Коши о промежуточном значении]
+    $f$ -- непрерывна на $[a, b]$. Тогда $\forall C$, лежащего между $f(a)$ и $f(b) \ \exists c \in (a, b) : f(c) = C$   
+\end{Thm}
+
+\begin{proof}
+    \begin{MyItemize}
+        \item Пусть $f(a)$ и $f(b)$ -- разных знаков. Тогда докажем, что $\exists c \in (a, b) : f(c) = 0$. Пусть $f(a) < 0 < f(b)$.
+        Рассмотрим точку $ \frac{a + b}{2}$. Если $f( \frac{a + b}{2}) = 0$, то теорема доказана.
+        Если $f(\frac{a + b}{2}) > 0$, то будем далее рассматривать отрезок $[a, \frac{a + b}{2}]$, иначе будем рассматривать отрезок $[ \frac{a + b}{2}, b]$. \\
+        Получим $[a_1, b_1] : f(a_1) < 0 < f(b_1)$ и т.д. $[a_n, b_n]$ -- стягивающиеся отрезки $\SO \exists ! c \in \bigcap_{n = 1}^\infty [a_n, b_n], a_n, b_n \to c$
+        \[f(a_n) < 0 < f(b_n) \EQ f(c) \leqslant 0 \leqslant f(c) \SO f(c) = 0\]         
+        \item Рассмотрим $\varphi(x) = f(x) - C, \varphi \in C[a, b]$, $\varphi(a)$ и $\varphi(b)$ разных знаков.
+        Тогда $\exists c \in (a, b) : \varphi(c) = 0 \SO f(c) = C$ 
+    \end{MyItemize}
+\end{proof}
+
+\begin{Cons}
+    Если непрерывная на отрезке функция принимает какие-то два значения, то она принимает и все значения между ними.
+\end{Cons}
+
+\begin{Thm}[О сохранении промежутка]
+    Множество значений непрерывной на промежутке функции есть промежуток. 
+\end{Thm}
+
+\begin{proof}
+    Пусть $f \in C \langle a, b\rangle$
+    \[m = \inf_{x \in \langle a, b\rangle} f(x), M = \sup_{x \in \langle a, b\rangle} f(x)\]
+    $m, M \in \overline{\R}, E = f(\langle a, b\rangle)$. Возьмем $x_1, x_2 \in \langle a, b\rangle$. $f$ принимает все значения между $f(x_1)$ и $f(x_2)$.
+    Если $E$ не промежуток, то $\exists y \in E : f(x) \neq Y \ \forall x \in \langle a, b\rangle$, но $\exists y_1 < y < y_2 : \exists x_1 : f(x_1) = y_1, \exists x_2 : f(x_2) = y_2$       
+\end{proof}
+
+\begin{Thm}[О разрывах и непрерывности монотонной функции]
+    $f : \langle a, b\rangle \to \R$, мононтонна. Тогда
+    \begin{MyList}
+        \item $f$ не может иметь разрывов II рода
+        \item $f$ -- непрерывная $\EQ$ её множество значения -- промежуток  
+    \end{MyList} 
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Пусть $f$ возрастает. $x \in (a, b\rangle, x_1 \in \langle a, x_0)$. Тогда $f(x_1) \leqslant f(x) \leqslant f(x_0) \ \forall x \in (x_1, x_0) \SO$
+        $f$ возрастает и ограничена сверху на $(x_1, x_0) \SO \exists$ конечный $f(x_0-)$. Кроме того, по используя предельный переход:
+        \[f(x_1) \leqslant f(x_0-) \leqslant x_0\]
+        Повторим для $f(x_0+) \SO$ нет разрывов II рода.
+        
+        \item "$\SO$". Доказано \\
+        "$\Leftarrow$". $f(\langle a, b\rangle)$ -- промежуток. Докажем непрерывность слева в точке $x_0 \in (a, b\rangle$. Пусть $f(x_0-) < f(x_0)$.
+        Возьмем $y \in (f(x_0 -), f(x_0))$. Тогда если $a < x_1 < x_0$, то $y \in [f(x_1), f(x_0)]$. Значит $y$ -- значение функции.
+        С другой стороны $\forall x \in \langle a, x_0) \to f(x) \leqslant f(x_0-) < y, \forall x \in [x_0, b\rangle \to f(x) \geqslant f(x_0) > y \SO f$ не принимает значение $y$ -- противоречие.
+        Аналогично для $f(x_0+)$     
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Существование и непрерывность обратной функции]
+    $f \in C\langle a, b\rangle, f$ строго мононтонна
+    \[m = \inf_{x \in \langle a, b\rangle} f(x), M = \sup_{x \in \langle a, b\rangle} f(x)\]
+    Тогда
+    \begin{MyList}
+        \item $f$ обратима, $f^{-1} : \langle m, M\rangle \to \langle a, b\rangle$ -- биекция.
+        \item $f^{-1}$ строго монотонна (одноименно с $f$)
+        \item $f^{-1}$  непрерывна на $\langle m, M\rangle$  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Пусть $f$ возрастает.
+    \begin{MyList}
+        \item $x_1, x_2 \in \langle a, b\rangle, x_1 < x_2$. Тогда $f(x_1) < f(x_2) \SO f$ обратима. \\
+        $f(\langle a, b\rangle) = \langle m, M\rangle$. $f^{-1} : \langle m, M\rangle \to \langle a, b\rangle$. Если $y_1 \neq y_2 \in \langle m, M\rangle \SO f^{-1}(y_1) \neq f^{-1}(y_2)$       
+
+        \item $y_1 < y_2 \in \langle m, M\rangle \SO y_1 = f(x_1), y_2 = f(x_2), x_1, x_2 \in \langle a, b\rangle$. $x_1 = f^{-1}(y_1), x_2 = f^{-1}(y_2), x_1 < x_2$ из-за возрастания $f$
+        \item $f^{-1}$ строго возрастает на $\langle m, M\rangle$, множество значений функции $f^{-1}$ -- промежуток $\SO f^{-1}$ непрерывна по предыдущей теореме.    
+    \end{MyList}
+\end{proof}
+
+\begin{Rem}
+    Для обратимости строго монотонной функции непрерывность не нужна. 
+\end{Rem}
+
+\end{document}
