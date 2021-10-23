@@ -1,0 +1,460 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/23/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\C{\mathbb{C}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Дискретная математика}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Дискретная математика 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+%\DeclareMathOperator{\tg}{tg}
+%\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\const}{const}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Теория вероятности}{}{Илья Дудников}
+
+\begin{Thm}[Формула Байеса]
+    Пусть $H_1, H_2, ..., H_n$ -- полная группа событий. $A$ -- событие (считаем произошедшим). Тогда
+    \[P(H_k | A) + \frac{P(H_k) \cdot P(A|H_k)}{\sum_{i=1}^{n} P(H_i) \cdot P(A|H_i)}\]
+\end{Thm}
+
+\begin{proof}
+    \[P(H_k|A) = \frac{P(H_k \cap A)}{P(A)} = \frac{P(H_k) \cdot P(A|H_k)}{\sum_{i=1}^{n} P(H_i) \cdot P(A|H_i)}\] 
+\end{proof}
+
+\Subsection{Испытания Бернулли}
+
+\begin{Def}
+    Обозначим $P_n(m)$ -- вероятность получить $m$ успехов за $n$ испытаний. 
+\end{Def} 
+
+\begin{Thm}[Теорема Бернулли]
+    Рассмотрим упорядоченный набор: $\underbrace{SSS...S}_n \underbrace{FFF...F}_{n - m}$, где $S$ обозначает успех, а $F$ -- неудачу.
+    В силу независимости испытаний, вероятность получить конкретный упорядоченный набор равна $p^m (1 - p)^{n - m}$. Таких наборов, очевидно, $C_n^m$  
+\end{Thm}
+
+\begin{Thm}
+    $0 \leqslant m_1 \leqslant m_2 \leqslant n$. $P_n(m_1, m_2)$ -- успех наступил от $m_1$ до $m_2$ раз.
+    \[P_n(m_1, m_2) = \sum_{i=m_1}^{m_2} C_n^k p^k (1 - p)^{n - k}\] 
+\end{Thm}
+
+\begin{Def}
+    Наивероятнейшее число событий -- число событий в испытаниях Бернулли с наибольшей вероятностью.
+\end{Def}
+
+\begin{Thm}
+    Наивероятнейшее число успехов в $n$ испытаниях заключено между числами $np - (1 - p)$ и $np + p$  
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим следующее соотношение:
+    \[\frac{P_n(m)}{P_n(m - 1)} = \frac{C_n^m p^m (1 - p)^{n - m}}{C_n^{m - 1} p^{m - 1} (1 - p)^{n - m + 1}} = \frac{p}{1 - p} \cdot \frac{n! (m - 1)!(n - m + 1)!}{n!m!(n - m)!} = \frac{p}{1 - p} \cdot \frac{n - m + 1}{m}\]
+
+    Отсюда очевидно, что 
+    \begin{gather*}
+        P_n(m) > P_n(m - 1), m < (n + 1)p \\
+        P_n(m) = P_n(m - 1), m = (n + 1)p \\
+        P_n(m) < P_n(m - 1), m > (n + 1)p
+    \end{gather*}
+    Значит, при $m < (n + 1)p \ P_n(m)$ возрастает, при $m > (n + 1)p$ -- убывает. Тогда несложно найти $m$ такое, чтобы $P_n(m)$ было наибольшим:
+    \[\begin{cases}
+        P_n(m) > P_n(m - 1) \\
+        P_n(m + 1) < P_n(m)
+    \end{cases} \EQ \begin{cases}
+        m < (n + 1)p \\
+        m + 1 > (n + 1)p
+    \end{cases} \EQ np + p - 1 < m < np + p\]  
+\end{proof}
+
+\Pagebreak
+\Subsection{Предельные случаи испытаний Бернулли}
+
+Рассмотрим ситуацию, когда вероятность какого-то события уменьшается пропорционально $n$, т.е. $p \thicksim \frac{1}{n}$ 
+\begin{Thm}[Теорема Пуассона]
+    Пусть $np = \const, \lambda = np$. 
+    \[\forall m, \forall \lambda \ \lim_{n \to \infty} P_n(m) = \frac{\lambda^m}{m!}\cdot e^{-\lambda}\]
+\end{Thm}
+
+\begin{proof}
+    \begin{align*}
+        P_n(m) &= C_n^m p^m \cdot (1 - p)^{n - m} = \frac{n!}{m!(n - m)!} \cdot \left(\frac{\lambda}{n}\right)^m \left(1 - \frac{\lambda}{n}\right)^{n - m} = \\
+        &= \frac{n(n - 1) ... (n - m) + 1}{m!} \cdot \left(1 - \frac{\lambda}{n}\right)^{n - m} \cdot \left(\frac{\lambda}{n}\right)^m = \\
+        &= \frac{\lambda^m}{m!}\left(1 - \frac{\lambda}{n}\right)^n \left(1 - \frac{1}{n}\right) \left(1 - \frac{2}{n}\right)...\left(1 - \frac{m - 1}{n}\right)\left(1 - \frac{\lambda}{n}\right)^{-m} \SO \\
+        &\SO \lim_{n \to \infty} P_n(m) = \lim_{n \to \infty} \frac{\lambda^m}{m!} \left(1 - \frac{\lambda}{n}\right)^n = \frac{\lambda^m}{m!}\cdot e^{-\lambda}
+    \end{align*}
+\end{proof}
+
+\begin{Thm}[Локальная теорема Муавра-Лапласа]
+    Пусть $x_n = \frac{m - np}{\sqrt{np(1 - p)}}$. Предположим, что $x_n$ ограничена при $n \to \infty$. Тогда
+    \[\sqrt{np(1 - p)} \cdot P_n(m) \thicksim \frac{1}{\sqrt{2\pi}} \cdot e^{-\frac{x_n^2}{2}}\]   
+\end{Thm}
+
+\begin{proof}
+    Вспомним, что $k! \thicksim \sqrt{2\pi k} \left(\frac{k}{e}\right)k$. \\
+    $n - m = n(1 - p) - x_n\sqrt{np(1 - p)}$. Тогда
+    \begin{align*}
+        &\sqrt{np(1 - p)}P_n(m) = \sqrt{np(1 - p)} C_n^m p^m (1 - p)^{n - m} = \frac{\sqrt{np(1 - p)} \cdot n!}{m!(n - m)!} \cdot p^m \cdot (1 - p)^{n - m} \\
+        &\approx \frac{\sqrt{np(1 - p)} \cdot \sqrt{2\pi n} \left(\frac{n}{e}\right)^n}{\sqrt{2\pi m} \cdot \left(\frac{m}{e}\right)^m \cdot \sqrt{2\pi (n - m)} \cdot \left( \frac{n - m}{e}\right)^{n - m}} \cdot p^m \cdot (1 - p)^{n - m} \\
+        &= \frac{\sqrt{np(1 - p)} \cdot \sqrt{n} \cdot n^n}{\sqrt{2\pi} \cdot \sqrt{m} \cdot m^m \cdot (n - m)^{n - m}} \cdot p^m (1 - p)^{n - m} = \frac{1}{\sqrt{2\pi}} \left( \frac{np}{m}\right)^m \cdot \left( \frac{n(1 - p)}{n - m}\right)^{n - m} \sqrt{ \frac{np}{m}} \cdot \sqrt{ \frac{n(1 - p)}{n - m}}\\
+    \end{align*} 
+
+    $m = np + x_n\sqrt{np(1 - p)}$
+    \begin{align*}
+        \frac{m}{np} = 1 + \frac{x_n\sqrt{1 - p}}{\sqrt{np}} &\xrightarrow[n \to \infty]{} 1 \\
+        \frac{n - m}{n(1 - p)} = 1 - \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}} &\xrightarrow[n \to \infty]{} 1
+    \end{align*} 
+
+    Пусть, для удобства, $\exp(x) = e^x$. Тогда 
+    \begin{gather*}
+        \sqrt{np(1 - p)}P_n(m) \approx \frac{1}{\sqrt{2\pi}} \cdot \left(1 + \frac{x_n\sqrt{1 - p}}{\sqrt{np}}\right)^{-m} \left(1 - \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}}\right)^{-(n - m)} = \\
+        = \frac{1}{\sqrt{2\pi}} \exp\left({-m \cdot \ln \left(1 + \frac{x_n\sqrt{1 - p}}{\sqrt{np}}\right) - (n - m) \cdot \ln \left(1 - \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}}\right)}\right)
+    \end{gather*}
+
+    Как мы знаем (откуда?)
+    \[\ln(1 + y) \xrightarrow[y \to 0]{}y - \frac{y^2}{2}(1 + O(1))\]
+    Следовательно $\sqrt{np(1 - p)}P_n(m) =$ 
+    \[
+        = \frac{1}{\sqrt{2\pi}} \exp \left(-m \left( \frac{x_n \sqrt{1 - p}}{\sqrt{np}} - \frac{x_n^2}{2np}\right)(1 + O(1)) - (n - m)\left(- \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}} - \frac{x_n^2p}{2n(1 - p)}\right)(1 + O(1))\right)
+    \]
+    \begin{gather*}
+        x_n \left( \frac{(n - m)\sqrt{p}}{\sqrt{n(1 - p)}} - \frac{m\sqrt{1 - p}}{\sqrt{np}}\right) = \\
+        = \frac{x_n}{\sqrt{np(1 - p)}}\left(np(1 - p) - x_n\sqrt{np(1 - p)} p - n(1 - p)\cdot p - x_n\sqrt{np(1 - p)}(1 - p)\right) = \\
+        = -x_n^2 (p + (1 - p)) = -x_n^2
+    \end{gather*}
+
+    Таким образом:
+    \[\sqrt{np(1 - p)}P_n(m) \approx \frac{1}{\sqrt{2\pi}}e^{\left(-x_n^2 + \frac{x_n^2}{2}\right)(1 + O(1))} \approx \frac{1}{\sqrt{2\pi}}e^{- \frac{x_n^2}{2}}\]
+\end{proof}
+
+\end{document}
