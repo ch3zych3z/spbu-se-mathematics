@@ -346,7 +346,7 @@
 
 \begin{Thm}[Формула Байеса]
     Пусть $H_1, H_2, ..., H_n$ -- полная группа событий. $A$ -- событие (считаем произошедшим). Тогда
-    \[P(H_k | A) + \frac{P(H_k) \cdot P(A|H_k)}{\sum_{i=1}^{n} P(H_i) \cdot P(A|H_i)}\]
+    \[P(H_k | A) = \frac{P(H_k) \cdot P(A|H_k)}{\sum_{i=1}^{n} P(H_i) \cdot P(A|H_i)}\]
 \end{Thm}
 
 \begin{proof}
@@ -421,7 +421,7 @@
 \end{Thm}
 
 \begin{proof}
-    Вспомним, что $k! \thicksim \sqrt{2\pi k} \left(\frac{k}{e}\right)k$. \\
+    Вспомним, что $k! \thicksim \sqrt{2\pi k} \left(\frac{k}{e}\right)^k$. \\
     $n - m = n(1 - p) - x_n\sqrt{np(1 - p)}$. Тогда
     \begin{align*}
         &\sqrt{np(1 - p)}P_n(m) = \sqrt{np(1 - p)} C_n^m p^m (1 - p)^{n - m} = \frac{\sqrt{np(1 - p)} \cdot n!}{m!(n - m)!} \cdot p^m \cdot (1 - p)^{n - m} \\
