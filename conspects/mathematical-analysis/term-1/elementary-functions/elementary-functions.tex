@@ -35,6 +35,7 @@
 %\listfiles
 
 \usepackage{import}
+\usepackage{MnSymbol}
 \usepackage{xifthen}
 \usepackage{pdfpages}
 \usepackage{transparent}
@@ -87,6 +88,7 @@
 
 % Основные математические символы
 \def\TODO{{\color{red}\bf TODO}}
+\def\Q{\mathbb{Q}}
 \def\N{\mathbb{N}}       %
 \def\R{\mathbb{R}}       %
 \def\F2{\mathbb{F}_2}    %
@@ -438,4 +440,163 @@ $0^x = 0 \ \forall x > 0$
     \[a^{r_n} = \frac{1}{\left(\frac{1}{a}\right)^{r_n}} \to \frac{1}{L}\]   
 \end{proof}
 
+\Subsubsection{Свойства показательной функции}
+
+\begin{MyList}
+    \item $a^x$ строго возрастает на $\R$ при $a > 1$ и строго убывает на $\R$ при $a \in (0, 1)$
+    \begin{proof}
+        $a > 1$. Пусть $x < y$. Докажем, что $a^x < a^y$. Возьмем два числа $\overline{r}, \overline{\overline{r}} \in \Q$ между $x$ и $y$.
+        Возьмем $\{\overline{r}_n\}_{n = 1}^\infty, \{\overline{\overline{r}}\}_{n = 1}^\infty :$ последовательности из $\Q : \overline{r}_n \to x, \overline{\overline{r}}_n \to y$.
+        
+        По доказанному $a^{\overline{r}_n} < a^{\overline{r}} < a^{\overline{\overline{r}}} < a^{\overline{\overline{r}}_n}$
+        \[\SO a^x \leqslant a^{\overline{r}} < a^{\overline{\overline{r}}} \leqslant a^y \SO a^x < a^y\]
+        
+        $a \in (0, 1)$. Рассмотрим $b = \frac{1}{a} > 1$.  
+    \end{proof}
+    \item $a^{x + y} = a^x \cdot a^y$
+    \begin{proof}
+        $\{\overline{r}_n\}, \{\overline{\overline{r}}_n\}$ как в $1)$
+        \[a^{\overline{r}_n + \overline{\overline{r}}_n} = a^{\overline{r}_n} \cdot a^{\overline{\overline{r}}_n} \SO a^{x + y} = a^x \cdot a^y\]
+    \end{proof}
+    \item $a^{-x} = a^0 \cdot a^{-x} = \frac{1}{a^x}$ 
+    \item $a^x$ непрерывна на $\R$ 
+    \begin{proof}
+        $a > 1, \{x_n\}: x_n \to 0$. Докажем непрерывность в нуле.
+        \[\forall \varepsilon > 0 \ \exists N : \forall n \geqslant N \to |x_n| < \varepsilon \SO -\frac{1}{n_0} < x_n < \frac{1}{n_0}, n_0 \in \N\]
+        Тогда $1 - \varepsilon < a^{-\frac{1}{n_0}} < a^{x_n} < a^{\frac{1}{n_0}} < 1 + \varepsilon \ (a^{\frac{1}{n}} \to 1 \SO \exists n_0 : |a^{\frac{1}{n}} - 1| < \varepsilon)$
+        \[\forall \varepsilon > 0 \ \exists N' : \forall n \geqslant N \to |a^{x_n} - 1| < \varepsilon \EQ a^{x_n} \to 1\]
+
+        Докажем непрерывность в точке $x_0 \neq 0$. \\
+        Рассмотрим $a^{x_0} - a^{x_n} = a^{x_0} (a^{x_n} - 1) \to 0$  
+    \end{proof}
+    
+    \item $(ab)^x = a^x b^x$
+    \begin{proof}
+        $\{r_n\}$ из $\Q$, $r_n \to x$. Тогда
+        \[(ab)^{r_n} = a^{r_n} \cdot b^{r_n} \SO (ab)^x = a^x b^x\] 
+    \end{proof}
+
+    \item $(a^x)^y = a^{xy}$ 
+    \begin{proof}
+        $x_n \to x, y_n \to y, \{x_n\}, \{y_n\}$ из $\Q$. Тогда по непрерывности показательной и степенной функций
+        \[(a^{x_n})^{y_m} = a^{x_n \cdot y_m} \xRightarrow[n \to \infty]{} (a^x)^{y_m} = a^{x \cdot y_m} \xRightarrow[m \to \infty]{} (a^x)^y = a^{x \cdot y}\] 
+    \end{proof}
+
+    \item $a^x$ -- биекция из $\R$ на $(0, +\infty)$  
+    \begin{proof}
+        $a > 1$. Тогда $a^x$ строго возрастает на $\R$.
+        \[a^n = (1 + \alpha)^n \geqslant 1 + n \alpha \to +\infty \SO \lim_{x \to +\infty} a^x = +\infty\]
+        \[\lim_{x \to -\infty} a^x = 0\]
+    \end{proof}
+\end{MyList}
+
+\Subsection{Логарифм}
+
+\begin{Def}
+    Т.к. $a^x : \R \to (0, +\infty)$ -- биекция, то $\exists f^{-1} : (0, +\infty) \to \R$.
+    \[\log_a x : (0, +\infty) \to \R\]
+    Из теоремы об обратной функции $\log_a x$ монотонна и непрерывна.   
+\end{Def}
+
+\Subsubsection{Свойства логарифма}
+
+\begin{MyList}
+    \item $\log_a x + \log_a y = \log_a (xy), a \in (0, 1) \cup (1, +\infty), x, y > 0$
+    \begin{proof}
+        \[a^{\log_a x + \log_a y} = a^{\log_a x} \cdot a^{\log_a y} = x \cdot y = a^{\log_a (xy)}\]
+    \end{proof}
+
+    \item $\log_a x^b = b\log_a x, a \in (0, 1) \cup (1, +\infty), x > 0, b \in \R$
+    \begin{proof}
+        \[a^{b \log_a x} = (a^{log_a x})^b = x^b = a^{log_a x^b}\]
+    \end{proof}
+
+    \item $\log_a x = \frac{\log_b x}{\log_b a}, a, b \in (0, 1) \cup (1, +\infty), x > 0$
+    \begin{proof}
+        \[b^{log_a x \cdot \log_b a} = (b^{\log_b a})^{\log_a x} = a^{\log_a x} = x = b^{\log_b x}\] 
+    \end{proof}
+\end{MyList}
+
+\begin{Def}
+    $\ln x$ -- натуральный логарифм ( $\log_e x$ )
+\end{Def}
+
+Вернемся к степенной функции:
+
+\begin{Def}
+    $x > 0, \alpha \in \R \ x^\alpha = e^{\alpha \cdot \ln x}$. $0^\alpha = 0$. Покажем непрерывность справа в точке $0$.
+    \[x_n \to 0, x_n > 0\]
+    Пусть $y_n = \ln x_n \xrightarrow[n \to \infty]{} -\infty$. Значит $x_n^\alpha = e^{\alpha \ln x_n} \xrightarrow[n \to \infty]{} 0$ 
+    \begin{align*}
+        &x^\alpha : [0, +\infty) \to [0, +\infty), \alpha > 0 \text{ -- биекция} \\
+        &x^\alpha : (0, +\infty) \to (0, +\infty), \alpha < 0 \text{ -- биекция}
+    \end{align*} 
+\end{Def}
+
+\Subsection{Тригонометрические функции}
+
+\begin{Prop}
+    $x \in (0, \frac{\pi}{2})$. Тогда $\sin x < x < \tg x$.
+\end{Prop}
+
+\begin{proof}
+
+    Нужно доказать: \(BC < \stackrel{\frown}{AB} < AB\) \\
+    \begin{figure*}[h]
+        \centering
+        \input{images/trig.pdf_tex}
+    \end{figure*}
+    $\triangle OBA \subset \downslice OAB \subset \triangle OAD \EQ S_{\triangle OBA} < S_{\downslice OAB} < S_{\triangle OAD}$
+    \begin{align*}
+        S_{\triangle OBA} &= \frac{1}{2} |OA| \cdot |BC| = \frac{\sin x}{2} \\
+        S_{\downslice OAB} &= \frac{1}{2} \cdot x \cdot |OA|^2 = \frac{x}{2} \\
+        S_{\triangle OAD} &= |OA| \cdot |AD| \cdot \frac{1}{2} = 1 \cdot \tg x \cdot \frac{1}{2} = \frac{\tg x}{2} \\
+    \end{align*} 
+    Отсюда 
+    \[ \frac{\sin x}{2} < \frac{x}{2} < \frac{\tg x}{2} \EQ \sin x < x < \tg x\]
+\end{proof}
+
+\begin{Cons}
+    $|\sin x| \leqslant |x| \ \forall x \in \R$ (причем равенство достигается только в $0$ ) \\
+    При $x \in (0, \frac{\pi}{2})$ доказано.
+    \begin{align*}
+        x &\geqslant \frac{\pi}{2} : |\sin x| \leqslant 1 < \frac{\pi}{2} \leqslant x \\
+        x &\leqslant -\frac{\pi}{2} : |\sin x| = \sin(-x)| < |-x| = x
+    \end{align*} 
+\end{Cons}
+
+Свойства:
+\begin{MyList}
+    \item $\sin x$ -- непрерывная на $\R$ функция.
+    \[\lim_{x \to x_0} \sin x = \sin x_0 \]
+    \begin{proof}
+        \[|\sin x - \sin x_0| = \left|2 \cdot \sin \frac{x - x_0}{2} \cdot \cos \frac{x + x_0}{2}\right| \leqslant 2 \left|\sin \frac{x - x_0}{2}\right| \leqslant 2 \left| \frac{x - x_0}{2}\right| \leqslant |x - x_0| \to 0\]
+    \end{proof}
+
+    \item $\cos x = \sin \left(\frac{\pi}{2} - x\right)$ -- непрерывна. 
+    \item $\tg x \frac{\sin x}{\cos x}, x \in \R \setminus \{\frac{\pi}{2} + \pi k, k \in \Z\}$
+    \item $\ctg x = \frac{\cos x}{\sin x}, x \in \R \setminus \{\pi k, k \in \Z\}$ -- непрерывны на области определения.
+\end{MyList}
+
+\Subsubsection{Обратные тригонометрические функции}
+
+$\sin x : \R \to [-1, 1]$ не обратимая.
+
+$\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}{2}, \frac{\pi}{2}\right] \to [-1, 1]$ -- биекция
+
+\begin{Def}
+    $\arcsin x = \left(\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]}\right)^{-1}$. Монотонно возрастает и непрерывна 
+\end{Def}
+
+\begin{Def}
+    $\arccos x = \left(\cos x |_{x \in [0, \pi]}\right)^{-1}$. Убывает, непрерывна
+\end{Def}
+
+\begin{Def}
+    $\arctg x = \left(\tg x |_{x \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)}\right)^{-1}$. Непрерывна, строго возрастает.
+\end{Def}
+
+\begin{Def}
+    $\arcctg x = \left(\ctg x |_{x \in (0, \pi)}\right)^{-1}$ 
+\end{Def}
 \end{document}
