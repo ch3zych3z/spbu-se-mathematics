@@ -455,6 +455,24 @@
 
     Таким образом:
     \[\sqrt{np(1 - p)}P_n(m) \approx \frac{1}{\sqrt{2\pi}}e^{\left(-x_n^2 + \frac{x_n^2}{2}\right)(1 + O(1))} \approx \frac{1}{\sqrt{2\pi}}e^{- \frac{x_n^2}{2}}\]
+
 \end{proof}
+
+\begin{Thm}[Интегральная теорема Муавра-Лапласа]
+  $a_n = \frac{m_1 - np}{\sqrt{npq}}, b_n = \frac{m_2 - np}{\sqrt{npq}}, q = 1 - p$. Пусть $m_1 \to \infty, n \to \infty, a_n, b_n$ -- ограничены. Тогда
+  \[\lim_{n \to \infty} \left|P_n(m_1, m_2) - \frac{1}{2\pi} \int_{a_n}^{b_n} e^{- \frac{x^2}{2}} dx\right| = 0\]  
+\end{Thm}
+
+\begin{Def}
+  $\PHI (x) = \frac{1}{\sqrt{2\pi}} \cdot e^{- \frac{x^2}{2}}$ -- функция Гаусса. \\
+  $\Phi(x) = \frac{1}{\sqrt{2\pi}} \cdot \int_{0}^{x} e^{- \frac{z^2}{2}}dz$ -- функция Лапласа. 
+\end{Def}
+
+\begin{Cons}
+  По локальной теореме Муавра-Лапласа:
+  \[P_n(m) \thicksim \frac{\PHI(x)}{\sqrt{npq}}\]
+  По интегральной теореме Муавра-Лапласа:
+  \[P_n(m_1, m_2) \thicksim \frac{1}{2}(\Phi(b_n) - \Phi(a_n))\]
+\end{Cons}
 
 \end{document}
