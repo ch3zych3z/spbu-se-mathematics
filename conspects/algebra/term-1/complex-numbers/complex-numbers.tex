@@ -1,0 +1,500 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/22/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\C{\mathbb{C}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Алгебра}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Алгебра 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+%\DeclareMathOperator{\tg}{tg}
+%\DeclareMathOperator{\arctg}{arctg}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Комплексные числа}{}{Илья Дудников}
+
+\begin{Def}
+    Множество $\{(a, b) | a, b \in \R\}$ называется множество комплексных чисел, если:
+    \begin{MyList}
+        \item $(a, b) = (c, d) \EQ a = c, b = d$
+        \item $(a, b) + (c, d) = (a + c, b + d)$
+        \item $(a, b) \cdot (c, d) = (ac - bd, ad + bc)$
+        \item $a = (a, 0)$    
+    \end{MyList} 
+
+    Проверим корректность:
+    \begin{MyItemize}
+        \item 1 и 4: $a = b \EQ (a, 0) = (b, 0)$
+        \item 2 и 4: $a + b = (a, 0) + (b, 0) = (a + b, 0) = a + b$
+        \item 3 и 4: $a \cdot b = (a, 0) \cdot (b, 0) = (ab, 0) = ab$   
+    \end{MyItemize}
+\end{Def}
+
+\begin{Thm}
+    $\C$ образует коммутативное кольцо с единицей.
+\end{Thm}
+
+\begin{proof}
+    $(0, 0)$ -- нейтральный элемент по сложению. $(a, b) : -(a, b) = (-a, -b)$ -- обратный элемент по сложению. Остальные свойства несложно проверяются.
+\end{proof}
+
+\begin{Def}
+    Множество $K$ называется полем, если $K$ является коммутативным кольцом с единицей и 
+    \[\forall x \in K^* = K \setminus \{0\} \ \exists x^{-1} \in K : x \cdot x^{-1} = 1\]
+\end{Def}
+
+\begin{Thm}
+    $\Z_p (p \text{ -- простое}), \Q, \R, \C$ -- поля.   
+\end{Thm}
+
+\begin{proof}
+    $\Q, \R$ -- поля.
+    
+    $\Z_p$ -- коммутативное кольцо с единицей, $\Z_p^*$ -- мультипликативная группа $\SO \Z_p$ -- поле.
+    
+    $(a, b) \in \C^*, (a, b)^{-1} = \frac{(a, -b)}{a^2 + b^2} = \left(\frac{a}{a^2 + b^2}, \frac{-b}{a^2 + b^2}\right)$ 
+    \[(a, b) \cdot \frac{(a, -b)}{a^2 + b^2} = \frac{(a^2 + b^2, 0)}{a^2 + b^2} = (1, 0)\]
+\end{proof}
+
+\begin{Def}
+    $(a, b)$ и $(a, -b)$ -- комплексно-сопряженные числа. \\
+    $|(a, b)| = \sqrt{a^2 + b^2}$ -- модуль комплексного числа. Заметим, что $|(a, 0)| = \sqrt{a^2 + 0} = \sqrt{a^2} = |a|$ \\
+    $(a, b) \cdot (a, -b) = a^2 + b^2 = |(a, b)|^2$ 
+\end{Def}
+
+\Subsection{Алгебраическая форма записи комплексного числа}
+
+\begin{Def}
+    Положим $i = (0, 1)$. Тогда
+    \[(a, b) = (a, 0) + (0, b) = (a, 0) \cdot (1, 0) + (b, 0) \cdot (0, 1) = a + bi\]
+\end{Def}
+\Pagebreak
+
+\Subsection{Геометрическое представление комплексных чисел}
+
+\begin{Def}
+    $z = a + bi$. $\Real z = a$ -- вещественная часть числа $z$, $\Imag z = b$ -- мнимая часть.   \\
+    $z = a + bi \mapsto $ точка на комплексной плоскости. $(a, b)$ -- радиус-вектор $OM$.  \\
+    $\rho = |z| = \sqrt{a^2 + b^2}$ -- длина вектора $OM$. $\PHI = \widehat{(\Real, OM)}$ -- аргумент комплексного числа. \\
+    $\arg z = \PHI, \PHI = \PHI_0 + 2\pi k, \PHI_0 \in [0; 2\pi)$ или $\PHI_0 \in (-\pi; pi]$.
+
+    \begin{figure}[h]
+        \centering
+        \input{images/pic1.pdf_tex}
+    \end{figure}
+\end{Def}
+
+\Subsection{Тригонометрическая форма записи комплексного числа}
+
+\begin{Def}
+    $a = \rho \cos \PHI, b = \rho \sin \PHI \SO z = a + bi = \rho(\cos \PHI + i\sin \PHI)$
+    \[\tg \PHI = \frac{b}{a} \SO \PHI = \begin{cases}
+        \arctg \frac{b}{a}, z \in \text{ I и II четверти} \\
+        \arctg \frac{b}{a} + \pi, z \in \text{III и IV четверти} 
+    \end{cases}\] 
+
+\end{Def} 
+
+\begin{Def}[Неравенство треугольника]
+    $z_1, z_2 \in \C$
+    \begin{MyList}
+        \item $|z_1 + z_2| \leqslant |z_1| + |z_2|$
+        \item $|z_1 - z_2| \geqslant ||z_1| - |z_2||$  
+    \end{MyList} 
+\end{Def}
+
+\begin{proof}
+    \begin{MyList}
+        \item $z_1 = \rho_1(\cos \PHI_1 + i\sin \PHI_1), z_2 = \rho_2(\cos \PHI_2 + i\sin \PHI_2)$ \\
+        \begin{gather*}
+            |z_1 + z_2|^2 = |\rho_1 \cos \PHI_1 + \rho_2 \cos \PHI_2 + i(\rho_1 \sin \PHI_1 + \rho_2 \sin \PHI_2)|^2 = \\
+            = \rho_1^2 \cos^2 \PHI_1 + 2 \rho_1 \rho_2 \cos \PHI_1 \cos \PHI_2 + \rho_2^2 \cos^2 \PHI_2 + \rho_1^2 \sin^2 \PHI_1 + 2 \rho_1 \rho_2 \sin \PHI_1 \sin \PHI_2 + \rho_2^2 \sin^2 \PHI_2 = \\
+            = \rho_1^2 + 2\rho_1 \rho_2 \cos(\PHI_1 - \PHI_2) = \rho_2^2 \leqslant \rho_1^2 + 2\rho_1 \rho_2 + \rho_2^2 = (\rho_1 + \rho_2)^2 = (|z_1| + |z_2|)^2
+        \end{gather*}
+
+        \item \[
+            |z_1| = |z_1 - z_2 + z_2| \leqslant |z_1 - z_2| + |z_2| \SO |z_1| - |z_2| \leqslant |z_1 - z_2| \SO ||z_1| - |z_2|| \leqslant |z_1 - z_2|
+        \]
+    \end{MyList}
+\end{proof}
+
+\begin{Rem}
+    $|z_1 + z_2| = |z_1| + z_2| \EQ z_1 \parallel z_2$ 
+\end{Rem}
+
+\Pagebreak
+\begin{Thm}[Умножение комплексных чисел в тригонометрической форме]
+    $z_1 = \rho_1 (\cos \PHI_1 + i\sin \PHI_1), z_2 = \rho_2 (\cos \PHI_2 + i\sin \PHI_2)$. Тогда 
+    \[z_1 \cdot z_2 = \rho_1 \cdot \rho_2 (\cos (\PHI_1 + \PHI_2) + i\sin (\PHI_1 + \PHI_2))\] 
+\end{Thm}
+
+\begin{proof}
+    Достаточно перемножить, заметить формулу косинуса суммы и синуса суммы
+\end{proof}
+
+\begin{Cons}[Формула Муавра]
+    $z = \rho (\cos \PHI + i\sin \PHI) \SO z^n = \rho^n(\cos n\PHI + i\sin n\PHI)$ 
+\end{Cons}
+
+\begin{proof}
+    \begin{MyList}
+        \item $n \geqslant 0$. По индукции: $n = 1$ очевидно. \\
+        $n - 1 \to n:$
+        \[z^n = z^{n - 1} \cdot z = \rho^{n - 1}(\cos (n - 1)\PHI + i\sin(n - 1)\PHI) \cdot \rho(\cos \PHI + i\sin\PHI) = \rho^n(\cos n\PHI + i\sin n\PHI)\] 
+
+        \item $n < 0$. Пусть $n = -m, m > 0$. Тогда
+        \[z^n = \frac{1}{z^m} = \frac{1}{\rho^m(\cos m\PHI + i\sin m\PHI)} = \rho^{-m} \frac{\cos m\PHI - i\sin m\PHI}{1} = \rho^n (\cos n\PHI + i\sin n\PHI)\]
+    \end{MyList}
+\end{proof}
+
+\Subsection{Извлечение корней из комплексных чисел}
+
+\begin{Def}
+    Корнем $n$-й степени из комплексного числа $z$ называется $w \in \C : w^n = z$ 
+\end{Def}
+
+\begin{Thm}
+    $\forall z \in \C^* \ \exists n$ корней $n$-й степени $z_k, k = 0, 1, ..., n - 1$
+    \[z_k = \sqrt[n]{\rho}(\cos \frac{\PHI + 2\pi k}{n} + i\sin \frac{\PHI + 2\pi k}{n}), z = \rho(\cos \PHI + i\sin \PHI)\]  
+\end{Thm}
+
+\begin{proof}
+    $w^n = z, w = R(\cos \Theta + i \sin \Theta)$ 
+    \begin{gather*}
+        \SO (w^n = z): R^n (\cos (n \Theta) + i\sin (n \Theta)) = \rho(\cos \PHI + i\sin \PHI) \SO \\
+        \SO R = \sqrt[n]{\rho}, \cos (n \Theta) = \cos \PHI, \sin(n \Theta) = \sin \PHI \SO \\
+        \SO n \Theta = \PHI + 2\pi k \SO \Theta = \frac{\PHI + 2\pi k}{n} \SO \text{ любой корень имеет вид } z_k
+    \end{gather*}
+\end{proof}
+
+\end{document}
