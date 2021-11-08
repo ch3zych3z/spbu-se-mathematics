@@ -227,6 +227,7 @@
 % Определяем ЗАГОЛОВКИ
 \def\SectionName{Дискретная математика}
 \def\AuthorName{Илья Дудников}
+\def\SEASON{Конспект лекций по дискретной математике, ПИ, 1 семестр}
 
 \newlength{\sectionvskip}
 \setlength{\sectionvskip}{0.5em}
@@ -241,20 +242,25 @@
 %    \addtocontents{toc}{\protect\addvspace{-5pt}}%
     \addcontentsline{toc}{section}{\arabic{section}. #2}
 %  }{}
-  
+  \begin{center}
+    {\Large \bf Раздел \NO{\arabic{section}}: #2} \\ 
+    \vspace{\sectionvskip}
+    \ifthenelse{\equal{#3}{}}{}{{\large #3}\\}
+  \end{center}
 
+  \LINE
 
   % Запомнили название и автора главы
   \gdef\SectionName{#2}
   \gdef\AuthorName{#4}
 
   % Заголовок страницы
-  \lhead{Конспект, \NAME}
+  \lhead{\SEASON}
   \chead{}
   \rhead{\SectionName}
   \renewcommand{\headrulewidth}{0.4pt}
-    
-  \lfoot{}
+
+  \lfoot{Глава \NO{\arabic{section}}.}
   \cfoot{\thepage\t{/}\pageref*{LastPage}}
   \rfoot{Автор: \AuthorName}
   \renewcommand{\footrulewidth}{0.4pt}
@@ -322,6 +328,9 @@
 \newcommand{\dkred}[1]{{\color{dkred}{#1}}}
 \newcommand{\blue}[1]{{\color{blue}{#1}}}
 \newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\DeclareMathOperator{\cov}{cov} 
+\DeclareMathOperator{\sign}{sign} 
 
 \begin{document}
 
@@ -663,7 +672,6 @@
     \[P(\text{оба белые}) = \frac{m - 1}{m + n - 1} \cdot \frac{m}{m + n}\]
 \end{Solution}
 
-\Pagebreak
 Свойства условной вероятности:
 \begin{MyList}
     \item $P(\Omega | B) = 1$
@@ -717,7 +725,6 @@
     Если $A_1, ..., A_n$ попарно-независимы, то они необязательно независимы в совокупности.
 \end{Rem}
 
-\Pagebreak
 \Subsection{Формула полной вероятности}
 
 \begin{Def}
@@ -920,5 +927,102 @@
     \item $E(X + Y) = E(X) + E(Y)$ 
     \item Если $X, Y$ -- независимые случайные величины, то $E(XY) = E(X) \cdot E(Y)$  
 \end{MyList}
+
+\Subsection{Дисперсия}
+
+\begin{Def}
+    $D(X) = \sum_{i=1}^{n} (X_i - E(X))^2$ -- дисперсия. 
+\end{Def}
+
+\begin{Rem}
+    $D(X) = E(X - E(X))^2 p_i$ 
+\end{Rem}
+
+Свойства дисперсии:
+\begin{MyList}
+    \item $D(X)  = E(X^2) - (E(X))^2$ 
+    \begin{proof}
+        $D(X) = \sum_{i=1}^{n} (X_i - E(X))^2 p_i = \sum_{i=1}^{n} X_i^2 p_i - \sum_{i=1}^{n} 2 X_i E(X) p_i + \sum_{i=1}^{n} (E(X))^2 p_i = E(X^2) - 2E(X) - E(X) + (E(X))^2 \cdot 1 = E(X^2) 0 (E(X))^2$ 
+    \end{proof}
+    \item $D(aX + b) = a^2 \cdot D(X)$
+    \item $D(X + Y) + D(X) + D(Y)$ 
+    \begin{proof}
+        $D(X + Y) = E((X + Y)^2) - (E(X + Y))^2 = E(X^2) + 2E(XY) + E(Y^2) - (E(X))^2 - 2E(X)E(Y) - (E(Y))^2$.
+    \end{proof}
+\end{MyList}
+
+\begin{Def}
+    $m_k = E(X^k)$ -- $k$-й момент. \\
+    $E(|X|^k)$ -- $k$-й абсолютный момент. \\
+    $M_k = E(X - E(X))^k$ -- центральный момент.
+\end{Def}
+
+\begin{Def}
+    $\cov (X, Y) = E(X - E(X))(Y - E(Y))$ \\
+    $\cov (X, Y) = E(XY) - E(X) \cdot E(Y)$  
+\end{Def}
+
+\begin{Rem}
+    $\cov (X + Z, Y) + \cov(X, Y) + \cov(Z, Y)$ \\
+    $\cov (X, Y + Z) = \cov(X, Y) + \cov(X, Z)$ 
+\end{Rem}
+
+\begin{Def}
+    Коэффициент корелляции случайных величин $X$ и $Y$ 
+    \[r(X, Y) = \frac{\cov (X, Y)}{\sqrt{D(X) \cdot D(Y)}}\]
+\end{Def}
+
+Свойства:
+
+\begin{MyList}
+    \item $r(aX + b, cY + d) = \sign (ac) r(X, Y)$ 
+\end{MyList}
+
+\Subsection{Производящие функции}
+\begin{Def}
+    Пусть $X$ -- случайная величина, принимающая значения $Z_+$ с вероятностями $p_0, p_1, ...$ \\
+    Рассмотрим функцию $\psi (z) = \sum_{k=1}^{\infty} z^kp_k = E(z^X), |z| \leqslant 1, z \in \mathbb{C}$. Заметим, что 
+    \begin{MyList}
+        \item $|\psi(z)| = |\sum_{k=1}^{\infty} z^k p_k| \leqslant \sum_{k=1}^{\infty} |z^k|p_k \leqslant \sum_{k=1}^{\infty} p_k = 1$
+        \item $p_n = \frac{1}{n!} \cdot \frac{d^n}{dz^n}\psi(z) |_{z = 0}$
+        \item $ \frac{d^n}{dz^n} \psi (z)|_{z = 1} = E(X(X - 1)...(X - n + 1))$
+        \begin{proof}
+            $ \frac{d^n}{dz^n} \psi(z) = \sum_{k=n}^{\infty} k(k - 1)...(k - n + 1) \cdot z^{k - n} p_k$ \\
+            $D(X) = E(X^2) - (E(X))^2 = E(X(X - 1)) + E(X) - (E(X))^2$. Заметим, что $E(X) = \psi ' (z), E(X(X - 1)) = \psi '' (z)$  
+        \end{proof}
+    \end{MyList}
+\end{Def}
+
+\begin{Example}
+    $\psi = \frac{1}{4}(1 + z)^2 = \frac{1}{4} + \frac{1}{2}z + \frac{1}{4}z^2$ 
+\end{Example}
+
+\Subsection{Характеристические функции}
+
+\begin{Def}
+    $\PHI(t) = E(e^{itX})$. Для дискретной случайной величины:
+    \[\PHI(t) = \sum_{k=0}^{\infty} e^{itX}p_k\]
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item $\PHI_{aX + b}(t) = e^{itb} \cdot \PHI_X(at)$ 
+    \item $\PHI_{X + Y} (t) = \PHI_X (t) \cdot \PHI_Y (t)$
+    \item $E(X^k) = (-i)^k \frac{d^k}{dt^k} \cdot \PHI(t) |_{t = 0}$  
+\end{MyList}
+
+\Subsection{Нормальное распределение}
+
+$P(X) = \frac{1}{\sqrt{2\pi \sigma}} \exp \left(- \frac{(X - a)^2}{\sigma^2}\right)$
+
+\begin{Def}
+    $N(a, \sigma^2)$ -- нормальное распредение. \\
+    $N(0, 1)$ -- стандартное нормальное распределение. 
+    \[\PHI(t) = \exp \left(-ita - \frac{\sigma^2 t^2}{2}\right), E(X) = a, D(X) = \sigma^2\]
+\end{Def}
+
+\begin{Rem}
+    $P(|X - a| < 3\sigma) = \Phi(3) \thicksim 0.997$ 
+\end{Rem}
 
 \end{document}
