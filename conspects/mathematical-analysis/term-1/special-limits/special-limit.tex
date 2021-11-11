@@ -1,0 +1,473 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{MnSymbol}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/27/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Замечательные пределы}{}{Илья Дудников}
+
+\begin{Def}
+    Первый замечательный предел:
+    \[\lim_{x \to \infty} \frac{\sin x}{x} = 1\]    
+\end{Def}
+
+\begin{proof}
+    $\sin x < x < \tg x$ на $\left(0, \frac{\pi}{2}\right)$, $\cos x < \frac{\sin x}{x} < 1$ \\
+    $\cos x, \frac{\sin x}{x}, 1$ -- четные функции, значит верно и для $x \in \left(-\frac{\pi}{2}, 0\right)$. Перейдем к пределу при $x \to 0$
+    \[1 \leqslant \lim_{x \to 0} \frac{\sin x}{x} \leqslant 1 \SO \exists \lim_{x \to 0} \frac{\sin x}{x} = 1\]
+\end{proof}
+
+\begin{Cons}
+    $\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}$ 
+\end{Cons}
+
+\begin{proof}
+    $\cos 2\alpha = 1 - 2\sin^2 \alpha \EQ \sin^2 \alpha = \frac{1 - \cos 2\alpha}{2}$ 
+    \[ \frac{1 - \cos x}{2} = \frac{2 \sin^2 \frac{x}{2}}{x^2} = \frac{1}{2} \cdot \frac{\sin^2 \frac{x}{2}}{\left(\frac{x}{2}\right)^2} = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}}^2 \to \frac{1}{2}\right)\]
+\end{proof}
+
+\begin{Cons}
+    $\lim_{x \to 0} \frac{\tg x}{x} = 1$ 
+\end{Cons}
+
+\begin{proof}
+    \[\frac{\tg x}{x} = \frac{\sin x}{x} \cdot \frac{1}{\cos x} \xrightarrow[x \to 0]{} 1\]
+\end{proof}
+
+\begin{Cons}
+    $\lim_{x \to 0} \frac{\arcsin x}{x} = 1$ 
+\end{Cons}
+
+\begin{proof}
+    $\frac{\sin x}{x} = \frac{y}{\arcsin y}$, $y = \sin x$ в окрестности $x \in (-\varepsilon, \varepsilon) \SO \arcsin y = x$. 
+    $\arcsin x$ непрерывна в нуле, в $0$ равен $0$. $ \frac{\sin x}{x}$ непрерывна в $(-\varepsilon, \varepsilon) \setminus \{0\}$  
+
+    \[g(x) = \begin{cases}
+        \frac{\sin x}{x}, x \neq 0 \\
+        1, x = 0
+    \end{cases} \text { -- непрерывна на } \R\]
+    $\SO$ по теореме о непрерывности композиции $\frac{y}{\arcsin y} \xrightarrow[y \to 0]{} 1$  
+\end{proof}
+
+\begin{Cons}
+    $\lim_{x \to 0} \frac{\arctg x}{x} = 1$ 
+\end{Cons}
+
+\begin{proof}
+    Аналогично предыдущему следствию.
+\end{proof}
+
+\begin{Def}
+    Второй замечательный предел
+    \begin{align*}
+        &\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e \\
+        &\lim_{x \to -\infty} \left(1 + \frac{1}{x}\right)^x = e \\
+        &\lim_{x \to 0}(1 + x)^{\frac{1}{x}} = e
+    \end{align*}
+\end{Def}
+
+\begin{proof}
+    $f(x) = \left(1 + \frac{1}{x}\right)^x$ задана на $\R \setminus [-1, 0]$. Пусть $x_n \to +\infty$. Нужно доказать, что $f(x_n) \to e$.
+    
+    \begin{MyList}
+        \item Рассмотрим $\{x_n\}$ из $\N$. $f(x_n) \to e$ как подпоследовательность.
+        \item $\{x_n\}$ из $\R$. Начиная с некоторого номера $x_n \geqslant 1$.
+        \[\left(1 + \frac{1}{[x_n] + 1}\right)^{[x_n]} \leqslant \left(1 + \frac{1}{x_n}\right)^{x_n} \leqslant \left(1 + \frac{1}{[x_n]}\right)^{[x_n] + 1}\]
+        Очевидно, $[x_n] \leqslant x_n \leqslant [x_n] + 1$. Тогда
+        \[\frac{1}{1 + \frac{1}{[x_n] + 1}} \cdot f([x_n] + 1) \leqslant f(x_n) \leqslant f([x_n]) \cdot \left(1 + \frac{1}{[x_n]}\right)\] 
+        $\{[x_n]\}_{n = 1}^\infty$ -- последовательность из $\N$. Выполним предельный переход в неравенстве.
+        \[e \leqslant \lim_{n \to \infty} f(x_n) \leqslant e \SO \exists \lim_{n \to \infty} f(x_n) = e\]  
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    Третий замечательный предел (обычно не нумеруется).
+    \[\lim_{x \to 0} \frac{\log_a (1 + x)}{x} = \frac{1}{\ln a}, a > 0, a \neq 1\]
+\end{Def}
+
+\begin{proof}
+    $\log_a (1 + x) = \frac{\ln (1 + x)}{\ln a}$ 
+    \[\lim_{x \to 0} \frac{\ln (1 + x)}{x} = \lim_{x \to 0} \ln (1 + x)^{\frac{1}{x}} = \ln e = 1\]
+\end{proof}
+
+\begin{Def}
+    Четвертый замечательный предел (обычно не нумеруется)
+    \[\lim_{x \to 0} \frac{(1 + x)^\alpha - 1}{x} = \alpha, \alpha \in \R\]
+\end{Def}
+
+\begin{proof}
+    $\alpha = 0$ тривиально. \\
+    $\alpha \neq 0$. $x_n \to 0, x_n \neq 0, |x_n| < 1 \ \forall n$. Обозначим 
+    \[y_n = (1 + x_n)^\alpha - 1 \xrightarrow[n \to \infty]{} 0, y_n \neq 0 \SO \alpha \ln(1 + x_n) = \ln(1 + y_n)\]   
+    Тогда
+    \[ \frac{(1 + x_n)^\alpha - 1}{x_n} = \frac{y_n}{x_n} = \frac{y_n}{\ln (1 + y_n)} \cdot \frac{\alpha \ln(1 + x_n)}{x_n} \to \alpha\]
+\end{proof}
+
+\begin{Def}
+    Пятый замечательный предел (обычно не нумеруется)
+    $\lim_{x \to 0} \frac{a^x - 1}{x} = \ln a, a > 0$ 
+\end{Def}
+
+\begin{proof}
+    $a = 1$ тривиально. \\
+    $a \neq 1$. $x_n \to 0, x_n \neq 0$
+    \[y_n = a^{x_n} - 1 \to 0, y_n \neq 0, \ln (1 + y_n) = x_n \cdot \ln a\]  
+    \[ \frac{a^{x_n} - 1}{x_n} = \frac{y_n}{x_n} = \frac{y_n}{\ln(1 + y_n)} \cdot \frac{x_n \ln a}{x_n} \xrightarrow[n \to \infty]{} \ln a\]
+\end{proof}
+
+\Subsection{Сравнение функций}
+
+\begin{Def}
+    $f, g : D \to \R, D \subset \R, x_0$ -- предельная точка $D$ и $\exists \PHI : D \to \R : f(x) = \PHI (x) \cdot g(x) $ в $\dot{V}(x_0) \cap D$.
+    
+    \begin{MyList}
+        \item Если $\PHI(x)$ ограничена на $\dot{V}(x_0) \cap D$, то говорят, что $f$ ограничена по сравнению с $g$ при $x \to x_0$
+        \[f(x) = O(g(x)), x \to x_0\]
+        \item Если $\PHI(x) \xrightarrow[x \to x_0]{} 0$, то говорят, что $f$ бесконечно малая по сравнению с $g$ при $x \to x_0$
+        \[f(x) = o(g(x)), x \to x_0\]
+        \item Если $\PHI(x) \xrightarrow[x \to x_0]{} 1$, то говорят, что $f$ и $g$ асимптотически равны.
+        \[f(x) \thicksim g(x), x \to x_0\]
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    \begin{MyList}
+        \item $ \frac{f(x)}{g(x)}$ ограничена в $\dot{V} \cap D$
+        \item $\lim_{x \to x_0} \frac{f(x)}{g(x)} = 0$
+        \item $\lim_{x \to x_0} \frac{f(x)}{g(x)} = 1$    
+    \end{MyList}
+\end{Rem}
+
+\end{document}
