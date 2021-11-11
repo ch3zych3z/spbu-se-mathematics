@@ -1,0 +1,518 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{MnSymbol}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 11/10/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\def\SEASON{}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  \begin{center}
+    {\Large \bf Раздел \NO{\arabic{section}}: #2} \\ 
+    \vspace{\sectionvskip}
+    \ifthenelse{\equal{#3}{}}{}{{\large #3}\\}
+  \end{center}
+
+  \LINE
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{\SEASON}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+
+  \lfoot{Глава \NO{\arabic{section}}. #3.}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\begin{Rem}
+    Если $f$ дифференцируема в точке $a$, то $f$ непрерывна в точке $a$.
+    \begin{proof}
+        \[f(x) - f(a) = f'(a)(x - a) + o(x - a), x \to a \SO f(x) \xrightarrow[x \to a]{} f(a)\]
+    \end{proof}
+    Обратное не выполняется. Например, $f(x) = |x|$ 
+\end{Rem}
+
+\Subsection{Правила дифференцирования}
+
+\begin{Thm}[Производная композиции]
+    $f: \langle A, B\rangle \to \langle C, D\rangle, g: \langle C, D\rangle \to \R, a \in \langle A, B\rangle$.
+    Если $f$ дифференцируема в точке $a$, $g$ дифференцируема в точке $f(a)$, то $g \circ f$ дифференцируема в точке $a$ и 
+    \[(g \circ f)'(a) = g'(f(a)) \cdot f'(a)\] 
+\end{Thm}
+
+\begin{proof}
+    $\exists F : \langle A, B\rangle \to \R, F(a) = f'(a)$ и $f(x) - f(a) = F(x)(x - a), x \in \langle A, B\rangle$, $F$ непрерывна в точке $a$ \\
+    $\exists G : \langle C, D\rangle \to \R, G(f(a)) = g'(f(a))$ и $g(y) - g(f(a)) = G(y)(y - f(a)), y \in C, D\rangle$, $G$ непрерывна в точке $f(a)$ 
+    Подставим $y = f(x)$
+    \[g(f(x)) - g(f(a)) = G(f(x))(f(x) - f(a)) = G(f(x))F(x)(x - a) = H(x)(x - a)\]
+    $H(x)$ -- непрерывна в точке $x = a$, $H : \langle A, B\rangle \to \R$.
+    Тогда $(g \circ f)'(a) = H(a) = G(f(a)) \cdot F(a) = g'(f(a)) \cdot f'(a)$.
+\end{proof}
+
+\begin{Rem}
+    Это "правило цепочки".
+    \[(g \circ h \circ f)'(a) = g'(h \circ f(a)) \cdot h'(f(a)) \circ f'(a)\]
+\end{Rem}
+
+\begin{Thm}[Арифметические операции]
+    $f, g: \langle A, B\rangle \to \R, a \in \langle A, B\rangle, f, g$ -- дифференцируемы в точке $a$. Тогда
+
+    \begin{MyList}
+        \item $\forall \alpha, \beta \in \R$, то $\alpha f + \beta g$ -- дифференцируемая в точке $a$ функция и 
+        \[(\alpha f + \beta g)'(a) = \alpha f'(a) + \beta g'(a)\]
+        \item $f \cdot g$ -- дифференцируема в точке $a$ и
+        \[(f \cdot g)'(a) = f'(a) \cdot g(a) + f(a) \cdot g'(a)\]
+        \item если $g(a) \neq 0$, то $\frac{f}{g}$ -- дифференцируема в точке $a$ и
+        \[\left(\frac{f}{g}\right)'(a) = \frac{f'(a) \cdot g(a) - f(a) \cdot g'(a)}{g^2(a)}\]
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $(\alpha f + \beta g)'(a) = \lim_{x \to a} \frac{(\alpha f(x) + \beta g(x)) - (\alpha f (a) + \beta g(a))}{x - a} =$ 
+        \[= \lim_{x \to a} \left(\alpha \cdot \frac{f(x) - f(a)}{x - a} + \beta \cdot \frac{g(x) - g(a)}{x - a}\right) = \alpha \lim_{x \to a} \frac{f(x) - f(a)}{x - a} + \beta \lim_{x \to a} \frac{g(x) - g(a)}{x - a} = \alpha f'(a) + \beta g'(a)\]
+        
+        \item Докажем частный случай $g = f$, т.е. докажем $(f^2)'(a) = 2f'(a)f(a)$. 
+        Возьмем $h(t) = t^2$, тогда $f^2(x) = (h \circ f)(x)$. Тогда по предыдущей теореме
+        \[(f^2)'(a) = h'(f(a)) \cdot f'(a) = 2 \cdot f(a) \cdot f'(a)\]
+        Вернемся к общей формуле:
+        \[f \cdot g = \frac{1}{4}((f + g)^2 - (f - g)^2) \SO (f \cdot g)'(a) = \frac{1}{4}((f + g)^2 - (f - g)^2)'(a) = \frac{1}{4} (2 \cdot (f(a) + g(a)) \cdot (f'(a) + g'(a)) - 2(f(a) - g(a)) \cdot (f'(a) - g'(a))) =\] 
+        \[= \frac{1}{2}(2 f(a) \cdot g'(a) + 2f'(a) \cdot g(a)) = f(a)g'(a) + f'(a)g(a)\]
+
+        \begin{Ex}
+            Получить эту формулу непосредственно из определения производной
+        \end{Ex}
+
+        \item $\left(\frac{1}{g}\right)'(a) = - \frac{g'(a)}{g^2(a)}$. Возьмем $h(t) = \frac{1}{t} \SO \frac{1}{g(x)} = (h \circ g)(x)$ 
+        \[\left(\frac{1}{g}\right)'(a) = h'(g(a)) \cdot g'(a) = -\frac{1}{g^2(a)} \cdot g'(a)\]
+        Теперь $f \cdot \frac{1}{g}$.
+        \[\left(\frac{f}{g}\right)'(a) = \left(f \cdot \frac{1}{g}\right)'(a) = f'(a) \cdot \frac{1}{g(a)} + f(a) \cdot - \frac{g'(a)}{g^2(a)} = \frac{f'(a)g(a) - f(a)g'(a)}{g^2(a)}\]
+    \end{MyList}
+\end{proof}
+
+\begin{Cons}
+    \[(f \cdot (h \cdot g))'(a) = f'(a) \cdot (h \cdot g)(a) + f(a) \cdot (h \cdot g)'(a) = f'(a) \cdot h(a) \cdot g(a) + f(a)(h'(a)g(a) + h(a)g'(a)) = \] 
+    \[= f'(a) h(a)g(a) + f(a)h'(a) + g(a) + f(a)h(a)g'(a)\]
+\end{Cons}
+
+\begin{Thm}[Дифференцирование обратной функции]
+    $f$ -- строго монотонная непрерывная функция на $\langle A, B\rangle$, $a \in \langle A, B\rangle, f$ -- дифференцируема в точке $a$ и $f'(a) \neq 0$. 
+    Тогда $f^{-1} $ -- дифференцируема в точке $f(a)$ и $(f^{-1})'(f(a)) = \frac{1}{f'(a)}$.
+    
+    \begin{Rem}
+        Геометрический смысл. Рисунок: \TODO 
+    \end{Rem}
+\end{Thm}
+
+\begin{proof}
+    $g(x) = f^{-1}(x), f(a) = b$. $f: \langle A, B\rangle \xrightarrow{\text{на}} \langle C, D\rangle, g : \langle C, D\rangle \xrightarrow{\text{на}} \langle A, B\rangle$ -- непрерывны.
+    
+    $f$ -- дифференцируема, тогда $\exists F(x) : \langle A, B\rangle$ непрерывная в точке $a$ 
+    \[F(a) = f'(a), f(x) - f(a) + F(x)(x - a)\]
+    $f$ строго монотонна $\SO \forall x \neq a \ f(x) \neq f(a) \SO F(x) \neq 0$ если $x \neq a$ и по условию $f'(a) = F(a) \neq 0$,
+    т.е. $F(x) \neq 0 \ \forall x \in \langle A, B\rangle$ 
+
+    \[x = g(y) \ (y = f(x))\]
+    Тогда $y - b = f(x) - f(a) = F(x)(x - a) = F(g(y))(g(y) - g(b)) \SO g(y) - g(b) = \frac{1}{F(g(y))} (y - b) = H(y)(y - b)$ \\
+    $H$ определена на $\langle C, D\rangle$, непрерывна в точке $b = f(a) \SO g'(b) = H(b) = \frac{1}{F(g(b))} = \frac{1}{F(a)} = \frac{1}{f'(a)}$ 
+\end{proof}
+
+\Subsection{Формулы для вычисления производных}
+
+$f'(a), a \in E$ $a \mapsto f'(a)$
+
+\begin{MyList}
+    \item $f(x) \equiv 1, a \in \R$
+    \[f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x - a} = \lim_{x \to a} \frac{1 - 1}{x - a} = 0\]
+    
+    \item $f(x) = b^x, b > 0, a \in \R$
+    \[f'(x) = \lim_{x \to a} \frac{b^x - b^a}{x - a} = \lim_{x \to a} b^a \cdot \frac{b^{x - a} - 1}{x - a} = b^a \cdot \ln a\]
+    В частности, $(e^x)' = e^x$
+
+    \item $f(x) = \log_b x, b > 0, b \neq 1, a \in (0, +\infty)$
+    \[\lim_{x \to a} \frac{\log_b x - \log_b a}{x - a} = \lim_{x \to a} \frac{\log_b \frac{x}{a}}{x - a}\]
+    \[\frac{x}{a} \xrightarrow[x \to a]{} 1 \SO \log_b \frac{x}{a} = \frac{\ln \frac{x}{a}}{\ln b} = \ln \frac{\left(1 + \left(\frac{x}{a} - 1\right)\right)}{\ln b} \thicksim \frac{\frac{x}{a} - 1}{\ln b}\]
+    \[\SO \lim_{x \to a} \frac{\log_b \frac{x}{a}}{x - a} = \lim_{x \to a} \frac{\frac{x}{a} - 1}{(x - a)\ln b} = \lim_{x \to a} \frac{x - a}{a(x - a)\ln b} = \frac{1}{a\ln b}\]
+    Значит
+    \[(\log_b x)' = \frac{1}{x\ln b}\]
+    В частности, $(\ln x)' = \frac{1}{x}$ 
+
+    \item $f(x) = x^\alpha, \alpha \neq 0$
+    \subitem $\alpha \in \N, x \in \R$
+    \subitem $\alpha \in \Z \setminus \N, x \in \R \setminus \{0\}$ 
+    \subitem $\alpha \in \Q, \alpha = \frac{m}{2n + 1}, n \in \N, x \in \R (\alpha > 0), x \in \R \setminus \{0\}(\alpha < 0)$ 
+    \subitem $\alpha = \frac{m}{2n}, \alpha \in \R \setminus \Q, x \in [0, +\infty) (\alpha > 0), x \in (0, +\infty) (\alpha < 0)$
+    
+    \[\lim_{x \to a} \frac{x^\alpha - a^\alpha}{x - a} = \lim_{x \to a} a^\alpha \cdot \frac{\left(\frac{x}{a}\right)^\alpha - 1}{x - a} = \lim_{x \to a} a^\alpha \frac{\left(1 + \left(\frac{x}{a} - 1\right)\right)^\alpha - 1}{x - a} = \lim_{x \to a} a^\alpha \cdot \frac{\alpha \cdot \left(\frac{x}{a} - 1\right)}{x - a} = \]
+    \[= \lim_{x \to a} a^\alpha \cdot \frac{\alpha(x - a)}{a(x - a)} = \alpha \cdot a^{\alpha - 1}\]
+
+    \[f'(0) = \lim_{x \to 0} \frac{x^\alpha}{x} = \lim_{x \to 0} x^{\alpha - 1} = \begin{cases}
+        0, \alpha > 1 \\
+        1, \alpha = 1 \\
+        \infty, \alpha < 1
+    \end{cases}\]
+    Выводы: $(x^\alpha)' = \alpha \cdot x^{\alpha - 1}$ (с точностью до области определения функции).
+
+    \item $f(x) = \sin x, a \in \R$ 
+    \[f'(a) = \lim_{x \to a} \frac{\sin x - \sin a}{x - a} = \lim_{x \to a} \frac{2 \sin \frac{x - a}{2} \cos \frac{x + a}{2}}{x - a} = \lim_{x \to a}2 \frac{ \frac{x - a}{2} \cdot \cos a}{x - a} = \cos a\]
+    
+    \item $f(x) = \cos x$
+    \[(\cos x)' = \left(\sin \left(\frac{\pi}{2} - x\right)\right)' = \cos \left(\frac{\pi}{2} - x\right) \cdot \left(\frac{\pi}{2} - x\right) = -\sin x\]
+
+    \item $f(x) = \tg x, a \neq \frac{\pi}{2} + \pi k, k \in \Z$ 
+    \[(\tg x)' = \left( \frac{\sin x}{\cos x}\right)' = \frac{(\sin x)' \cos x - \sin x (\cos x)'}{\cos^2 x} = \frac{\cos^2 x + \sin^2x}{\cos^2 x} = \frac{1}{\cos^2 x}\]
+
+    \item $f(x) = \ctg x, a \neq \pi k, k \in \Z$ 
+    \[(\ctg x)' = \left(\tg \left(\frac{\pi}{2} - x\right)\right)' = \frac{1}{\cos \left(\frac{\pi}{2} - x\right)} \cdot \left(\frac{\pi}{2} - x\right)' = -\frac{1}{\sin^2 x}\]
+
+    \item $f(x) = \arcsin x, x \in [-1, 1]$. Пусть $g(y) = \sin y \SO b = \arcsin a, g'(b) = \cos b > 0$, т.к. $b \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ 
+    \[f'(a) = \frac{1}{g'(b)} = \frac{1}{\cos b} = \frac{1}{\sqrt{1 - \sin^2 b}} = \frac{1}{\sqrt{1 - a^2}}\]
+    \[(\arcsin x)' = \frac{1}{\sqrt{1 - x^2}}, x \in (-1, 1)\]
+
+    \item $(\arccos x)' = \left(\frac{\pi}{2} - \arcsin x\right) = -\frac{1}{\sqrt{1 - x^2}}, x \in (-1, 1)$
+    \item $f(x) = \arctg x, g(y) = \tg y, b \arctg a, b \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$
+    \[f'(a) = \frac{1}{g'(b)} = \cos^2 b = \frac{1}{\tg^2 b + 1} = \frac{1}{a^2 + 1}\]
+    \[(\arctg x)' = \frac{1}{1 + x^2}\]
+
+    \item $(\arcctg x)' = \left(\frac{\pi}{2} - \arctg x\right)' = -\frac{1}{x^2 + 1}$ 
+\end{MyList} 
+
+\Subsection{Теоремы о средних}
+
+\begin{Thm}[Теорема Ферма]
+    $a \in (A, B), f : \langle A, B\rangle \to \R$ -- дифференцируема в точке $a$. 
+    Если $f(a) = \max_{a \in \langle A, B\rangle} f$ или $f(a) = \min_{a \in \langle A, B\rangle} f$, то $f'(a) = 0$.
+    
+    Геометрический смысл: Картинка \TODO. 
+\end{Thm}
+
+\begin{proof}
+    $f(a) = \max_{\langle A, B\rangle} \SO f(x) - f(a) \leqslant 0 \ \forall x \in \langle A, B\rangle$. 
+    Если $x > a$, то $ \frac{f(x) - f(a)}{x - a} \leqslant 0$ 
+    \[f_+'(a) = \lim_{x \to a+} \frac{f(x) - f(a)}{x - a} \leqslant 0\] 
+    Если $x < a$, то $ \frac{f(x) - f(a)}{x - a} \geqslant 0$ 
+    \[f_-'(a) = \lim_{x \to a-} \frac{f(x) - f(a)}{x - a} \geqslant 0\]
+    $f$ дифференцируема в точке $a \SO f_-'(a) = f_+'(a) = f'(a) \SO f'(a) = 0$ 
+\end{proof}
+\end{document}
