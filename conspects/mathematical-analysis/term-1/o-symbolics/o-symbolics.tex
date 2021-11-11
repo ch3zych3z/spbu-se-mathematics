@@ -1,0 +1,495 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{MnSymbol}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 11/03/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Subsection{О-символика}
+
+\begin{Def}
+    Пусть $f \thicksim g, f \thicksim h, x \to x_0$. Если $f - h = o(f - g)$, то говорят асимптотическое равенство $f \thicksim h$ точнее,
+    чем $f \thicksim g$.
+\end{Def}
+
+Пусть $f: D \to \R, D \subset \R, x_0$ -- предельная точка $D$.
+Пусть задана система функций $\{g_k\}_{k = 0}^N : \forall k \in [0, N - 1] \cap \Z_+ \to g_{k + 1}(x) = o(g_k(x)), x \to x_0$
+
+\[f(x) = \sum_{k=0}^{N} c_k \cdot g_k(x) + o(g_N(x))\] 
+
+Многочлены получаются, если $g_k(x) = (x - x_0)^k$.
+
+Если $f(x) \thicksim C \cdot (x - x_0)^k (C \neq 0)$, то $C \cdot (x - x_0)^k$ -- главная степенная часть.
+
+\begin{Thm}[О единственности асимптотического разложения]
+    $D \in \R, x_0$ -- предельная точка $D$, $n \in \Z_+; f, g_k : D \to \R, g_{k + 1}(x) = o(g_k(x)), x \to x_0 \ \forall k = 0, ..., n - 1$
+    и $\forall V(x_0) \ \exists $ точка в $\dot{V}(x_0) : $ в нкй $g_n$ не ноль. Тогда если существует асимптотическое разложение $f$ по системе функций $\{g_k\}$,
+    то оно единственно.   
+\end{Thm}
+
+\begin{proof}
+    Пусть не единственное. Тогда $\exists c_k, d_k, k = 0, ..., n : \exists i \ c_i \neq d_i$.
+    
+    $f(x) = \sum_{k=0}^{n} c_k \cdot g_k(x) + o(g_n(x))$ и $f(x) = \sum_{k=0}^{n} d_k \cdot g_k(x) + o(g_n(x))$ при $x \to x_0$.
+    
+    Т.к. $g_{k + 1}(x) = o(g_k(x))$, то $g_{k + 1}(x) = o(g_l(x)) \ \forall l \leqslant k$ при $x \to x_0$.
+
+    Обозначим $E_k = \{x : g_k(x) \neq 0, k = 0, ..., n\}$. Если $g_k = 0$ на $V(x_0)$, то $g_{k + 1} = 0$ на $V(x_0), g_n = 0$ на $V(x_0)$. 
+    \[g_{k + 1} = o(g_k) \EQ \exists \PHI : g_{k + 1} = \PHI \cdot g_k\]
+
+    Если $x_0$ -- предельная точка $E_{k_0}$, то она предельная точка всех $E_k$.
+    Пусть $m$ -- наименьший номер $: c_m \neq d_m$. Тогда 
+    \[f(x) = \sum_{k=0}^{m} c_k g_k(x) = o(g_m(x)), f(x) = \sum_{k=0}^{m} d_k g_k(x) + o(g_m(x))\]
+    Вычтем: $0 = (c_m - d_m) g_m(x) + o(g_m(x))$. Поделим на $g_m(x)$ 
+    \[0 = (c_m - d_m) + \frac{o(g_m(x))}{g_m(x)} \xrightarrow[x \to x_0]{} c_m - d_m \SO c_m = d_m\]
+\end{proof}
+
+\begin{Def}
+    $x_0 \in \R, f$ задана хотя бы на $\langle a, x_0)$ или $(x_0, b\rangle$ и действует в $\R$. 
+    Тогда прямая $x = x_0$ называется вертикальной асимптотой функции $f$, если 
+    \[\lim_{x \to x_0+}f(x) = \pm \infty \vee \lim_{x \to x_0-} f(x) = \pm \infty\] 
+\end{Def}
+
+\begin{Def}
+    $\langle a, +\infty) \subset D \subset \R, f : D \to \R, \alpha, \beta \in \R$. 
+    Прямая $y = \alpha x + \beta$ -- наклонная асимптота $f$ при $x \to +\infty$, если $f(x) = \alpha x + \beta + o(1)$ при $x \to +\infty$.
+\end{Def}
+
+\begin{Def}
+    При $x \to -\infty$ аналогично.
+\end{Def}
+
+\begin{Thm}[Уравнение наклонной асимптоты]
+    $\langle a, +\infty) \subset D \subset \R, f : D \to \R$. $\alpha, \beta \in \R$. \\
+    Прямая $y = \alpha x + \beta$ является асимптотой $f$ при $x \to +\infty \EQ \alpha = \lim_{x \to +\infty} \frac{f(x)}{x}, \beta = \lim_{x \to +\infty} (f(x) - \alpha x)$    
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". По определению $f(x) = \alpha x + \beta + \PHI(x), \PHI \xrightarrow[x \to +\infty]{} 0$.
+    Тогда $ \frac{f(x)}{x} = \alpha + \frac{\beta}{x} + \frac{\PHI(x)}{x}$
+    \[\lim_{x \to +\infty} \frac{f(x)}{x} = \alpha\]
+
+    $f(x) - \alpha x = \beta + \PHI(x)$ 
+    \[\lim_{x \to +\infty} (f(x) - \alpha x) = \beta\]
+
+    "$\Leftarrow$". Проделаем те же рассуждения "в обратную сторону".
+\end{proof}
+
+\Section{Дифференциальное исчисление}{}{Илья Дудников}
+
+Пусть $f: E \to \R, E \subset \R, a$ -- предельная точка $E, n \in \Z_+$. Хотим найти многочлен степени не выше $n$ $(P(x) = \sum_{k=0}^{n} c_k (x - x_0)^k)$
+\begin{equation}
+f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
+\end{equation}
+
+\begin{Rem}
+    Если такой многочлен существует, то он единственный.
+\end{Rem}
+
+\begin{proof}
+    Пусть $\exists P(x), Q(x)$, удовлетворяющие условию (1). Тогда 
+    \[0 = P(x) - Q(x) + o((x - a)^n)\]
+    Если $P(x) \neq Q(x)$, то $P(x) - Q(x) = \sum_{k=0}^{n} r_k (x - a)^k = r(x)$
+    \[\SO r(x) = o((x - a)^n), x \to a\]
+    $r(x) = r_m(x - a)^m + ... + r_n(x - a)^n, m \leqslant n, r_m \neq 0$
+    \[\SO \frac{r(x)}{(x - a)^m} = o((x - a)^{n - m}) \SO r_m \neq 0 = 0\] 
+\end{proof}
+
+\begin{Def}
+    Многочлен, удовлетворяющий условию (1) называется многочленом Тейлора функции $f$ в точке $a$ порядка $n$ $T_{a, n} f$ 
+\end{Def}
+
+\begin{Def}
+    Функция $f$ называется дифференцируемой в точке $a$ ( $\langle A, B\rangle \to \R, a \in (A, B)$ ),
+    если $\exists k \in \R : $ 
+    \[f(x) = f(a) + k(x - a) + o(x - a), x \to a\]
+\end{Def}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$, если $\exists \lim_{x \to a} \frac{f(x) - f(a)}{x - a} = K \in \R$, то $K$ называется производной 
+    функции $f$ в точке $a$. (Обозначение $f'(a), \frac{df}{dx}(a), D f(a)$ ) \\
+    $\Delta_a f = f(x) - f(a)$ -- приращение функции $f$ в точке $a$. \\
+    $x - a = \Delta_a x$.
+    \[f'(a) = \lim_{\Delta_a x \to 0} \frac{\Delta_a f}{\Delta_a x}\]
+\end{Def}
+
+\begin{Thm}
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Тогда равносильны три утверждения:
+    \begin{MyList}
+        \item $f$ дифференцируема в точке $a$
+        \item $\lim_{x \to a} \frac{f(x) - f(a)}{x - a}$ существует и равен $k$
+        \item $\exists F(x) : F: \langle A, B\rangle \to \R, F$ непрерывна в точке $a$, $F(a) = k$ и $f(x) - f(a) = F(x)(x - a), x \in \langle A, B\rangle$ 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $1) \SO 2)$. $\exists k : f(x) - f(a) = k(x - a) + o(x - a), x \to a$
+    \[ \frac{f(x) - f(a)}{x - a} = k + \frac{o(x - a)}{x - a} \to k\]
+    $2) \SO 3)$. 
+    \[F(x) = \begin{cases}
+        \frac{f(x) - f(a)}{x - a}, x \neq a \\
+        k, x = a
+    \end{cases}\]
+    из 2) следует непрерывность $F$ в точке $a$ 
+
+    $3) \SO 1)$. По 3) $\exists F : $
+    \[f(x) - f(a) = F(x)(x - a) = \EQ f(X) = f(a) + F(x)(x - a) = f(a) + k(x - a) + (F(x) - k) \cdot (x - a)\] 
+    $F(x) \xrightarrow[x \to a]{} F(a) = k \SO (F(x) - k)(x - a) = o((x - a))$  
+\end{proof}
+
+\Subsection{Связь с физикой}
+
+\[\lim_{\Delta t \to 0} \frac{\Delta S}{\Delta t} \text{ -- мгновенная скорость}\]
+
+\Subsection{Связь с геометрией}
+
+Рассмотрим функции: $l_k(x) = f(a) + k(x - a)$, графики -- прямые, проходящие через точку $(a; f(a))$
+\[f(x) - l_k(x) = f(x) - f(a) - k(x - a)\]
+Если $f(x)$ дифференцируема в точке $a$
+\[f(x) = f(a) + f'(a)(x - a) + o(x - a) \EQ f(x) - l_k(x) = (x - a) \cdot (f'(a) - k) + o(x - a)\]
+При $k = f'(a)$ разность есть $o(x - a)$.
+\[y = f(a) + f'(a)(x - a)\]
+касательная в точке $a$ к функции $f$. $\tg \alpha = f'(a)$.
+
+\Subsection{Бесконечные производные}
+
+\[\lim_{x \to a} \frac{f(x) - f(a)}{x - a} = +\infty \SO f'(a) = +\infty\]
+В таком случае $f$ не является дифференцируемой в точке $a$.
+
+Односторонняя производная:
+\[\exists \lim_{x \to a\pm} \frac{f(x) - f(a)}{x - a}\]
+
+\end{document}
