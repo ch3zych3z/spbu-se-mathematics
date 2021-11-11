@@ -1,0 +1,430 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекция, 10/06/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Дискретная математика}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+        Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Пределы функций}{}{Илья Дудников}
+
+\Subsection{$\varepsilon$-окрестности}
+
+\begin{Def}
+    $\varepsilon$-окрестность точки $a - V_\varepsilon (a) : (a - \varepsilon, a + \varepsilon)$ \\
+    проколотая $\varepsilon$-окрестность $a - \dot{V}_\varepsilon : (a - \varepsilon, a) \cup (a + \varepsilon)$   
+\end{Def}
+
+\begin{Def}
+    $D \subset \R, a \in \R$. Точка $a$ называется точкой сгущения $D$, если в любой окрестности $a$ найдется точка из $D$, отличная от $a$
+    \[\forall \dot{V}(a) \ \exists x \in D : x \in \dot{V}(a) \wedge x \neq a\]
+\end{Def}
+
+\begin{Example}
+    $D = [1, 2)$. Точки сгущения: $[1, 2]$ 
+\end{Example}
+
+\begin{Rem}
+    Точка сгущения может принадлежать множеству, а может и не принадлежать.
+\end{Rem}
+
+\begin{Rem}
+    Если $a$ -- точка сгущения, тогда в $\forall \dot{V}(a)$ бесконечно много точек из $D$.
+\end{Rem}
+
+\begin{Rem}
+    Точки сгущения называют предельными точками множества. \\
+    $a$ -- точка сгущения $\EQ \exists \{x_n\} : x_n \in D, x_n \neq a, x_n \to a$ 
+\end{Rem}
+
+\begin{proof}
+    "$\SO$". $\varepsilon = \frac{1}{k} \SO |x_k - a| < \frac{1}{k} \SO 0 \leqslant \lim |x_k - a| < 0 \SO \exists \lim x_k = 0$ \\
+    "$\Leftarrow$". В $\forall V(a)$ лежит бесконечно много точек $\{x_n\}, x_n \neq a \SO a$ -- точка сгущения. 
+\end{proof}
+
+\begin{Def}
+    $a \in D$, но $a$ -- не предельная точка. Тогда $a$ называется изолированной точкой множества $D$
+\end{Def}
+
+\begin{Rem}
+    $+\infty$ может быть предельной точкой множества
+    \[\dot{V}(+\infty) = (E, +\infty)\] 
+\end{Rem}
+
+\Subsection{Предел функции}
+
+\begin{Def}
+    $f: D \to \R, D \subset \R, a \in \R$ -- предельная точка $D$.
+
+    Число $A \in \R$ называется пределом $f$ в точке $a$
+    \[\lim_{x \to a} f(x) = A \text{ или } f(x) \xrightarrow[x \to a]{} A\]
+    если выполняется одно из следующих условий:
+
+    \begin{MyList}
+        \item $\forall \varepsilon > 0 \ \exists \delta > 0 : \forall x \in D \setminus \{a\} : |x - a| < \delta \to |f(x) - A| < \varepsilon$ (Определение по Коши, определение на языке $\delta, \varepsilon$ )
+        \item $\forall V(A) \ \exists V(a) : f(\dot{V}(a) \cap D) \subset V(A)$ (Определение на языке окрестностей)
+        \item $\forall \{x_n\} : x_n \in D, x_n \neq a, x_n \to a \SO f(x_n) \to A$ (Определение по Гейне, на языке последовательностей)
+    \end{MyList}
+\end{Def}
+
+\Pagebreak
+\begin{Thm}[Эквивалентность определения по Коши и по Гейне]
+    Определения 1) и 3) эквивалентны.
+\end{Thm}
+
+\begin{proof}
+    1) $\SO$ 3). Рассмотрим какую-то $\{x_n\} : x_n \neq a, x_n \in D, x_n \to a$ (она существует по доказанному).
+    Нужно доказать, что $f(x_n) \to A$.  \\
+    Пусть $x_n \to a$, то 
+    \[\forall \delta > 0 \ \exists N : \forall n \geqslant N \to |x_n - a| < \delta \SO |f(x_n) - A| < \varepsilon\]
+
+    3) $\SO$ 1). Пусть это не так, т.е. 1) не выполнено
+    \[\exists \varepsilon > 0 : \forall \delta > 0 \ \exists x \in D, x \neq a, |x - a| < \delta: |f(x) - A| \geqslant \varepsilon\]
+    Возьмем последовательность $\delta_n = \frac{1}{n}$.
+    \[|x_n - a| < \frac{1}{n} \SO x_n \to a \SO f(x_n) \to A, \text{ но } |f(x_n) - A| \geqslant \varepsilon\] 
+\end{proof}
+
+\begin{Rem}
+    в $\overline{\R}$ 
+    \begin{MyList}
+        \item \[\lim_{x \to 5} f(x) = \infty \EQ \forall E \ \exists \delta > 0 : \forall x \in D \setminus \{5\}, |x - 5| < \delta \to f(x) > E\]
+        \item \[\lim_{x \to -\infty} f(x) = 2 \EQ \forall E > 0 \ \exists \Delta : \forall x \in D, x < \Delta \to |f(x) - 2| < E\]
+    \end{MyList}
+\end{Rem}
+
+\begin{Rem}
+    В определении по Гейне есть "$\forall \{x_n\}$". Если $x_n$ и $y_n$ подходят под условия, то $\lim f(x_n) = \lim f(y_n)$ 
+\end{Rem}
+
+\begin{proof}
+    Возьмем $z_n: z_1 = x_1, z_2 = y_1, z_3 = x_2, z_4 = y_2$ и т.д. $\{z_n\}$ подходит под определение $\SO \exists \lim f(z_n)$ 
+\end{proof}
+
+\begin{Rem}
+    В определении предела функции не участвует значения функции в точке $a$.
+\end{Rem}
+
+\begin{Rem}
+    Последовательность -- частный случай функции.
+\end{Rem}
+
+\end{document}
