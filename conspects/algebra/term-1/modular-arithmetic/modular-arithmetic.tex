@@ -1,0 +1,748 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/08/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Алгебра}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Алгебра 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Теория сравнений}{}{Илья Дудников}
+
+\Subsection{Начала теории сравнений}
+
+\begin{Def}
+    $a$ и $b$ называются сравнимыми по модулю $m > 0$, если они имеют одинаковые остатки при делении на $m$
+    \[a \equiv b \Mod m, a \equiv b(m), a \stackrel{m}{\equiv} b\]
+\end{Def}
+
+\begin{Prop}
+    \[\EQ \begin{cases}
+        a \equiv b \Mod m \\
+        a - b \vdots m \\
+        a \equiv b + mt
+    \end{cases}\]
+\end{Prop}
+
+\begin{proof}
+    $1) \SO 2)$
+    \[a = mq_1 + r, b = mq_2 + r \SO a - b = m(q_1 - q_2) \vdots m\]
+    $2) \SO 3)$
+    \[a - b \vdots m \SO a - b = mt \SO a = b + mt\]
+    $3) \SO 1)$. Поделим $a$ и $b$ на $m$:
+    \[a = mq_1 + r_1, b = mq_2 + r_2\]
+    \begin{align*}
+    &3): a = b + mt \SO mq_1 + r_1 = mq_2 + r_2 + mt \SO \\
+    &\SO m(q_1 - q_2 - t) = r_2 - r_1 \SO m | r_2 - r_1 \SO r_2 - r_1 = 0
+    \end{align*}
+\end{proof}
+
+Свойства:
+\begin{MyList}
+    \item Рефлексивность. $a \equiv a \Mod m$
+    \item Симметричность. $a \equiv b \Mod m \SO b \equiv a \Mod m$
+    \item Транзитивность. $a \equiv b \Mod m \SO b \equiv c \Mod m \SO a \equiv c \Mod m$
+    \begin{proof}
+        \[a - c = a - b + b - c \vdots m\]
+    \end{proof}
+    \item $a \equiv b \Mod m, c \equiv d \Mod m \SO a + c \equiv b + d \Mod m$
+    \item $a \equiv b \Mod m, c \equiv d \Mod m \SO ac \equiv bd \Mod m$
+    \begin{proof}
+        \[ac - bd = ac - bc + bc - bd = c(a - b) + b(c - d) \vdots m\]
+    \end{proof}
+    \Pagebreak
+    \item $d | a, d | b, d | m, a \equiv b \Mod m \SO \frac{a}{d} \equiv \frac{b}{d} \Mod{\frac{m}{d}}$
+    \begin{proof}
+        \[a - b = a_1 d - b_1 d = my = m_1 d t \SO a_1 - b_1 = m_1 t\]
+    \end{proof}
+    \item $a \equiv b \Mod m \SO ka \equiv kb \Mod m$ 
+    \item $d | a, d | b, (m, d) = 1, a \equiv b \Mod m \SO \frac{a}{d} \equiv \frac{b}{d} \Mod m$
+    \begin{proof}
+        \[a = a_1 d, b = b_1 d, a - b \vdots m \SO (a_1 - b_1) \cdot d \vdots m \SO a_1 - b_1 \vdots m\]
+    \end{proof}
+    \item $d | m, a \equiv b \Mod m \SO a \equiv b \Mod d$ 
+    \item $a \equiv b \Mod m \SO (a, m) = (b, m)$ 
+    \begin{proof}
+        \[a \equiv b \Mod m \SO a = b + mt \SO (a, m) = (b, m)\]
+    \end{proof}
+\end{MyList}
+
+\Subsection{Классы вычетов}
+
+\begin{Def}
+    Классом вычетов по $\Mod m$ называется множество чисел, сравнимых с $a$ по модулю $m$
+    \[m = 7, \overline{1} = \{-6, 8, 1, 15, ...\}\]
+    \[\overline{a} = \{x | x \equiv a \Mod m\}\]
+    Элементы классов вычетов -- \textbf{вычеты}. Обычно рассматривают наименьший неотрицательный вычет. 
+\end{Def}
+
+\begin{Def}
+    Множество вычетов, взятых по одному из разных классов образуют полную систему вычетов. Например
+    \[\{0, 1, 2, ..., m - 1\}\]
+\end{Def}
+
+\begin{Lm}
+    Множество из $m$ чисел, попарно несравнимых по модулю $m$, образуют полную систему вычетов.
+\end{Lm}
+
+\begin{Thm}
+    $(a, m) = 1$. Если $x$ пробегает полную систему вычетов по $\Mod m \SO \forall b \to ax + b$ тоже пробегает полную систему вычетов по $\Mod m$  
+\end{Thm}
+
+\begin{proof}
+    $x$ принадлежит $m$ значений $\SO ax + b$ принадлежит $m$ значений. \\
+    Пусть $x_1 \not\equiv x_2 \Mod m$. Предположим, что $ax_1 + b \equiv ax_2 + b \Mod m \SO ax_1 \equiv ax_2 \Mod m \SO x_1 \equiv x_2 \Mod m$ 
+\end{proof}
+
+\Pagebreak
+\Subsection{Кольцо классов вычетов}
+\begin{Def}
+    Определим сложение и умножение вычетов по фиксированному модулю $m$.
+    \[\overline{a} + \overline{b} = \overline{a + b}, \overline{a} \cdot \overline{b} = \overline{ab}\]
+\end{Def}
+
+\begin{Lm}
+    Сложение и умножение определены корректно
+\end{Lm}
+
+\begin{proof}
+    $a \equiv a_1 \Mod m, b \equiv b_1 \Mod m$
+    \[\SO a + b = a_1 + b_1 \Mod m, a \cdot b = a_1 \cdot b_1 \Mod m \SO \overline{a} + \overline{b} = \overline{a}_1 + \overline{b}_1, \overline{a} \cdot \overline{b} = \overline{a}_1 \cdot \overline{b}_1\] 
+\end{proof}
+
+\begin{Def}
+    Группа $G$ называется коммутативной (абелевой), Если
+    \[\forall x, y \in G \to xy = yx\] 
+\end{Def}
+
+\begin{Thm}
+    $\Z_m$ образует коммутативную группу относительно сложения 
+\end{Thm}
+
+\begin{proof}
+    $\overline{a} + \overline{b} = \overline{a + b} \in \Z_m$
+    \begin{MyList}
+        \item $(\overline{a} + \overline{b}) + \overline{c} = \overline{a + b} + \overline{c} = \overline{a + b + c}$ \\
+        $\overline{a} + (\overline{b} + \overline{c}) = \overline{a} + \overline{b + c} = \overline{a + b + c}$
+        \item $\overline{0}$. $\overline{a} + \overline{0} = \overline{a + 0} = \overline{a}$
+        \item $-\overline{a} = \overline{m - a} \SO \overline{a} - \overline{a} = \overline{a + m - a} = \overline{0}$
+        \item $\overline{a} + \overline{b} = \overline{b} + \overline{a}$      
+    \end{MyList} 
+\end{proof}
+
+\begin{Def}
+    (Ассоциативным) кольцом называется множество $R$, на котором заданы бинарные операции:
+    \begin{MyList}
+        \item $\forall x, y, z \to (x + y) + z = x + (y + z)$ 
+        \item $\exists 0 \in R : \forall x \in R \to x + 0 = x$ 
+        \item $\forall x \in R \ \exists (-x) \in R : x + (-x) = 0$ 
+        \item $\forall x, y \in R \to x + y = y + x$ 
+        \item $\forall x, y, z \in R \to (y + z) = xy + xz, (x + y)z = xz + yz$ 
+        \item $\forall x, y, z \in R \to (xy)z = x(yz)$ 
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    $\exists 1 \in R : \forall x \in R \to x \cdot 1 = 1 \cdot x = x$ -- кольцо с единицей \\
+    $\forall x, y \in R \to xy = yx$ -- коммутативное кольцо 
+\end{Rem}
+
+\begin{Thm}
+    $\Z_m$ -- коммутативное кольцо с единицей.
+\end{Thm}
+
+\begin{proof}
+    \[\overline{a}(\overline{b} + \overline{z}) = \overline{a} \cdot \overline{b + c} = \overline{a(b + c)} = \overline{ab + ac}\]
+    и т.д.
+\end{proof}
+
+\begin{Def}
+    Кольца $R$, в котором $\forall a, b \to (ab = 0 \SO a = 0 \vee b = 0)$ называется кольцом без делителей нуля.
+    
+    Если $ab = 0$ и $a, b \neq 0$, то $a, b$ -- делители нуля 
+\end{Def}
+
+\begin{Def}
+    Коммутативное кольцо без делителей нуля -- область целостности.
+\end{Def}
+
+\Pagebreak
+\begin{Thm}
+    \begin{MyList}
+        \item $\Z_m$ имеет делители нуля $\EQ m$ -- составное число
+        \item $\Z_p, p$ - простое -- область целостности.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $m = n \cdot k, \overline{n} \cdot \overline{k} = \overline{0}$ в $\Z_m$
+    
+    "$\Leftarrow$". $\overline{n} \cdot \overline{k} = \overline{0} \SO n \cdot k \equiv 0 \Mod m$
+    
+    Предположим, что $m$ -- простое $\SO m | n \vee m | k \SO \overline{n} = \overline{0} \vee \overline{k} = \overline{0}$. Но $\overline{n}$ и $\overline{k}$ -- делители нуля, т.е. $\overline{n}, \overline{k} \neq 0 \SO m$ -- составное.   
+
+    $1) \SO 2)$ 
+\end{proof}
+
+\Subsection{Приведенная система вычетов}
+
+\begin{Def}
+    Вычеты, выбранные из полной системы вычетов и взаимно-простые с модулем $m$ обрузуют приведенную систему вычетов
+\end{Def}
+
+\begin{Def}
+    Количество вычетов в приведенной системе вычетов обозначается $\varphi (m)$ -- функция Эйлера. 
+\end{Def}
+
+\begin{Lm}
+    Если $p$ -- простое, то 
+    \[\varphi(p) = p - 1\]
+\end{Lm}
+
+\begin{Thm}
+    $(a, m) = 1, x$ пробегает приведенную систему вычетов $\SO ax$ тоже пробегает приведенную систему вычетов по $\Mod m$  
+\end{Thm}
+
+\begin{proof}
+    $x \to \varphi(m), ax \to \varphi(m)$
+    
+    $(ax,m) = (a, m) = 1 \SO ax$ набор чисел из $\varphi(m)$, взаимно-простых с $m \SO \{ax\}$ -- приведенная система вычетов. 
+\end{proof}
+
+\Subsection{Функция Эйлера}
+\begin{Lm}
+    $p$ -- простое, $\alpha > 0$
+    \[\varphi(p^\alpha) = p^\alpha - p^{\alpha - 1}\] 
+\end{Lm}
+
+\begin{proof}
+    $1, 2, 3, ..., p, 2p, 3p, ..., p \cdot p, ..., p^\alpha - 1$. Выбросим из этого множества числа, делящиеся на $p$.
+    Таких чисел будет ровно количество коэффициентов при $p$ до $p^\alpha$, т.е. $p^{\alpha - 1}$  
+\end{proof}
+
+\begin{Def}
+    Функия $\Theta: \N \to \N$ называется мультипликативной, если 
+    \[(a, b) = 1 \SO \Theta(ab) = \Theta(a) \cdot \Theta(b)\] 
+\end{Def}
+
+\begin{Thm}[Мультипликативность функции Эйлера]
+    $\varphi$ мультипликативна     
+\end{Thm}
+
+\begin{proof}
+    $(a, b) = 1$
+    \[\begin{array}{ccccc}
+    1 & 2 & 3 & ... & b \\ 
+    b + 1 & b + 2 & b + 3 & ... & 2b \\ 
+    ... & ... & ... & ... & ... \\ 
+    (a - 1)b + 1 & (a - 1)b + 2 & (a - 1)b + 3 & ... & ab
+    \end{array}\]
+    Количество чисел, взаимно-простых с $b : \forall$ строка $: kb + r, k = 0, ..., a - 1, 1 \leqslant r \leqslant b$.
+    Рассмотрим $k$-ю строку: $(kb + r, b) = 1 \SO (r, b) = 1$. Количество чисел $kb + r : (kb + r, b) = 1 = \varphi (b) \SO$
+    есть $\varphi(b)$ столбцов, в которых числа $(kb + r, b) = 1$. Найдем в этих столбцах числа, взаимно-простые с $a$.
+    $\forall$ столбец $: xb + r, x = 0, ..., a - 1 \SO xb + r$ -- полная система вычетов по $\Mod a \SO$ 
+    среди $\{xb + r\}$ чисел, взаимно-простых с $a = \varphi(a) \SO$ всего чисел, взаимно-простых с $ab = \varphi(a) \cdot \varphi(b)$          
+\end{proof}
+
+\begin{Cons}
+    $n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot ... \cdot p_k^{\alpha_k}$ -- каноническое разложение
+    $\SO \varphi(n) = (p_1^{\alpha_1} - p_1^{\alpha_1 - 1})(p_2^{\alpha_2} - p_2^{\alpha_2 - 1}) \cdot ... \cdot (p_k^{\alpha_k} - p_k^{\alpha_k - 1})$  
+\end{Cons}
+
+\begin{Rem}
+    $\varphi(n) = n(1 - \frac{1}{p_1})(1 - \frac{1}{p_2}) \cdot ... \cdot (1 - \frac{1}{p_k})$ 
+\end{Rem}
+
+\begin{Thm}[Теорема Эйлера]
+    $(m, a) = 1 \SO a^{\varphi(m)} \equiv 1 \Mod m$ 
+\end{Thm}
+
+\begin{proof}
+    $r_1, r_2, ..., r_{\varphi(m)}$ -- приведенная система вычетов по $\Mod m$
+    
+    $\SO ar_1, ar_2, ..., ar_{\varphi(m)}$ -- приведенная система вычетов по $\Mod m$. Пусть $ar_i = \rho_i$
+    \[\SO ar_1 \cdot ar_2 \cdot ... ar_{\varphi(m)} = \rho_1 \rho_2 \cdot ... \cdot \rho_{\varphi(m)}\]
+    \[a^{\varphi(m)} r_1 \cdot r_2 \cdot ... \cdot r_{\varphi(m)} = \rho_1 \cdot \rho_2 \cdot ... \cdot \rho_{\varphi(m)} \SO a^{\varphi(m)} \equiv 1 \Mod m\]   
+\end{proof}
+
+\begin{Thm}[Теорема Ферма]
+    $p$ -- простое, $(a, p) = 1 \SO a^{p - 1} \equiv 1 \Mod p$ 
+\end{Thm}
+
+\begin{proof}
+    $\varphi(p) = p - 1$ 
+\end{proof}
+
+\begin{Def}
+    $\Z_m^* = \{r : 0 \leqslant r < m, (r, m) = 1\}$ -- приведенная система вычетов по $\Mod m$ 
+\end{Def}
+
+\begin{Thm}
+    $\Z_m^*$ -- коммутативная группа по умножению
+\end{Thm}
+
+\begin{proof}
+    $r_1, r_2 \in \Z_m^*$. $(r_1, m) = (r_2, m) = 1 \SO (r_1 \cdot r_2, m) = 1 \SO r_1 \cdot r_2 \in \Z_m^*, 1 \in \Z_m^*$
+    
+    $r \in \Z_m^*$, то $r^{-1} = r^{\varphi(m) - 1} \SO r^{\varphi(m) - 1} \cdot r = r^{\varphi(m)} \equiv 1 \Mod m$  
+\end{proof}
+
+\Subsection{Сравнения с одним неизвестным}
+\begin{Def}
+    $f(x) \equiv 0 \Mod m$. Решением этого сравнения называется $x_0 : f(x_0) \equiv 0 \Mod m$. Решения $x_1$ и $x_2$ называются эквивалентными, если $x_1 \equiv x_2 \Mod m$
+
+    Решить сравнение -- найти решений из полной системы вычетов.
+\end{Def}
+
+\begin{Thm}[Решение линейного сравнения]
+    $ax \equiv b \Mod m , (a, m) = d$ 
+    \begin{MyList}
+        \item $d \not| \ b \SO$ решений нет.
+        \item $d | b \SO \exists d$ решений $ : x = x_0 + m_1 t, t = 0, 1, ..., d - 1, m_1 = \frac{m}{d}, x_0$ -- какое-то решение
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Очевидно
+        \item Если $(a, m) = 1, x$ пробегает полную систему вычетов по $\Mod m \SO ax$ -- полная система вычетов по $\Mod m \SO \exists x_0 : ax_0 \equiv b \Mod m$
+        
+        Если $(a, m) = d, a = a_1d, m = m_1d, b = b_1d, (a_1, m_1) = 1$ \\
+        $a_1x \equiv b_1 \Mod {m_1}$ -- $\exists$ решение $x_0 : a_1x_0 \equiv b_1 \Mod {m_1}$. $x = x_0 + m_1 t$ -- решение $ax \equiv b \Mod m$
+        \[a(x_0 + m_1t) = a_1dx_0 + a_1dm_1t \equiv b_1d \Mod m\]
+        Посмотрим, какие решения принадлежат полной системе вычетов, т.е. $0 \leqslant x_0 + m_1 t < m$.
+        Ясно, что такие решения будут при $t = 0, 1, ..., d - 1$.       
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Методы решения $ax \equiv b \Mod m, (a, m) = 1$]
+    \begin{MyList}
+        \item $ax \equiv b \Mod m \SO x \equiv a^{\varphi(m) - 1} \cdot b \Mod m$ 
+        \item $ax \equiv b \Mod m \SO x \equiv (-1)^n p_{n - 1} \cdot b \Mod m$ \\
+        $\frac{m}{a}$ -- непрерывная дробь, $p_{n - 1}$ -- числитель $(n - 1)$-й подходящей дроби, $ \frac{p_n}{q_n} = \frac{m}{a}$  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $p_k \cdot q_{k - 1} - p_{k - 1} \cdot q_k = (-1)^{k - 1}$. $k = n$
+    \[m \cdot q_{n - 1} - p_{n - 1} \cdot a = (-1)^{n - 1} \SO -p_{n - 1} \cdot a \equiv (-1)^{n - 1} \Mod m\]
+    \[ap_{n - 1} b = (-1)^n b \Mod m \SO a \cdot (-1)^n p_{n - 1} \cdot b \equiv b \Mod m \SO x \equiv (-1)^n p_{n - 1} \cdot b \Mod m\]
+\end{proof}
+
+\Subsection{Диофантовы уравнения}
+
+\begin{Def}
+    Уравнение вида 
+    \[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b\]
+    где $a_i \in \Z, x_i$ -- переменные и $\exists i : a_i \neq 0$, называется диофантовым.  
+\end{Def}
+
+\begin{Lm}
+    $ax + by = c, a, b \neq 0$. Если $x_0 : ax_0 \equiv c \Mod b \SO (x_0, \frac{ax_0 - c}{b})$ -- решения уравнения 
+\end{Lm}
+
+\begin{proof}
+    $by \equiv c - ax$ при $x = x_0$ и $c - ax \ \vdots \ b \SO \frac{c - ax_0}{b} \in \Z$   
+\end{proof}
+
+\begin{Thm}
+    $ax + by = c, d = (a, b), d | c$. Пусть $(x_0, y_0)$ -- какое-то решение $\SO$ все решения:
+    \[\begin{cases}
+        x = x_0 - \frac{b}{d}t \\
+        y = y_0 + \frac{a}{d}t
+    \end{cases}, t \in \Z\]  
+\end{Thm}
+
+\Subsection{Системы сравнений}
+
+\[\begin{cases}
+    x \equiv b_1 \Mod m_1 \\
+    x \equiv b_2 \Mod m_2 \\
+    ... \\
+    x \equiv b_k \Mod m_k
+\end{cases}\]
+
+\begin{Thm}[Китайская теорема об остатках]
+    $(m_i, m_j) = 1, i \neq j$. Тогда
+    \begin{MyList}
+        \item Решение системы существует:
+        \[x \equiv \frac{M}{m_1} \cdot M_1' b_1 + \frac{M}{m_2} \cdot M_2' b_2 + ... + \frac{M}{m_k}M_k' b_k \Mod M\]
+        $M = m_1 \cdot m_2 \cdot ... \cdot m_k, M_i' : M_i' \cdot \frac{M}{m_i} \equiv 1 \Mod m_i$
+        \item Решение единственно 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Подставим в $i$-е уравнение: 
+        \[x \equiv \frac{M}{m_i} M_i' b_i \Mod m_i \SO x \equiv b_i \Mod m_i\]
+        \item Без доказательства.
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Теорема Вильсона]
+    $p$ -- простое $\EQ$ $(p - 1)! \equiv -1 \Mod p$  
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $\Z_p^* = \{1, 2, ..., p - 1\}$ -- группа, $a \in \Z_p^*$
+    \[a^2 = 1 \SO a = \pm 1, 1 \cdot 2 \cdot ... \cdot (p - 1) \SO 1 \cdot (p - 1) \equiv -1 \Mod p\]
+    \[a \neq a^{-1} \SO 2 \cdot ... \cdot (p - 2) = 1\]
+    
+    "$\Leftarrow$". Предположим, что $$k | p, k > 1, k \neq p \SO k < p \SO 1 \cdot 2 \cdot ... \cdot (p - 1) \ \vdots \ k \SO (p - 1)! \equiv 0 \Mod p$$ 
+\end{proof}
+
+\begin{Algo}[Алгоритм RSA]
+    \begin{MyList}
+        \item Выбираем $p, q$ -- простые
+        \item $n = p \cdot q, \varphi(n) = (p - 1)(q - 1)$
+        \item Выбираем $e : (e, \varphi(n)) = 1$
+        \item Решаем $e \cdot d \equiv 1 \Mod {\varphi(n)} \SO$ находим $d$  
+    \end{MyList}
+
+    Шифрование:
+    \begin{MyList}
+        \item $m$ -- текст (в виде цифрового кода)
+        \item $c \equiv m^e \Mod n \SO c$ -- шифр
+    \end{MyList}
+
+    Ключи:
+    \begin{MyItemize}
+        \item $(e, n)$ -- открытый ключ
+        \item $(d, n)$ -- закрытый ключ
+    \end{MyItemize}
+
+    Дешифрование:
+    \[c^d \equiv m^{ed} \equiv m \Mod n\]
+
+    Трудность $n = p \cdot q$. 
+\end{Algo}
+
+\end{document}

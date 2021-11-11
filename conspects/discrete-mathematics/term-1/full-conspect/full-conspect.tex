@@ -1,0 +1,924 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{import}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекции}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\DeclareMathOperator{\sort}{sort}
+\DeclareMathOperator{\const}{const}
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Solution}{Решение}
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Дискретная математика}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Дискретная математика 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Основы комбинаторики}{}{Илья Дудников}
+
+\Subsection{Множества}
+
+\begin{Def}
+    Множество - совокупность объектов.
+\end{Def}
+
+\begin{Def}
+    Покрытием множества $A$ называется множество $B = \left\{B_1, B_2, ..., B_k\right\} : \bigcup_i B_i \supset A$ 
+\end{Def}
+
+\begin{Def}
+    Разбиением множества $A$ называется $\pi (X) = \{X_i\} : $
+    \[X_i \neq \varnothing, \bigcup_i X_i = A, \forall i \neq j \to X_i \cap X_j = \varnothing\] 
+\end{Def}
+
+\begin{Def}
+    Пусть $B, C$ -- разбиения $A$. $B$ называется измельчением $C$, если $B$ -- разбиение $A$ и $\forall i \ \exists j : B_i \subset C_j$   
+\end{Def}
+
+\Subsection{Мощность множества}
+
+\begin{MyList}
+    \item $|\varnothing| = 0$ 
+    \item $X = \left\{x_1, x_2, ..., x_n\right\} \SO |X| = n$ 
+    \item $\N$ -- счётное. $\Z$ -- тоже счётное:
+    \[f(x) = \begin{cases}
+        1, x = 0 \\
+        2x, x > 0 \\
+        2|x| + 1, x < 0
+    \end{cases}\]
+    \item $[0, 1]$. Пусть существует $q: \N \to [0, 1]$
+    
+    \begin{MyList}
+        \item $0, a_1 a_2 ... a_k ...$
+        \item $0, b_1 b_2 ... b_k ...$ 
+        \item $0, c_1 c_2 ... c_k ...$  
+    \end{MyList}
+    Рассмотрим $\alpha = 0, \alpha_1 \alpha_2 \alpha_3 ... \alpha_k ..., \alpha_1 \neq a_1, \alpha_2 \neq b_2, \alpha_3 \neq c_3$ и т.д. 
+    Таким образом, всегда найдётся не пронумерованное число. 
+
+    $|[0, 1]|$ -- континуум 
+\end{MyList}
+
+\begin{Def}
+    Множество всех подмножеств $A$ обозначается $2^A$ 
+\end{Def}
+
+\begin{Prop}
+    $|2^A| = 2^{|A|}$  
+\end{Prop}
+
+\begin{proof}
+    База: $A = \varnothing, |A| = 0, 2^A = \{\varnothing\} \SO |2^A| = 2^{|A|} = 1$
+    
+    Индукционное предположение: Пусть $\forall A : |A| \leqslant k \to |2^A| = 2^{|A|}$ \\
+    Индукционный переход:
+
+    Рассмотрим $A : |A| = k + 1, B_1 \in 2^{A \setminus \{x_{k + 1}\}}, B = \{x_{k + 1}\} \cup B_1$ 
+
+    $2^A = 2^{A \setminus \{x_{k + 1}\}} \cup \{B\}$ 
+
+    \[\begin{cases}
+        |2^{A \setminus \{x_{k + 1}\}}| = 2^k \\
+        |\{B\}| = 2^k
+    \end{cases} \SO 2^A = 2^k + 2^k = 2^{k + 1} = 2^{|A|}\]
+\end{proof}
+
+\Pagebreak
+\Subsection{Комбинаторика}
+
+\begin{MyList}
+    \item $A, B : A \cap B = \varnothing$ $$|A \cup B| = |A| + |B|$$
+    \item $A_1, ..., A_n, \forall i, j \to (i \neq j \SO A_i \cap A_j = \varnothing)$
+    \[|\bigcup_{i = 1}^n A_i| = \sum_{i=1}^{n} |A_i|\]
+    \item $A, B, A \cap B \neq \varnothing$ \[|A \cup B| = |A| + |B| - |A \cap B|\] 
+    \item $A_1, ..., A_n$ \[|\bigcup_{i = 1}^n A_i| = \sum_{i=1}^{n} |A_i| - \sum_{i, j=1}^{n} |A_i \cap A_j| + \sum_{i,j,k=1}^{n} |A_i \cap A_j \cap A_k - ... + (-1)^{n + 1}|\bigcap_{i = 1}^n A_i|\]
+    \item $A, B$ \[|A \times B| = |A| \cdot |B|\]
+    \item $A_1, ..., A_n$ \[|A_1 \times A_2 \times ... \times A_n| = \prod_{i = 1}^n |A_i|\]   
+\end{MyList}
+
+\begin{MyList}
+    \item Перестановки: $\langle a_1 ... a_n\rangle = \overline{\langle a_1 ... a_n\rangle, a_n}$. Тогда
+    \[|\langle 1:n\rangle| = |\langle 1:n - 1\rangle \times (1:n)| = |\langle 1:n - 1\rangle| \cdot n = 1 \cdot 2 \cdot ... \cdot n = n!\]
+
+    \item Размещения. $n \cdot (n - 1) \cdot ... \cdot (n - k + 1)$
+    \[A_n^k = \frac{n!}{(n - k)!}\]
+
+    \item Сочетания. 
+    \[A_n^k = C_n^k \cdot k! \EQ C_n^k = \frac{n!}{k!(n - k)!}\]
+
+    \item Сочетания с повторениями. Выставим все $k$ выбранных объектов в ряд и поставим между ними $n - 1$ перегородку: до первой перегородки будут элементы 1-го типа, от первой до второй перегородки -- 2-го типа и т.д.
+    Таким образом, всего $n + k - 1$ место. Нам нужно выбрать $n - 1$ перегородку из этих $n + k - 1$ мест
+    \[\overline{C}_n^k = C_{n + k - 1}^{n - 1} = C_{n + k - 1}^k\]
+\end{MyList}
+
+\begin{Def}
+Пусть дан выпуклый $n$-угольник. Найти количество способов разбить его на треугольники с непересекающимися сторонами
+
+\[C_0 = 1, C_n = \sum_{i=0}^{n - 1} C_i \cdot C_{n - i - 1} - \text{ Числа Каталана}\]
+
+\end{Def}
+
+\Section{Перестановки}{}{Илья Дудников}
+
+\Subsection{Лексикографический порядок перестановок}
+
+\begin{Def}
+    Пусть есть две перестановки $X = \{x_1, x_2, ..., x_n\}, Y = \{y_1, y_2, ..., y_n\}$. Тогда 
+    \[X < Y \EQ \exists k : x_i = y_i \ \forall i = 1, ..., k \wedge x_{k + 1} < y_{k + 1}\]   
+\end{Def}
+
+\begin{Algo}[Поиск следующей перестановки]
+    Найдем наибольший убывающий суффикс. 
+    Пусть $k : a_{k + 1} > a_{k + 2} > ... > a_n$. Тогда выберем из этого суффикса $a_i : a_i > a_k$ и $a_i$ минимально.
+    После этого отсортируем получившийся суффикс. Получим перестановку:
+    \[\langle a_1, a_2, ..., a_i, \sort [a_k, a_k + 1, ..., a_n]\rangle\]
+    Она и будет лексикографический следующей.
+\end{Algo}
+
+\Section{Числа Стирлинга}{}{Илья Дудников}
+
+\Subsection{Числа Стирлинга}
+\begin{Def}
+    Пусть $A = \{a_1, ..., a_n\}$. Рассмотрим разбиение этого множества мощности $k$, т.е. $X = \{X_1, ..., X_k\}:$
+    $$\forall i, j \to X_i \supset A, X_i \cap X_j = \varnothing, \bigcup_i X_i = A$$
+    
+    Тогда числами Стирлинга -- количество таких разбиений.
+\end{Def}
+
+\begin{MyList}
+    \item $k = 2 \SO S(n, 2) = \frac{\sum_{i=1}^{n - 1} C_n^i}{2} = \frac{2^n - 2}{2} = 2^{n - 1} - 1$
+    \item Общий случай.
+    \begin{MyItemize}
+        \item Если $\{a_n\}$ -- элемент разбиения, то таких разбиений $S(n - 1, k - 1)$
+        \item $\exists i : a_n \in X_i, |X_i| > 1$. Тогда нужно найти количество разбиений $A \setminus \{a_n\}$ на $k$ множеств, а потом вставить $a_n$ в одно из этих множеств.
+        
+        Количество способов:
+        \[S(n - 1, k) \cdot k\]
+    \end{MyItemize}
+
+    Тогда рекуррентная формула:
+    \[S(n, k) = S(n - 1, k - 1) + S(n - 1, k) \cdot k\]
+    Базовые значения:
+    \[
+    \begin{array}{cc}
+    S(n, 0) = 0 & S(0, 0) = 0 \\ 
+    S(k, n) = 0, k > n & S(n, 2) = 2^{n - 1} - 1 \\ 
+    S(n, n - 1) = C_n^2 & 
+    \end{array} 
+    \]
+\end{MyList}
+
+\Subsection{Числа Белла}
+\begin{Def}
+    Числа Белла -- количество разбиений множества.
+    \[B(n) = \sum_{i=1}^{n} S(n, i)\]
+\end{Def}
+
+\begin{Thm}[Формула чисел Белла]
+    Рассмотрим произвольное разбиение множества $A$. $\exists i : a_{n + 1} \in X_i, |X_i| = j$.
+    
+    $|A \setminus X_i| = n + 1 - j$. Тогда количество способов выбрать $X_i$ равно $C_n^{j - 1} = C_n^{n + 1 - j}$
+    
+    Количество разбиений $A \setminus X_i$, в свою очередь, равно $B(n + 1 - j)$. Тогда 
+    \[B(n + 1) = \sum_{j=1}^{n + 1} C_n^{n + 1 - j} \cdot B(n + 1 - j) = \sum_{k=0}^{n} C_n^k B(k)\]  
+\end{Thm}
+
+\Pagebreak
+\begin{Thm}[Формула чисел Стирлинга]
+    \[S(n, k) = \frac{1}{k!} \sum_{j=0}^{k} (-1)^j \cdot C_k^j (k - j)^n\]    
+\end{Thm}
+
+\begin{proof}
+    Пусть $L = \{\rho \subseteq A \times \{1, ..., k\} | \rho \text{ -- сюръекция}\}$. Заметим, это множество равномощно множеству упорядоченных разбиений мощности $k$. \\
+    $\{a_1, ..., a_n\} \to \{1, ..., k\}$. Элементы разбиения имеют следующий вид: $X_i = \{a_k | \rho(a_k) = i\}$. Т.к. отображение сюръективно, то $X_i$ непусты.
+    \[S(n, k) = \frac{|L|}{k!}\]
+    Чтобы посчитать мощность $L$, из общего количества отображения вычтем количество несюръективных отображений.
+    Пусть $P_i = \{\rho \subset A \times \{1, ..., n\} | \forall a \in A \to \rho(a) \neq i\}$. Тогда количество несюръективных отображений равно:
+    \[|\bigcup_{i = 1}^k P_i| = \sum_{j=1}^{k} (-1)^{j + 1} \sum_{1 \leqslant i_1 \leqslant i_2 \leqslant i_3 \leqslant ... \leqslant i_j \leqslant k} |P_{i_1} \cap P_{i_2} \cap ... \cap P_{i_j}|\]
+    $|P_{i_1} \cap P_{i_2} \cap ... P_{i_j}|$ -- количество отображений из $A$ в $\{1, ..., k\} \setminus \{i_1, ..., i_j\}$ 
+    \[|P_{i_1} \cap ... \cap P_{i_j}| = (k - j)^n\]
+    \[\sum_{i_1 \leqslant i_2 \leqslant ... \leqslant i_j} |P_{i_1} \cap P_{i_2} \cap ... \cap P_{i_j}| = C_k^j (k - j)^n \]
+    Тогда 
+    \[|L| = k^n - \sum_{j=1}^{k} (-1)^{j + 1} C_k^j (k - j)^n = k^n + \sum_{j=1}^{k} (-1)^j C_k^j (k - j)^n = \sum_{j=0}^{k} (-1)^j C_k^j (k - j)^n\]
+    Тогда искомая формула чисел Стирлинга:
+    \[S(n, k) = \frac{1}{k!}\sum_{j=0}^{k} (-1)^j C_k^j (k - j)^n\] 
+\end{proof}
+
+
+\Section{Теория вероятности}{}{Илья Дудников}
+\Subsection{Основы теории вероятности}
+
+\begin{Def}
+    $\Omega = \{a_1, a_2, ..., a_n\}$ -- множество всех взаимо-исключающих исходов эксперимента (пространство элементарных событий) \\
+    $X \subseteq \Omega$ -- событие
+\end{Def}
+
+\begin{Def}
+    Дано $\Omega, \mathscr{A} \subset 2^\Omega$. Тогда $\mathscr{A}$ называется алгеброй, если 
+    \begin{MyList}
+        \item $\Omega \in \mathscr{A}$ 
+        \item $A \in \mathscr{A}, B \in \mathscr{A} \SO A \cup B \in \mathscr{A}$
+        \item $A \in \mathscr{A} \SO \overline{A} \in \mathscr{A}$  
+    \end{MyList}   
+\end{Def}
+
+\begin{Prop}
+    Если $\mathscr{A}$ -- алгебра, то 
+    \begin{MyList}
+        \item $\varnothing \in \mathscr{A}$ 
+        \item $A, B \in \mathscr{A} \SO A \cap B \in \mathscr{A}$ 
+        \item $A, B \in \mathscr{A} \SO A \setminus B \in \mathscr{A}$
+        \item $A_i \in \mathscr{A} \SO \bigcup A_i \in \mathscr{A}, \bigcap A_i \in \mathscr{A}$  
+    \end{MyList}
+\end{Prop}
+
+\begin{proof}
+    \begin{MyList}
+        \item $\Omega \in \mathscr{A} \SO \overline{\Omega} \in \mathscr{A} \SO \overline{\Omega} = \varnothing \SO \varnothing \in \mathscr{A}$
+        \item $\overline{A \cap B} = \overline{A} \cup \overline{B} \in \mathscr{A}$. Тогда $\overline{\overline{A \cap B}} = A \cap B \in \mathscr{A}$
+        \item $A \setminus B = A \cap \overline{B} \in \mathscr{A}$ 
+        \item Доказывается по индукции.  
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    $\mathscr{A}$ называется $\sigma$-алгеброй, если 
+    \begin{MyList}
+        \item $\Omega \in \mathscr{A}$ 
+        \item $A_i \in \mathscr{A}, i = 1, .... \SO \bigcup_{i = 1}^\infty A_i \in \mathscr{A}$
+        \item $A \in \mathscr{A} \SO \overline{A} \in \mathscr{A}$
+    \end{MyList} 
+\end{Def}
+
+\begin{Def}
+    Пусть есть пространство $\Omega$, определенная на нём $\mathscr{A}$ -- $\sigma$-алгебра и $f: \mathscr{A} \to \R$ -- функция над множеством.
+    Тогда вероятностью называется функция из $\mathscr{A}$ в $\R$ такая, что
+    \begin{MyList}
+        \item $P(A) \geqslant 0 \ \forall A \in \mathscr{A}$ 
+        \item $P(\Omega) = 1$
+        \item $A_1, A_2, ... : A_i \cap A_j = \varnothing \ \forall i, j \SO P(\bigcup_{i = 1}^\infty A_i) = \sum_{i=1}^{\infty} P(A_i)$  
+    \end{MyList}
+    Перечисленные выше свойства называются \textbf{аксиомами теории вероятности}
+    
+    $(\Omega, \mathscr{A}, P)$ -- вероятностное пространство.
+\end{Def}
+\Pagebreak
+
+Свойства вероятности:
+\begin{MyList}
+    \item $P(\Omega) = 1$
+    \item $P(\varnothing) = 0$ 
+    \item Если $A_1, A_2 \in \mathscr{A}, A_1 \cap A_2 = \varnothing$, то \[P(A_1 \cup A_2) = P(A_1) + P(A_2)\]
+    \item Если $A_1, ..., A_n \in \mathscr{A}, A_i \cap A_j = \varnothing \ \forall i, j$, то \[P(\bigcup_{i = 1}^n A_i) = \sum_{i=1}^{n} P(A_i)\]
+    \item $P(\overline{A}) = 1 - P(A)$ 
+    \begin{proof}
+        \[P(\overline{A} \cup A) = P(\Omega) = P(A) + P(\overline{A})\] 
+    \end{proof}
+    \item Если $A, B \in \mathscr{A}$, то \[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]
+    \begin{proof}
+        \[A \cup B = (A \setminus B) \cup (B \setminus A) \cup (A \cap B)\]
+        
+        \[P(A \cup B) = P(A \setminus B) + P(B \setminus A) + P(A \cap B) = P((A \setminus B) \cup (A \cap B)) + P((B \setminus A) \cup (A \cap B)) - P(A \cap B) =\]
+        \[= P(A) + P(B) - P(A \cap B)\]
+    \end{proof}
+    \item $P(\bigcup_{i = 1}^n A_i) = \sum_{i=1}^{n} P(A_i) - \sum_{i, j=1}^{n} (A_i \cap A_j) + ...$
+    \item $A_1 \subset A_2 \subset ... \subset A_n \subset ...$
+    \[\lim_{n \to \infty} P(A_n) = P(\bigcup_{i = 1}^\infty A_i)\]
+    \begin{proof}
+        $A_{k - 1} \subset A_k$. Рассмотрим $A_k \setminus A_{k - 1}$. Пусть $A_0 = \varnothing$.
+        \[P(\bigcup_{i = 1}^\infty A_i) = \sum_{k=1}^{\infty} P(A_k \setminus A_{k - 1}) = \lim_{n \to \infty} \sum_{k=1}^{n} P(A_k \setminus A_{k - 1}) \lim_{n \to \infty} \sum_{k=1}^{n} P(A_k) - P(A_{k - 1}) =\]
+        \[= \lim_{n \to \infty} P(A_n) - P(\varnothing) = \lim_{n \to \infty} P(A_n)\]
+    \end{proof} 
+    \item $A_1 \supset A_2 \supset ... \supset A_n \supset ...$. Тогда 
+    \[\lim_{n \to \infty} P(A_n) = P(\bigcap_{i = 1}^\infty A_i)\]
+\end{MyList}
+
+\Pagebreak
+\begin{Example}
+    Два человека приходят на место в промежуток от 12 до 13ч и ждут 10 минут прежде чем уйти. Найти вероятность того, что они встретятся.
+\end{Example}
+
+\begin{Solution}
+    Пусть $t_1$ -- время, когда приходит первый, $t_2$ -- время, когда приходит второй.
+    \[|t_1 - t_2 \leqslant \frac{1}{6} \EQ \begin{cases}
+        t_2 \geqslant t_1 - \frac{1}{6} \\
+        t_2 \leqslant t_1 + \frac{1}{6}
+    \end{cases}\] 
+    \begin{figure*}[ht]
+        \centering
+        \import{./img}{first_example.pdf_tex}
+    \end{figure*}
+
+    Тогда вероятность -- площадь заштрихованной фигуры:
+    \[S = 1 - 2 \cdot \frac{\frac{5}{6} \cdot \frac{5}{6}}{2} = 1 - \frac{25}{36} = \frac{11}{36}\]
+\end{Solution}
+
+\begin{Example}
+    На $[0, 1]$ выбираются два числа $x, y$. Найти вероятность того, что их произведение меньше $\frac{1}{2}$  
+\end{Example}
+
+\begin{Solution}
+    \[f(x) = \begin{cases}
+        1, x \leqslant \frac{1}{2}, \\
+        \frac{1}{2x}, x > \frac{1}{2}
+    \end{cases}\]
+    \begin{figure*}[ht]
+        \centering
+        \def\svgwidth{.3\columnwidth}
+        \import{./img/}{second_example.pdf_tex}
+    \end{figure*}
+
+    Тогда искомая вероятность:
+    \[P(x \cdot y < \frac{1}{2}) = \int_{0}^{1} f(x)dx = \int_{0}^{\frac{1}{2}} f(x)dx + \int_{\frac{1}{2}}^{1} f(x)dx = \frac{1}{2} + \int_{\frac{1}{2}}^{1} \frac{1}{2x}dx = \frac{1}{2} + \frac{\ln 2}{2}\]
+\end{Solution}
+
+\Pagebreak
+\Subsection{Условная вероятность}
+\begin{Def}
+    Вероятность события $A$ при условии, что выполняется событие $B$ равна
+    \[P(A | B) = \frac{P(A \cap B)}{P(B)}\] 
+\end{Def}
+
+\begin{Example}
+    Есть урна, в которой лежит $m$ белых и $n$ черных шаров. Вытащим из неё два шара. Какова вероятность того, что они оба белые?
+\end{Example}
+
+\begin{Solution}
+    \[P(\text{первый -- белый}) = \frac{m}{m + n}, P(\text{второй -- белый} | \text{первый -- белый}) = \frac{m - 1}{m + n - 1}\]
+    \[P(\text{оба белые}) = \frac{m - 1}{m + n - 1} \cdot \frac{m}{m + n}\]
+\end{Solution}
+
+\Pagebreak
+Свойства условной вероятности:
+\begin{MyList}
+    \item $P(\Omega | B) = 1$
+    \item $P(\varnothing | B) 0 $ 
+    \item $0 \leqslant P(A | B) \leqslant 1$ 
+    \item $A \subset C \SO P(A | B) \leqslant P(C | B)$
+    \item $P(\overline{A} | B) = 1 - P(A | B)$
+    \item $P(A \cup C | B) = P(A | B) + P(C | B) - P(A \cap C | B)$
+    \item $P(A \cap B) = P(A | B) \cdot P(B)$
+    \[P(A_1 \cap A_2 \cap ... \cap A_n) = P(A_1) \cdot P(A_2 | A_1) \cdot P(A_3 | A_2 \cap A_1) \cdot ... \cdot P(A_n | \bigcap_{i = 1}^{n - 1} A_i)\]
+    \[P((A_1 \cap ... \cap A_{n - 1}) \cap A_n) = P(A_n | A_1 \cap ... \cap A_{n - 1}) \cdot P(A_1 \cap ... \cap _{n - 1})\]
+\end{MyList}
+
+\begin{Example}
+    Бросаем 3 кубика. Найти вероятность того, что хотя бы на одном из них выпадет $1$ при условии, что на всех выпали разные значения.
+\end{Example}
+
+\begin{Solution}
+    \[P(A | B) = 1 - P(\overline{A} | B) = 1 - \frac{P(\overline{A} \cap B)}{P(B)} = 1 - \frac{1}{2} = \frac{1}{2}\]
+\end{Solution}
+
+\Subsection{Независимость событий}
+\begin{Def}
+    $A$ независимо от $B (P(B) \neq \varnothing)$, если $P(A | B) = P(A)$ 
+\end{Def}
+
+\begin{Prop}
+    Если $A$ независимо от $B \SO B$ независимо от $A$.   
+\end{Prop}
+
+\begin{proof}
+    \[P(B | A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A \cap B) \cdot P(B)}{P(A) \cdot P(B)} = P(A | B) \cdot \frac{P(B)}{P(A)} = P(B)\]
+\end{proof}
+
+\begin{Def}
+    $A, B$ -- независимые, если 
+    \[P(A \cap B) = P(A) \cap P(B)\]
+\end{Def}
+
+\begin{Def}
+    $A_1, ..., A_n$ -- независимы в совокупности, если 
+    \[P(\bigcap_{i = 1}^n) = \prod_{i = 1}^n P(A_i)\]
+\end{Def}
+
+\begin{Def}
+    $A_1, .., A_n$ -- попарно-независимы, если 
+    \[\forall i, j \to P(A_i \cap A_j) = P(A_i) \cdot P(A_j)\]
+\end{Def}
+
+\begin{Rem}
+    Если $A_1, ..., A_n$ попарно-независимы, то они необязательно независимы в совокупности.
+\end{Rem}
+
+\Pagebreak
+\Subsection{Формула полной вероятности}
+
+\begin{Def}
+    Пусть $H_1, ..., H_n$ -- разбиение $\Omega$. Тогда $H_1 \cup ... \cup H_n = \Omega$ называется полной группой событий.
+\end{Def}
+
+\begin{Thm}
+    $H_1, ..., H_n$ -- полная группа событий и $P(H_i) > 0 \ \forall i = 1, ..., n$. Тогда 
+    \[\forall A \to P(A) = \sum_{i=1}^{n} P(H_i) \cdot P(A | H_i)\] 
+\end{Thm}
+
+\begin{proof}
+    \[A = A \cap \Omega = A \cap (H_1 \cup ... \cup H_n) = (A \cap H_1) \cup (A \cap H_2) \cup ... \cup (A \cap H_n)\]
+    \[P((A \cap H_1) \cup ... \cup (A \cap H_n)) = \sum_{i=1}^{n} P(A \cap H_i) = \sum_{i=1}^{n} P(A | H_i) \cdot P(H_i)\] 
+\end{proof}
+
+\begin{Thm}[Формула Байеса]
+    Пусть $H_1, H_2, ..., H_n$ -- полная группа событий. $A$ -- событие (считаем произошедшим). Тогда
+    \[P(H_k | A) = \frac{P(H_k) \cdot P(A|H_k)}{\sum_{i=1}^{n} P(H_i) \cdot P(A|H_i)}\]
+\end{Thm}
+
+\begin{proof}
+    \[P(H_k|A) = \frac{P(H_k \cap A)}{P(A)} = \frac{P(H_k) \cdot P(A|H_k)}{\sum_{i=1}^{n} P(H_i) \cdot P(A|H_i)}\] 
+\end{proof}
+
+\Subsection{Испытания Бернулли}
+
+\begin{Def}
+    Обозначим $P_n(m)$ -- вероятность получить $m$ успехов за $n$ испытаний. 
+\end{Def} 
+
+\begin{Thm}[Теорема Бернулли]
+    Рассмотрим упорядоченный набор: $\underbrace{SSS...S}_n \underbrace{FFF...F}_{n - m}$, где $S$ обозначает успех, а $F$ -- неудачу.
+    В силу независимости испытаний, вероятность получить конкретный упорядоченный набор равна $p^m (1 - p)^{n - m}$. Таких наборов, очевидно, $C_n^m$  
+\end{Thm}
+
+\begin{Thm}
+    $0 \leqslant m_1 \leqslant m_2 \leqslant n$. $P_n(m_1, m_2)$ -- успех наступил от $m_1$ до $m_2$ раз.
+    \[P_n(m_1, m_2) = \sum_{i=m_1}^{m_2} C_n^k p^k (1 - p)^{n - k}\] 
+\end{Thm}
+
+\begin{Def}
+    Наивероятнейшее число событий -- число событий в испытаниях Бернулли с наибольшей вероятностью.
+\end{Def}
+
+\begin{Thm}
+    Наивероятнейшее число успехов в $n$ испытаниях заключено между числами $np - (1 - p)$ и $np + p$  
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим следующее соотношение:
+    \[\frac{P_n(m)}{P_n(m - 1)} = \frac{C_n^m p^m (1 - p)^{n - m}}{C_n^{m - 1} p^{m - 1} (1 - p)^{n - m + 1}} = \frac{p}{1 - p} \cdot \frac{n! (m - 1)!(n - m + 1)!}{n!m!(n - m)!} = \frac{p}{1 - p} \cdot \frac{n - m + 1}{m}\]
+
+    Отсюда очевидно, что 
+    \begin{gather*}
+        P_n(m) > P_n(m - 1), m < (n + 1)p \\
+        P_n(m) = P_n(m - 1), m = (n + 1)p \\
+        P_n(m) < P_n(m - 1), m > (n + 1)p
+    \end{gather*}
+    Значит, при $m < (n + 1)p \ P_n(m)$ возрастает, при $m > (n + 1)p$ -- убывает. Тогда несложно найти $m$ такое, чтобы $P_n(m)$ было наибольшим:
+    \[\begin{cases}
+        P_n(m) > P_n(m - 1) \\
+        P_n(m + 1) < P_n(m)
+    \end{cases} \EQ \begin{cases}
+        m < (n + 1)p \\
+        m + 1 > (n + 1)p
+    \end{cases} \EQ np + p - 1 < m < np + p\]  
+\end{proof}
+
+\Pagebreak
+\Subsection{Предельные случаи испытаний Бернулли}
+
+Рассмотрим ситуацию, когда вероятность какого-то события уменьшается пропорционально $n$, т.е. $p \thicksim \frac{1}{n}$ 
+\begin{Thm}[Теорема Пуассона]
+    Пусть $np \to \lambda$. 
+    \[\forall m, \forall \lambda \ \lim_{n \to \infty} P_n(m) = \frac{\lambda^m}{m!}\cdot e^{-\lambda}\]
+\end{Thm}
+
+\begin{proof}
+    \begin{align*}
+        P_n(m) &= C_n^m p^m \cdot (1 - p)^{n - m} = \frac{n!}{m!(n - m)!} \cdot \left(\frac{\lambda}{n}\right)^m \left(1 - \frac{\lambda}{n}\right)^{n - m} = \\
+        &= \frac{n(n - 1) ... (n - m) + 1}{m!} \cdot \left(1 - \frac{\lambda}{n}\right)^{n - m} \cdot \left(\frac{\lambda}{n}\right)^m = \\
+        &= \frac{\lambda^m}{m!}\left(1 - \frac{\lambda}{n}\right)^n \left(1 - \frac{1}{n}\right) \left(1 - \frac{2}{n}\right)...\left(1 - \frac{m - 1}{n}\right)\left(1 - \frac{\lambda}{n}\right)^{-m} \SO \\
+        &\SO \lim_{n \to \infty} P_n(m) = \lim_{n \to \infty} \frac{\lambda^m}{m!} \left(1 - \frac{\lambda}{n}\right)^n = \frac{\lambda^m}{m!}\cdot e^{-\lambda}
+    \end{align*}
+\end{proof}
+
+\begin{Thm}[Локальная теорема Муавра-Лапласа]
+    Пусть $x_n = \frac{m - np}{\sqrt{np(1 - p)}}$. Предположим, что $x_n$ ограничена при $n \to \infty$. Тогда
+    \[\sqrt{np(1 - p)} \cdot P_n(m) \thicksim \frac{1}{\sqrt{2\pi}} \cdot e^{-\frac{x_n^2}{2}}\]   
+\end{Thm}
+
+\begin{proof}
+    Вспомним, что $k! \thicksim \sqrt{2\pi k} \left(\frac{k}{e}\right)^k$. \\
+    $n - m = n(1 - p) - x_n\sqrt{np(1 - p)}$. Тогда
+    \begin{align*}
+        &\sqrt{np(1 - p)}P_n(m) = \sqrt{np(1 - p)} C_n^m p^m (1 - p)^{n - m} = \frac{\sqrt{np(1 - p)} \cdot n!}{m!(n - m)!} \cdot p^m \cdot (1 - p)^{n - m} \\
+        &\approx \frac{\sqrt{np(1 - p)} \cdot \sqrt{2\pi n} \left(\frac{n}{e}\right)^n}{\sqrt{2\pi m} \cdot \left(\frac{m}{e}\right)^m \cdot \sqrt{2\pi (n - m)} \cdot \left( \frac{n - m}{e}\right)^{n - m}} \cdot p^m \cdot (1 - p)^{n - m} \\
+        &= \frac{\sqrt{np(1 - p)} \cdot \sqrt{n} \cdot n^n}{\sqrt{2\pi} \cdot \sqrt{m} \cdot m^m \cdot (n - m)^{n - m}} \cdot p^m (1 - p)^{n - m} = \frac{1}{\sqrt{2\pi}} \left( \frac{np}{m}\right)^m \cdot \left( \frac{n(1 - p)}{n - m}\right)^{n - m} \sqrt{ \frac{np}{m}} \cdot \sqrt{ \frac{n(1 - p)}{n - m}}\\
+    \end{align*} 
+
+    $m = np + x_n\sqrt{np(1 - p)}$
+    \begin{align*}
+        \frac{m}{np} = 1 + \frac{x_n\sqrt{1 - p}}{\sqrt{np}} &\xrightarrow[n \to \infty]{} 1 \\
+        \frac{n - m}{n(1 - p)} = 1 - \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}} &\xrightarrow[n \to \infty]{} 1
+    \end{align*} 
+
+    Пусть, для удобства, $\exp(x) = e^x$. Тогда 
+    \begin{gather*}
+        \sqrt{np(1 - p)}P_n(m) \approx \frac{1}{\sqrt{2\pi}} \cdot \left(1 + \frac{x_n\sqrt{1 - p}}{\sqrt{np}}\right)^{-m} \left(1 - \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}}\right)^{-(n - m)} = \\
+        = \frac{1}{\sqrt{2\pi}} \exp\left({-m \cdot \ln \left(1 + \frac{x_n\sqrt{1 - p}}{\sqrt{np}}\right) - (n - m) \cdot \ln \left(1 - \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}}\right)}\right)
+    \end{gather*}
+
+    Как мы знаем (откуда?)
+    \[\ln(1 + y) \xrightarrow[y \to 0]{}y - \frac{y^2}{2}(1 + O(1))\]
+    Следовательно $\sqrt{np(1 - p)}P_n(m) =$ 
+    \[
+        = \frac{1}{\sqrt{2\pi}} \exp \left(-m \left( \frac{x_n \sqrt{1 - p}}{\sqrt{np}} - \frac{x_n^2}{2np}\right)(1 + O(1)) - (n - m)\left(- \frac{x_n\sqrt{p}}{\sqrt{n(1 - p)}} - \frac{x_n^2p}{2n(1 - p)}\right)(1 + O(1))\right)
+    \]
+    \begin{gather*}
+        x_n \left( \frac{(n - m)\sqrt{p}}{\sqrt{n(1 - p)}} - \frac{m\sqrt{1 - p}}{\sqrt{np}}\right) = \\
+        = \frac{x_n}{\sqrt{np(1 - p)}}\left(np(1 - p) - x_n\sqrt{np(1 - p)} p - n(1 - p)\cdot p - x_n\sqrt{np(1 - p)}(1 - p)\right) = \\
+        = -x_n^2 (p + (1 - p)) = -x_n^2
+    \end{gather*}
+
+    Таким образом:
+    \[\sqrt{np(1 - p)}P_n(m) \approx \frac{1}{\sqrt{2\pi}}e^{\left(-x_n^2 + \frac{x_n^2}{2}\right)(1 + O(1))} \approx \frac{1}{\sqrt{2\pi}}e^{- \frac{x_n^2}{2}}\]
+
+\end{proof}
+
+\begin{Thm}[Интегральная теорема Муавра-Лапласа]
+  $a_n = \frac{m_1 - np}{\sqrt{npq}}, b_n = \frac{m_2 - np}{\sqrt{npq}}, q = 1 - p$. Пусть $m_1 \to \infty, n \to \infty, a_n, b_n$ -- ограничены. Тогда
+  \[\lim_{n \to \infty} \left|P_n(m_1, m_2) - \frac{1}{2\pi} \int_{a_n}^{b_n} e^{- \frac{x^2}{2}} dx\right| = 0\]  
+\end{Thm}
+
+\begin{Def}
+  $\PHI (x) = \frac{1}{\sqrt{2\pi}} \cdot e^{- \frac{x^2}{2}}$ -- функция Гаусса. \\
+  $\Phi(x) = \frac{1}{\sqrt{2\pi}} \cdot \int_{0}^{x} e^{- \frac{z^2}{2}}dz$ -- функция Лапласа. 
+\end{Def}
+
+\begin{Cons}
+  По локальной теореме Муавра-Лапласа:
+  \[P_n(m) \thicksim \frac{\PHI(x)}{\sqrt{npq}}\]
+  По интегральной теореме Муавра-Лапласа:
+  \[P_n(m_1, m_2) \thicksim \frac{1}{2}(\Phi(b_n) - \Phi(a_n))\]
+\end{Cons}
+
+\Subsection{Случайные величины}
+
+Пусть $\Omega = \{\omega_1, \omega_2, ..., \omega_k, ...\}$
+
+\begin{Def}
+    Функция, заданная на $\Omega$ -- случайная величина.
+    \[x = X(\Omega)\]
+\end{Def}
+
+\begin{Def}
+    Соответствие, которое каждому $x_i$ сопоставляет вероятность $p_i$ -- распределение (закон распределения) 
+\end{Def}
+
+\begin{Rem}
+    Если $X$ -- дискретная случайная величина, то $Y = g(X)$ -- тоже дискретная случайная величина и
+    \[y_i = g(x_i), p_i = P(X = x_i)\] 
+\end{Rem}
+
+\begin{Def}
+    Определим случайную величину в более общим случае. Пусть у нас есть $(\Omega, \mathscr{A}, P)$. Тогда случайная величина это
+    \[X = X(\omega), \omega \in \Omega : \{X < x\} = \{\omega : X(\omega) < x\} \in \mathscr{A} \ \forall x\]
+\end{Def}
+
+\begin{Def}
+    $F(x) = P(X < x), x \in (-\infty, +\infty)$ -- функция распределения случайной величины. 
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item $F(x_1) \leqslant F(x_2)$ если $x_1 < x_2$
+    \item $F(-\infty) = 0, F(+\infty) = 1$
+    \item $P(a \leqslant X < b) = F(b) - F(a)$   
+\end{MyList}
+
+\begin{Def}
+    Пусть $P(y)$ -- неотрицательная функция. Если $F(x) = \int_{-\infty}^{x}f(y)dy$, то $P(y)$ -- плотность распределения.
+    В частности, $P(x) = F'(x)$  
+\end{Def}
+
+\begin{Def}
+    Есть $P(X = x, Y = y) = P(X = x) \cdot P(Y = y)$, где $P(A, B)$ -- вероятность одновременного наступления событий $A$ и $B$, то $X, Y$ -- независимые случайные величины.
+\end{Def}
+
+\begin{Def}
+    Пусть $X$ -- дискретная случайная величина. Тогда матожиданием называется
+    \[E(X) = \sum_{i=1}^{n} x_i p_i\] 
+    а $E(|X|) = \sum_{i=1}^{n} |x_i| p_i$ -- абсолютный момент. 
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item $E(aX + b) = aE(x) + b$ 
+    \item $E(X + Y) = E(X) + E(Y)$ 
+    \item Если $X, Y$ -- независимые случайные величины, то $E(XY) = E(X) \cdot E(Y)$  
+\end{MyList}
+
+\end{document}
