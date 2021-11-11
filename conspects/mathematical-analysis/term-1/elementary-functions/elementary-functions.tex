@@ -1,0 +1,602 @@
+\documentclass[12pt]{article}
+
+% Автор стиля: Сергей Копелиович
+% Автор конспекта: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\usepackage{import}
+\usepackage{MnSymbol}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\def\NAME{Лекция, 10/20/21}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+\DeclareMathOperator{\sort}{sort}
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Solution}[Thm]{Решение}
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def.} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{Матанализ}
+\def\AuthorName{Илья Дудников}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  
+
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{Конспект, \NAME}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+    
+  \lfoot{}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+    Матанализ 1 семестр ПИ,\\
+    \vspace{0.3em}
+     \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Элементарные функции}{}{Илья Дудников}
+
+\Subsection{Постоянная}
+
+$f(x) = c, x \mapsto c$, непрерывна на $\R$
+
+\Subsection{Степенная функция}
+
+$e_\alpha (x) = x^\alpha$
+
+При $\alpha = 1 \ e_1 (x) = x$ -- непрерывна на $\R$
+
+При $\alpha = n \in \N$ 
+\[e_\alpha (x) = x^n\]
+Следовательно $e_n (x)$ непрерывна на $\R$ как произведение непрерывных.
+
+При $\alpha = -n, n \in \N$
+\[x^{-n} = \frac{1}{x^n}, \t x \in \R \setminus \{0\}\] 
+Непрерывна на $\R \setminus \{0\}$ как частное непрерывных.
+
+При $\alpha = 0$ полагаем $x^0 = 1$ при всех $x \neq 0$. Можно доопределить до непрерывности ( $0^0 = 1$ )
+
+Если $n$ нечётно, то $e_n$ строго возрастает на $\R, \sup_{x \in \R} e_n(x) = +\infty, \inf_{x \in \R} e_n(x) = -\infty$. По теореме о сохранении промежутка $e_n(\R) = \R$.
+
+Если $n$ четно, то функция $e_n$ строго возрастает на $\R_+, \sup_{x \in \R_+} e_n(x) = +\infty, \min_{x \in \R_+} e_n(x) = 0, e_n(\R_+) = \R_+$.
+По теореме о существовании и непрерывности обратной функции существует и непрерывна функция
+
+\[e_{\frac{1}{n}} = \begin{cases}
+    e_n^{-1}, n \ \not\vdots \ 2 \\
+    \left(e_n|_{R_+}\right)^{-1}, n \ \vdots \ 2 
+\end{cases}\]
+Это $\sqrt[n]{x}$, строго возрастает и непрерывна на $\R_+$
+
+Теперь определим $x^\alpha$ при рациональном $\alpha = r = \frac{p}{q}, p \in \Z, q \in \N, \frac{p}{q}$ несократима.
+\[x^r = (x^p)^{\frac{1}{q}} (e_r = e_{\frac{1}{q}} \circ e_p)\] 
+Таким образом, $x^r$ определено следующим образом.
+\begin{align*}
+    &x > 0, r \text{ любое}, \\
+    &x = 0, r \geqslant 0, \\ 
+    &x < 0, q \ \not\vdots 2
+\end{align*}
+$e_r$ непрерывна на своей области определения, строго возрастает на $[0, +\infty)$ при $r > 0$, строго убывает на $(0, +\infty)$ при $r < 0$
+
+\Pagebreak
+\Subsection{Показательная функция}
+
+$0^x = 0 \ \forall x > 0$
+
+Пусть $a > 0$. Пока что $a^x$ определена только для $x \in \mathbb{Q}$. Обозначим эту функцию $a^x |_\mathbb{Q}$. Её свойства:
+\begin{MyList}
+    \item $r < s \SO a^r < a^s, a > 1$ и $a^r > a^s, 0 < a < 1$
+    \item $a^{r + s} = a^r a^s$
+    \item $(a^r)^s = a^{rs}$
+    \item $(ab)^r = a^r b^r$   
+\end{MyList}  
+
+\begin{Def}
+    Пусть $a > 0, x \in \R$ Положим
+    \[a^x = \lim_{r \to x} a^r |_\mathbb{Q}\] 
+\end{Def}
+
+\begin{Lm}
+    Пусть $a > 0, \{r_n\}$ -- последовательность рациональных чисел, $r_n \to 0$. Тогда $a^{r_n} \to 1$.   
+\end{Lm}
+
+\begin{proof}
+    При $a = 1$ лемма очевидно, т.к. $a^{r_n} = 1 \ \forall n$.
+    
+    Пусть $a > 1$. Докажем лемму в частном случае $r_n = \frac{1}{n}$. Поскольку $a^{\frac{1}{n}} > 1$, имеем $a^{\frac{1}{n}} = 1 + \alpha_n, \alpha_n > 0$. Тогда по неравенству Бернулии
+    \[a = (1 + \alpha_n)^n \geqslant 1 + n \alpha_n\]
+    Откуда $0 < \alpha_n < \frac{a - 1}{n} \SO \alpha_n \to 0 \SO a^{\frac{1}{n}} \to 1$.
+
+    Далее, по доказанному 
+    \[a^{-\frac{1}{n}} = \frac{1}{a^{\frac{1}{n}}} \to \frac{1}{1} = 1\]
+    Пусть теперь $\{r_n\}$ -- произвольная последовательность из условия леммы. Возьмем $\varepsilon > 0$. $\exists N_0:$
+    \[1 - \varepsilon < a^{-\frac{1}{N_0}} < a^{\frac{1}{N_0}} < 1 + \varepsilon\]
+    Поскольку $r_n \to 0$, найдется такой номер $N$, что $\forall n > N \to -\frac{1}{N_0} < r_n < \frac{1}{N_0}$. В силу строгой монотонности показательной функции рационального аргумента
+    \[1 - \varepsilon < a^{-\frac{1}{N_0}} < a^{r_n} < a^{\frac{1}{N_0}} < 1 + \varepsilon\]
+    Значит $a^{r_n} \to 1$
+    
+    Если $0 < a < 1$, то $\frac{1}{a} > 1$, и по доказанному
+    \[a^{r_n} = \frac{1}{\left(\frac{1}{a}\right)^{r_n}} \to 1\]  
+\end{proof}
+
+\begin{Lm}
+    Пусть $a > 0, x \in \R, \{r_n\}$ -- последовательность рациональных чисел, $r_n \to x$. Тогда существует конечный предел последовательности $\{a^{r_n}\}$
+\end{Lm}
+
+\begin{proof}
+    При $a = 1$ лемма очевидна. 
+    
+    Пусть $a > 1$. Возьмем какую-либо возрастающую последовательность $\{s_n\}$ рациональных чисел, стремящуюся к $x$. Например
+    \[s_n = \frac{[10^n x]}{10^n}\]
+    Тогда $x - \frac{1}{10^n} < s_n \leqslant x \SO s_n \to x$. Докажем, что последовательность $\{s_n\}$ возрастает. Пусть $A = 10^n x$.
+    Тогда $s_n \leqslant s_{n + 1} \EQ 10[A] \leqslant [10A]$, но $10[A]$ -- целое число, не превосходящее $10A$.
+    
+    $\{a^{s_n}\}$ возрастает и ограничена сверху числом $a^{[x] + 1}$. Значит $\{a^{s_n}\}$ сходится к некоторому пределу $L$. Но тогда    
+    \[a^{r_n} = a^{r_n - s_n}a^{s_n} \to L\]
+    Потому что $a^{r_n - s_n} \to 1$ по предыдущей лемме.
+    
+    Если $0 < a < 1$, то $\frac{1}{a} > 1$ и по доказанному $\left(\frac{1}{a}\right)^{r_n} \to L, L > 0$. Тогда
+    \[a^{r_n} = \frac{1}{\left(\frac{1}{a}\right)^{r_n}} \to \frac{1}{L}\]   
+\end{proof}
+
+\Subsubsection{Свойства показательной функции}
+
+\begin{MyList}
+    \item $a^x$ строго возрастает на $\R$ при $a > 1$ и строго убывает на $\R$ при $a \in (0, 1)$
+    \begin{proof}
+        $a > 1$. Пусть $x < y$. Докажем, что $a^x < a^y$. Возьмем два числа $\overline{r}, \overline{\overline{r}} \in \Q$ между $x$ и $y$.
+        Возьмем $\{\overline{r}_n\}_{n = 1}^\infty, \{\overline{\overline{r}}\}_{n = 1}^\infty :$ последовательности из $\Q : \overline{r}_n \to x, \overline{\overline{r}}_n \to y$.
+        
+        По доказанному $a^{\overline{r}_n} < a^{\overline{r}} < a^{\overline{\overline{r}}} < a^{\overline{\overline{r}}_n}$
+        \[\SO a^x \leqslant a^{\overline{r}} < a^{\overline{\overline{r}}} \leqslant a^y \SO a^x < a^y\]
+        
+        $a \in (0, 1)$. Рассмотрим $b = \frac{1}{a} > 1$.  
+    \end{proof}
+    \item $a^{x + y} = a^x \cdot a^y$
+    \begin{proof}
+        $\{\overline{r}_n\}, \{\overline{\overline{r}}_n\}$ как в $1)$
+        \[a^{\overline{r}_n + \overline{\overline{r}}_n} = a^{\overline{r}_n} \cdot a^{\overline{\overline{r}}_n} \SO a^{x + y} = a^x \cdot a^y\]
+    \end{proof}
+    \item $a^{-x} = a^0 \cdot a^{-x} = \frac{1}{a^x}$ 
+    \item $a^x$ непрерывна на $\R$ 
+    \begin{proof}
+        $a > 1, \{x_n\}: x_n \to 0$. Докажем непрерывность в нуле.
+        \[\forall \varepsilon > 0 \ \exists N : \forall n \geqslant N \to |x_n| < \varepsilon \SO -\frac{1}{n_0} < x_n < \frac{1}{n_0}, n_0 \in \N\]
+        Тогда $1 - \varepsilon < a^{-\frac{1}{n_0}} < a^{x_n} < a^{\frac{1}{n_0}} < 1 + \varepsilon \ (a^{\frac{1}{n}} \to 1 \SO \exists n_0 : |a^{\frac{1}{n}} - 1| < \varepsilon)$
+        \[\forall \varepsilon > 0 \ \exists N' : \forall n \geqslant N \to |a^{x_n} - 1| < \varepsilon \EQ a^{x_n} \to 1\]
+
+        Докажем непрерывность в точке $x_0 \neq 0$. \\
+        Рассмотрим $a^{x_0} - a^{x_n} = a^{x_0} (a^{x_n} - 1) \to 0$  
+    \end{proof}
+    
+    \item $(ab)^x = a^x b^x$
+    \begin{proof}
+        $\{r_n\}$ из $\Q$, $r_n \to x$. Тогда
+        \[(ab)^{r_n} = a^{r_n} \cdot b^{r_n} \SO (ab)^x = a^x b^x\] 
+    \end{proof}
+
+    \item $(a^x)^y = a^{xy}$ 
+    \begin{proof}
+        $x_n \to x, y_n \to y, \{x_n\}, \{y_n\}$ из $\Q$. Тогда по непрерывности показательной и степенной функций
+        \[(a^{x_n})^{y_m} = a^{x_n \cdot y_m} \xRightarrow[n \to \infty]{} (a^x)^{y_m} = a^{x \cdot y_m} \xRightarrow[m \to \infty]{} (a^x)^y = a^{x \cdot y}\] 
+    \end{proof}
+
+    \item $a^x$ -- биекция из $\R$ на $(0, +\infty)$  
+    \begin{proof}
+        $a > 1$. Тогда $a^x$ строго возрастает на $\R$.
+        \[a^n = (1 + \alpha)^n \geqslant 1 + n \alpha \to +\infty \SO \lim_{x \to +\infty} a^x = +\infty\]
+        \[\lim_{x \to -\infty} a^x = 0\]
+    \end{proof}
+\end{MyList}
+
+\Subsection{Логарифм}
+
+\begin{Def}
+    Т.к. $a^x : \R \to (0, +\infty)$ -- биекция, то $\exists f^{-1} : (0, +\infty) \to \R$.
+    \[\log_a x : (0, +\infty) \to \R\]
+    Из теоремы об обратной функции $\log_a x$ монотонна и непрерывна.   
+\end{Def}
+
+\Subsubsection{Свойства логарифма}
+
+\begin{MyList}
+    \item $\log_a x + \log_a y = \log_a (xy), a \in (0, 1) \cup (1, +\infty), x, y > 0$
+    \begin{proof}
+        \[a^{\log_a x + \log_a y} = a^{\log_a x} \cdot a^{\log_a y} = x \cdot y = a^{\log_a (xy)}\]
+    \end{proof}
+
+    \item $\log_a x^b = b\log_a x, a \in (0, 1) \cup (1, +\infty), x > 0, b \in \R$
+    \begin{proof}
+        \[a^{b \log_a x} = (a^{log_a x})^b = x^b = a^{log_a x^b}\]
+    \end{proof}
+
+    \item $\log_a x = \frac{\log_b x}{\log_b a}, a, b \in (0, 1) \cup (1, +\infty), x > 0$
+    \begin{proof}
+        \[b^{log_a x \cdot \log_b a} = (b^{\log_b a})^{\log_a x} = a^{\log_a x} = x = b^{\log_b x}\] 
+    \end{proof}
+\end{MyList}
+
+\begin{Def}
+    $\ln x$ -- натуральный логарифм ( $\log_e x$ )
+\end{Def}
+
+Вернемся к степенной функции:
+
+\begin{Def}
+    $x > 0, \alpha \in \R \ x^\alpha = e^{\alpha \cdot \ln x}$. $0^\alpha = 0$. Покажем непрерывность справа в точке $0$.
+    \[x_n \to 0, x_n > 0\]
+    Пусть $y_n = \ln x_n \xrightarrow[n \to \infty]{} -\infty$. Значит $x_n^\alpha = e^{\alpha \ln x_n} \xrightarrow[n \to \infty]{} 0$ 
+    \begin{align*}
+        &x^\alpha : [0, +\infty) \to [0, +\infty), \alpha > 0 \text{ -- биекция} \\
+        &x^\alpha : (0, +\infty) \to (0, +\infty), \alpha < 0 \text{ -- биекция}
+    \end{align*} 
+\end{Def}
+
+\Subsection{Тригонометрические функции}
+
+\begin{Prop}
+    $x \in (0, \frac{\pi}{2})$. Тогда $\sin x < x < \tg x$.
+\end{Prop}
+
+\begin{proof}
+
+    Нужно доказать: \(BC < \stackrel{\frown}{AB} < AB\) \\
+    \begin{figure*}[h]
+        \centering
+        \input{images/trig.pdf_tex}
+    \end{figure*}
+    $\triangle OBA \subset \downslice OAB \subset \triangle OAD \EQ S_{\triangle OBA} < S_{\downslice OAB} < S_{\triangle OAD}$
+    \begin{align*}
+        S_{\triangle OBA} &= \frac{1}{2} |OA| \cdot |BC| = \frac{\sin x}{2} \\
+        S_{\downslice OAB} &= \frac{1}{2} \cdot x \cdot |OA|^2 = \frac{x}{2} \\
+        S_{\triangle OAD} &= |OA| \cdot |AD| \cdot \frac{1}{2} = 1 \cdot \tg x \cdot \frac{1}{2} = \frac{\tg x}{2} \\
+    \end{align*} 
+    Отсюда 
+    \[ \frac{\sin x}{2} < \frac{x}{2} < \frac{\tg x}{2} \EQ \sin x < x < \tg x\]
+\end{proof}
+
+\begin{Cons}
+    $|\sin x| \leqslant |x| \ \forall x \in \R$ (причем равенство достигается только в $0$ ) \\
+    При $x \in (0, \frac{\pi}{2})$ доказано.
+    \begin{align*}
+        x &\geqslant \frac{\pi}{2} : |\sin x| \leqslant 1 < \frac{\pi}{2} \leqslant x \\
+        x &\leqslant -\frac{\pi}{2} : |\sin x| = \sin(-x)| < |-x| = x
+    \end{align*} 
+\end{Cons}
+
+Свойства:
+\begin{MyList}
+    \item $\sin x$ -- непрерывная на $\R$ функция.
+    \[\lim_{x \to x_0} \sin x = \sin x_0 \]
+    \begin{proof}
+        \[|\sin x - \sin x_0| = \left|2 \cdot \sin \frac{x - x_0}{2} \cdot \cos \frac{x + x_0}{2}\right| \leqslant 2 \left|\sin \frac{x - x_0}{2}\right| \leqslant 2 \left| \frac{x - x_0}{2}\right| \leqslant |x - x_0| \to 0\]
+    \end{proof}
+
+    \item $\cos x = \sin \left(\frac{\pi}{2} - x\right)$ -- непрерывна. 
+    \item $\tg x \frac{\sin x}{\cos x}, x \in \R \setminus \{\frac{\pi}{2} + \pi k, k \in \Z\}$
+    \item $\ctg x = \frac{\cos x}{\sin x}, x \in \R \setminus \{\pi k, k \in \Z\}$ -- непрерывны на области определения.
+\end{MyList}
+
+\Subsubsection{Обратные тригонометрические функции}
+
+$\sin x : \R \to [-1, 1]$ не обратимая.
+
+$\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}{2}, \frac{\pi}{2}\right] \to [-1, 1]$ -- биекция
+
+\begin{Def}
+    $\arcsin x = \left(\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]}\right)^{-1}$. Монотонно возрастает и непрерывна 
+\end{Def}
+
+\begin{Def}
+    $\arccos x = \left(\cos x |_{x \in [0, \pi]}\right)^{-1}$. Убывает, непрерывна
+\end{Def}
+
+\begin{Def}
+    $\arctg x = \left(\tg x |_{x \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)}\right)^{-1}$. Непрерывна, строго возрастает.
+\end{Def}
+
+\begin{Def}
+    $\arcctg x = \left(\ctg x |_{x \in (0, \pi)}\right)^{-1}$ 
+\end{Def}
+\end{document}
