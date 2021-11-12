@@ -1888,4 +1888,256 @@ $$f = g = a_n x^n + ... + a_1 x + a_0$$
     $f$ -- приводим $\SO f = f_1 \cdot g, \deg f_1 < n \SO \exists $ неприводимый многочлен $\PHI$, который делит $f_1 \SO f_1 | f$.
 \end{proof}
 
+\begin{Thm}
+    $K$ -- поле. $K[x]$ -- факториальное кольцо.
+\end{Thm}
+
+\begin{proof}
+    Существование. $f \in K[x]$. Если $f$ -- неприводим, то очевидно.
+    Если $f = \PHI_1 \cdot f_1, \PHI$ -- неприводим; $f_1 = \PHI_2 \cdot f_2$ и т.д.
+    $\SO f = \PHI_1 \cdot \PHI_2 \cdot ... \cdot \PHI_k$
+    
+    Единственность. $f = \varepsilon \PHI_1 \PHI_2 ... \PHI_k = \eta \psi_1 \psi_2, ..., \psi_s, \varepsilon, \eta \in K^*, \PHI_i, \psi_j$ -- неприводимы.
+    $k \leqslant s \SO \PHI_1 | \eta \psi_1 \psi_2 ... \psi_s \SO \PHI_1 | \psi_j \SO \PHI_1 = \psi_j \SO \varepsilon^{-1} \eta \psi_{s - k}  ... \psi_s = 1 \SO \varepsilon = \eta, \psi_{s - k} ... \psi_s = 1$  
+\end{proof}
+
+\begin{Def}
+    $f = \varepsilon \cdot \PHI_1^{k_1} \cdot ... \cdot \PHI_s^{k_s}$, где $\varepsilon \in K^*, \PHI_1, \PHI_2, ..., \PHI_s$ -- различные неприводимые многочлены над $K$, $k_1, k_2, ..., k_s \geqslant 1 \in \Z$ -- каноническое разложение многочлена $f$.
+\end{Def}
+
+\Subsection{Каноническое разложение многочлена над $\C$}
+
+\begin{Def}
+    Поле $K$ называется алгебраически замкнутым, если любой многочлен $\deg \geqslant 1$ имеет хотя бы один корень.
+\end{Def}
+
+\begin{Example}
+    $\Q(x^2 - 2), \R (x^2 + 1), \Z_p$ не являются алгебраически замкнутыми.
+\end{Example}
+
+\begin{Thm}[Основная теорема высшей алгебры]
+    $\C$ -- алгебраически замкнуто.
+\end{Thm}
+
+\begin{Cons}
+    Каноническое разложение многочлена над $\C$ 
+    \[f = a_n (x - z_1)^{k_1} (x - z_2)^{k_2} ... (x - z_s)^{k_s}\]
+    $z_1, ..., z_s \in \C, a_n \in \C$ 
+\end{Cons}
+
+\Pagebreak
+\Subsection{Каноническое разложение многочлена над $\R$}
+
+\begin{Def}
+    $R_1, R_2$ -- кольца с 1. Гомоморфизмом колец $R_1$ и $R_2$ называется $\PHI: R_1 \to R_2 : $
+    \begin{MyList}
+        \item $\forall x, y \in R_1 \ \PHI(x + y) = \PHI(x) + \PHI(y)$
+        \item $\forall x, y \in R_1 \ \PHI(x \cdot y) = \PHI(x) \cdot \PHI(y)$
+        \item $\PHI(1) = 1$   
+    \end{MyList}  
+\end{Def}
+
+\begin{Def}
+    Биективный гомоморфизм колец -- \textbf{изоморфизм}, при этом сами кольца называются \textbf{изоморфными}.
+\end{Def}
+
+\begin{Example}
+    \begin{MyList}
+        \item $id: R \to R$ -- изоморфизм.
+        \item $\PHI : \Z \to \Z_n, \PHI(a) = a \Mod n$ -- гомоморфизм. 
+        \begin{proof}
+            \[\PHI(a + b) = a + b \Mod n = \begin{cases}
+                a + b, 0 \leqslant a + b < n \\
+                a_0 + b_0 \equiv a + b \Mod n
+            \end{cases} = a \Mod n + b \Mod n = \PHI(a) + \PHI(b)\]
+            \[ab \equiv a_0 b_0 \Mod n \SO \PHI(ab) = ab \Mod n = (a \Mod n) \cdot (b \Mod n) = \PHI(a) \cdot \PHI(b)\]
+            \[\PHI(1) = 1\]
+            $\SO \PHI$ -- гомоморфизм. \\
+            $\PHI(kn) = 0 \SO$ не инъективно $\SO$ не изоморфизм. 
+        \end{proof}
+        
+        \item $\PHI: R \to R[x], \PHI(r) = r$ -- вложение - гомоморфизм.
+    \end{MyList}
+\end{Example}
+
+Свойства:
+\begin{MyList}
+    \item $\PHI(0) = 0$ 
+    \begin{proof}
+        $\PHI(x) = \PHI(x + 0) = \PHI(x) + \PHI(0) \SO \PHI(0) = \PHI(x) - \PHI(x) = 0$
+    \end{proof}
+
+    \item $\PHI(-x) = -\PHI(x)$ 
+    \begin{proof}
+        $0 = \PHI(x - x) = \PHI(x) + \PHI(-x) \SO \PHI(-x) = -\PHI(x)$ 
+    \end{proof}
+
+    \begin{Rem}
+        Противоположный элемент в кольце определен однозначно.
+
+        \begin{proof}
+            Пусть $x$ имеет $y$ и $z$ -- противоположные элементы. Тогда
+            \[z = 0 + z = y + x + z = y + 0 = y\]
+        \end{proof}
+    \end{Rem}
+\end{MyList}
+
+\begin{Def}
+    Поле $K_1$ и $K_2$ называются изоморфными, если они изоморфны как кольца.
+\end{Def}
+
+\begin{Rem}
+    При этом $\forall x \in K, \PHI(x^{-1}) = \PHI(x)^{-1}$
+    $$1 = \PHI(x \cdot x^{-1}) = \PHI(x) \cdot \PHI(x^{-1}) \SO \PHI(x^{-1}) = \PHI(x)^{-1}$$
+
+    Обратный элемент определен однозначно: если $y, z$ -- обратные к $x$ 
+    \[(yx = zx = 1) \SO y = yxz = z\]
+\end{Rem}
+
+\begin{Def}
+    Изоморфизм $\PHI: K \to K$ ( $K$ -- поле) называется автоморфизмом.
+\end{Def}
+
+\begin{Example}
+    \begin{MyList}
+        \item Найдем все автоморфизмы $\Q \to \Q$. $\PHI: \Q \to Q$ -- произвольный автоморфизм. $\PHI(1) = 1 \SO n \in \Z, n > 0$
+        \[\PHI(n) = \PHI(\underbrace{1 + 1 + ... + 1}_n) = \underbrace{\PHI(1) + ... + \PHI(1)}_n = n\]
+        $\SO \PHI(-n) = -n \SO\PHI|_\Z = id$ \\
+        $q \cdot \PHI \left(\frac{1}{q}\right) = \underbrace{\PHI \left(\frac{1}{q}\right) + ... + \PHI \left(\frac{1}{q}\right)}_q = \PHI\left(\frac{1}{q} + ... + \frac{1}{q}\right) = \PHI(1) = 1 \SO \PHI\left(\frac{1}{q}\right) = \frac{1}{q} \SO \PHI \left(\frac{p}{q}\right) = p \cdot \PHI \left(\frac{1}{q}\right) = \frac{p}{q} $
+        $\SO$ автоморфизмы $\Q = \{id\}$    
+
+        \item автоморфизмы $\R = \{id\}$
+        \item $\C$, автоморфизмы: $id, \PHI(z) = \overline{z}$   
+    \end{MyList}
+\end{Example}
+
+\begin{Def}
+    $K$ -- поле, тогда $k$ -- подполе поля $K$, если $k \subset K$ и $k$ -- поле.
+\end{Def}
+
+\begin{Lm}
+    $f \in k[x], c \in K, k \subset K, f(c) = 0, \PHI : K \to K$ -- автоморфизм, $\PHI |_k = id \SO \PHI(c) $ -- корень $f$.
+\end{Lm}
+
+\begin{proof}
+    $f = a_n x^n + ... + a_0, a_i = k, i = 0, ..., n$
+    \[\PHI(f) = \PHI(a_n x^n + ... + a_0) = \PHI(a_n) \cdot \PHI(x^n) + ... + \PHI(a_1) \PHI(x) + \PHI(a_0) =\]
+    \[= a_n \PHI(x)^n + ... + a_1 \PHI(x) + a_0 = f(\PHI(x))\]
+    $x = c : \PHI(f(c)) = \PHI(0) = 0$. С другой стороны $\PHI(f(c)) = f(\PHI(c)) \SO \PHI(c)$ корень $f$. 
+\end{proof}
+
+\begin{Thm}[Неприводимые многочлены над $\R$]
+    Неприводимые многочлены над $\R$ 
+
+    \begin{MyList}
+        \item $x - \alpha, \alpha \in \R$ 
+        \item $ax^2 + bx = c, b^2 - 4ac < 0$ 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $f$ -- неприводимый многочлен над $\R, \deg f \geqslant 2$, корней из $\R$ нет.
+    Пусть $\alpha + \beta i$ -- комплексный корень $f$ ( $\beta \neq 0$ ). По лемме $a - \beta i $ -- тоже корень $\SO f \ \vdots \ (x - \alpha - \beta i)(x - \alpha + \beta i)$.
+    \[(x - \alpha - \beta i)(x - \alpha + \beta i) = (x - \alpha)^2 + \beta^2 = x^2 - 2\alpha x + \alpha^2 + \beta^2 \in \R[x] \text{ -- неприводим}\]  
+    $\SO f = a(x^2 - 2 \alpha x + \alpha^2 + \beta^2), a \in \R^*$ 
+\end{proof}
+
+\begin{Cons}
+    Каноническое разложение над $\R$. 
+    \[f = a(x - \alpha_1)^{k_1} ... (x - \alpha_s)^{k_s} (x^2 + p_1 x + q_1)^{r_1} ... (x^2 + p_t x + q_t)^{r_t}\]
+    где $p_i^2 - 4q_i < 0, i = 1, ..., t$.  
+\end{Cons}
+
+\Pagebreak
+
+\Subsection{Уравнения 3-й степени}
+
+$ax^3 + bx^2 + cx + d = 0$
+\begin{Thm}[Метод Кардано]
+    \begin{MyList}
+        \item $x^3 + b'x^2 + c'x + d' = 0$ (поделили на $a$)
+        \item $x = y - \frac{b'}{3} \SO y^3 + py + q = 0$
+        \item $y = u + v : (u + v)^3 + p(u + v) + q = 0$
+        \[u^3 + 3u^2v + 3uv^2 + v^3 + p(u + v) + q = 0 \EQ (u + v)(3uv + p) + u^3 +v^3 + q = 0\]
+        \[\SO \begin{cases}
+            3uv + p = 0 \\
+            u^3 + v^3 + q = 0
+        \end{cases} \EQ \begin{cases}
+            v = -\frac{p}{3u} \\
+            u^3 - \frac{p}{27u^3} + q = 0
+        \end{cases} \EQ \begin{cases}
+            v = -\frac{p}{3u} \\
+            27u^6 + 27qu^3 - p^3 = 0
+        \end{cases}\] 
+        $\SO$ получим три несимметричных решения $(u, v)$
+        
+        \item Находим $y$ и $x$.
+    \end{MyList} 
+\end{Thm} 
+
+\Subsection{Уравнения 4-й степени}
+
+$ax^4 + bx^3 + cx^2 + dx + e = 0$ 
+
+\begin{Thm}[Метод Феррари]
+    \begin{MyList}
+        \item $x^4 + b'x^3 + c'x^2 + d'x + e' = 0$ (поделим на $a$)
+        \item $x = y - \frac{b'}{4} \SO y^4 + \alpha y^2 + \beta y + \gamma$ 
+        \item Введем $u : (y^2 + \alpha + u)^2 - (\alpha y^2 + uy^2 + 2 \alpha u - \beta y - \gamma + u^2 + \alpha^2) = 0$ \\
+        Выбираем $u : (\alpha + u)y^2 + \beta y + (u + \alpha)^2 - \gamma$ -- полный квадрат $\EQ \beta^2 - u(\alpha + u)((u + \alpha)^2 - \gamma) = 0$ -- уравнение третьей степени. Находим $u$.
+        
+        \item Раскладываем разность квадратов: 2 квадратных уравнения относительно $y$
+        \item Находим $x$.
+    \end{MyList}
+\end{Thm}
+
+\Subsection{Отделение кратных корней}
+
+\begin{Def}
+    $f \in K[x], f = a_n x^n + ... + a_1 x + a_0$.
+    Производной многочлена $f$ называется $f' = n a_n x^{n - 1} + ... + a_1$ 
+\end{Def}
+
+Свойства:
+
+\begin{MyList}
+    \item $\deg f = 0 \SO f' = 0$
+    \item $(f + g)' = f' + g'$
+    \item $(c \cdot f)' = c \cdot f', c \in K$ 
+    \item $(f \cdot g)' = f'g + fg'$  
+    \item $(f_1 \cdot f_2 \cdot ... \cdot f_k)' = f_1'f_2...f_k + f_1f_2'...f_k + f_1f_2...f_k'$
+    \item $(f^k)' = k \cdot f^{k - 1} \cdot f'$  
+\end{MyList}
+
+\Pagebreak
+\begin{proof}
+    4. $f = a_n x^n, g = b_m x^m$ 
+    \[(a_n x^n \cdot b_m x^m)' = (n + m)a_n b_m x^{n + m - 1}\]
+    \[(a_n x^n)' \cdot b_m x^m + a_n x^n \cdot (b_m x^m)' = a_n b_m (n + m) x^{n + m - 1}\]
+    $f = a_n x^n, g = b_m x^m + ... + b_1 x + b_0$ 
+    \[(fg)' = \left(\sum \right)' = \sum ()' = f'g + fg'\]
+    $f = a_n x^n + ... + a_1 x + a_0, g = b_m x^m + ... + b_1 x + b_0$ 
+    $a_k x^k \cdot g$ -- верно $\SO$ верно и для $f \cdot g$
+
+    5. Индукция \\
+    5. $\SO$ 6.
+\end{proof}
+
+\begin{Def}
+    Корни кратности 1 -- простые корни, корни кратности $> 1$ -- кратные корни.
+\end{Def}
+
+\begin{Thm}[Критерий кратности корня]
+    $f \in K[x]$. $c$ -- кратный корень $f \EQ f(c) = f'(c) = 0$ 
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $f = (x - c)^2 \cdot g, f(c) = 0$.
+    $f'(c) = 2(x - c)g + (x - c)^2 \cdot g' \SO f'(c) = 0$. \\
+    "$\Leftarrow$". $\deg f \geqslant 2, f$ делим на $(x - c)^2 \SO f = (x - c)^2 \cdot g + ax + b$
+    \[\SO f = (x - c)^2 g + a(x - c) + r\]
+    $f(c) = 0 \SO r = 0$
+    \[f' = 2(x - c)g + (x - c)^2g' + a, f'(c) = 0 \SO a = 0 \SO f = (x - c)^2 g\]   
+\end{proof}
+
 \end{document}
