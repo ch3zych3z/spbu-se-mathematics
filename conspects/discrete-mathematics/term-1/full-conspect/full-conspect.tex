@@ -86,6 +86,8 @@
 
 % Основные математические символы
 \def\TODO{{\color{red}\bf TODO}}
+\def\E{\mathbb{E}}
+\def\D{\mathbb{D}}
 \def\N{\mathbb{N}}       %
 \def\R{\mathbb{R}}       %
 \def\F2{\mathbb{F}_2}    %
@@ -917,49 +919,50 @@
 
 \begin{Def}
     Пусть $X$ -- дискретная случайная величина. Тогда матожиданием называется
-    \[E(X) = \sum_{i=1}^{n} x_i p_i\] 
-    а $E(|X|) = \sum_{i=1}^{n} |x_i| p_i$ -- абсолютный момент. 
+    \[\E(X) = \sum_{i=1}^{n} x_i p_i\] 
+    а $\E(|X|) = \sum_{i=1}^{n} |x_i| p_i$ -- абсолютный момент. 
 \end{Def}
 
 Свойства:
 \begin{MyList}
-    \item $E(aX + b) = aE(x) + b$ 
-    \item $E(X + Y) = E(X) + E(Y)$ 
-    \item Если $X, Y$ -- независимые случайные величины, то $E(XY) = E(X) \cdot E(Y)$  
+    \item $\E(aX + b) = a\E(x) + b$ 
+    \item $\E(X + Y) = \E(X) + \E(Y)$ 
+    \item Если $X, Y$ -- независимые случайные величины, то $\E(XY) = \E(X) \cdot \E(Y)$  
 \end{MyList}
 
+\Pagebreak
 \Subsection{Дисперсия}
 
 \begin{Def}
-    $D(X) = \sum_{i=1}^{n} (X_i - E(X))^2$ -- дисперсия. 
+    $\D(X) = \sum_{i=1}^{n} (X_i - \E(X))^2$ -- дисперсия. 
 \end{Def}
 
 \begin{Rem}
-    $D(X) = E(X - E(X))^2 p_i$ 
+    $\D(X) = \E(X - \E(X))^2 p_i$ 
 \end{Rem}
 
 Свойства дисперсии:
 \begin{MyList}
-    \item $D(X)  = E(X^2) - (E(X))^2$ 
+    \item $\D(X)  = \E(X^2) - (\E(X))^2$ 
     \begin{proof}
-        $D(X) = \sum_{i=1}^{n} (X_i - E(X))^2 p_i = \sum_{i=1}^{n} X_i^2 p_i - \sum_{i=1}^{n} 2 X_i E(X) p_i + \sum_{i=1}^{n} (E(X))^2 p_i = E(X^2) - 2E(X) - E(X) + (E(X))^2 \cdot 1 = E(X^2) 0 (E(X))^2$ 
+        $\D(X) = \sum_{i=1}^{n} (X_i - \E(X))^2 p_i = \sum_{i=1}^{n} X_i^2 p_i - \sum_{i=1}^{n} 2 X_i \E(X) p_i + \sum_{i=1}^{n} (\E(X))^2 p_i = \E(X^2) - 2(\E(X))^2 + (\E(X))^2 \cdot 1 = \E(X^2) - (\E(X))^2$ 
     \end{proof}
-    \item $D(aX + b) = a^2 \cdot D(X)$
-    \item $D(X + Y) + D(X) + D(Y)$ 
+    \item $\D(aX + b) = a^2 \cdot \D(X)$
+    \item $\D(X + Y) = \D(X) + \D(Y)$ 
     \begin{proof}
-        $D(X + Y) = E((X + Y)^2) - (E(X + Y))^2 = E(X^2) + 2E(XY) + E(Y^2) - (E(X))^2 - 2E(X)E(Y) - (E(Y))^2$.
+        $\D(X + Y) = \E((X + Y)^2) - (\E(X + Y))^2 = \E(X^2) + 2\E(XY) + \E(Y^2) - (\E(X))^2 - 2\E(X)\E(Y) - (\E(Y))^2$.
     \end{proof}
 \end{MyList}
 
 \begin{Def}
-    $m_k = E(X^k)$ -- $k$-й момент. \\
-    $E(|X|^k)$ -- $k$-й абсолютный момент. \\
-    $M_k = E(X - E(X))^k$ -- центральный момент.
+    $m_k = \E(X^k)$ -- $k$-й момент. \\
+    $\E(|X|^k)$ -- $k$-й абсолютный момент. \\
+    $M_k = \E(X - \E(X))^k$ -- центральный момент.
 \end{Def}
 
 \begin{Def}
-    $\cov (X, Y) = E(X - E(X))(Y - E(Y))$ \\
-    $\cov (X, Y) = E(XY) - E(X) \cdot E(Y)$  
+    $\cov (X, Y) = \E(X - \E(X))(Y - \E(Y))$ \\
+    $\cov (X, Y) = \E(XY) - \E(X) \cdot \E(Y)$  
 \end{Def}
 
 \begin{Rem}
@@ -969,26 +972,26 @@
 
 \begin{Def}
     Коэффициент корелляции случайных величин $X$ и $Y$ 
-    \[r(X, Y) = \frac{\cov (X, Y)}{\sqrt{D(X) \cdot D(Y)}}\]
+    \[\rho(X, Y) = \frac{\cov (X, Y)}{\sqrt{\D(X) \cdot \D(Y)}}\]
 \end{Def}
 
 Свойства:
 
 \begin{MyList}
-    \item $r(aX + b, cY + d) = \sign (ac) r(X, Y)$ 
+    \item $\rho(aX + b, cY + d) = \sign (ac) \rho(X, Y)$ 
 \end{MyList}
 
 \Subsection{Производящие функции}
 \begin{Def}
     Пусть $X$ -- случайная величина, принимающая значения $Z_+$ с вероятностями $p_0, p_1, ...$ \\
-    Рассмотрим функцию $\psi (z) = \sum_{k=1}^{\infty} z^kp_k = E(z^X), |z| \leqslant 1, z \in \mathbb{C}$. Заметим, что 
+    Рассмотрим функцию $\psi (z) = \sum_{k=1}^{\infty} z^kp_k = \E(z^X), |z| \leqslant 1, z \in \mathbb{C}$. Заметим, что 
     \begin{MyList}
         \item $|\psi(z)| = |\sum_{k=1}^{\infty} z^k p_k| \leqslant \sum_{k=1}^{\infty} |z^k|p_k \leqslant \sum_{k=1}^{\infty} p_k = 1$
         \item $p_n = \frac{1}{n!} \cdot \frac{d^n}{dz^n}\psi(z) |_{z = 0}$
-        \item $ \frac{d^n}{dz^n} \psi (z)|_{z = 1} = E(X(X - 1)...(X - n + 1))$
+        \item $ \frac{d^n}{dz^n} \psi (z)|_{z = 1} = \E(X(X - 1)...(X - n + 1))$
         \begin{proof}
             $ \frac{d^n}{dz^n} \psi(z) = \sum_{k=n}^{\infty} k(k - 1)...(k - n + 1) \cdot z^{k - n} p_k$ \\
-            $D(X) = E(X^2) - (E(X))^2 = E(X(X - 1)) + E(X) - (E(X))^2$. Заметим, что $E(X) = \psi ' (z), E(X(X - 1)) = \psi '' (z)$  
+            $\D(X) = \E(X^2) - (\E(X))^2 = \E(X(X - 1)) + \E(X) - (\E(X))^2$. Заметим, что $\E(X) = \psi ' (z), \E(X(X - 1)) = \psi '' (z)$  
         \end{proof}
     \end{MyList}
 \end{Def}
@@ -1000,7 +1003,7 @@
 \Subsection{Характеристические функции}
 
 \begin{Def}
-    $\PHI(t) = E(e^{itX})$. Для дискретной случайной величины:
+    $\PHI(t) = \E(e^{itX})$. Для дискретной случайной величины:
     \[\PHI(t) = \sum_{k=0}^{\infty} e^{itX}p_k\]
 \end{Def}
 
@@ -1008,7 +1011,7 @@
 \begin{MyList}
     \item $\PHI_{aX + b}(t) = e^{itb} \cdot \PHI_X(at)$ 
     \item $\PHI_{X + Y} (t) = \PHI_X (t) \cdot \PHI_Y (t)$
-    \item $E(X^k) = (-i)^k \frac{d^k}{dt^k} \cdot \PHI(t) |_{t = 0}$  
+    \item $\E(X^k) = (-i)^k \frac{d^k}{dt^k} \cdot \PHI(t) |_{t = 0}$  
 \end{MyList}
 
 \Subsection{Нормальное распределение}
@@ -1018,11 +1021,79 @@ $P(X) = \frac{1}{\sqrt{2\pi \sigma}} \exp \left(- \frac{(X - a)^2}{\sigma^2}\rig
 \begin{Def}
     $N(a, \sigma^2)$ -- нормальное распредение. \\
     $N(0, 1)$ -- стандартное нормальное распределение. 
-    \[\PHI(t) = \exp \left(-ita - \frac{\sigma^2 t^2}{2}\right), E(X) = a, D(X) = \sigma^2\]
+    \[\PHI(t) = \exp \left(-ita - \frac{\sigma^2 t^2}{2}\right), \E(X) = a, \D(X) = \sigma^2\]
 \end{Def}
 
 \begin{Rem}
     $P(|X - a| < 3\sigma) = \Phi(3) \thicksim 0.997$ 
 \end{Rem}
+
+\begin{Lm}
+    Пусть $X$ -- неотрицательная случайная величина. Тогда
+    \[\forall \varepsilon > 0 \ P(X \geqslant \varepsilon) \leqslant \frac{\E(X)}{\varepsilon}\] 
+\end{Lm}
+
+\begin{proof}
+    $1_{[0, \varepsilon)}(X) + 1_{[\varepsilon, +\infty)}(X) = 1$, где $1_{[a, b)}(x) = \begin{cases}
+        1, x \in [a, b) \\
+        0, x \notin [a, b)
+    \end{cases}$  
+
+    $X \cdot 1_{[\varepsilon, +\infty)} \geqslant \varepsilon \cdot 1_{[\varepsilon, +\infty)}(X)$ 
+    \[\E(X \cdot 1_{[\varepsilon, +infty)}(X)) \geqslant \varepsilon \E(1_{[\varepsilon, +\infty)}(X))\]
+    \begin{gather*}
+        \E(X) = \E(X(1_{[0, \varepsilon)} (X) + 1_{[\varepsilon, +\infty)}(X)) = \E(X \cdot 1_{[0, \varepsilon)}(X)) + \E(X \cdot 1_{[\varepsilon, +\infty)}(X)) \geqslant \\
+        \geqslant \E(X \cdot 1_{[\varepsilon, +\infty)}(X)) \geqslant \varepsilon \E(1_{[\varepsilon, +\infty)}(X)) = \varepsilon P(X \geqslant \varepsilon)
+    \end{gather*}
+\end{proof}
+
+\begin{Thm}[Неравенство Чебышева]
+    $\forall Y$ -- случайная величина с конечным вторым моментом. Тогда
+    \[\forall \delta \ P(|Y - EY| \geqslant \delta) \leqslant \frac{DY}{\delta^2}\]
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим $X = |Y - EY|^2, \varepsilon = \delta^2$
+    \[P(|Y - EY| \geqslant \delta) = P(|Y - EY|^2 \geqslant \delta^2) \leqslant \frac{\E(Y - EY)^2}{\delta^2} = \frac{DY}{\delta^2}\] 
+\end{proof}
+
+\begin{Rem}
+    $P(|\sum_{i=0}^{n} K_i - \sum_{i=0}^{n} \E X_i| \geqslant \delta) \leqslant \frac{1}{\delta}\sum_{i=0}^{n} \D X_i$ 
+\end{Rem}
+
+\begin{Def}
+    Пусть $X_1, X_2, ..., X_n, ...$ -- последовательность случайных величин. \\
+    Тогда $X_n \xrightarrow[]{n \to a} X$ если $\E(X_n - X)^2 \to 0$ -- сходимость среднеквадратичная.
+\end{Def}
+
+\begin{Def}
+    $X_n \xrightarrow[]{P} X$, если $P(|X_n - X| \geqslant \E) \to 0$ -- сходимость по вероятности.
+\end{Def}
+
+\begin{Def}
+    $X_n \xrightarrow[\text{почти наверное}]{} X$, если $P(\omega : X_n(\omega) \to X(\omega)) = 1$  -- сходимость "почти наверное".
+\end{Def}
+
+\begin{Thm}[Закон Больших Чисел]
+    $X_1, ... X_n, ...$ -- последовательность одинаково распределенных независимых случайных величин. Пусть $m = EX_i, DX_i < +\infty$.
+    Тогда 
+    \[\overline{X}_n = \frac{1}{n}\sum_{i=1}^{n} X_i \xrightarrow[n \to \infty]{} m\] 
+\end{Thm}
+
+\begin{proof}
+    Среднекватратичная сходимость: \\
+    $\E \overline{X}_n = \E\left(\frac{1}{n} \sum_{i=1}^{n} X_i\right) = \frac{1}{n} \sum_{i=1}^{n} EX_i = \frac{1}{n} \cdot m \cdot n = m$ \\
+    \[\E(\overline{X}_n - m)^2 = \D(\overline{X}_n) = \D\left(\frac{1}{n} \sum_{i=1}^{n} X_i\right) = \frac{1}{n^2}\D(\sum_{i=1}^{n} X_i) = \frac{1}{n^2} \cdot \sum_{i=1}^{n} \D X_i = \frac{1}{n} \cdot \D(X_i) \to 0\]
+
+    Сходимость по вероятности: \\
+    \[P(|\overline{X}_n - m)| \geqslant m) = P\left(\left|\sum_{i=1}^{n} X_i - \sum_{i=1}^{n} EX_i\right| \geqslant n \varepsilon\right) \leqslant \frac{\sum_{i=1}^{n} \D X_i}{n^2 \varepsilon^2} = \frac{\D X_i}{n \varepsilon^2} \to 0\]
+\end{proof}
+
+\begin{Thm}[Центральная предельная теорема]
+    $\{X_i\}$ -- независимые одинаково распределенные случайные величины, $\E X_i = a, \D X_i, \sigma^2$.
+    Пусть $S_n = \sum_{i=1}^{n} X_i, F_n(x) = P\left(\frac{S_n - na}{\sigma \sqrt{n}} < x \right), N(X)$ -- стандартное нормальное распределение. Тогда
+    \[\sup |F_n(x) - N(X)| \xrightarrow[n \to \infty]{} 0\]   
+    т.е. $S_n \to N(na, n \sigma^2)$ 
+\end{Thm}
 
 \end{document}
