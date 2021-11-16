@@ -1797,7 +1797,7 @@ $0^x = 0 \ \forall x > 0$
         \[\forall \varepsilon > 0 \ \exists N' : \forall n \geqslant N \to |a^{x_n} - 1| < \varepsilon \EQ a^{x_n} \to 1\]
 
         Докажем непрерывность в точке $x_0 \neq 0$. \\
-        Рассмотрим $a^{x_0} - a^{x_n} = a^{x_0} (a^{x_n} - 1) \to 0$  
+        Рассмотрим $a^{x_0 + x_n} - a^{x_n} = a^{x_0} (a^{x_n} - 1) \to 0$  
     \end{proof}
     
     \item $(ab)^x = a^x b^x$
@@ -1871,7 +1871,7 @@ $0^x = 0 \ \forall x > 0$
 
 \begin{proof}
 
-    Нужно доказать: \(BC < \stackrel{\frown}{AB} < AB\) \\
+    Нужно доказать: \(BC < \stackrel{\frown}{AB} < AD\) \\
     \begin{figure*}[h]
         \centering
         \input{images/trig.pdf_tex}
@@ -1891,7 +1891,7 @@ $0^x = 0 \ \forall x > 0$
     При $x \in (0, \frac{\pi}{2})$ доказано.
     \begin{align*}
         x &\geqslant \frac{\pi}{2} : |\sin x| \leqslant 1 < \frac{\pi}{2} \leqslant x \\
-        x &\leqslant -\frac{\pi}{2} : |\sin x| = \sin(-x)| < |-x| = x
+        x &\leqslant -\frac{\pi}{2} : |\sin x| = |\sin(-x)| < |-x| = x
     \end{align*} 
 \end{Cons}
 
@@ -1904,7 +1904,7 @@ $0^x = 0 \ \forall x > 0$
     \end{proof}
 
     \item $\cos x = \sin \left(\frac{\pi}{2} - x\right)$ -- непрерывна. 
-    \item $\tg x \frac{\sin x}{\cos x}, x \in \R \setminus \{\frac{\pi}{2} + \pi k, k \in \Z\}$
+    \item $\tg x = \frac{\sin x}{\cos x}, x \in \R \setminus \{\frac{\pi}{2} + \pi k, k \in \Z\}$
     \item $\ctg x = \frac{\cos x}{\sin x}, x \in \R \setminus \{\pi k, k \in \Z\}$ -- непрерывны на области определения.
 \end{MyList}
 
@@ -1939,7 +1939,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
 
 \begin{Def}
     Первый замечательный предел:
-    \[\lim_{x \to \infty} \frac{\sin x}{x} = 1\]    
+    \[\lim_{x \to 0} \frac{\sin x}{x} = 1\]    
 \end{Def}
 
 \begin{proof}
@@ -2069,8 +2069,52 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
     \end{MyList}
 \end{Rem}
 
+\begin{Rem}
+    Все пункты при $x \to x_0$ 
+    \begin{MyList}
+        \item $f \thicksim g, g \thicksim h \SO f \thicksim h$ 
+        \item $f \thicksim f$ 
+        \item $f \thicksim g, f = g + o(g), f = g + o(f)$ -- равносильные утверждения.
+        \item Если $f = o(g)$, то $f = O(g)$ 
+    \end{MyList}
+\end{Rem}
+
+\begin{Cons}
+    При $x \to 0$
+    \[
+    \begin{array}{cc}
+    \sin x = x + o(x) & \ln(1 + x) = x + o(x)  \\ 
+    \tan x = x + o(x)  & \arcsin x = x + o(x) \\ 
+    \cos x = 1 - \frac{x^2}{2} + o(x^2)  & a^x = 1 + x\ln a + o(x)  \\ 
+    (1 + x)^\alpha = 1 + \alpha x + o(x)  &
+    \end{array}
+    \]
+\end{Cons}
+
+\begin{Thm}[О замене на эквивалентные]
+    $f, \widetilde{f}, g, \widetilde{g} : D \to \R, x_0$ -- предельная точка $D$, $f \thicksim \widetilde{f}, g \thicksim \widetilde{g}$ при $x \to x_0$. 
+    Тогда
+    \begin{MyList}
+        \item $\lim_{x \to x_0} f(x) \cdot g(x) = \lim_{x \to x_0} \widetilde{f}(x) \cdot \widetilde{g}(x)$
+        \item $\lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{x \to x_0} \frac{\widetilde{f}(x)}{\widetilde{g}(x)}$ (если $x_0$ -- предельная точка области определения $\frac{f}{g}$ )  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $\exists u(x_0) \ \exists \PHI : \PHI(x) \xrightarrow[x \to x_0]{} 1$. $f = \PHI \cdot \widetilde{f}$ в $u(x_0) \cap D$ \\
+    $\exists v(x_0) \ \exists \psi : \psi(x) \xrightarrow[x \to x_0]{} 1$. $g = \psi \cdot \widetilde{g}$ в $v(x_0) \cap D$ \\
+    $w(x_0) = u(x_0) \cap v(x_0)$. Тогда $f \cdot g = (\PHI \cdot \psi) \cdot \widetilde{f} \cdot \widetilde{g}$ в $w(x_0)$.
+    Пусть $\lim_{x \to x_0} g \cdot f = A \in \R \EQ$ т.к. $\PHI \cdot \psi \xrightarrow[x \to x_0]{} 1$, то $\lim_{x \to x_0} \widetilde{f} \cdot \widetilde{g} = A$.
+    Если $\lim_{x \to x_0} g \cdot f$ не существует, то $\lim_{x \to x_0} \widetilde{f}\widetilde{g}$ не существует.  \\
+    Для частного доказательство аналогично.    
+\end{proof}
+
+\begin{Rem}
+    Заменять на эквивалентные можно \textbf{только} в произведении и частном.
+\end{Rem}
+
 \begin{Def}
-    Пусть $f \thicksim g, f \thicksim h, x \to x_0$. Если $f - h = o(f - g)$, то говорят асимптотическое равенство $f \thicksim h$ точнее,
+    Пусть $f \thicksim g, f \thicksim h, x \to x_0$. Если $f - h = o(f - g)$, то говорят, что асимптотическое равенство $f \thicksim h$ точнее,
     чем $f \thicksim g$.
 \end{Def}
 
@@ -2085,7 +2129,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
 
 \begin{Thm}[О единственности асимптотического разложения]
     $D \in \R, x_0$ -- предельная точка $D$, $n \in \Z_+; f, g_k : D \to \R, g_{k + 1}(x) = o(g_k(x)), x \to x_0 \ \forall k = 0, ..., n - 1$
-    и $\forall V(x_0) \ \exists $ точка в $\dot{V}(x_0) : $ в нкй $g_n$ не ноль. Тогда если существует асимптотическое разложение $f$ по системе функций $\{g_k\}$,
+    и $\forall V(x_0) \ \exists $ точка в $\dot{V}(x_0) : $ в ней $g_n$ не ноль. Тогда если существует асимптотическое разложение $f$ по системе функций $\{g_k\}$,
     то оно единственно.   
 \end{Thm}
 
@@ -2101,7 +2145,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
 
     Если $x_0$ -- предельная точка $E_{k_0}$, то она предельная точка всех $E_k$.
     Пусть $m$ -- наименьший номер $: c_m \neq d_m$. Тогда 
-    \[f(x) = \sum_{k=0}^{m} c_k g_k(x) = o(g_m(x)), f(x) = \sum_{k=0}^{m} d_k g_k(x) + o(g_m(x))\]
+    \[f(x) = \sum_{k=0}^{m} c_k g_k(x) + o(g_m(x)), f(x) = \sum_{k=0}^{m} d_k g_k(x) + o(g_m(x))\]
     Вычтем: $0 = (c_m - d_m) g_m(x) + o(g_m(x))$. Поделим на $g_m(x)$ 
     \[0 = (c_m - d_m) + \frac{o(g_m(x))}{g_m(x)} \xrightarrow[x \to x_0]{} c_m - d_m \SO c_m = d_m\]
 \end{proof}
@@ -2154,7 +2198,7 @@ f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
     Если $P(x) \neq Q(x)$, то $P(x) - Q(x) = \sum_{k=0}^{n} r_k (x - a)^k = r(x)$
     \[\SO r(x) = o((x - a)^n), x \to a\]
     $r(x) = r_m(x - a)^m + ... + r_n(x - a)^n, m \leqslant n, r_m \neq 0$
-    \[\SO \frac{r(x)}{(x - a)^m} = o((x - a)^{n - m}) \SO r_m \neq 0 = 0\] 
+    \[\SO \frac{r(x)}{(x - a)^m} = o((x - a)^{n - m}) \SO r_m = 0\] 
 \end{proof}
 
 \begin{Def}
@@ -2195,7 +2239,7 @@ f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
     из 2) следует непрерывность $F$ в точке $a$ 
 
     $3) \SO 1)$. По 3) $\exists F : $
-    \[f(x) - f(a) = F(x)(x - a) = \EQ f(X) = f(a) + F(x)(x - a) = f(a) + k(x - a) + (F(x) - k) \cdot (x - a)\] 
+    \[f(x) - f(a) = F(x)(x - a) \EQ f(x) = f(a) + F(x)(x - a) = f(a) + k(x - a) + (F(x) - k) \cdot (x - a)\] 
     $F(x) \xrightarrow[x \to a]{} F(a) = k \SO (F(x) - k)(x - a) = o((x - a))$  
 \end{proof}
 
