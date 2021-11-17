@@ -2318,9 +2318,11 @@ f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
         Возьмем $h(t) = t^2$, тогда $f^2(x) = (h \circ f)(x)$. Тогда по предыдущей теореме
         \[(f^2)'(a) = h'(f(a)) \cdot f'(a) = 2 \cdot f(a) \cdot f'(a)\]
         Вернемся к общей формуле:
-        \[f \cdot g = \frac{1}{4}((f + g)^2 - (f - g)^2) \SO (f \cdot g)'(a) = \frac{1}{4}((f + g)^2 - (f - g)^2)'(a) = \frac{1}{4} (2 \cdot (f(a) + g(a)) \cdot (f'(a) + g'(a)) - 2(f(a) - g(a)) \cdot (f'(a) - g'(a))) =\] 
-        \[= \frac{1}{2}(2 f(a) \cdot g'(a) + 2f'(a) \cdot g(a)) = f(a)g'(a) + f'(a)g(a)\]
-
+        \begin{align*}
+        f \cdot g &= \frac{1}{4}((f + g)^2 - (f - g)^2) \SO (f \cdot g)'(a) = \frac{1}{4}((f + g)^2 - (f - g)^2)'(a) = \\
+        &= \frac{1}{4} (2 \cdot (f(a) + g(a)) \cdot (f'(a) + g'(a)) - 2(f(a) - g(a)) \cdot (f'(a) - g'(a))) = \\
+        &= \frac{1}{2}(2 f(a) \cdot g'(a) + 2f'(a) \cdot g(a)) = f(a)g'(a) + f'(a)g(a)       
+        \end{align*} 
         \begin{Ex}
             Получить эту формулу непосредственно из определения производной
         \end{Ex}
@@ -2350,7 +2352,7 @@ f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
     $g(x) = f^{-1}(x), f(a) = b$. $f: \langle A, B\rangle \xrightarrow{\text{на}} \langle C, D\rangle, g : \langle C, D\rangle \xrightarrow{\text{на}} \langle A, B\rangle$ -- непрерывны.
     
     $f$ -- дифференцируема, тогда $\exists F(x) : \langle A, B\rangle$ непрерывная в точке $a$ 
-    \[F(a) = f'(a), f(x) - f(a) + F(x)(x - a)\]
+    \[F(a) = f'(a), f(x) - f(a) = F(x)(x - a)\]
     $f$ строго монотонна $\SO \forall x \neq a \ f(x) \neq f(a) \SO F(x) \neq 0$ если $x \neq a$ и по условию $f'(a) = F(a) \neq 0$,
     т.е. $F(x) \neq 0 \ \forall x \in \langle A, B\rangle$ 
 
@@ -2380,10 +2382,18 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     В частности, $(\ln x)' = \frac{1}{x}$ 
 
     \item $f(x) = x^\alpha, \alpha \neq 0$
-    \subitem $\alpha \in \N, x \in \R$
-    \subitem $\alpha \in \Z \setminus \N, x \in \R \setminus \{0\}$ 
-    \subitem $\alpha \in \Q, \alpha = \frac{m}{2n + 1}, n \in \N, x \in \R (\alpha > 0), x \in \R \setminus \{0\}(\alpha < 0)$ 
-    \subitem $\alpha = \frac{m}{2n}, \alpha \in \R \setminus \Q, x \in [0, +\infty) (\alpha > 0), x \in (0, +\infty) (\alpha < 0)$
+    \begin{center}
+        \fbox{
+            \begin{minipage}{25em}
+                \begin{MyItemize}
+                    \item $\alpha \in \N, x \in \R$
+                    \item $\alpha \in \Z \setminus \N, x \in \R \setminus \{0\}$ 
+                    \item $\alpha \in \Q, \alpha = \frac{m}{2n + 1}, n \in \N, x \in \R (\alpha > 0), x \in \R \setminus \{0\}(\alpha < 0)$ 
+                    \item $\alpha = \frac{m}{2n}, \alpha \in \R \setminus \Q, x \in [0, +\infty) (\alpha > 0), x \in (0, +\infty) (\alpha < 0)$
+                \end{MyItemize}
+            \end{minipage}
+        }
+    \end{center}
     
     \[\lim_{x \to a} \frac{x^\alpha - a^\alpha}{x - a} = \lim_{x \to a} a^\alpha \cdot \frac{\left(\frac{x}{a}\right)^\alpha - 1}{x - a} = \lim_{x \to a} a^\alpha \frac{\left(1 + \left(\frac{x}{a} - 1\right)\right)^\alpha - 1}{x - a} = \lim_{x \to a} a^\alpha \cdot \frac{\alpha \cdot \left(\frac{x}{a} - 1\right)}{x - a} = \]
     \[= \lim_{x \to a} a^\alpha \cdot \frac{\alpha(x - a)}{a(x - a)} = \alpha \cdot a^{\alpha - 1}\]
@@ -2399,7 +2409,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     \[f'(a) = \lim_{x \to a} \frac{\sin x - \sin a}{x - a} = \lim_{x \to a} \frac{2 \sin \frac{x - a}{2} \cos \frac{x + a}{2}}{x - a} = \lim_{x \to a}2 \frac{ \frac{x - a}{2} \cdot \cos a}{x - a} = \cos a\]
     
     \item $f(x) = \cos x$
-    \[(\cos x)' = \left(\sin \left(\frac{\pi}{2} - x\right)\right)' = \cos \left(\frac{\pi}{2} - x\right) \cdot \left(\frac{\pi}{2} - x\right) = -\sin x\]
+    \[(\cos x)' = \left(\sin \left(\frac{\pi}{2} - x\right)\right)' = \cos \left(\frac{\pi}{2} - x\right) \cdot \left(\frac{\pi}{2} - x\right)' = -\sin x\]
 
     \item $f(x) = \tg x, a \neq \frac{\pi}{2} + \pi k, k \in \Z$ 
     \[(\tg x)' = \left( \frac{\sin x}{\cos x}\right)' = \frac{(\sin x)' \cos x - \sin x (\cos x)'}{\cos^2 x} = \frac{\cos^2 x + \sin^2x}{\cos^2 x} = \frac{1}{\cos^2 x}\]
@@ -2412,7 +2422,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     \[(\arcsin x)' = \frac{1}{\sqrt{1 - x^2}}, x \in (-1, 1)\]
 
     \item $(\arccos x)' = \left(\frac{\pi}{2} - \arcsin x\right) = -\frac{1}{\sqrt{1 - x^2}}, x \in (-1, 1)$
-    \item $f(x) = \arctg x, g(y) = \tg y, b \arctg a, b \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$
+    \item $f(x) = \arctg x, g(y) = \tg y, b = \arctg a, b \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$
     \[f'(a) = \frac{1}{g'(b)} = \cos^2 b = \frac{1}{\tg^2 b + 1} = \frac{1}{a^2 + 1}\]
     \[(\arctg x)' = \frac{1}{1 + x^2}\]
 
