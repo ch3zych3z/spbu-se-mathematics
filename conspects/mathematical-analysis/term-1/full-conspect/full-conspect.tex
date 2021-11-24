@@ -2434,8 +2434,14 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
 \begin{Thm}[Теорема Ферма]
     $a \in (A, B), f : \langle A, B\rangle \to \R$ -- дифференцируема в точке $a$. 
     Если $f(a) = \max_{a \in \langle A, B\rangle} f$ или $f(a) = \min_{a \in \langle A, B\rangle} f$, то $f'(a) = 0$.
-    
-    Геометрический смысл: Картинка \TODO. 
+
+    Геометрический смысл: 
+    \begin{figure*}[h]
+        \centering
+        \def\svgwidth{0.5\columnwidth} 
+        \input{images/fermat.pdf_tex}
+        \caption{Горизонтальная касательная}
+    \end{figure*}
 \end{Thm}
 
 \begin{proof}
@@ -2447,6 +2453,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     $f$ дифференцируема в точке $a \SO f_-'(a) = f_+'(a) = f'(a) \SO f'(a) = 0$ 
 \end{proof}
 
+\Pagebreak
 \begin{Thm}[Теорема Ролля]
     $f: [a, b] \to \R$. Если
     \begin{MyList}
@@ -2455,6 +2462,12 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
         \item $f(a) = f(b)$
     \end{MyList}
     Тогда $\exists c \in (a, b) : f'(c) = 0$
+    \begin{figure*}[h]
+        \centering
+        \def\svgwidth{0.5\columnwidth} 
+        \input{images/rolle.pdf_tex}
+        \caption{Теорема Ролля}
+    \end{figure*}
 \end{Thm}
 
 \begin{proof}
@@ -2473,7 +2486,13 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     Тогда $\exists c \in (a, b) : f(b) - f(a) = f'(c)(b - a)$ 
 
     Геометрический смысл: $ \frac{f(b) - f(a)}{b - a} = f'(c)$.
-    Картинка: \TODO  
+    
+    \begin{figure*}[h]
+        \centering
+        \def\svgwidth{0.4\columnwidth} 
+        \input{images/lagrange.pdf_tex}
+        \caption{Теорема Лагранжа}
+    \end{figure*}
 \end{Thm}
 
 \begin{proof}
@@ -2544,7 +2563,6 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     Если $f$ дифференцируема на $(a, b)$ и $f$ строго монотонно убывает $\SO f'(x) < 0 \ \forall x \in (a, b)$ -- вообще говоря, неверно.
 
     $f(x) = -x^3, f'(x) = -3x^2 \leqslant 0$ и равенство достигается при $x = 0$.
-    Картинка: \TODO
 \end{Rem}
 
 \begin{Thm}[Теорема Дарбу]
