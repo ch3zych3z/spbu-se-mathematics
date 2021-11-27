@@ -2330,4 +2330,260 @@ $K(x)$ -- поле дробно-рациональных функций над $
     $\SO \exists$ разложение доказано. Единственность без доказательства.  
 \end{proof}
 
+\Pagebreak
+\Subsection{Разложение рациональной дроби над $\R$}
+
+$\frac{f}{\PHI^k}, \deg f < \deg \PHI$ \\
+$\frac{a}{(x - m)^k}, \frac{bx + c}{(x^2 + px + q)^k}, p^2 - 4q < 0$
+
+\begin{Example}
+    $$ \frac{x^4 + 5x^3 + 6x^2 + 7x - 8}{(x - 2)^3(x^2 + x + 1)^2(x + 4)^2} = \frac{a_1}{x - 2} + \frac{a_2}{(x - 2)^2} + \frac{a_3}{(x - 2)^3} + \frac{b_1x + c_1}{x^2 + x + 1} + \frac{b_2x + c_2}{(x_2 + x + 1)^2} + \frac{d_1}{x + 4} + \frac{d_2}{(x + 4)^2}$$
+\end{Example}
+
+\Section{Линейная алгебра}{}{Илья Дудников}
+
+\Subsection{Матрицы}
+
+\begin{Def}
+    Матрицей называется таблица размера $m \times n$ элементов.
+    \[A = \left(\begin{array}{cccc}
+    a_{11} & a_{12} & ... & a_{1n} \\ 
+    a_{21} & a_{22} & ... & a_{2n} \\ 
+    ... & ... & ... & ... \\
+    a_{m1} & a_{m2} & ... & a_{mn}
+    \end{array}\right)\]
+    $A = (a_{ij})_{1 \leqslant i \leqslant m, 1 \leqslant j \leqslant n}, a_{ij} \in K, K$ -- поле 
+\end{Def}
+
+Виды матриц:
+
+\begin{MyList}
+    \item Матрица $1 \times 1$
+    \item Матрица $1 \times n \SO (a_1, ..., a_n) $ -- строка
+    \item Матрица $m \times 1 \SO \left(\begin{array}{c}
+    a_1 \\ 
+    ... \\ 
+    a_n
+    \end{array}\right)$ -- столбец
+    \item Нулевая матрицы $0 = \left(\begin{array}{ccc}
+    0 & ... & 0 \\ 
+    ... & ... & ... \\ 
+    0 & ... & 0
+    \end{array}\right)$ 
+    \item Квадратная матрица: $m = n$ 
+\end{MyList}
+
+\Subsection{Действия над матрицами}
+
+\begin{MyList}
+    \item Сложение. $A = (a_{ij}) - m \times n, B = (b_{ij}) - m \times n$
+    \[A + B = \left(\begin{array}{cccc}
+    a_{11} + b_{11} & a_{12} + b_{12} & ... & a_{1n} + b_{1n} \\ 
+    ... & ... & ... & ... \\ 
+    a_{m1} + b_{m1} & a_{m2} + b_{m2} & ... & a_{mn} + b_{mn}
+    \end{array}\right)\]
+
+    \item Умножение на элемент поля $K$, $c \in K, A = (a_{ij}) - m \times n$ 
+    \[c \cdot A = \left(\begin{array}{cccc}
+    c \cdot a_{11} & c \cdot a_{12} & ... & c \cdot a_{1n} \\ 
+    c \cdot a_{21} & c \cdot a_{22} & ... & c \cdot a_{2n} \\ 
+    ... & ... & ... & ... \\ 
+    c \cdot a_{m1} & c \cdot a_{m2} & ... & c \cdot a_{mn}
+    \end{array}\right)\]
+\end{MyList}
+
+Свойства:
+
+\begin{MyList}
+    \item Ассоциативность сложения.
+    \[(A + B) + C = A + (B + C)\]
+
+    \item Коммутативность сложения.
+    \[A + B = B + A\]
+
+    \item Нейтральный элемент.
+    \[A + 0 = A\]
+
+    \item Существование противоположной матрицы.
+    \[A + (-1) \cdot A = 0\]
+    \begin{Rem}
+        $M(m, n, K)$ -- множество матриц размера $m \times n$ над полем $K$.
+        $M(m, n, K)$ -- коммутативная группа по сложению.
+    \end{Rem}
+
+    \item $c_1, c_2 \in K$. Дистрибутивность.
+    \[(c_1 + c_2) \cdot A = c_1 A + c_2 A\]
+
+    \item Дистрибутивность относительно сложения матриц.
+    \[c(A + B) = cA + cB\]
+
+    \item $c_1, c_2 \in K$ 
+    \[c_1(c_2 A) = (c_1 c_2)A\]
+
+    \item $1 \cdot A = A$ 
+\end{MyList}
+
+\Subsection{Умножение матриц}
+
+\begin{Def}
+    $B = \left(\begin{array}{cccc}
+    b_1 & b_2 & ... & b_n
+    \end{array}\right), A = \left(\begin{array}{c}
+    a_1 \\ 
+    a_2 \\ 
+    ... \\ 
+    a_n
+    \end{array}\right)$
+    \[B \cdot A = b_1 a_1 + b_2 a_2 + ... + b_n a_n\] 
+\end{Def}
+
+\begin{Def}[Умножение матриц]
+    $A - m \times k, B - k \times n$. Тогда определено произведение $A \cdot B = C$ -- $m \times n$ .
+    \[C = (c_{ij}), {1 \leqslant i \leqslant m, 1 \leqslant j \leqslant n}, c_{ij} = A_i \cdot B^j = a_{i1} b_{1j} + a_{i2} b_{2j} + ... + a_{ik} b_{kj}\]
+    $A_i$ -- $i$-я строка $A$, $B^j$ -- $j$-й столбец $B$.
+\end{Def}
+
+\begin{Rem}
+    \begin{MyList}
+        \item Если определено $A \cdot B$, то $B \cdot A$ может быть не определено.
+        \item Если $A \cdot B$ и $B \cdot A$ определены: как правило $AB \neq BA$.
+        \item Строка $\cdot$ столбец $\in K$.
+        \item $\left(\begin{array}{c}
+        a_1 \\ 
+        a_2 \\ 
+        ... \\ 
+        a_n
+        \end{array}\right) \cdot \left(\begin{array}{cccc}
+        b_1 & b_2 & ... & b_n
+        \end{array}\right) = \left(\begin{array}{cccc}
+        a_1b_1 & a_1b_2 & ... & a_1b_n \\ 
+        a_2b_1 & a_2b_2 & ... & a_2b_n \\ 
+        ... & ... & ... & ... \\ 
+        a_nb_1 & a_nb_2 & ... & a_nb_n
+        \end{array}\right)$ 
+
+        \item $B = \left(\begin{array}{cccc}
+        B^1 & B^2 & ... & B^n
+        \end{array}\right), B^j$ -- столбцы.
+        \[A \cdot B = \left(\begin{array}{cccc}
+        AB^1 & AB^2 & ... & AB^n
+        \end{array}\right)\]
+
+        \item $M(n, n, K) = M(n, K)$ -- квадратные матрицы порядка $n$. $E = E_n \in M(n, K)$ -- единичная матрица.
+        \[E = \left(\begin{array}{cccc}
+        1 & 0 & ... & 0 \\ 
+        0 & 1 & ... & 0 \\ 
+        ... & ... & ... & ... \\ 
+        0 & 0 & ... & 1
+        \end{array}\right)\]
+    \end{MyList}
+\end{Rem}
+
+Свойства:
+
+\begin{MyList}
+    \item $c \in K, A, B$ 
+    \[(cA)B = c(AB)\]
+
+    \item $(A + B)C = AC + BC$ 
+    \item $A(B + C) = AB + AC$ 
+    \item $(AB)C = A(BC)$
+    \begin{proof}
+        Если $(AB)C$ -- определено, то $A(BC)$ -- определено.
+        $A$ -- $m \times k, B$ -- $k \times l \SO AB$ -- определено, $m \times l$.
+        $(AB)C$ -- определено $\SO C $ -- $l \times n \SO (AB)C$ -- $m \times n$. \\
+        $BC$ -- $(k \times l) \cdot (l \times n) = (k \times n)$. $A(BC)$ -- $(m \times k) \cdot (k \times n) = (m \times n)$.
+        $C = \left(\begin{array}{cccc}
+        C^1 & C^2 & ... & C^n
+        \end{array}\right)$ -- столбцы. Тогда $A(BC) = A \left(\begin{array}{cccc}
+        BC^1 & BC^2 & ... & BC^n
+        \end{array}\right) = \left(\begin{array}{cccc}
+        ABC^1 & ABC^2 & ... & ABC^n
+        \end{array}\right)$ \\
+        $(AB)C = (AB) \left(\begin{array}{cccc}
+        C^1 & C^2 & ... & C^n
+        \end{array}\right) = \left(\begin{array}{cccc}
+        ABC^1 & ABC^2 & ... & ABC^n
+        \end{array}\right)$   
+    \end{proof}
+\end{MyList}
+
+\begin{Thm}
+    $M(n, K)$ -- кольцо с 1.
+\end{Thm}
+
+\Subsection{Транспонирование}
+
+\begin{Def}
+    $A = (a_{ij})$ -- $m \times n$.
+    \[A^T = (a_{ji}), 1 \leqslant j \leqslant n, 1 \leqslant i \leqslant m\]
+    называется транспонированной.
+    Замена в матрице $A$ строк на столбцы называется транспонированием. 
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item $(A^T)^T = A$ 
+    \item $(A + B)^T + A^T + B^T$ 
+    \item $c \in K, (cA)^T = cA^T$ 
+    \item $(AB)^T = B^T \cdot A^T$ 
+    \begin{proof}
+        $A$ -- $m \times k, B$  -- $k \times n$ $\SO (AB)^T$ -- $n \times m$.
+        $B^T$ -- $n \times k, A^T$ -- $k \times m \SO B^T A^T$ -- $n \times m$. \\
+        $A = (a_{ij}), 1 \leqslant i \leqslant m, 1 \leqslant j \leqslant k$. $B = (b_{ij}), 1 \leqslant i \leqslant k, 1 \leqslant j \leqslant n$. \\
+        $A^T = C = (c_{ij}), 1 \leqslant i \leqslant k, 1 \leqslant j \leqslant m$. \\
+        $B^T = D = (d_{ij}), 1 \leqslant i \leqslant n, 1 \leqslant j \leqslant k$.
+        \[AB = F = (f_{ij}), f_{ij} = \sum_{s=1}^{k} a_{is} b_{sj}\]
+        \[B^TA^T = G = (g_{ij}), g_{ij} = \sum_{t=1}^{d_{it} c_{tj}}\]
+        \[g_{ij} = \sum_{t=1}^{k} d_{it} c_{tj} = \sum_{t=1}^{k} b_{ti} a_{jt} = \sum_{t=1}^{k} a_{jt} b_{ti} = f_{ji}\]
+    \end{proof}
+\end{MyList}
+
+\Subsection{Формальный степенной ряд}
+
+$R$ -- коммутативное кольцо с 1.
+\begin{Def}
+    \[\sum_{n=0}^{\infty} a_n x^n = a_0 + a_1 x + a_2x^2 + ... + a_n x^n + ...\]
+    $a_n \in R$, называется формальным степенным рядом.
+\end{Def}
+
+\begin{MyList}
+    \item Сложение.
+    \[\sum_{n=0}^{\infty} a_nx^n + \sum_{m=0}^{\infty} b_mx^m = \sum_{n=0}^{\infty} (a_n + b_n)x^n\]
+
+    \item Умножение.
+    \[\left(\sum_{n=0}^{\infty} a_nx^n\right) \left(\sum_{m=0}^{\infty} b_mx^m\right) = \sum_{k=0}^{\infty} \left(\sum_{n + m=k}^{a_nb_m}\right)x^k\]
+\end{MyList}
+
+Множество $R[[x]] = \left\{\sum_{n=0}^{\infty} a_nx^n, a_n \in R\right\}$ образует коммутативное кольцо с 1.
+
+\Subsection{Многочлены от нескольких переменных}
+
+$R$ -- коммутативное кольцо с 1. $S = R[x_1], S[x_2] = R[x_1, x_2]$ и т.д.
+
+$R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переменных $x_1, x_2, ..., x_n$ над $R$.
+
+\[R[x_1, ..., x_n] = \left\{\sum_{i_1, ... i_n=0} a_{i_1, ..., i_n}x_1^{i_1}x_2{i_2}...x_n^{i_n} \right\}\]
+
+\begin{Def}
+    Мономом называется многочлен, у которого только один ненулевой коэффициент.
+    $a_{i_1, ..., i_n} x_1^{i_1}...x_n^{i_n}, i_1 + i_2 + ... + i_n$ -- степень монома.
+\end{Def}
+
+\begin{Def}
+    Многочлен от $n$ переменных называется однородным, если он равен сумме мономов степени $m$.
+\end{Def}
+
+\begin{Def}
+    Элементарными симметрическими многочленами порядка $k$ называются
+    $\sigma_1 (x_1, ..., x_n) = x_1 + ... + x_n$ \\
+    $\sigma_2 (x_1, ..., x_n) = \sum_{1 \leqslant i < j \leqslant n} x_i x_j$ \\
+    $\sigma_k (x_1, ..., x_n) = \sum_{1 \leqslant i_1 < i_2 < ... < i_k \leqslant n} x_{i_1}...x_{i_k}$  
+\end{Def}
+
+\begin{Thm}[Теорема Виета]
+    $f = a_n x^n + a_{n - 1}x^{n - 1} + ... + a_0$, имеющий $n$ корней.
+    \[\SO \sigma_k(x_1, ..., x_n) = (-1)^k \frac{a_{n - k}}{a_n}\]
+\end{Thm}
+
 \end{document}
