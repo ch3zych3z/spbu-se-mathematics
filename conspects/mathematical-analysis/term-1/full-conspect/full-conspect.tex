@@ -2720,7 +2720,7 @@ $c_0 = P(a)$
         k!, k = m
     \end{cases}$. \\
     $k > m$ 
-    \[\left((x - a)^k\right)^{(m)} = \left(k(x - a)^{k - 1}\right)^{(m - 1)} = \frac{k...(k - m + 1)}{ \frac{k!}{m!}} (x - a)^{k - m} = 0\] 
+    \[\left((x - a)^k\right)^{(m)} = \left(k(x - a)^{k - 1}\right)^{(m - 1)} = k...(k - m + 1)(x - a)^{k - m} = 0\] 
     $k < m \SO \left((x - a)^k\right)^{(m)} = 0$ \\
     $k = m$
     \[\left((x - a)^k\right)^{(k)} = k!\]
@@ -2735,7 +2735,7 @@ $c_0 = P(a)$
 
 \begin{proof}
     База: $k = 1. g(a) = g'(a) = 0$  
-    \[g(x) = g(a) + g'(a)(x - a) + o(x - a), x \to a \SO g(x) = o(x - a)\]
+    \[g(x) = g(a) + g'(a)(x - a) + o(x - a), x \to a \SO g(x) = o(x - a), x \to a\]
     Индукционный переход: Пусть при $n = k$ выполняется. При $n = k + 1 \ g \ k + 1$ раз дифференцируема в точке $a$ и $g(a) = g'(a) = ... = g^{(k + 1)}(a) = 0$
     \[g'(a) = \left(g'\right)'(a) = ... = \left(g'\right)^{(k)}(a) = 0 \SO g'(x) = o((x - a)^k), x \to a\]
     $|g'(x)| \leqslant \varepsilon |x - a|^k, |x - a| < \delta$. По формуле конечных приращений 
@@ -2747,7 +2747,7 @@ $c_0 = P(a)$
 
 \begin{Thm}[Формула Тейлора]
     $E \subset \R, a \in E, f : E \to \R, n \in \N$. Пусть $f \ n$ раз дифференцируема в точке $a$. Тогда 
-    \[f(x) = \sum_{k=0}^{n} \frac{f^{(k)(a)}}{k!}(x - a)^k + \underbrace{o((x - a)^n)}_\text{остаток в форме Пеано}, x \to a\]
+    \[f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k + \underbrace{o((x - a)^n)}_\text{остаток в форме Пеано}, x \to a\]
 \end{Thm}
 
 \begin{proof}
@@ -2795,9 +2795,9 @@ $c_0 = P(a)$
     $f$ -- $n$ раз дифференцируема в точке $a$, $f^{(n)}$ -- непрерывна в точке $a$.
     \[f(x) = \sum_{k=0}^{n - 1} \frac{f^{(k)}(a)}{k!}(x - a)^k + \frac{f^{(n)}(c(x))}{n!}(x - a)^n = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k + \frac{f^{(n)}(c(x))}{n!}(x - a)^n - \frac{f^{(n)}(a)}{n!}(x - a)^n\]
     Рассмотрим: 
-    \[ \frac{f^{(n)}(c(x)) - f^{(n)}(a)}{n!}(x - a)^n, c(x) \in \widetilde{\Delta}_{a, x} \SO |c(x) - a| < |x - a|\]
+    \[ \frac{f^{(n)}\left(c(x)) - f^{(n)}(a)\right)}{n!}(x - a)^n, c(x) \in \widetilde{\Delta}_{a, x} \SO |c(x) - a| < |x - a|\]
     Значит, если $x \to a$, то $c(x) \to a$. $f^{(n)}(c(x)) \xrightarrow[x \to a]{} f^{(n)}(a)$ (по непрерывности).
-    Тогда $\frac{f^{(n)}(c(x)) - f^{(n)}(a)}{n!}(x - a)^n = o((x - a)^n), x \to a$ 
+    Тогда $\frac{f^{(n)}(c(x)) - f^{(n)}(a))}{n!}(x - a)^n = o((x - a)^n), x \to a$ 
 \end{Rem}
 
 \begin{Rem}
@@ -2847,7 +2847,7 @@ $c_0 = P(a)$
 
     \begin{Conj}
         У четных функций только четные степени, у нечетных функций -- только нечетные.
-        У фукнций общего вида -- и те, и другие.
+        У функций общего вида -- и те, и другие.
     \end{Conj}
 
     \begin{Ex}
@@ -2862,8 +2862,8 @@ $c_0 = P(a)$
     \begin{proof}
         $f(x) = (1 + x)^\alpha$ 
         \begin{gather*}
-            f^{(m)}(x) = \alpha (\alpha - 1) (\alpha - 2) ... (\alpha - k + 1)(1 + x)^{\alpha - k} \\
-            f^{(m)}(0) = \alpha (\alpha - 1)(\alpha - 2) ... (\alpha - k + 1) \\
+            f^{(m)}(x) = \alpha (\alpha - 1) (\alpha - 2) ... (\alpha - m + 1)(1 + x)^{\alpha - m} \\
+            f^{(m)}(0) = \alpha (\alpha - 1)(\alpha - 2) ... (\alpha - m + 1) \\
             f(0) = 1
         \end{gather*}
         $T_{0, n} f(x) = \sum_{k=0}^{n} \frac{\alpha (\alpha - 1) ... (\alpha - k + 1)}{k!}x^k$ 
