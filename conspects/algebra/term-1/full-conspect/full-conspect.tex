@@ -2340,6 +2340,53 @@ $\frac{a}{(x - m)^k}, \frac{bx + c}{(x^2 + px + q)^k}, p^2 - 4q < 0$
     $$ \frac{x^4 + 5x^3 + 6x^2 + 7x - 8}{(x - 2)^3(x^2 + x + 1)^2(x + 4)^2} = \frac{a_1}{x - 2} + \frac{a_2}{(x - 2)^2} + \frac{a_3}{(x - 2)^3} + \frac{b_1x + c_1}{x^2 + x + 1} + \frac{b_2x + c_2}{(x_2 + x + 1)^2} + \frac{d_1}{x + 4} + \frac{d_2}{(x + 4)^2}$$
 \end{Example}
 
+\Subsection{Формальный степенной ряд}
+
+$R$ -- коммутативное кольцо с 1.
+\begin{Def}
+    \[\sum_{n=0}^{\infty} a_n x^n = a_0 + a_1 x + a_2x^2 + ... + a_n x^n + ...\]
+    $a_n \in R$, называется формальным степенным рядом.
+\end{Def}
+
+\begin{MyList}
+    \item Сложение.
+    \[\sum_{n=0}^{\infty} a_nx^n + \sum_{m=0}^{\infty} b_mx^m = \sum_{n=0}^{\infty} (a_n + b_n)x^n\]
+
+    \item Умножение.
+    \[\left(\sum_{n=0}^{\infty} a_nx^n\right) \left(\sum_{m=0}^{\infty} b_mx^m\right) = \sum_{k=0}^{\infty} \left(\sum_{n + m=k}^{a_nb_m}\right)x^k\]
+\end{MyList}
+
+Множество $R[[x]] = \left\{\sum_{n=0}^{\infty} a_nx^n, a_n \in R\right\}$ образует коммутативное кольцо с 1.
+
+\Subsection{Многочлены от нескольких переменных}
+
+$R$ -- коммутативное кольцо с 1. $S = R[x_1], S[x_2] = R[x_1, x_2]$ и т.д.
+
+$R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переменных $x_1, x_2, ..., x_n$ над $R$.
+
+\[R[x_1, ..., x_n] = \left\{\sum_{i_1, ... i_n=0} a_{i_1, ..., i_n}x_1^{i_1}x_2^{i_2}...x_n^{i_n} \right\}\]
+
+\begin{Def}
+    Мономом называется многочлен, у которого только один ненулевой коэффициент.
+    $a_{i_1, ..., i_n} x_1^{i_1}...x_n^{i_n}, i_1 + i_2 + ... + i_n$ -- степень монома.
+\end{Def}
+
+\begin{Def}
+    Многочлен от $n$ переменных называется однородным, если он равен сумме мономов степени $m$.
+\end{Def}
+
+\begin{Def}
+    Элементарными симметрическими многочленами порядка $k$ называются
+    $\sigma_1 (x_1, ..., x_n) = x_1 + ... + x_n$ \\
+    $\sigma_2 (x_1, ..., x_n) = \sum_{1 \leqslant i < j \leqslant n} x_i x_j$ \\
+    $\sigma_k (x_1, ..., x_n) = \sum_{1 \leqslant i_1 < i_2 < ... < i_k \leqslant n} x_{i_1}...x_{i_k}$  
+\end{Def}
+
+\begin{Thm}[Теорема Виета]
+    $f = a_n x^n + a_{n - 1}x^{n - 1} + ... + a_0$, имеющий $n$ корней.
+    \[\SO \sigma_k(x_1, ..., x_n) = (-1)^k \frac{a_{n - k}}{a_n}\]
+\end{Thm}
+
 \Section{Линейная алгебра}{}{Илья Дудников}
 
 \Subsection{Матрицы}
@@ -2538,52 +2585,5 @@ $\frac{a}{(x - m)^k}, \frac{bx + c}{(x^2 + px + q)^k}, p^2 - 4q < 0$
         \[g_{ij} = \sum_{t=1}^{k} d_{it} c_{tj} = \sum_{t=1}^{k} b_{ti} a_{jt} = \sum_{t=1}^{k} a_{jt} b_{ti} = f_{ji}\]
     \end{proof}
 \end{MyList}
-
-\Subsection{Формальный степенной ряд}
-
-$R$ -- коммутативное кольцо с 1.
-\begin{Def}
-    \[\sum_{n=0}^{\infty} a_n x^n = a_0 + a_1 x + a_2x^2 + ... + a_n x^n + ...\]
-    $a_n \in R$, называется формальным степенным рядом.
-\end{Def}
-
-\begin{MyList}
-    \item Сложение.
-    \[\sum_{n=0}^{\infty} a_nx^n + \sum_{m=0}^{\infty} b_mx^m = \sum_{n=0}^{\infty} (a_n + b_n)x^n\]
-
-    \item Умножение.
-    \[\left(\sum_{n=0}^{\infty} a_nx^n\right) \left(\sum_{m=0}^{\infty} b_mx^m\right) = \sum_{k=0}^{\infty} \left(\sum_{n + m=k}^{a_nb_m}\right)x^k\]
-\end{MyList}
-
-Множество $R[[x]] = \left\{\sum_{n=0}^{\infty} a_nx^n, a_n \in R\right\}$ образует коммутативное кольцо с 1.
-
-\Subsection{Многочлены от нескольких переменных}
-
-$R$ -- коммутативное кольцо с 1. $S = R[x_1], S[x_2] = R[x_1, x_2]$ и т.д.
-
-$R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переменных $x_1, x_2, ..., x_n$ над $R$.
-
-\[R[x_1, ..., x_n] = \left\{\sum_{i_1, ... i_n=0} a_{i_1, ..., i_n}x_1^{i_1}x_2{i_2}...x_n^{i_n} \right\}\]
-
-\begin{Def}
-    Мономом называется многочлен, у которого только один ненулевой коэффициент.
-    $a_{i_1, ..., i_n} x_1^{i_1}...x_n^{i_n}, i_1 + i_2 + ... + i_n$ -- степень монома.
-\end{Def}
-
-\begin{Def}
-    Многочлен от $n$ переменных называется однородным, если он равен сумме мономов степени $m$.
-\end{Def}
-
-\begin{Def}
-    Элементарными симметрическими многочленами порядка $k$ называются
-    $\sigma_1 (x_1, ..., x_n) = x_1 + ... + x_n$ \\
-    $\sigma_2 (x_1, ..., x_n) = \sum_{1 \leqslant i < j \leqslant n} x_i x_j$ \\
-    $\sigma_k (x_1, ..., x_n) = \sum_{1 \leqslant i_1 < i_2 < ... < i_k \leqslant n} x_{i_1}...x_{i_k}$  
-\end{Def}
-
-\begin{Thm}[Теорема Виета]
-    $f = a_n x^n + a_{n - 1}x^{n - 1} + ... + a_0$, имеющий $n$ корней.
-    \[\SO \sigma_k(x_1, ..., x_n) = (-1)^k \frac{a_{n - k}}{a_n}\]
-\end{Thm}
 
 \end{document}
