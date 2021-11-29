@@ -1266,4 +1266,110 @@ for (int i = 2; i < n; i++)
 \end{lstlisting}
 \end{Example}
 
+\Section{Теория графов}{}{Илья Дудников}
+
+\begin{Def}
+    Пусть $V = \{v_1, v_2, ..., v_n\}, E \subset V \times V$.
+    $(V, E) = G$ -- граф. $V$ -- множество вершин, $E$ -- множество рёбер.
+\end{Def}
+
+\begin{Def}
+    Мультиграф -- \TODO. 
+\end{Def}
+
+\begin{Def}
+    $G = (V, E), v_i \in V, e_j = (v_k, v_l) \in E$.
+    $v_i$ \textbf{инцидентно} $e_j$, если $v_k = v_i$ или $v_l = v_i$.
+\end{Def} 
+
+\begin{Def}
+    Степень вершина - число ребер, ей инцидентных.
+\end{Def}
+
+\begin{Prop}
+    Сумма степеней графа -- четна.
+\end{Prop}
+
+\begin{proof}
+    $\sum_{i=1}^{n} \deg v_i = \deg v_1 + \deg v_2 + ... + \deg v_n = \sum_{e_i \in E} (1 + 1) = |E| \cdot 2$ 
+\end{proof}
+
+\begin{Def}
+    $v_i, v_j \in V$. $v_i$ смежна с $v_j$, если $\exists e_k = (v_i, v_j)$ 
+\end{Def}
+
+\Subsection{Способы задания графов}
+
+\begin{MyList}
+    \item Матрица смежности. 
+    \[\begin{array}{c|c|c|c|c}
+     & v_1 & v_2 & ... & v_n \\ \hline 
+    v_1 &  &  &  &  \\ \hline
+    v_2 &  &  &  &  \\ \hline
+    ... &  &  &  &  \\ \hline
+    v_n &  &  &  & 
+    \end{array} = M, M_{i, j} = \begin{cases}
+        0, (v_i, v_j) \notin E \\
+        1, (v_i, v_j) \in E
+    \end{cases}\]
+    Очевидно, что для её хранения требуется $O(|V|^2)$ памяти.
+
+    \item Список смежности.
+    \begin{align*}
+        v_1 &: \overbrace{v_{11}, v_{12}, ...}^{\text{смежные с $v_i$}} \\
+        v_2 &: v_{21}, v_{22}, ... \\
+        &\vdots \\
+        v_n &: v_{n1}, v_{n2}, ...
+    \end{align*}
+    Поскольку мы храним все ребра, то нужно $O(|E|)$ памяти.
+
+    \item Список ребер.
+    \item Матрица инцидентности.
+    Матрица размера $|V| \cdot |E|:$ 
+    \[\begin{array}{c|c|c|c|c}
+        & e_1 & e_2 & ... & e_m \\ \hline 
+       v_1 &  &  &  &  \\ \hline
+       v_2 &  &  &  &  \\ \hline
+       ... &  &  &  &  \\ \hline
+       v_n &  &  &  & 
+       \end{array} = MI, MI_{i, j} =\begin{cases}
+           0, v_i \text{ не инцидентно } e_j \\
+           1, \text{иначе}
+       \end{cases}\]
+\end{MyList}
+
+\Subsection{Пути в графе}
+
+\begin{Def}
+    Пусть в графе -- последовательность вершин $u_1, u_2, ... u_k : \forall 2 \leqslant i \leqslant k \to (u_{i - 1}, u_i) \in E$ \\
+    Простой путь -- путь, в котором вершины не повторяются.
+\end{Def}
+
+\begin{Def}
+    Наличие пути между двумя вершинами -- отношение эквивалентности $\SO$ вершины разбиваются на классы эквивалентности -- \textbf{компоненты связности} 
+\end{Def}
+
+\begin{Def}
+    Цикл в графе -- последовательность вершин $u_1, ..., u_k : \begin{cases}
+        \forall i \to (u_{i - 1}, u_i) \in E \\
+        (u_k, u_1) \in E
+    \end{cases}$ 
+\end{Def}
+
+\begin{Def}
+    Простой цикл -- цикл без повторяющихся ребер.
+\end{Def}
+
+\begin{Def}
+    Если $V_1 \subset V, E_1 \subset E, H = (V_1, E_1)$ -- граф, тогда $H$ -- подграф $G$.
+\end{Def}
+
+\begin{Def}
+    $H$ -- остовный подграф $G$, если $V_1 = V$
+\end{Def}
+
+\begin{Def}
+    $H$ -- индуцированный подграф $G$, если $\forall x, y \in V_1 ((x, y) \in E \SO (x, y) \in E_1)$ 
+\end{Def}
+
 \end{document}
