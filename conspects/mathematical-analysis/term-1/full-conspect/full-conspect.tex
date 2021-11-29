@@ -2870,4 +2870,24 @@ $c_0 = P(a)$
     \end{proof}
 \end{MyList}
 
+\begin{Prop}
+    $\forall n \in \N \ \exists c \in (0, 1) : $
+    \[e^1 = 1 + \frac{1}{1!} + \frac{1}{2!} + ... + \frac{1}{n!} + \frac{e^c}{(n + 1)!}\] 
+\end{Prop}
+
+\begin{Cons}
+    $e - \left(1 + 1 + \frac{1}{2!} + ... + \frac{1}{n!}\right) < \frac{3}{(n + 1)!}$ 
+\end{Cons}
+
+\begin{Cons}
+    $e$ -- иррациональное число.
+\end{Cons}
+
+\begin{proof}
+    Пусть $e \in \Q, e \in (2, 3), e = \frac{m}{n}, m, n \in \N$.
+    \[\frac{m}{n} = e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + ... + \frac{1}{n!} + \frac{e^c}{(n + 1)!}, c \in (0, 1) = \]
+    \[= \underbrace{m (n - 1)!}_{\in \Z} = \underbrace{n! + n! + \frac{n!}{2!} + ... + 1}_{\in \Z} + \frac{e^c}{n + 1} \SO \frac{e^c}{n + 1} \in Z\]
+    но $0 < e^c < e < 3, n + 1 \geqslant 3$  !?
+\end{proof}
+
 \end{document}
