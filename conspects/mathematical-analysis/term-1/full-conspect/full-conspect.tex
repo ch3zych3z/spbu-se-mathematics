@@ -2890,4 +2890,226 @@ $c_0 = P(a)$
     но $0 < e^c < e < 3, n + 1 \geqslant 3$  !?
 \end{proof}
 
+
+\begin{Prop}[Критерий постоянства]
+    Пусть $f$ непрерывна на $\langle A, B\rangle$ и дифференцируема на $(A, B)$. Тогда равносильны следующие утверждения:
+    \begin{MyList}
+        \item $f$ постоянна на $\langle A, B\rangle$ 
+        \item $f' = 0 \ \forall x \in (A, B)$
+    \end{MyList}
+\end{Prop}
+
+\begin{proof}
+    $1) \SO 2)$ очевидно. \\
+    $2) \SO 1)$. $f'(x) = 0 \ \forall x \in (A, B) \SO f'(x) \geqslant 0, f'(x) \leqslant 0 \SO$ $f$ нестрого убывает и нестрого возрастает $\SO f$ -- постоянна. 
+\end{proof}
+
+\begin{Example}
+    $\arccos x + \arcsin x = \frac{\pi}{2}$. 
+\end{Example}
+
+\begin{proof}
+    $f(x) = \arccos x + \arcsin x$.
+    $f'(x) = -\frac{1}{\sqrt{1 - x^2}} + \frac{1}{\sqrt{1 + x^2}} = 0 \ \forall x \in (-1, 1) \SO f$ -- постоянна.
+    \[f(0) = \frac{\pi}{2} + 0 = \frac{\pi}{2} \SO f(x) = \frac{\pi}{2} \ \forall x \in [-1, 1]\]
+\end{proof}
+
+\begin{Prop}
+    $f, g$ непрерывны на $[A, B\rangle$ и дифференцируемы на $(A, B)$. 
+    Если $f(A) = g(A), f'(x) > g'(x) \ \forall x \in (A, B)$. Тогда
+    \[f(x) > g(x) \ \forall x \in (A, B\rangle\]
+\end{Prop}
+
+\begin{proof}
+    $h = f - g$ непрерывна на $[A, B\rangle$, дифференцируема на $(A, B), h'(x) > 0 \ \forall x \in (A, B), h(A) = 0$
+    $\SO h$ строго возрастает $\SO h(x) > 0 \ \forall x \in (A, B\rangle$   
+\end{proof}
+
+\begin{Example}
+    $\cos x > 1 - \frac{x^2}{2} \ \forall x > 0$.
+\end{Example}
+
+\begin{proof}
+    $\cos 0 = 1 - \frac{0^2}{2}, (\cos x)' = -\sin x, (1 - \frac{x^2}{2})' = -x$.
+    $\sin x < x \ \forall x > 0 \EQ -\sin x > -x \SO \cos x > 1 - \frac{x^2}{2}$   
+\end{proof}
+
+\begin{Def}
+    $E \subset \R, f : E \to \R, a \in E$.
+    \begin{MyList}
+        \item Пусть $\exists \delta > 0 : \forall x \in (a - \delta, a + \delta) \cap E \to f(x) \geqslant f(a)$. Тогда $a$ -- точка (локального) минимума $f$.
+        Если выполнено $f(x) \leqslant f(a)$, то $a$ точка (локального) максимума $f$.
+        \item Если $\forall x \in (a - \delta, a + \delta) \setminus \{a\}$неравенства строгие, то $a$ -- точка строгого минимума или максимума. 
+        \item Такие точки $a$ называются \textbf{точками (локального) экстремума}.
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}[Необходимое условие экстремума]
+    $f : \langle A, B\rangle \to \R, a \in (A, B), f $ -- дифференцируема в точке $a$.
+    Если $a$ является точкой экстремума $f$, то $f'(a) = 0$.  
+\end{Thm}
+
+\begin{proof}
+    Пусть $a$ -- точка минимума. $\exists \delta > 0 : [a - \delta, a + \delta] \subset (A, B), f(x) \geqslant f(a) \ \forall x \in [a - \delta, a + \delta]$.
+    Рассмотрим сужение $f|_{[a - \delta, a + \delta]}$. По теореме Ферма $f'(a) = 0$.  
+\end{proof}
+
+\begin{Def}
+    Точки, в которых $f' = 0$ называются стационарными.
+\end{Def}
+
+\begin{Def}
+    Пусть $a \in (A, B)$. Будем называть $a$ критической точкой (точкой, подозрительной на экстремум), если $f'(a) = 0$ или $f$ не дифференцируема в точке $a$.
+\end{Def}
+
+План исследования на наибольшее и наименьшее значение на отрезке:
+
+\begin{MyList}
+    \item Найти множество всех критических точек -- $C$.
+    \item Посчитать значения $f$ в каждой точке из $C$ и на концах отрезка.
+    \item Выбрать наибольшее и наименьшее.
+\end{MyList}
+
+\begin{Thm}[Достаточное условие экстремума в терминах первой производной]
+    $f : \langle A, B\rangle \to \R, a \in (A, B), \delta : (a - \delta, a + \delta) \subset \langle A, B\rangle$. 
+    Пусть $f$ непрерывна в точке $a$ и дифференцируема на $(a -\delta, a) \cup (a, a + \delta)$
+    \begin{MyList}
+        \item Если $f'(x) < 0$ при $x \in (a -\delta, a), f'(x) > 0$ при $x \in (a, a + \delta)$, то $a$ -- точка строгого минимума.
+        \item Если $f'(x) > 0$ при $x \in (a -\delta, a), f'(x) < 0$ при $x \in (a, a + \delta)$, то $a$ -- точка строгого максимума.     
+    \end{MyList}  
+\end{Thm}
+
+\begin{proof}
+    Докажем первое утверждение. \\
+    $f$ строго убывает на $(a - \delta, a] \SO f(x) > f(a) \ \forall x \in (a - \delta, a)$ \\
+    $f$ строго возрастает на $[a, a + \delta) \SO f(x) > f(a) \ \forall x \in (a, a + \delta) \SO a$ -- точка строгого локального минимума.  
+\end{proof}
+
+\begin{Rem}
+    Если $f'$ не меняет знак на $(a - \delta, a) \cup (a, a + \delta)$, то $f$ не имеет экстремума в точке $a$.  
+\end{Rem}
+
+\begin{proof}
+    $f$ монотонна на $(a - \delta, a + \delta)$ 
+\end{proof}
+
+\begin{Rem}
+    Верно ли, что если $f$ дифференцируема на $(A, B)$ и в точке $a \in (A, B)$ $f$ имеет строгий локальный минимум, то $\exists \delta : f'(x) < 0 \ \forall x \in (a - \delta, a)$ и $f'(x) > 0 \ \forall x \in (a, a + \delta)$  
+    Спойлер: нет.
+\end{Rem}
+
+\begin{Example}
+    \[f(x) = \begin{cases}
+        x^2 \left(\sin\frac{1}{x} + 2\right), x \neq 0 \\
+        0, x = 0
+    \end{cases}\]
+    $f$ дифференцируема на $\R$. $f(0) = 0$ и $f(x) > 0 \ \forall x \neq 0 \SO 0$ точка строгого минимума.
+    \[f'(x) = 2x\left(\sin \frac{1}{x} + 2\right) + x^2 \cos \frac{1}{x} \cdot -\frac{1}{x^2} = 2x\left(\sin \frac{1}{x} + 2\right) - \cos \frac{1}{x}\]
+    При $x \to 0+ : \ 2x \left(\sin \frac{1}{x} + 2\right) \to 0$. А $\cos \frac{1}{x}$ может принимать все значения он $[-1, 1]$ при $x \in (0, \delta) \ \forall \delta > 0$ 
+\end{Example}
+
+\begin{Thm}[Достаточное условие экстремума в терминах второй производной]
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Пусть $f$ дважды дифференцируема в точке $a$ и $f'(a) = 0$.
+    \begin{MyList}
+        \item Если $f''(a) > 0$, то $a$ -- точка строгого минимума.
+        \item Если $f''(a) < 0$, то $a$ -- точка строгого максимума. 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Докажем первое утверждение. Применим к $f$ формулу Тейлора с остатком в форме Пеано:
+    \[f(x) = f(a) + f'(a) \cdot (x - a) + f''(a) \cdot \frac{(x - a)^2}{2} + o((x - a)^2)\]
+    \[f(x) - f(a) = f''(a) \cdot \frac{(x - a)^2}{2} + o((x - a)^2) = (x-a)^2 \cdot \frac{f''(a)}{2}(1 + o(1))\]
+    \[f(x) - f(a) = (x - a)^2 \frac{f''(a)}{2}(1 + o(1))\]
+    т.к. $1 + o(1) \xrightarrow[x \to a]{} 1$, то $\exists \delta > 0 : \forall x \in (a - \delta, a + \delta) \to (1 + o(1)) > 0$.
+    Тогда $\forall x \in (a - \delta, a + \delta) \setminus \{a\} \ f(x) - f(a) > 0$  
+\end{proof}
+
+\begin{Rem}
+    Если $f''(a) = 0$, то эта теорема не дает ответа на вопрос об экстремуме.
+\end{Rem}
+
+\begin{Thm}[О связи экстремума со старшими производными]
+    $f: \langle A, B\rangle, a \in (A, B), n \in \N$. Пусть $f$ $n$ раз дифференцируема в точке $a$, причем $f'(a) = f''(a) = ... = f^{(n - 1)}(a) = 0$.
+    Тогда
+    \begin{MyList}
+        \item Если $n$ -- нечетно, то $f$ не имеет экстремума в точке $a$.
+        \item Если $n$ -- четно и $f^{(n)}(a) > 0$, то $a$ -- точка строгого минимума.
+        \item Если $n$ -- четно и $f^{(n)}(a) < 0$, то $a$ -- точка строгого максимума. 
+    \end{MyList}
+\end{Thm}
+
+\Subsection{Выпуклость}
+
+\begin{Def}
+    $f: \langle A, B\rangle \to \R$ 
+    \begin{MyList}
+        \item Пусть $\forall a, b \in \langle A, B\rangle$ и $\lambda \in (0, 1)$ справедливо неравенство
+        \[f(\lambda a + (1 - \lambda) b) \leqslant \lambda f(a) + (1 - \lambda) f(b)\]
+        Тогда $f$ называется выпуклой на $\langle A, B\rangle$ 
+
+        \item Если знак в неравенстве строгий, то $f$ строго выпукла.
+        \item Если знак ``$\geqslant$'' ,то $f$ называется вогнутой на $\langle A, B\rangle$.
+        \item Если знак ``$>$'' ,то $f$ называется строго вогнутой на $\langle A, B\rangle$ . 
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    Не умаляя общности, $a < b$. 
+\end{Rem}
+
+\begin{Rem}
+    Если $a = b$, то знак "$=$" 
+\end{Rem}
+
+\begin{Rem}
+    Иногда называются выпуклая вниз и выпуклая вверх.
+\end{Rem}
+
+\begin{Rem}
+    $x = \lambda a + (1 - \lambda) b$.
+    При $\lambda \in (0, 1)$ точка $x$ пробегает $(a, b)$.
+    \[\lambda = \frac{b - x}{b - a}, 1 - \lambda = \frac{x - a}{b - a}\]
+    То есть определение можно переписать так:
+    \[f(x) \leqslant \underbrace{\frac{b - x}{b - a}f(a) + \frac{x - a}{b - a} \cdot f(b)}_{\text{хорда, проходящая через }(a, f(a)), (b, f(b))}\]
+    т.е. график $f$ лежит не выше, чем любая хорда.
+\end{Rem}
+
+\begin{Rem}
+    Пусть $f$ и $g$ -- выпуклые на $\langle A, B\rangle$
+    \begin{MyList}
+        \item $f + g$ тоже выпуклая на $\langle A, B\rangle$ 
+        \item $\forall \alpha > 0 \ \alpha \cdot f$ выпуклая
+        \item $\forall \alpha < 0 \ \alpha \cdot f$ вогнутая.
+    \end{MyList}
+\end{Rem}
+
+\begin{Lm}[Лемма о трех хордах]
+    $f : \langle A, B\rangle \to \R$. Тогда равносильны следующие утверждения:
+
+    \begin{MyList}
+        \item $f$ строго выпукла на $\langle A, B\rangle$ 
+        \item $\forall a, b, c \in \langle A, B\rangle : a < c < b$ выполняется
+        \[ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c}\] 
+
+        \item $\forall a, b, c \in \langle A, B\rangle : a < c < b$ выполнены неравенства:
+        \[ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(a)}{b - a} < \frac{f(b) - f(c)}{b - c}\]
+    \end{MyList}
+\end{Lm}
+
+\begin{proof}
+    $3) \SO 2)$ очевидно. \\
+    $1) \SO 3)$. $f$ строго выпукла. Положим $\lambda = \frac{b - c}{b - a} \in (0, 1)$. Тогда $\lambda a + (1 - \lambda) b$.
+    \[f(c) < \lambda f(a) + (1 -\lambda)f(b)\]
+    Перепишем это неравенство в двух разных формах:
+    \[f(c) - f(b) < \lambda(f(a) - f(b)) \EQ f(b) - f(c) > \frac{b - c}{b - a}(f(b) - f(a)) \EQ \frac{f(b) - f(c)}{b - c} > \frac{f(b) - f(c)}{b - a}\] 
+    \[f(c) - f(a) < (1 - \lambda)(f(b) - f(a)) \EQ f(c) - f(a) < \frac{c - a}{b - a}(f(b) - f(a)) \EQ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(a)}{b - a}\] 
+    $2) \SO 1)$. Пусть $a, b \in \langle A, B\rangle$. Обозначим $c = \lambda a + (1 - \lambda)b, \lambda \in (0, 1)$.
+    Тогда $\lambda = \frac{b - c}{b - a}$ и $1 - \lambda = \frac{c - a}{b - a}$ 
+    \[\SO \frac{c - a}{1 - \lambda} = \frac{b - c}{\lambda}\]
+    Тогда 
+    \[\frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c} \EQ \frac{f(c) - f(a)}{1 - \lambda} < \frac{f(b) - f(c)}{\lambda} \EQ \lambda(f(c) - f(a)) < (1 - \lambda)(f(b) - f(c))\]  
+    \[\EQ \lambda f(c) - \lambda f(a) < f(b) - f(c) - \lambda f(b) + \lambda f(c) \EQ f(c) < (1 - \lambda) f(b) + \lambda f(a)\]
+\end{proof}
+
 \end{document}
