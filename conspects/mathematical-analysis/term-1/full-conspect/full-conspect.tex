@@ -3097,9 +3097,13 @@ $c_0 = P(a)$
     \end{MyList}
 \end{Lm}
 
+\begin{Rem}
+    Рисунок \TODO
+\end{Rem}
+
 \begin{proof}
     $3) \SO 2)$ очевидно. \\
-    $1) \SO 3)$. $f$ строго выпукла. Положим $\lambda = \frac{b - c}{b - a} \in (0, 1)$. Тогда $\lambda a + (1 - \lambda) b$.
+    $1) \SO 3)$. $f$ строго выпукла. Положим $\lambda = \frac{b - c}{b - a} \in (0, 1)$. Тогда $c = \lambda a + (1 - \lambda) b$.
     \[f(c) < \lambda f(a) + (1 -\lambda)f(b)\]
     Перепишем это неравенство в двух разных формах:
     \[f(c) - f(b) < \lambda(f(a) - f(b)) \EQ f(b) - f(c) > \frac{b - c}{b - a}(f(b) - f(a)) \EQ \frac{f(b) - f(c)}{b - c} > \frac{f(b) - f(c)}{b - a}\] 
@@ -3110,6 +3114,262 @@ $c_0 = P(a)$
     Тогда 
     \[\frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c} \EQ \frac{f(c) - f(a)}{1 - \lambda} < \frac{f(b) - f(c)}{\lambda} \EQ \lambda(f(c) - f(a)) < (1 - \lambda)(f(b) - f(c))\]  
     \[\EQ \lambda f(c) - \lambda f(a) < f(b) - f(c) - \lambda f(b) + \lambda f(c) \EQ f(c) < (1 - \lambda) f(b) + \lambda f(a)\]
+\end{proof}
+
+\begin{Cons}
+    $f: \langle A, B\rangle \to \R, a \in \langle A, B\rangle$ и
+    \[F(x) = \frac{f(x) - f(a)}{x - a}\]
+    Тогда 
+    \begin{MyList}
+        \item Если $f$ выпукла на $\langle A, B\rangle$, то $F$ возрастает на $\langle A, B\rangle \setminus \{a\}$.
+        \item Если $f$ строго выпукла на $\langle A, B\rangle$, то $F$ строго возрастает на $\langle A, B\rangle \setminus \{a\}$.
+    \end{MyList}
+\end{Cons}
+
+\begin{proof}
+    Докажем 2. Пусть $x < y \in \langle A, B\rangle \setminus \{a\}$. Докажем, что $F(x) < F(y)$.
+    \begin{MyItemize}
+        \item $a < x < y \SO$ по лемме о трех хордах $\SO \frac{f(x) - f(a)}{x - a} < \frac{f(y) - f(a)}{y - a} \SO F(x) < F(y)$.
+        \item $x < y < a \SO \frac{f(a) - f(x)}{a - x} < \frac{f(a) - f(y)}{a - y} \SO F(x) < F(y)$.
+        \item $x < a < y \SO \frac{f(a) - f(x)}{a - x} < \frac{f(y) - f(a)}{y - a} \SO F(x) < F(y)$.
+    \end{MyItemize}
+\end{proof}
+
+\begin{Example}
+    $f(x) = x^2$ строго выпукла на $\R$.
+\end{Example}
+
+\begin{proof}
+    Пусть $a < c < b$. Тогда 
+    \[ \frac{f(c) - f(a)}{c - a} - \frac{f(b) - f(c)}{b - c} = \frac{c^2 - a^2}{c - a} - \frac{b^2 - c^2}{b - c} = (c + a) - (b + c) = a - b < 0\]
+    $\SO f(x)$ 
+\end{proof} строго выпукла.
+
+\begin{Thm}[Об односторонних производных]
+    $f : \langle A, B\rangle \to \R, f$ -- выпукла на $\langle A, B\rangle$. Тогда
+    \begin{MyList}
+        \item $\forall a < B \ \exists f_+'(a) \in [-\infty, +\infty), \forall a > A \ \exists f_-'(a) \in (-\infty, +\infty]$
+        \item Если $a \in (A, B)$, то $f_+'(a)$ и $f_-'(a)$ конечны и $f_-'(a) \leqslant f_+'(a)$.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим $F(x) = \frac{f(x) - f(a)}{x - a}, F : \langle A, B\rangle \setminus \{a\} \to \R$.
+    \begin{MyList}
+        \item Пусть $a < B$. Тогда $F$ возрастает на $(a, B\rangle$. Тогда 
+        \[\exists \lim_{x \to a+} F(x) \in [-\infty, +\infty) \text{(по т. о пределе монотонной функции)}\]
+        \[\lim_{x \to a+} \frac{f(x) - f(a)}{x - a} = f_+'(a)\]
+        Для $f_-'(a)$ аналогично.
+
+        \item Пусть $a \in (A, B)$. Возьмем $x < a < y, x, y \in \langle A, B\rangle$. Тогда по следствию 
+        \[F(x) < F(y) \xRightarrow[x, y \to a]{} f_-'(a) \leqslant f_+'(a)\]
+        $f_-'(a) \in (-\infty, +\infty], f_+'(a) \in [-\infty, +\infty) \SO$ обе конечны. 
+    \end{MyList}
+\end{proof}
+
+\begin{Cons}
+    Если $f$ выпукла на $\langle A, B\rangle$, то она непрерывна на $(A, B)$.
+\end{Cons}
+
+\begin{proof}
+    Пусть $a \in (A, B)$. Т.к. $\exists f_+'(a)$, то $f$ непрерывна в точке $a$ справа,
+    т.к. $\exists f_-'(a)$, то $f$ непрерывна на т. $a$ слева $\SO f$ непрерывна в точке $a$. 
+\end{proof}
+
+\begin{Example}
+    Рисунок \TODO.
+    \[f(x) = \begin{cases}
+        -\sqrt{1 - x^2}, x \in (-1, 1] \\
+        1, x = -1
+    \end{cases}\]  
+\end{Example}
+
+\begin{Ex}
+    $f_+'(-1) = ?, f_-'(1) = ?$.
+\end{Ex}
+
+\begin{Thm}[Критерий выпуклости в терминах касательных]
+    $f : \langle A, B\rangle \to \R, f$ дифференцируема на $\langle A, B\rangle$. Тогда 
+    \begin{MyList}
+        \item Функция $f$ выпукла на $\langle A, B\rangle \EQ \forall a, x \in \langle A, B\rangle \to f(x) \geqslant T_{a, 1}f(x)$ 
+        \item Функция $f$ строго выпукла $\EQ \forall a \neq x \in \langle A, B\rangle \to f(x) > T_{a, 1} f(x)$.
+    \end{MyList}
+\end{Thm}
+
+\begin{Ex}
+    Доказать.
+\end{Ex}
+
+\begin{Thm}[Выпуклость и асимптоты]
+    $f : \langle A, +\infty) \to \R$ и имеет асимптоту $y = kx + b$.
+    Тогда
+    \begin{MyList}
+        \item Если $f$ выпукла на $\langle A, +\infty)$, то $f(x) \geqslant kx + b \ \forall x \geqslant A$
+        \item Если $f$ строго выпукла на $\langle A, +\infty)$, то $f(x) > kx + b \ \forall x > A$.
+    \end{MyList}
+\end{Thm}
+
+\begin{Ex}
+    Доказать.
+\end{Ex}
+
+\begin{Thm}[Критерий выпуклости в терминах первой производной]
+    $f : \langle A, B\rangle \to \R$, непрерывна на $\langle A, B\rangle$ и дифференцируема на $(A, B)$. Тогда
+    \begin{MyList}
+        \item $f$ выпукла на $\langle A, B\rangle \EQ f'$ возрастает на $(A, B)$.
+        \item $f$ строго выпукла на $\langle A, B\rangle \EQ f'$ строго возрастает на $(A, B)$.    
+    \end{MyList} 
+\end{Thm}
+
+\begin{proof}
+    Докажем 2. ``$\SO$'' 
+    Возьмем $x < y \in (A, B)$. Покажем, что $f'(x) < \frac{f(y) - f(x)}{y - x} < f'(y)$.
+    \[F(t) = \frac{f(t) - f(x)}{t - x}, t \neq x\]
+    Т.к. $f$ строго выпукла, то $F$ строго возрастает на $(x, y]$
+    \[\SO f'(x) = \lim_{t \to x+} F(t) = \inf_{t \in (x, y]} F(t) < F(y) = \frac{f(y) - f(x)}{y - x}\]
+    Аналогично: $f'(y) > F(y)$. \\
+    ``$\Leftarrow$''. Достаточно показать, что $\forall a < c < b \in \langle A, B\rangle$ верно
+    \[ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c}\]
+    По теореме Лагранжа $\exists \alpha \in (a, c) : \frac{f(c) - f(a)}{c - a} = f'(\alpha), \exists \beta \in (c, b) : \frac{f(b) - f(c)}{b - a} = f'(\beta)$
+    $\SO \alpha < \beta$, т.к. $f'$ строго возрастает, то $f'(\alpha) < f'(\beta)$ 
+\end{proof}
+
+\begin{Thm}[Критерий выпуклости в терминах второй производной]
+    $f : \langle A, B\rangle \to \R, $ непрерывна на $\langle A, B\rangle$ и дважды дифференцируема на $(A, B)$.
+    Тогда
+    \begin{MyList}
+        \item $f$ выпукла на $\langle A, B\rangle \EQ f''(x) \geqslant 0 \ \forall x \in (A, B)$.
+        \item Если $f''(x) > 0 \ \forall x \in (A, B)$, то $f$ строго выпукла.
+    \end{MyList}
+
+    \begin{Rem}
+        Обратное к 2 не всегда выполнено: $f(x) = x^4$ -- строго выпукла, но $f''(x) = 12x^2, f''(0) = 0$ 
+    \end{Rem}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item По предыдущей теореме выпуклость $\EQ$ возрастанию $f' \EQ f''(x) \geqslant 0$.
+        
+        \item $f''(x) > 0 \SO f'(x)$ строго возрастает $\SO f$ строго выпукла. 
+    \end{MyList}
+\end{proof}
+
+\begin{Example}
+    $f(x) = \sin x$ на $\left[0, \frac{\pi}{2}\right]$. $f'(x) = \cos x, f''(x) = -\sin x \leqslant 0$ на $\left[0, \frac{\pi}{2}\right]$
+    $\SO f$ строго вогнута на $\left(0, \frac{\pi}{2}\right)$ ( $f''(x) = 0$ только при $x = 0$) $\SO \sin x > \frac{2}{\pi} x$ на $\left(0, \frac{\pi}{2}\right)$.  
+\end{Example}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Предположим, что выполнены следующие условия:
+    \begin{MyList}
+        \item $\exists \delta > 0 : (a - \delta, a + \delta) \subset (A, B), f$ имеет разный характер выпуклости на $(a - \delta, a]$ и $[a, a + \delta)$.
+        \item $f$ непрерывна в точке $a$.
+        \item $f'(a) \in \overline{\R}$
+    \end{MyList}
+    Тогда $a$ называется точкой перегиба функции $f$.
+\end{Def}
+
+\begin{Thm}[Необходимое условие перегиба]
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Пусть $f$ дважды дифференцируема в точке $a$. 
+    Если $a$ является точкой перегиба, то $f''(a) = 0$.    
+\end{Thm}
+
+\begin{proof}
+    Пусть $f$ вогнута слева от $a$, выпукла справа от $a$. Возьмем $\delta > 0 : f$ дифференцируема на $(a - \delta, a + \delta)$.
+    Тогда $f'$ убывает на $(a - \delta, a]$ и $f'$ возрастает на $[a, a + \delta)$. Тогда $a$ -- точка минимума $f' \SO f''(a) = 0$.
+\end{proof}
+
+\begin{Thm}[Достаточное условие перегиба]
+    $f : \langle A, B\rangle \to \R, a \in (A, B), f$ непрерывна в точке $a$ и $f'(a) \in \overline{\R}$.
+    Пусть $\exists \delta > 0 : f$ дважды дифференцируема на $(a - \delta, a) \cup (a, a + \delta)$ и выполнено одно из следующих условий:
+    \begin{MyList}
+        \item $f'' > 0$ на $(a - \delta, a)$ и $f'' < 0$ на $(a, a + \delta)$ 
+        \item $f'' < 0$ на $(a - \delta, a)$ и $f'' > 0$ на $(a, a + \delta)$   
+    \end{MyList}     
+    Тогда $a$ -- точка перегиба.
+\end{Thm}
+
+\begin{proof}
+    Пусть выполнено 1. Тогда $f$ выпукла на $(a - \delta, a)$, вогнута на $(a, a + \delta)$
+    $\SO a$ -- точка перегиба.  
+\end{proof}
+
+План исследования функции:
+\begin{MyList}
+    \item Область определения функции (и множество значений функции).
+    \item Нули функции, знакопостоянство.
+    \item Четность/нечетность.
+    \item Периодичность.
+    \item Разрывы функции.
+    \item Монотонность (экстремумы).
+    \item Выпуклость (перегибы).
+    \item Асимптоты. 
+\end{MyList}
+
+\begin{Prop}[Обобщение неравенства Бернулли]
+    $\alpha > 1$. Тогда $(1 + x)^\alpha > 1 + \alpha x \ \forall x > -1, x \neq 0$.
+\end{Prop}
+
+\begin{proof}
+    $f(x) = (1 + x)^\alpha, f''(x) = \alpha(\alpha - 1)(1 + x)^{\alpha - 2} > 0 \ \forall x > -1$
+    $\SO f$ строго выпукла. $1 + \alpha x = T_{0, 1} f(x)$. По теореме о касательных $f$ лежит над своей касательной в $x = 0$,
+    т.е. $f(x) > T_{0, 1} f(x)$ (при $x = 0$ равен).
+\end{proof}
+
+\Subsection{Классические неравенства}
+
+$p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные показатели.
+
+\begin{Thm}[Неравенство Юнга]
+    Пусть $x, y \geqslant 0, p, q$ -- сопряженные показатели. Тогда
+    \[xy \leqslant \frac{x^p}{p} + \frac{y^q}{q}\]
+    Причем равенство достигается тогда и только тогда, когда $x^p = y^q$.
+\end{Thm}
+
+\begin{proof}
+    Если $x = 0$ или $y = 0$, то очевидно. Будем считать, что $x > 0$ и $y > 0$. Возьмем $f(t) = \ln t$.
+    $f$ строго вогнутая на $(0, +\infty)$. Подставим в определение точки $x^p$ и $y^q$.
+    \[\forall \lambda \in (0, 1) \ f(\lambda x^p + (1 - \lambda)y^q) > \lambda f(x^p) + (1 - \lambda)f(y^q)\]
+    Причем равенство возможно лишь когда $x^p = y^q$. Возьмем $\lambda = \frac{1}{p}$, тогда $1 - \lambda = \frac{1}{q}$.\
+    \[\ln \left(\frac{1}{p} x^p + \frac{1}{q}y^q\right) > \frac{1}{p} \ln x^p + \frac{1}{q} \ln y^q = \ln(xy)\]
+    Т.к. $\ln x$ строго возрастает на $(0, +\infty)$, то $ \frac{x^p}{p} + \frac{y^q}{q} > xy$.
+\end{proof}
+
+Векторы в $\R^n$. $x = (x_1, ..., x_n), y = (y_1, ..., y_n)$, $x, y \in \R^n$ 
+
+\begin{MyList}
+    \item $x + y = (x_1 + y_1, ..., x_n + y_n)$ 
+    \item $\lambda x = (\lambda x_1, ..., \lambda x_n)$ 
+    \item Скалярное произведение: $x \cdot y = x_1 y_1 + ... + x_n y_n$.
+    \item Длина вектора: $|x| = \sqrt{x_1^2 + ... + x_n^2}$ 
+    \item $p$-норма вектора: $||x||_p = \sqrt[p]{|x_1|^p + ... + |x_n|^p}$ (обощение понятия длины).
+    \item $x$ и $y$ коллинеарны, если либо один из них нулевой, либо $\exists \lambda \in \R \setminus \{0\} : x = \lambda y$.
+    \item $x$ и $y$ сонаправлены, если либо один из них нулевой, либо $\exists \lambda > 0 : x = \lambda y$.  
+\end{MyList}
+
+\begin{Thm}[Неравенство Минковского для неотрицательных чисел]
+    $n \in \N, p \geqslant 1$. Предположим, что векторы $x$ и $y \in \R^n$ имеют неотрицательные координаты. Тогда
+    \[ \left(\sum_{k=1}^{n} (x_k + y_k)^p \right)^{\frac{1}{p}} \leqslant \left( \sum_{k=1}^{n} x_k^p\right)^{\frac{1}{p}} + \left(\sum_{k = 1}^n y_k^p\right)^{\frac{1}{p}}\]
+    Равенство $\EQ$ либо $p = 1$, либо $x$ и $y$ сонаправлены.
+\end{Thm}
+
+\begin{proof}
+    Если $p = 1$, то очевидно. \\
+    Пусть $p > 1$ и $x$ и $y$ ненулевые.
+    \[X = ||x||_p, Y = ||y||_p, X, Y > 0\]
+    Рассмотрим $f(x) = x^p$ -- строго выпуклая на $[0, +\infty)$.
+    $f''(x) = p(p - 1)x^{p - 2} > 0$ при $x > 0$ и $f$ непрерывна в точке $0$.
+    Запишем определение выпуклости для $ \frac{x_k}{Y}$ и $ \frac{y_k}{Y}$.
+    \[\forall \lambda \in (0, 1) \ f\left(\lambda \frac{x_k}{Y} + (1 - \lambda)\frac{y_k}{Y}\right) \leqslant \lambda f\left(\frac{x_k}{Y}\right) + (1 - \lambda) f\left(\frac{y_k}{Y}\right)\]
+    Равенство тогда и только тогда, когда $ \frac{x_k}{X} = \frac{y_k}{Y}$. Возьмем $\lambda = \frac{X}{X + Y}, 1 - \lambda = \frac{Y}{X + Y}$
+    \[f \left( \frac{x_k + y_k}{X + Y}\right) \leqslant \frac{X}{X + Y} f \left( \frac{x_k}{X}\right) + \frac{Y}{X + Y} f \left( \frac{y_k}{Y}\right)\]
+    \[ \frac{(x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{y_k^p}{Y^p} \ \forall k = 1, ..., n\]
+    Сложим все неравенства:
+    \[ \frac{\sum_{k = 1}^n (x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{\sum_{k=1}^n x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{\sum_{k=1}^n y_k^p}{Y^p} =\]
+    Заметим, что $\sum_{k=1}^{n} \frac{x_k^p}{X^p} = \frac{1}{||x||_p^p} \sum_{k=1}^{n} x_k^p = 1$ 
+    \[\frac{X}{X + Y} + \frac{Y}{X + Y} = 1 \SO ||x + y||_p \leqslant X + Y = ||x||_p + ||y||_p\]
+    Равенство $\EQ$ равенство $\forall k$, т.е. $ \frac{x_k}{X} = \frac{y_k}{Y} \SO x_k = \frac{X}{Y} y_k \SO$ $x$ и $y$ сонаправлены. 
 \end{proof}
 
 \end{document}
