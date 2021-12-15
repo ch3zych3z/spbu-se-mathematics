@@ -330,6 +330,7 @@
 \DeclareMathOperator{\Real}{Re}
 \DeclareMathOperator{\Imag}{Im}
 \DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\characteristic}{char}
 
 \begin{document}
 
@@ -2138,6 +2139,195 @@ $ax^4 + bx^3 + cx^2 + dx + e = 0$
     \[\SO f = (x - c)^2 g + a(x - c) + r\]
     $f(c) = 0 \SO r = 0$
     \[f' = 2(x - c)g + (x - c)^2g' + a, f'(c) = 0 \SO a = 0 \SO f = (x - c)^2 g\]   
+\end{proof}
+
+\Subsection{Характеристика поля}
+
+$K$ -- поле. $1 + 1 + 1 + ... = 0 \vee \infty$
+
+\begin{Def}
+    Наименьшее целое положительное $n : \forall x \in K \ nx = 0$ называется характеристикой поля: $\characteristic K = n$ 
+    Если такого $n$ не существует, то $\characteristic K = 0$  
+\end{Def}
+
+\begin{Lm}
+    $K$ -- поле, $\characteristic K = n > 9 \SO n = p$ -- простое.
+\end{Lm}
+
+\begin{proof}
+    Предположим, что $n = m k, 1 < m, k < n \SO n \cdot 1 = m \cdot k \cdot 1 = 0 \SO m = 0$ или $k = 0$ -- противоречие.   
+\end{proof}
+
+\begin{Thm}
+    $K$ -- поле, $\characteristic K = 0$. $f \in K[x], \PHI \in K[x]$ -- неприводимый многочлен.
+    $f = \PHI^k \cdot g, (\PHI, g) = 1$. Тогда $f' = \PHI^{k - 1} h, (\PHI, h) = 1$  
+\end{Thm}
+
+\begin{proof}
+    $f' = k\PHI^{k - 1} \PHI' g + \PHI^k g' = \PHI^{k - 1} (\underbrace{k\PHI'g + \PHI g'}_h)$.
+    Если $\PHI | h \SO \PHI | k \PHI' g$, но $(\PHI, \PHI' g)~=~1 \SO (\PHI, h) = 1$.   
+\end{proof}
+
+\begin{Thm}[Критерий кратности корня]
+    $\characteristic K = 0, f \in K[x], c \in L \supset K$. Тогда $c$ -- корень кратности $k$ многочлена $f \EQ f(c) = f'(c) = ... = f^{(k - 1)}(c) = 0$ и $f^{(k)}(c) \neq 0$.       
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $f = (x - c)^k g, g(c) \neq 0$, из предыдущей теоремы $\SO f' = (x - c)^{k - 1} g_1, g_1(c) \neq 0$ и т.д. $\SO f'(c) = ... = f^{(k - 1)}(c) = 0$, но $f^{(k - 1)} = (x - c) g_{k - 1}, g_{k - 1}(c) \neq 0 \SO f^{(k)}(c) \neq 0$. \\
+    "$\Leftarrow$". $c$ -- кратный корень $: f = (x - c)^s \cdot g, g(c) \neq 0$. Дифференцируем $\SO s=k, f^{(k)}~=~h, h(c)~\neq~0$.  
+\end{proof}
+
+\begin{Cons}
+    $\characteristic K = 0, f = a \PHI_1^{k_1} \PHI_2^{k_2} ... \PHI_s^{k_s}$ -- каноническое разложение $\SO \gcd(f, f') = \PHI_1^{k_1 - 1} \PHI_2^{k_2 - 1} ... \PHI_s^{k_s - 1}$ 
+\end{Cons}
+
+\begin{proof}
+    $f = \PHI_i^{k_i} \cdot g \SO f' = \PHI_i^{k_i - 1} \cdot h$ 
+\end{proof}
+
+\begin{Cons}[Отделение кратных корней]
+    $\characteristic K = 0, f \in K[x] \SO g = \frac{f}{(f, f')}$ не имеет кратных корней. 
+\end{Cons}
+
+\Subsection{Формула Тейлора для многочлена}
+
+\begin{Thm}[Разложение по степеням другого многочлена]
+    $K$ -- поле, $\characteristic K = 0, f, g \in K[x], \deg g \geqslant 1 \SO f = h_n g^n + h_{n - 1}g^{n - 1} + ... + h_1 g + h_0$,
+    где $h_i \in K[x], \deg h_i < \deg g$ и это разложение единственно.    
+\end{Thm}
+
+\begin{proof}
+    Существование. $\deg f < \deg g \SO f = f, h_0 = f$.
+    $\deg f = \deg h_n + n \cdot \deg g \SO n = 0, \deg f = \deg h_0 \SO$ база индукции верна и для существовавния, и для единственности. \\
+    Индукционный переход: $\deg f \geqslant \deg g, f = g \cdot q + r, \deg r \leqslant \deg g, \deg q < \deg f \SO q = h_n g^n + ... + h_1 g + h_0 \SO f = gq + r = h_n g^{n + 1} + ... + h_1 g^2 + h_0 g + r, \deg h_i < \deg g \SO $ существование доказано. \\
+    Предположим, что разложение не едиственно, т.е. $f = h_n g^n + ... + h_1 g + h_0 = h_n' g^n + ... + h_1' g + h_0'$
+    \[\SO (h_n g^{n - 1} + ... + h_1) g + h_0 = (h_n' g^{n - 1} + ... + h_1') g + h_0'\]
+    По теореме о делении с остатком, частное и остаток определены однозначно $\SO$ неполные частные тоже равны $\SO$ по индукционному предположению $h_i = h_i' \ \forall i$     
+\end{proof}
+
+\begin{Thm}[Формула Тейлора]
+    $\characteristic K = 0, f \in K[x], c \in K \SO$
+    \[\SO f = \sum_{k=0}^{n} \frac{f^{(k)}(c)}{k!} (x - c)^k\]  
+\end{Thm}
+
+\begin{proof}
+    $g = x - c \SO f = r_n (x - c)^n + r_{n - 1}(x - c)^{n - 1} + ... + r_1 (x - c) + r_0$. Т.к. $\deg r_i < \deg g = 1 \SO r_i \in K$ \\
+    $x = c \ f(c) = r_0, f^{(k)}(c) = k! \cdot r_k \SO r_k = \frac{f^{(k)}(c)}{k!}$   
+\end{proof}
+
+\Subsection{Интерполяция}
+
+$f$ -- функция. $x_0, ..., x_n \ f(x_i) = y_i$ -- известно.
+Картинка: \TODO.
+
+Задача: $\begin{array}{c|c|c|c}
+x_0 & x_1 & ... & x_n \\ \hline 
+y_0 & y_1 & ... & y_n
+\end{array}$ -- узлы интерполяции. Требуется найти $P_n \in K[x] : P_n (x_i) = y_i, i = 0, ..., n$. 
+
+\begin{Def}
+    $\omega(x) = \prod_{i = 0}^n (x - x_i)$
+    \[\omega'(x_i) = (x_i - x_0) ... (x_i - x_{i - 1})(x_i - x_{i + 1}) ... (x_i - x_n)\] 
+\end{Def}
+
+\begin{Thm}[Интерполяционный многочлен Лагранжа]
+    \[P_n(x) = \sum_{i=0}^{n} \frac{\omega(x)}{(x - x_i) \omega'(x_i)} y_i\] -- искомый многочлен. 
+\end{Thm}
+
+\begin{proof}
+    \[ \frac{\omega(x)}{(x - x_i)(\omega'(x_i))} \SO P_n(x_i) = 0 + ... + 0 + 1 \cdot y_i + 0 + ... + 0 = y_i\]
+\end{proof}
+
+\begin{Thm}[Интерполяционный многочлен Ньютона]
+    $\begin{array}{c|c|c|c}
+    x_0  & x_1 & ... & x_n \\ \hline
+    y_0 & y_1 & ... & y_n
+    \end{array}$ -- узлы.
+    \[P_n(x) = a_0 + a_1(x - x_0) + a_2(x - x_0)(x - x_1) + ... + a_n(x - x_0) ... (x - x_{n - 1})\]
+    $x = x_0 \ P_n(x_0) = a_0 = y_0$ \\
+    $x = x_1 \ P_n(x_1) = y_1 = y_0 + a_1(x_1 - x_0) \SO a_1$ и т.д.  
+\end{Thm}
+
+\Subsection{Поле частных (поле отношений)}
+
+$\Z \to \Q = \left\{\frac{p}{q}, q \neq 0, p, q \in \Z\right\}$
+
+\begin{Def}
+    $R$ -- область целостности. $Q(R) = \{(a, b), a, b \in R, b \neq 0\} : $
+    \begin{MyList}
+        \item $(a, b) = (c, d) \EQ ad = bc$ 
+        \item $(a, b) + (c, d) = (ad + bc, bd)$ 
+        \item $(a, b) \cdot (c, d) = (a \cdot c, b \cdot d)$ 
+        \item $\forall a \in R \ a = (a, 1)$ 
+    \end{MyList}
+
+    Корректность: 1 и 4, 2 и 4, 3 и 4 согласованы.
+\end{Def}
+
+\begin{Thm}
+    $Q(R)$ -- поле.
+\end{Thm}
+
+\begin{Def}
+    Поле $Q(R)$ называется поле частных кольца $R$. 
+\end{Def}
+
+\Subsubsection{Поле дробно-рациональных функций}
+
+$R = K[x] \to Q(K[x]) = \left\{\frac{f}{g}, f, g \in K[x], g \neq 0\right\}$  \\
+$K(x)$ -- поле дробно-рациональных функций над $K$.
+
+\begin{Rem}
+    В $K(x) \ \frac{x^2 - 1}{x + 1} = x - 1$ 
+\end{Rem}
+
+\begin{Def}
+    $\frac{f}{g}$ -- степенью этой дроби называется $\deg f - \deg g$ 
+\end{Def}
+
+\begin{Def}
+    $\frac{f}{g}$ -- \textbf{правильная} , если $\deg f < \deg g$, иначе $\frac{f}{g}$ -- \textbf{неправильная}.
+\end{Def}
+
+\begin{Def}
+    $\frac{f}{\PHI^k}$, где $\PHI$ -- неприводим, $\deg f < \deg \PHI$, называется простейшей.
+\end{Def}
+
+\begin{Thm}[Выделение целой части]
+    $\frac{f}{g}$ -- неправильная дробь 
+    \[\SO \frac{f}{g} = h + \frac{r}{g}\]
+    где $\frac{r}{g}$ -- правильная дробь и это представление единственно.
+\end{Thm}
+
+\begin{proof}
+    $f = h \cdot g + r, \deg r < \deg g$ 
+    \[\SO \frac{f}{g} = \frac{hg + r}{g} = h + \frac{r}{g}\]
+    Если $\frac{f}{g} = h_1 + \frac{r_1}{g} \EQ \frac{f}{g} = \frac{h_1 g + r_1}{g} \SO f = h_1 g + r_1$ -- однозначно определено. 
+\end{proof}
+
+\begin{Lm}
+    $(f, g) = 1 \SO \frac{h}{fg} = \frac{h_1}{f} + \frac{h_2}{g}$
+\end{Lm}
+
+\begin{proof}
+    $(f, g) = 1 \SO \exists h_1', h_2' : h_1' g + h_2' f = 1$
+    \[\SO h h_1' g + h h_2' f = h \SO \frac{h}{fg} = \frac{h h_1' g + h h_2' f}{fg} = \frac{h h_1'}{f} + \frac{h h_2'}{g}\] 
+\end{proof}
+
+\begin{Thm}[Разложение дроби на простейшие]
+    Любая правильная дробно-рациональная функция может быть разложена единственным образом на простейшие.
+\end{Thm}
+
+\begin{proof}
+    $\frac{f}{g}$ -- правильная дробь. $g = \PHI_1^{k_1} \PHI_2^{k_2} ... \PHI_s^{k_s}$ -- каноническое разложение, $(\PHI_i, \PHI_j) = 1, i \neq j$. Тогда
+    \[\frac{f}{\PHI_1^{k_1}...\PHI_s^{k_s}} = \frac{f_1}{\PHI_1^{k_1}} + ... + \frac{f_s}{\PHI_s^{k_s}}\]
+    Докажем, что все дроби $ \frac{f_i}{\PHI_i^{k_i}}$ -- правильные.
+    Если есть неправильные дроби $\SO$ выделим целую часть
+    \[\SO \frac{f}{g} = h + \underbrace{\frac{f_1'}{\PHI_1^{k_1}} + ... + \frac{f_s'}{\PHI_s^{k_s}}}_\text{правильные дроби} \SO h = 0\]   
+    Рассмотрим правильную дробь $ \frac{f_i}{\PHI_i^{k_i}}, \deg f_i < \deg \PHI_i^{k_i}$.
+    \[f_i = h_n \PHI_i^n + h_{n - 1}\PHI_i^{n - 1} + ... + h_1 \PHI_i + h_0, \deg h_s < \deg \PHI_i \SO n \leqslant k_i\]
+    $$ \frac{f_i}{\PHI_i^{k_i}} = \frac{h_{k_i} \PHI_i^{k_i} + h_{k_i - 1} \PHI_i^{k_i - 1} + ... + h_0}{\PHI_i^{k_i}}$$ 
+    $\SO \exists$ разложение доказано. Единственность без доказательства.  
 \end{proof}
 
 \end{document}
