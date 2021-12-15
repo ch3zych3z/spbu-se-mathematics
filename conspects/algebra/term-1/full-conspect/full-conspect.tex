@@ -1,0 +1,2143 @@
+\documentclass[12pt]{article}
+
+% Автор: Игорь Смирнов
+% Автор стиля: Илья Дудников
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{epigraph}
+
+\usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
+\usepackage{pgfplots}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+
+%\usepackage{tabls}
+%\usepackage{tabularx}
+%\usepackage{xifthen}
+%\listfiles
+
+\def\NAME{Лекции}
+\def\SEASON{Конспект лекций по алгебре, ПИ, 1 семестр}
+
+\sloppy
+\voffset=-20mm
+\textheight=235mm
+\hoffset=-22mm
+\textwidth=180mm
+\headsep=12pt
+\footskip=20pt
+
+\parskip=0em
+\parindent=0em
+
+\setlength\epigraphwidth{.8\textwidth}
+
+\newlength{\tmplen}
+\newlength{\tmpwidth}
+\newcounter{listcounter}
+
+% Список с маленькими отступами
+\newenvironment{MyList}[1][4pt]{
+  \begin{enumerate}[1.]
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+}
+% Вложенный список с маленькими отступами
+\newenvironment{InnerMyList}[1][0pt]{
+  \vspace*{-0.5em}
+  \begin{enumerate}[(a)]
+  \setlength{\parskip}{-0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{enumerate}
+  \vspace*{-0.5em}
+}
+% Список с маленькими отступами
+\newenvironment{MyItemize}[1][4pt]{
+  \begin{itemize}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{#1}
+}{       
+  \end{itemize}
+}
+
+% Основные математические символы
+\def\TODO{{\color{red}\bf TODO}}
+\def\C{\mathbb{C}}       %
+\def\Q{\mathbb{Q}}       %
+\def\N{\mathbb{N}}       %
+\def\R{\mathbb{R}}       %
+\def\F2{\mathbb{F}_2}    %
+\def\Z{\mathbb{Z}}       %
+\def\INF{\t{+}\infty}    % +inf
+\def\EPS{\varepsilon}    %
+\def\EMPTY{\varnothing}  %
+\def\PHI{\varphi}        %
+\def\SO{\Rightarrow}     % =>
+\def\EQ{\Leftrightarrow} % <=>
+\def\t{\texttt}          % mono font
+\def\c#1{{\rm\sc{#1}}}   % font for classes NP, SAT, etc
+\def\O{\mathcal{O}}      %
+\def\NO{\t{\#}}          % #
+\def\XOR{\text{ {\raisebox{-2pt}{\ensuremath{\Hat{}}}} }}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand{\q}[1]{\langle #1 \rangle}               % <x>
+\newcommand\URL[1]{{\footnotesize{\url{#1}}}}        %
+% \newcommand{\sfrac}[2]{{\scriptscriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+% \newcommand{\mfrac}[2]{{\scriptstyle\frac{#1}{#2}}}    % Небольшая дробь
+\newcommand{\sfrac}[2]{{\scriptstyle\frac{#1}{#2}}}  % Очень маленькая дробь
+\newcommand{\mfrac}[2]{{\textstyle\frac{#1}{#2}}}    % Небольшая дробь
+
+\newcommand{\fix}[1]{{\color{fixcolor}{#1}}} % \underline
+\def\bonus{\t{\red{(*)}}}
+\def\ifbonus#1{\ifthenelse{\equal{#1}{}}{}{\bonus}}
+\def\smallsquare{$\scalebox{0.5}{$\square$}$}
+
+\newlength{\myItemLength}
+\setlength{\myItemLength}{0.3em}
+\def\ItemSymbol{\smallsquare}
+\def\Item{\vspace*{\myItemLength}\ItemSymbol \ \ }
+
+\newcommand{\LET}{%
+  % [line width=0.6pt]
+  \begin{tikzpicture}%
+  \draw(0.8ex,0) -- (0.8ex,1.6ex);%
+  \draw(0,1.6ex) -- (0.8ex,1.6ex);%
+  \end{tikzpicture}%
+  \hspace*{0.1em}%
+}
+
+% Отступы
+\def\makeparindent{\hspace*{\parindent}\unskip}
+\def\up{\vspace*{-0.5em}}%{\vspace*{-\baselineskip}}
+\def\down{\vspace*{0.5em}}
+\def\LINE{\vspace*{-1em}\noindent \underline{\hbox to 1\textwidth{{ } \hfil{ } \hfil{ } }}}
+\def\BOX#1{\mbox{\fbox{\bf{#1}}}}
+\def\Pagebreak{\pagebreak\vspace*{-1.5em}}
+
+% Мелкий заголовок
+\newcommand{\THEE}[1]{
+  \vspace*{0.5em}
+  \noindent{\bf \underline{#1}}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+% Другой тип мелкого заголовка
+\newcommand{\THE}[1]{
+  \vspace*{0.5em} $\bullet$
+  \noindent{\bf #1}%\hspace{0.5em}
+  \vspace*{0.2em}
+}
+
+\newenvironment{MyTabbing}{
+  \t\bgroup
+  \vspace*{-\baselineskip}
+  \begin{tabbing}
+    aaaa\=aaaa\=aaaa\=aaaa\=aaaa\=aaaa\kill
+}{
+  \end{tabbing}
+  \t\egroup
+}
+
+% Код с правильными отступами
+\lstnewenvironment{code}{
+  \lstset{}
+%  \vspace*{-0.2em}
+}%
+{
+%  \vspace*{-0.2em}
+}
+\lstnewenvironment{codep}{
+  \lstset{language=python}
+}%
+{
+}
+
+% Формулы с правильными отступами
+\newenvironment{smallformula}{
+ 
+  \vspace*{-0.8em}
+}{
+  \vspace*{-1.2em}
+  
+}
+\newenvironment{formula}{
+ 
+  \vspace*{-0.4em}
+}{
+  \vspace*{-0.6em}
+  
+}
+
+% Большая квадратная скобка
+\makeatletter
+\newenvironment{sqcases}{%
+  \matrix@check\sqcases\env@sqcases
+}{%
+  \endarray\right.%
+}
+\def\env@sqcases{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrack
+  \def\arraystretch{1.2}%
+  \array{@{}l@{\quad}l@{}}%
+}
+\makeatother
+
+% Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\theoremstyle{definition} % жирный заголовок, плоский текст
+\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+\theoremstyle{plain} % жирный заголовок, курсивный текст
+\newtheorem{Def}[Thm]{Def} % Нумерация такая же, как и у теорем
+\theoremstyle{remark} % курсивный заголовок, плоский текст
+\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
+% Определяем ЗАГОЛОВКИ
+\def\SectionName{unknown}
+\def\AuthorName{unknown}
+
+\newlength{\sectionvskip}
+\setlength{\sectionvskip}{0.5em}
+\newcommand{\Section}[4][]{
+  % Заголовок
+  \pagebreak
+%  \ifthenelse{\isempty{#1}}{
+    \refstepcounter{section}
+%  }{}
+  \vspace{0.5em}
+%  \ifthenelse{\isempty{#1}}{
+%    \addtocontents{toc}{\protect\addvspace{-5pt}}%
+    \addcontentsline{toc}{section}{\arabic{section}. #2}
+%  }{}
+  \begin{center}
+    {\Large \bf Раздел \NO{\arabic{section}}: #2} \\ 
+    \vspace{\sectionvskip}
+    \ifthenelse{\equal{#3}{}}{}{{\large #3}\\}
+  \end{center}
+
+  \LINE
+
+  % Запомнили название и автора главы
+  \gdef\SectionName{#2}
+  \gdef\AuthorName{#4}
+
+  % Заголовок страницы
+  \lhead{\SEASON}
+  \chead{}
+  \rhead{\SectionName}
+  \renewcommand{\headrulewidth}{0.4pt}
+
+  \lfoot{Глава \NO{\arabic{section}}.}
+  \cfoot{\thepage\t{/}\pageref*{LastPage}}
+  \rfoot{Автор: \AuthorName}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\newcommand{\Subsection}[2][]{
+  \refstepcounter{subsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. #2}}
+    {\addcontentsline{toc}{subsection}{\arabic{section}.\arabic{subsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}. \ifbonus{#1}\,{#2}} 
+  \vspace*{0.5em}
+  \makeparindent
+}
+\newcommand{\Subsubsection}[2][]{
+  \refstepcounter{subsubsection}
+  \vspace*{1em}
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. #2}}
+    {\addcontentsline{toc}{subsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \bonus\,#2}}
+  {\color{blue}\bf\large \arabic{section}.\arabic{subsection}.\arabic{subsubsection}. \ifbonus{#1}\,#2}
+  \vspace*{0.5em}
+  \makeparindent
+}
+
+\newcommand{\Header}{
+  \pagestyle{empty}
+  \renewcommand{\dateseparator}{--}
+  \begin{center}
+    {\Large\bf 
+     Алгебра 1 семестр ПИ,\\
+    \vspace{0.3em}
+    \NAME}\\
+    \vspace{0.7em}
+    {Собрано {\today} в {\currenttime}}
+  \end{center}
+
+  \LINE
+  \vspace{0em}
+
+  \renewcommand{\baselinestretch}{0.98}\normalsize
+  \tableofcontents
+  \renewcommand{\baselinestretch}{1.0}\normalsize
+  \pagebreak
+}
+
+\newcommand{\BeginConspect}{
+  \pagestyle{fancy}
+  \setcounter{page}{1}
+}
+
+\definecolor{mygray}{rgb}{0.7,0.7,0.7}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{fixcolor}{rgb}{0.7,0,0}
+\definecolor{red2}{rgb}{0.7,0,0}
+\definecolor{dkred}{rgb}{0.4,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{brown}{rgb}{0.5,0.5,0}
+
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\dkred}[1]{{\color{dkred}{#1}}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\dkgreen}[1]{{\color{dkgreen}{#1}}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+\DeclareMathOperator{\lcm}{lcm}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Отношения и перестановки}{}{Вячеслав Бучин, Илья Дудников}
+
+\Subsection{Отношения}
+
+\begin{Def} Отношением $\omega$ на $X \times Y$ называется любое подмножество $X \times Y$.
+\end{Def}
+Если $X = Y$, то говорят про отношение на $X$.
+
+Отношение на $X$ называется:
+\begin{MyList}
+    \item рефлексивным, если $\forall x \in X (x,x) \in \omega$
+    \item антирефлексивным, если $(x, y) \in \omega \SO x \neq y$
+    \item симметричным, если $(x, y) \in \omega \SO (y, x) \in \omega$
+    \item антисимметричным, если $(x, y), (y, x) \in \omega \SO y = x$
+    \item транзитивным, если $(x, y), (y, z) \in \omega \SO (x, z) \in \omega$
+\end{MyList}
+
+\Subsection{Отношение эквивалентности}{}
+
+\begin{Def}
+    Отношение на $X$, которое является рефлексивным, симметричным, транзитивным, называется эквивалентностью и обозначается $x \sim y$
+\end{Def}
+
+\begin{Example}
+    $X = \Z$ $x \omega y \EQ x - y \vdots 5$
+    \begin{MyList}
+        \item $x - x \vdots 5$ --- рефлексивно
+        \item $x - y \vdots 5 \SO y - x \vdots 5$ --- симметрично
+        \item $x - y \vdots 5$, $y - z \vdots 5$ $x - z = (x - y) + (y - z) \vdots 5 \SO x - z \vdots 5$ --- транзитивно
+    \end{MyList}
+    $\SO \omega$ --- отношение эвивалентности
+\end{Example}
+
+\Subsection{Класс эквивалентности}{}
+
+\begin{Def}
+    Классом эквивалентности, содержащим $a \in X$, называется $[a] = \{x: x \in X, x \sim a\}$
+\end{Def}
+\begin{Def}
+    Разбиением множества $X$ называется  $\pi(X) = \{ X_i \}$:
+    \begin{MyList}
+        \item $X_1 \cup X_2 \cdots = X$
+        \item $\forall i, j: i \neq j, X_i \cap X_j = \EMPTY$
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}
+    Связь эквивалентности и разбиения множества
+
+    \begin{MyList}
+        \item Отношения эквивалентности на $X$ задаёт разбиение множества $\pi(X)$, $X_i$ --- классы эквивалентности
+        \item Разбиение $\pi(X)$ задаёт эквивалентность на $X$
+    \end{MyList}
+    \begin{proof}
+
+        \begin{MyList}
+            \item $X_i = [x] = \{y \in X: y \sim x\}$ --- перебираем все $x \in X \SO X = X_1 \cup X_2 \cup \cdots X_n \cup \cdots$
+
+            $X_i, X_j : X_i = [x_i], X_j = [x_j]$ предположим, что $a \in X_i \cap X_j \SO a \sim x_i, a \sim x_j \SO x_i \sim x_j \SO X_i = X_j \SO [x_i]$ задают разбиения
+            \item $\sim : x \sim y \EQ x, y \in X_i$, проверить, что $\sim$ --- эквивалентность:
+            \begin{MyList}
+                \item $x, x \in X_i \SO x \sim x$
+                \item $x, y \in X_i \SO y, x \in X_i$
+                \item $x, y, y, z \in X_i \SO x, z \in X_i$
+            \end{MyList}
+            $\SO \sim$ --- эквивалентность
+        \end{MyList}
+    \end{proof}
+\end{Thm}
+
+\begin{Def}
+    $\sim$ на $X$, тогда фактормножество $(X/\sim)$ --- множество, состоящее из классов эквивалентности
+\end{Def}
+
+
+\Subsection{Перестановка}{--- биективное отображение $X = \{1, 2,  \cdots, n\}$ в $X$
+
+Запись перестановки: $ \left(\begin{array}{cccc}
+            1 & 2 & 3 & 4 \\
+            2 & 4 & 1 & 3
+        \end{array}\right)$
+
+\begin{Def}
+    Композиция перестановок. ( $\sigma, \tau$  ) \\
+    $\sigma, \tau \Rightarrow \sigma \circ \tau = \sigma \tau$ --- выполняется справа налево.
+\end{Def}
+
+\begin{Def}
+    $e = \left(\begin{array}{cccc}
+            1 & 2 & ... & n \\
+            1 & 2 & ... & n
+        \end{array}\right)$ --- тождественная перестановка
+\end{Def}
+
+\begin{Prop} $\forall \sigma \to \exists \sigma^{-1}$ \end{Prop}
+
+Множество всех перестановок $X = \{1, 2, ..., n\}$ обозначается $S_n$
+
+\begin{Def}
+    Группой называется некоторое множество $G$, на котором определена бинарная операция: $\forall x, y \in G \to xy \in G$. При этом выполняются следующие аксиомы
+    \begin{MyList}
+        \item $\forall x, y, z \in G \to (xy)z = x(yz)$ - ассоциативность.
+        \item $\forall x \in G \to \exists e \in G : xe = ex = x$ - нейтральный элемент
+        \item $\forall x \in G \to \exists x^{-1} \in G : x x^{-1} = x^{-1} x = e$
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}
+    $S_n$ относительно композиции является группой.
+\end{Thm}
+
+\begin{Def}
+    Порядком группы $G$ называется количество элементов в $G$ \\
+    Обозначается $|G|$
+\end{Def}
+
+\begin{Def}
+    $\left(\begin{array}{ccccc}
+            1   & i_1 & i_2 & ... & i_k \\
+            i_1 & i_2 & i_3 & ... & 1
+        \end{array}\right)$ -- $k$-цикл \\
+    $\left(\begin{array}{cc}
+            i & j \\
+            j & i
+        \end{array}\right) = (ij)$ -- транспозиция.
+\end{Def}
+
+\begin{Example}
+
+    $\sigma = \left(\begin{array}{ccccc}
+            1 & 5 & 3 & 4 & 2
+        \end{array}\right) = \left(\begin{array}{ccccc}
+            1 & 2 & 3 & 4 & 5 \\
+            5 & 1 & 4 & 2 & 3
+        \end{array}\right)$  \\
+    $\sigma^2 = \left(\begin{array}{ccccc}
+            1 & 5 & 3 & 4 & 2
+        \end{array}\right)  \left(\begin{array}{ccccc}
+            1 & 5 & 3 & 4 & 2
+        \end{array}\right)  = \left(\begin{array}{ccccc}
+            1 & 3 & 2 & 5 & 4
+        \end{array}\right)$
+\end{Example}
+\begin{Thm} $\forall \sigma \in S_n $ может быть разложена в произведение независимых циклов.
+\end{Thm}
+\begin{proof}
+    $1 \leqslant i, j \leqslant n$. $i \thicksim j \Leftrightarrow \exists p \in \mathbb{Z} : \sigma^p (i) = j$
+
+    \begin{MyList}
+        \item $\sigma^0 (i) = i$ - рефлексивность
+        \item $\sigma^p (i) = j \Rightarrow \sigma^{-p} (j) = i$ - симметричность
+        \item $\sigma^p (i) = j, \sigma^q (j) = k \Rightarrow \sigma^{p + q} (i) = k$ - транзитивность
+    \end{MyList}
+    $\Rightarrow $ по теореме о разбиении множества $\Rightarrow X = X_1 \cup ... \cup X_s \Rightarrow \forall X_i $ соответствует цикл, длина которого равна $|X_i|$ \\
+    Пусть $j \in X_i$, тогда $\left(\begin{array}{ccccc}
+                j         & \sigma(j)   & \sigma^2(j) & ... & \sigma^p(j) \\
+                \sigma(j) & \sigma^2(j) & \sigma^3(j) & ... & j
+            \end{array}\right) \Rightarrow $ все такие циклы независимы.
+
+    \begin{Rem}Можно доказать, что это разложение единственно с точностью до порядка.
+    \end{Rem}
+
+\end{proof}
+
+\begin{Cons}
+    $\forall \sigma \in S_n$ раскладывается в произведение транспозиций
+\end{Cons}
+
+\begin{proof}
+    Рассмотрим какой-то $k$-цикл. \\
+    $$\left(\begin{array}{ccccc}
+            i_1 & i_2 & i_3 & ... & i_k \\
+            i_2 & i_3 & i_4 & ... & i_1
+        \end{array}\right) = \left(\begin{array}{cc}
+            i_1 & i_k \\
+            i_k & i_1
+        \end{array}\right) \left(\begin{array}{cc}
+            i_1       & i_{k - 1} \\
+            i_{k - 1} & i_1
+        \end{array}\right) ... \left(\begin{array}{cc}
+            i_1 & i_3 \\
+            i_3 & i_1
+        \end{array}\right) \left(\begin{array}{cc}
+            i_1 & i_2 \\
+            i_2 & i_1
+        \end{array}\right)$$
+\end{proof}
+
+\begin{Rem}Разложение перестановки в произведение транспозиций не является единственным.\end{Rem}
+
+\Subsection{Знак перестановки}
+\begin{Def}
+    $\sigma = \tau_1, \tau_2, ..., \tau_k, \tau_i, 1 \leqslant i \leqslant k$ - транспозиции. \\
+    Знаком перестановки $\sigma $ называется $\varepsilon_\sigma = (-1)^k$ \\
+    \begin{Rem}Если $\tau = (ij) \Rightarrow \tau^2 = (ij)^2 = e$ \end{Rem}
+\end{Def}
+
+\begin{Thm} О знаке перестановки
+    \begin{MyList}
+        \item $\varepsilon_\sigma$ не зависит от способа разложения $\sigma$ на произведение транспозиций
+        \item $\varepsilon_\sigma \varepsilon_\tau = \varepsilon_{\sigma \tau}$
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $\sigma = \tau_1 \tau_2 ... \tau_k = \tau_1 ' \tau_2 ' ... \tau_s ', \tau_i, \tau_j '$ - транспозиции. \\
+        $\Rightarrow \tau_1 \tau_2 ... \tau_k \tau_s ' = \tau_1 ' \tau_2 ' ... \tau_{s - 1} ' \Rightarrow  \tau_1 \tau_2 ... \tau_k \tau_s ' \tau_{s - 1} ' = \tau_1 ' \tau_2 ' ... \tau_{s - 2} '
+            \Rightarrow e = \tau_1 \tau_2 ... \tau_k \tau_s ' ... \tau_1 '$. \\ Если $k, s$ одной четности $\Rightarrow e $ раскладывается в четное число транспозиций \\
+        $k, s$ разной четности $\Rightarrow e$ раскладывается в нечетное число транспозиций.
+
+        Докажем, что $e$ не может быть разложена в нечётное число транспозиций. Найдем транспозицию, содержащую $i$ и будем двигать её влево\\
+        $e = \tau_1 \tau_2 ... (ij) ...$ \newpage Смотрим транспозицию слева от $(ij)$:
+        $$(ij)(ij) = e \Rightarrow$$ число транспозиций уменьшилось на $2$
+        $$(ik)(ij) = (ij)(jk)$$
+        $$(jk)(ij) = (ik)(jk)$$
+        $$(kl)(ij) = (ij)(kl)$$
+
+        $\Rightarrow$ если не будет пункта $1 \Rightarrow e = (it)...$ \\
+        $e(i) = i$. Однако правая часть $i \to t$, что невозможно. $\Rightarrow$ обязательно будет 1 $\Rightarrow$ число транспозиций уменьшится на 2
+
+        Было $k + s$ транспозиций. $k + s - 2, k + s - 4, ... = 0 \Rightarrow k + s$ - чётное.
+
+        \item $\varepsilon_\sigma \varepsilon_\tau = \varepsilon_{\sigma \tau}$ \\
+        $\sigma = \tau_1 ... \tau_k, \tau = \tau_1 ' ... \tau_s ' $ \\
+        $\varepsilon_\sigma \varepsilon = (-1)^k \cdot (-1)^s = (-1)^{k + s}$ \\
+        $\varepsilon_{\sigma \tau} = (-1)^{k + s}$
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    Если $\varepsilon = +1$, то перестановка называется четной
+\end{Def}
+
+\Subsection{Чётные перестановки}
+
+$A_n = \{\text{чётные перестановки в } S_n\}$
+
+$\overline{A_n} = S_n \setminus A_n$
+\begin{Prop}
+    $|A_n| = |\overline{A_n}| = \frac{n!}{2}$
+\end{Prop}
+
+\begin{proof}
+    Пусть $\tau = (ij), \sigma \in A_n, \varphi : A_n \to \overline{A_n}, \varphi (\sigma) = \tau \sigma \in \overline{A_n}$
+
+    Инъективность: $\sigma_1 \neq \sigma_2 \in A_n, \varphi(\sigma_1) = \tau \sigma_1, \varphi(\sigma_2) = \tau \sigma_2$
+
+    Если $\tau \sigma_1 = \tau \sigma_2 \Rightarrow \sigma_1 = \sigma_2$ - противоречие \\
+    Сюръективность: Пусть $\rho \in \overline{A_n} \Rightarrow \tau \rho \in A_n \Rightarrow \varphi (\tau \rho) = \tau(\tau \rho) = \rho \Rightarrow \varphi$ - биективно $\Rightarrow |A_n| = |\overline{A_n}|$
+\end{proof}
+
+\begin{Rem}
+    $e \in A_n, \sigma, \rho \in A_n \Rightarrow \sigma \rho \in A_n$.
+    \[\sigma = \tau_1 \tau_2 ... \tau_k, \sigma^{-1} = \tau_k \tau_{k - 1} ... \tau_1 \in A_n\]
+    Значит $A_n$ - группа относительно композиции.
+\end{Rem}
+
+\begin{Def}
+    $G$ - группа. Множество $H \subseteq G$ называется подгруппой $G$, если оно также образует группу.
+    Обозначение: $H \leqslant G$
+\end{Def}
+
+\begin{Thm}
+    $A_n \leqslant S_n \Rightarrow |A_n| = \frac{n!}{2}$
+\end{Thm}
+
+\begin{Def}
+    $A_n$ - знакопеременная группа (alternating)
+\end{Def}
+\Pagebreak
+
+\Subsection{Инверсии}
+\begin{Def}
+    $\sigma = \left(\begin{array}{ccccccc}
+    1 & ... & s & ... & t & ... & n \\ 
+    i & ... & i_s & ... & i_t & ... & i_n
+    \end{array}\right)$. Говорят, что $(s, t)$ образуют инверсию, если $s < t \wedge i_s > i_t$. Количество всех инверсий равно $inv(\sigma)$  
+\end{Def}
+
+\begin{Thm}[Инверсии и четность и перестановки]
+    $\sigma$ -- четная (нечетная) $\Leftrightarrow inv(\sigma)$ четно (нечетно) 
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Пусть $\sigma = \left(\begin{array}{cccc}
+        ... & s & t & ... \\ 
+        ... & i & j & ...
+        \end{array}\right), \tau = \left(\begin{array}{cc}
+        i & i + 1 \\ 
+        i + 1 & i
+        \end{array}\right), j = i + 1$ 
+        Хотим узнать, как меняется количество инверсий при умножении на $\tau$.
+        \[\tau \sigma = \left(\begin{array}{cc}
+        i & i + 1 \\ 
+        i + 1 & i
+        \end{array}\right) \left(\begin{array}{ccccc}
+        ... & s & ... & t & ... \\ 
+        ... & i & ... & i + 1 & ...
+        \end{array}\right) \Rightarrow\] 
+        количество инверсий изменится на 1. \\
+        Число инверсий в парах без $s$ и $t$ не поменялось. $(k, s), (m, t)$ - тоже не поменялось. $(s, t)$ - изменилось на 1.
+        \item $\tau = (ij)$ - произовальная транспозиция. $\sigma$ - произовальная перестановка.
+        
+        $\tau = \left(\begin{array}{cc}
+        i & i + 1
+        \end{array}\right) \left(\begin{array}{cc}
+        i + 1 & i + 2
+        \end{array}\right) ... \left(\begin{array}{cc}
+        i + k - 1 & j
+        \end{array}\right) \left(\begin{array}{cc}
+        i + k - 2 & i + k - 1
+        \end{array}\right) ... \left(\begin{array}{cc}
+        i + 1 & i + 2
+        \end{array}\right) \left(\begin{array}{cc}
+        i & i + 1
+        \end{array}\right)$ 
+
+        $\Rightarrow \tau$ раскладывается в $2(k - 1) + 1$ транспозицию соседних элементов $\Rightarrow$ число инверсий $\tau \sigma$ изменится на нечётное число.
+        
+        \item $\sigma = \sigma_1 \sigma_2 ... \sigma_l e$, где $\sigma_i$ -- независимые циклы. 
+        
+        Если $\sigma_l$ раскладывается в чётное число транспозиций, то в $\sigma_l e$ чётное число инверсий (т.к. каждая транспозиция меняет $inv(\sigma_l)$ на нечетное число). \\
+        Если $\sigma_l$ раскладывается в нечётное число транспозиций, то в $\sigma_l e$ нечётное число инверсий. 
+    \end{MyList}
+\end{proof}
+
+\Section{Теория чисел}{}{Илья Дудников}
+\Subsection{Делимость}
+\begin{Def}
+    $a \vdots b$ или $b | a \Leftrightarrow \exists q : a = b \cdot q, b \neq 0$ 
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item Рефлексивность. $a \vdots a, a \neq 0$ 
+    \item Антисимметричность на $\N$. $a \vdots b, b \vdots a \Rightarrow a = b$
+    \item Транзитивность. $a \vdots b, \vdots c \Rightarrow a \vdots c$ 
+    \item $a | b, a | c \Rightarrow a | (b \pm c)$.
+    \begin{proof}
+        $b = a \cdot q_1, c = a q_2 \Rightarrow b \pm c = a q_1 \pm a q_2 = a(q_1 \pm q_2)$ 
+    \end{proof}
+    \item $a | b \Rightarrow \forall c \to a | bc$ 
+    \item Пусть $a | b_i, i = 1, ..., n, a | (b_1 + ... + b_n + c) \Rightarrow a | c$
+    \begin{proof}
+        $b_1 + ... + b_n + c = aq, a q_1 + a q_2 + ... + a q_n + c = aq \Rightarrow c = a(q - q_1 - ... - q_n) \\ \Rightarrow a | c$ 
+    \end{proof}
+    \item $a | b \Rightarrow \forall k \neq 0 \to ka | kb$ 
+    \item $ka | kb \Rightarrow a | b$ 
+\end{MyList}
+
+\begin{Thm}[О делении с остатком]
+    $$\forall a \wedge \forall b > 0 \ \exists ! q, r, 0 \leqslant r < b : a = bq + r$$
+\end{Thm}
+
+\begin{Def}
+    $a$ - делимое, $b$ - делитель, $q$ - частное (неполное частное), $r$ - остаток
+\end{Def}
+
+\begin{proof}
+    $\exists$-ние. Рассмотрим $a - bq$. Выберем $q$ так, чтобы $a - bq > 0$ было наименьшим. 
+    Положим $r = a - bq \geqslant 0 \Rightarrow a = bq + r$. По выбору $q \to a - b(q + 1) < 0 \Rightarrow a < b(q + 1) \Rightarrow \\ 
+    r = a - bq < b(q + 1) - bq = b$.
+
+    Единственность. Преположим, что $a = b q_1  + r_1 = b q_2 + r_2, 0 \leqslant r_1, r_2 < b$ 
+    \[|r_1 - r_2| < b, b q_1 + r_1 = b q_2 + r_2 \Rightarrow b(q_1 - q_2) = r_2 - r_1 \Rightarrow |b(q_1 - q_2)| \geqslant b\]
+    Но $|r_1 - r_2| < b$ - противоречие.
+\end{proof} 
+\Pagebreak
+
+\Subsection{Наибольший общий делитель}
+\begin{Def}
+    Общим делителем $a_1, a_2, ..., a_n$ называется $d: d | a_i, i = 1, ..., n$.
+\end{Def}
+
+\begin{Def}
+    Наибольший общий делитель $a_1, a_2, ..., a_n$ называется $d$ такое, что 
+    \begin{MyList}
+        \item $d > 0$ 
+        \item $d | a_i, i = 1, ..., n$ 
+        \item если $d' | a_i, i = 1, ..., n$, то $d' | d$ 
+    \end{MyList} 
+    Обозначается $\gcd(a_1, a_2, ..., a_n) = (a_1, a_2, ..., a_n)$ 
+
+    \begin{Rem}
+        По определению $\gcd(0, 0) = 0$. $a \neq 0$, то $\gcd(a, 0) = 0$   
+    \end{Rem}
+\end{Def}
+
+Свойства:
+\begin{MyList}
+    \item $b | a \Rightarrow (a, b) = b$ 
+    \begin{proof}
+        Докажем, что множество делителей $(a, b)$ совпадает с множество делителей $b$. \\
+        $$d | (a, b) \Rightarrow d | b$$
+        $$d | b \Rightarrow d | a \text{(по транзитивности)}\Rightarrow d | (a, b)$$    
+    \end{proof}
+    \item $a = bq + c \Rightarrow (a, b) = (b, c)$
+    \item \begin{Algo}[Алгоритм Евклида]
+        \[a = b q_1 + r_1, 0 \leqslant r_1 < b\]
+        \[b = r_1 q_1 + r_2, 0 \leqslant r_2 < r_1\]
+        \[r_1 = r_2 q_3 + r_3, 0 \leqslant r_3 < r_2\]
+        \[...\]
+        \[r_{n - 2} = r_{n - 1} q_n + r_n, 0 \leqslant r_n < r_{n - 1}\]
+        \[r_{n - 1} = r_n q_{n + 1}\] 
+    \end{Algo} 
+    \begin{Thm}
+        $r_n = \gcd (a, b)$ 
+    \end{Thm}
+
+    \begin{proof}
+        $r_1 > r_2 > r_3 > ... \geqslant 0 \Rightarrow \exists r_{n + 1} = 0$. $r_n | r_{n - 1}$.  
+        \[r_n = (r_n, r_{n - 1}) = (r_{n - 1}, r_{n - 2}) = ... = (r_2, r_1) = (b, r_1) = (a, b)\] 
+    \end{proof}
+    \Pagebreak
+    \item $(ma, mb) = m \cdot (a, b)$ 
+    \item $d | a, d | b \Rightarrow \left(\frac{a}{d}, \frac{b}{d}\right) = \frac{(a, b)}{d}$
+    \begin{proof}
+        $(a, b) = \left(d \cdot \frac{a}{d}, d \cdot \frac{b}{d}\right) = d \cdot \left(\frac{a}{d}, \frac{b}{d}\right)$ 
+    \end{proof}
+    \item $(a, b) = 1 \Rightarrow (a, bc) = (a, c)$ 
+    \begin{proof}
+        Докажем, что $(a, bc) | (a, c)$ 
+        \[(a, bc) | a, (a, bc) | ac, (a, bc) | bc \Rightarrow (a, bc) | (ac, bc) \Rightarrow (a, bc) | (a, b) \cdot c = c\Rightarrow (a, bc) | (a, c)\]
+
+        Теперь докажем, что $(a, c) | (a, bc)$
+        \[(a, c) | a, (a, c) | c \Rightarrow (a, c) | bc \Rightarrow (a, c) | (a, bc) \Rightarrow (a, bc) = (a, c)\] 
+    \end{proof}
+    \item $(a, b) = 1, b | ac \Rightarrow b | c$
+    \begin{proof}
+        \[b | bc, b | ac \Rightarrow b | (bc, ac) = c\] 
+    \end{proof}
+    \item $(a, b) = (a - b, b)$
+\end{MyList}
+
+\begin{Thm}[Линейное представление НОД]
+    $$(a, b) = d \Rightarrow \exists u, v : u \cdot a + v \cdot b = d$$
+\end{Thm}
+
+\begin{proof}
+    Из алгоритма Евклида:
+    \[r_{n - 2} = r_{n - 1} \cdot q_n + r_n \Rightarrow d = r_n = r_{n - 2} - r_{n - 1} \cdot q_n\]
+    \[r_{n - 3} = r_{n - 2} \cdot q_{n - 1} + r_{n - 1} \Rightarrow d = r_{n - 2} - (r_{n - 3} - r_{n - 2} \cdot q_{n - 1}) q_n\]
+    Из следующей строки выражаем $r_{n - 2}$ и т.д. $\Rightarrow$ останутся $a$ и $b$ $\Rightarrow d = u \cdot a + v \cdot b$  
+\end{proof}
+
+
+\Subsection{Наименьшее общее кратное}
+
+\begin{Def}
+    Общим кратным $a_1, a_2, ..., a_n$ называется число $M > 0 : a_i | M \ \forall i = 1, ..., n$ 
+    
+    Наименьшее из общих кратных -- НОК.
+\end{Def}
+
+\begin{Thm}
+    $\lcm (a, b) = \frac{ab}{\gcd (a, b)}$ 
+\end{Thm}
+
+\begin{proof}
+    $a = a_1 d, b = b_1 d, (a_1, b_1) = 1$
+    \[M = at = bs \SO \frac{M}{b} = \frac{at}{b} = \frac{a_1 dt}{b_1 d} = \frac{a_1 t}{b_1} \SO M = \frac{b \cdot a_1 t}{b_1}\]
+    $t$ делится на $b_1$, т.е. $t = b_1 k$
+    \[M = \frac{b a_1 b_1 k}{b_1} = b a_1 k \text{ - минимально при } k = 1 \SO M = b a_1 = \frac{b a_1 d}{d} = \frac{ab}{\gcd(a, b)}\]  
+\end{proof}
+
+\Subsection{Математическая индукция}
+\begin{MyList}
+    \item Аксоима. $\forall$ подмножество $\N$ имеет наши элементы $\SO$ ММИ.
+    \item Аксиома. $A_1, A_n \SO A_{n + 1} \SO \forall A_n$ 
+\end{MyList}
+
+\begin{Cons}
+    Пусть $a_1, a_2, ..., a_n$ -- попарно взаимно-простые $\SO \lcm(a_1, a_2, ..., a_n) = a_1 \cdot a_2 \cdot ... \cdot a_n$  
+\end{Cons}
+
+\begin{proof}
+    $n = 2$. $\lcm (a_1, a_2) = \frac{a_1 a_2}{\gcd(a_1, a_2)} = a_1 \cdot a_2$
+    
+    Пусть верно для $n$. Тогда для $n + 1$
+    \[(a_i, a_n a_{n + 1}) = (a_i, a_{n + 1}) = 1 \SO a_1, a_2, ..., a_{n - 1}, a_n a_{n + 1} \SO\] 
+    \[\SO \lcm (a_1, ..., a_{n - 1}, a_n \cdot a_{n + 1}) = a_1 \cdot a_2 \cdot ... \cdot a_{n - 1} \cdot a_n \cdot a_{n + 1}\]  
+\end{proof}
+
+\Subsection{Простые числа}
+
+\begin{Def}
+    Число $p > 1$ называется простым, если оно делится только на $1$ и на $p$. Иначе число называется составным.
+\end{Def}
+
+\begin{Thm}[о наименьшем делителе]
+    Наименьший делитель $a > 1$ -- простое число
+\end{Thm}
+
+\begin{proof}
+    $M = \left\{d | d > 1, d | a\right\} \neq \varnothing$ Пусть $p$ - наименьший элемент $M$.
+    Предположим, что $p$ -- составное, т.е. $p = bq, q < p, q | p, p | a \SO q | a$ -- противоречие. 
+\end{proof}
+\Pagebreak
+
+\begin{Thm}
+    $p$ - наименьший делитель $ > 1$ числа $n \SO p \leqslant \sqrt{n}$  
+\end{Thm}
+
+\begin{proof}
+    \[n = mp, p \leqslant m \SO np \leqslant nm \SO mp \cdot p \leqslant nm \SO p^2 \leqslant n \SO p \leqslant \sqrt{n}\]
+\end{proof}
+
+\begin{Thm}[Теорема Евклида]
+    Простых чисел бесконечно много
+\end{Thm}
+
+\begin{proof}
+    Пусть $p_1, p_2, ..., p_n$ -- все простые числа, $a = p_1 \cdot p_2 \cdot ... \cdot p_n + 1$.
+    Если $a \vdots p_i$, то $1 \vdots p_i \SO a$ -- новое простое число.  
+\end{proof}
+
+\Subsection{Основная теорема арифметики}
+\begin{Lm}
+    $p$ -- простое $\SO \forall a > 1 \to p | a \vee (p, a) = 1$ 
+\end{Lm}
+
+\begin{proof}
+    \[(p, a) | p \SO (p, a) = 1 \vee (p, a) = p\] 
+\end{proof}
+
+\begin{Lm}
+    $p$ -- простое, $p | a_1 \cdot a_2 \cdot ... \cdot a_n \SO \exists i = 1, ..., n : p | a_i$ 
+\end{Lm}
+
+\begin{proof}
+    Если $(p, a_i) = 1, i = 1, ..., n \SO 1 = (p, a_1) = (p, a_1 a_2) = (p, a_1 a_2 a_3) = (p, a_1 \cdot ... \cdot a_n) = 1 \SO \exists a_i : p | a_i$ 
+\end{proof}
+
+\begin{Thm}[Основная теорема арифметики]
+    \begin{MyList}
+        \item $\forall a > 1 \to a = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot ... \cdot p_k^{\alpha_k}, p_1, p_2, ..., p_k$ -- различные простые, $\alpha_1, \alpha_2, ..., \alpha_k \geqslant 1$
+        \item с точностью до перестановки множителей это представление единственно  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item из всех делителей $a$ выбираем наименьший -- $p_1$ - простое $\SO a = p_1 \cdot a_1$.
+        Рассмотрим $a_1$ -- наименьший делитель - $p_2 \SO a_1 = p_1 \cdot p_2 \cdot a_2$ и т.д. 
+        \[a_1 > a_2 > a_3 > ... \SO \exists a_n = 1 \SO a = \text{ разложение на простые}\]
+        
+        \item Предположим, что представление не одно, то есть 
+        \[a = p_1 \cdot p_2 \cdot ... \cdot p_s = q_1 \cdot q_2 \cdot ... \cdot q_n\]
+        Не умаляя общности, пусть $n \geqslant s \SO p_1 | q_1 ... q_n$. Тогда, по лемме 2 $p_1 | q_i \SO p_1 = q_i$.
+        Перенумеруем $i = 1 \SO p_2 p_3 ... p_s = q_2 q_3 ... q_n \SO$ все $p_s$ сократятся, т.е. $1 = q_{s + 1} ... q_n \SO s = n$     
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    $a = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot p_k^{\alpha_k}$ --- каноническое разложение числа $a$ 
+\end{Def}
+
+\begin{Cons}
+    Любой делитель $a = p_a^{\alpha_1} ... p_k^{\alpha_k}$ имеет вид $b = p_1^{\beta_1} \cdot ... \cdot p_k^{\beta_k}, 0 \leqslant \beta_i \leqslant \alpha_i$  
+\end{Cons}
+
+\begin{proof}
+    $b | a \SO b$ содержит в разложении $p_i$  
+\end{proof}
+
+\Pagebreak
+\begin{Cons}
+    $\gcd (a_1, ..., a_n)$ имеет вид $p_1^{\alpha_1} p_2^{\alpha_2} ... p_k^{\alpha_k}$, где \\
+    $a_i = \min \left\{\text{показатель степени $p_i$, с которым $p_i$ входит в разложение } a_1, a_2, ..., a_n\right\}$   
+\end{Cons}
+
+\begin{Cons}
+    $\lcm (a_1, ..., a_n)$ имеет вид $p_1^{\alpha_1} p_2^{\alpha_2} ... p_k^{\alpha_k}$, где \\
+    $a_i = \max \left\{\text{показатель степени $p_i$, с которым $p_i$ входит в разложение } a_1, a_2, ..., a_n\right\}$   
+\end{Cons}
+
+\Subsection{Непрерывные дроби (Цепные дроби)}
+
+\begin{Def}
+    Выражение вида 
+    \[a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 + ...}}}\] 
+    называется непрерывной дробью. Обозначение: $[a_0, a_1, a_2, ...]$ 
+\end{Def}
+
+\begin{Thm}
+    Любое вещественное число может быть представлено в виде непрерывной дроби.
+
+    Если число иррационально -- в виде бесконечной дроби, если рациональное -- в виде конечной.
+\end{Thm}
+
+\begin{proof}
+    $a > b$
+    \[\frac{a}{b} = a_0 + \frac{r_1}{b} = a_0 + \frac{1}{\frac{b}{r_1}} = a_0 + \frac{1}{a_1 + \frac{r_2}{r_1}} = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{r_3}{r_2}}} \text { и т.д.}\]  
+
+    где
+    \begin{align*}
+        a &= b \cdot a_0 + r_1 \\
+        b &= r_1 \cdot a_1 + r_2 \\
+        r_1 &= r_2 \cdot a_2 + r_3 \\
+    \end{align*} 
+\end{proof}
+
+\begin{Def}
+    Для $\frac{a}{b} \ \delta_0 = \frac{a_0}{1}, \delta_1 = a_0 + \frac{1}{a_1}, \delta_2 = a_0 + \frac{1}{a_1 + \frac{1}{a_2}}$ и т.д. называются подходящими дробями. 
+\end{Def}
+
+\begin{Thm}[Формулы подходящих дробей]
+    $\delta_k = \frac{p_k}{q_k}, p_{-1} = 1, q_{-1} = 0, p_0 = a_0, q = 1$
+    \[\SO \begin{cases}
+        p_k = a_k \cdot p_{k - 1} + p_{k - 2} \\
+        q_k = a_k \cdot q_{k - 1} + q_{k - 2}
+    \end{cases}\] 
+\end{Thm}
+
+\begin{proof}
+    $\delta_1 = a_0 + \frac{1}{a_1} = \frac{a_0 a_1 + 1}{a_1 \cdot 1 + 0} = \frac{a_1 \cdot p_0 + p_{-1}}{a_1 \cdot q_0 + q_{-1}}$ 
+
+    Предположим, что для $k$ верно. Тогда для $k + 1$ 
+    \[\delta_{k + 1} = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + ... \frac{}{a_k + \frac{1}{a_{k + 1}}}}} = \frac{(a_k + \frac{1}{a_{k + 1}}) \cdot p_{k - 1} + p_{k - 2}}{(a_k + \frac{1}{a_{k + 1}})\cdot q_{k - 1} + q_{k - 2}} = \]
+    \[= \frac{(a_{k + 1} \cdot a_k + 1) \cdot p_{k - 1} + p_{k - 2} \cdot a_{k + 1}}{(a_{k + 1} \cdot a_k + 1) \cdot q_{k - 1} + q_{k - 2} \cdot a_{k + 1}} = \frac{a_{k + 1}(a_k \cdot p_{k - 1} + p_{k - 2}) + p_{k - 1}}{a_{k + 1}(a_k q_{k - 1} + q_{k - 2}) + q_{k - 1}} = \frac{a_{k + 1} \cdot p_k + p_{k - 1}}{a_{k + 1} \cdot q_k + q_{k - 1}}\]
+\end{proof}
+
+\Section{Теория сравнений}{}{Илья Дудников}
+
+\Subsection{Начала теории сравнений}
+
+\begin{Def}
+    $a$ и $b$ называются сравнимыми по модулю $m > 0$, если они имеют одинаковые остатки при делении на $m$
+    \[a \equiv b \Mod m, a \equiv b(m), a \stackrel{m}{\equiv} b\]
+\end{Def}
+
+\begin{Prop}
+    \[\EQ \begin{cases}
+        a \equiv b \Mod m \\
+        a - b \vdots m \\
+        a \equiv b + mt
+    \end{cases}\]
+\end{Prop}
+
+\begin{proof}
+    $1) \SO 2)$
+    \[a = mq_1 + r, b = mq_2 + r \SO a - b = m(q_1 - q_2) \vdots m\]
+    $2) \SO 3)$
+    \[a - b \vdots m \SO a - b = mt \SO a = b + mt\]
+    $3) \SO 1)$. Поделим $a$ и $b$ на $m$:
+    \[a = mq_1 + r_1, b = mq_2 + r_2\]
+    \begin{align*}
+    &3): a = b + mt \SO mq_1 + r_1 = mq_2 + r_2 + mt \SO \\
+    &\SO m(q_1 - q_2 - t) = r_2 - r_1 \SO m | r_2 - r_1 \SO r_2 - r_1 = 0
+    \end{align*}
+\end{proof}
+
+Свойства:
+\begin{MyList}
+    \item Рефлексивность. $a \equiv a \Mod m$
+    \item Симметричность. $a \equiv b \Mod m \SO b \equiv a \Mod m$
+    \item Транзитивность. $a \equiv b \Mod m \SO b \equiv c \Mod m \SO a \equiv c \Mod m$
+    \begin{proof}
+        \[a - c = a - b + b - c \vdots m\]
+    \end{proof}
+    \item $a \equiv b \Mod m, c \equiv d \Mod m \SO a + c \equiv b + d \Mod m$
+    \item $a \equiv b \Mod m, c \equiv d \Mod m \SO ac \equiv bd \Mod m$
+    \begin{proof}
+        \[ac - bd = ac - bc + bc - bd = c(a - b) + b(c - d) \vdots m\]
+    \end{proof}
+    \Pagebreak
+    \item $d | a, d | b, d | m, a \equiv b \Mod m \SO \frac{a}{d} \equiv \frac{b}{d} \Mod{\frac{m}{d}}$
+    \begin{proof}
+        \[a - b = a_1 d - b_1 d = my = m_1 d t \SO a_1 - b_1 = m_1 t\]
+    \end{proof}
+    \item $a \equiv b \Mod m \SO ka \equiv kb \Mod m$ 
+    \item $d | a, d | b, (m, d) = 1, a \equiv b \Mod m \SO \frac{a}{d} \equiv \frac{b}{d} \Mod m$
+    \begin{proof}
+        \[a = a_1 d, b = b_1 d, a - b \vdots m \SO (a_1 - b_1) \cdot d \vdots m \SO a_1 - b_1 \vdots m\]
+    \end{proof}
+    \item $d | m, a \equiv b \Mod m \SO a \equiv b \Mod d$ 
+    \item $a \equiv b \Mod m \SO (a, m) = (b, m)$ 
+    \begin{proof}
+        \[a \equiv b \Mod m \SO a = b + mt \SO (a, m) = (b, m)\]
+    \end{proof}
+\end{MyList}
+
+\Subsection{Классы вычетов}
+
+\begin{Def}
+    Классом вычетов по $\Mod m$ называется множество чисел, сравнимых с $a$ по модулю $m$
+    \[m = 7, \overline{1} = \{-6, 8, 1, 15, ...\}\]
+    \[\overline{a} = \{x | x \equiv a \Mod m\}\]
+    Элементы классов вычетов -- \textbf{вычеты}. Обычно рассматривают наименьший неотрицательный вычет. 
+\end{Def}
+
+\begin{Def}
+    Множество вычетов, взятых по одному из разных классов образуют полную систему вычетов. Например
+    \[\{0, 1, 2, ..., m - 1\}\]
+\end{Def}
+
+\begin{Lm}
+    Множество из $m$ чисел, попарно несравнимых по модулю $m$, образуют полную систему вычетов.
+\end{Lm}
+
+\begin{Thm}
+    $(a, m) = 1$. Если $x$ пробегает полную систему вычетов по $\Mod m \SO \forall b \to ax + b$ тоже пробегает полную систему вычетов по $\Mod m$  
+\end{Thm}
+
+\begin{proof}
+    $x$ принадлежит $m$ значений $\SO ax + b$ принадлежит $m$ значений. \\
+    Пусть $x_1 \not\equiv x_2 \Mod m$. Предположим, что $ax_1 + b \equiv ax_2 + b \Mod m \SO ax_1 \equiv ax_2 \Mod m \SO x_1 \equiv x_2 \Mod m$ 
+\end{proof}
+
+\Pagebreak
+\Subsection{Кольцо классов вычетов}
+\begin{Def}
+    Определим сложение и умножение вычетов по фиксированному модулю $m$.
+    \[\overline{a} + \overline{b} = \overline{a + b}, \overline{a} \cdot \overline{b} = \overline{ab}\]
+\end{Def}
+
+\begin{Lm}
+    Сложение и умножение определены корректно
+\end{Lm}
+
+\begin{proof}
+    $a \equiv a_1 \Mod m, b \equiv b_1 \Mod m$
+    \[\SO a + b = a_1 + b_1 \Mod m, a \cdot b = a_1 \cdot b_1 \Mod m \SO \overline{a} + \overline{b} = \overline{a}_1 + \overline{b}_1, \overline{a} \cdot \overline{b} = \overline{a}_1 \cdot \overline{b}_1\] 
+\end{proof}
+
+\begin{Def}
+    Группа $G$ называется коммутативной (абелевой), Если
+    \[\forall x, y \in G \to xy = yx\] 
+\end{Def}
+
+\begin{Thm}
+    $\Z_m$ образует коммутативную группу относительно сложения 
+\end{Thm}
+
+\begin{proof}
+    $\overline{a} + \overline{b} = \overline{a + b} \in \Z_m$
+    \begin{MyList}
+        \item $(\overline{a} + \overline{b}) + \overline{c} = \overline{a + b} + \overline{c} = \overline{a + b + c}$ \\
+        $\overline{a} + (\overline{b} + \overline{c}) = \overline{a} + \overline{b + c} = \overline{a + b + c}$
+        \item $\overline{0}$. $\overline{a} + \overline{0} = \overline{a + 0} = \overline{a}$
+        \item $-\overline{a} = \overline{m - a} \SO \overline{a} - \overline{a} = \overline{a + m - a} = \overline{0}$
+        \item $\overline{a} + \overline{b} = \overline{b} + \overline{a}$      
+    \end{MyList} 
+\end{proof}
+
+\begin{Def}
+    (Ассоциативным) кольцом называется множество $R$, на котором заданы бинарные операции:
+    \begin{MyList}
+        \item $\forall x, y, z \to (x + y) + z = x + (y + z)$ 
+        \item $\exists 0 \in R : \forall x \in R \to x + 0 = x$ 
+        \item $\forall x \in R \ \exists (-x) \in R : x + (-x) = 0$ 
+        \item $\forall x, y \in R \to x + y = y + x$ 
+        \item $\forall x, y, z \in R \to (y + z) = xy + xz, (x + y)z = xz + yz$ 
+        \item $\forall x, y, z \in R \to (xy)z = x(yz)$ 
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    $\exists 1 \in R : \forall x \in R \to x \cdot 1 = 1 \cdot x = x$ -- кольцо с единицей \\
+    $\forall x, y \in R \to xy = yx$ -- коммутативное кольцо 
+\end{Rem}
+
+\begin{Thm}
+    $\Z_m$ -- коммутативное кольцо с единицей.
+\end{Thm}
+
+\begin{proof}
+    \[\overline{a}(\overline{b} + \overline{z}) = \overline{a} \cdot \overline{b + c} = \overline{a(b + c)} = \overline{ab + ac}\]
+    и т.д.
+\end{proof}
+
+\begin{Def}
+    Кольца $R$, в котором $\forall a, b \to (ab = 0 \SO a = 0 \vee b = 0)$ называется кольцом без делителей нуля.
+    
+    Если $ab = 0$ и $a, b \neq 0$, то $a, b$ -- делители нуля 
+\end{Def}
+
+\begin{Def}
+    Коммутативное кольцо без делителей нуля -- область целостности.
+\end{Def}
+
+\Pagebreak
+\begin{Thm}
+    \begin{MyList}
+        \item $\Z_m$ имеет делители нуля $\EQ m$ -- составное число
+        \item $\Z_p, p$ - простое -- область целостности.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $m = n \cdot k, \overline{n} \cdot \overline{k} = \overline{0}$ в $\Z_m$
+    
+    "$\Leftarrow$". $\overline{n} \cdot \overline{k} = \overline{0} \SO n \cdot k \equiv 0 \Mod m$
+    
+    Предположим, что $m$ -- простое $\SO m | n \vee m | k \SO \overline{n} = \overline{0} \vee \overline{k} = \overline{0}$. Но $\overline{n}$ и $\overline{k}$ -- делители нуля, т.е. $\overline{n}, \overline{k} \neq 0 \SO m$ -- составное.   
+
+    $1) \SO 2)$ 
+\end{proof}
+
+\Subsection{Приведенная система вычетов}
+
+\begin{Def}
+    Вычеты, выбранные из полной системы вычетов и взаимно-простые с модулем $m$ обрузуют приведенную систему вычетов
+\end{Def}
+
+\begin{Def}
+    Количество вычетов в приведенной системе вычетов обозначается $\varphi (m)$ -- функция Эйлера. 
+\end{Def}
+
+\begin{Lm}
+    Если $p$ -- простое, то 
+    \[\varphi(p) = p - 1\]
+\end{Lm}
+
+\begin{Thm}
+    $(a, m) = 1, x$ пробегает приведенную систему вычетов $\SO ax$ тоже пробегает приведенную систему вычетов по $\Mod m$  
+\end{Thm}
+
+\begin{proof}
+    $x \to \varphi(m), ax \to \varphi(m)$
+    
+    $(ax,m) = (a, m) = 1 \SO ax$ набор чисел из $\varphi(m)$, взаимно-простых с $m \SO \{ax\}$ -- приведенная система вычетов. 
+\end{proof}
+
+\Subsection{Функция Эйлера}
+\begin{Lm}
+    $p$ -- простое, $\alpha > 0$
+    \[\varphi(p^\alpha) = p^\alpha - p^{\alpha - 1}\] 
+\end{Lm}
+
+\begin{proof}
+    $1, 2, 3, ..., p, 2p, 3p, ..., p \cdot p, ..., p^\alpha - 1$. Выбросим из этого множества числа, делящиеся на $p$.
+    Таких чисел будет ровно количество коэффициентов при $p$ до $p^\alpha$, т.е. $p^{\alpha - 1}$  
+\end{proof}
+
+\begin{Def}
+    Функия $\Theta: \N \to \N$ называется мультипликативной, если 
+    \[(a, b) = 1 \SO \Theta(ab) = \Theta(a) \cdot \Theta(b)\] 
+\end{Def}
+
+\begin{Thm}[Мультипликативность функции Эйлера]
+    $\varphi$ мультипликативна     
+\end{Thm}
+
+\begin{proof}
+    $(a, b) = 1$
+    \[\begin{array}{ccccc}
+    1 & 2 & 3 & ... & b \\ 
+    b + 1 & b + 2 & b + 3 & ... & 2b \\ 
+    ... & ... & ... & ... & ... \\ 
+    (a - 1)b + 1 & (a - 1)b + 2 & (a - 1)b + 3 & ... & ab
+    \end{array}\]
+    Количество чисел, взаимно-простых с $b : \forall$ строка $: kb + r, k = 0, ..., a - 1, 1 \leqslant r \leqslant b$.
+    Рассмотрим $k$-ю строку: $(kb + r, b) = 1 \SO (r, b) = 1$. Количество чисел $kb + r : (kb + r, b) = 1 = \varphi (b) \SO$
+    есть $\varphi(b)$ столбцов, в которых числа $(kb + r, b) = 1$. Найдем в этих столбцах числа, взаимно-простые с $a$.
+    $\forall$ столбец $: xb + r, x = 0, ..., a - 1 \SO xb + r$ -- полная система вычетов по $\Mod a \SO$ 
+    среди $\{xb + r\}$ чисел, взаимно-простых с $a = \varphi(a) \SO$ всего чисел, взаимно-простых с $ab = \varphi(a) \cdot \varphi(b)$          
+\end{proof}
+
+\begin{Cons}
+    $n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdot ... \cdot p_k^{\alpha_k}$ -- каноническое разложение
+    $\SO \varphi(n) = (p_1^{\alpha_1} - p_1^{\alpha_1 - 1})(p_2^{\alpha_2} - p_2^{\alpha_2 - 1}) \cdot ... \cdot (p_k^{\alpha_k} - p_k^{\alpha_k - 1})$  
+\end{Cons}
+
+\begin{Rem}
+    $\varphi(n) = n(1 - \frac{1}{p_1})(1 - \frac{1}{p_2}) \cdot ... \cdot (1 - \frac{1}{p_k})$ 
+\end{Rem}
+
+\begin{Thm}[Теорема Эйлера]
+    $(m, a) = 1 \SO a^{\varphi(m)} \equiv 1 \Mod m$ 
+\end{Thm}
+
+\begin{proof}
+    $r_1, r_2, ..., r_{\varphi(m)}$ -- приведенная система вычетов по $\Mod m$
+    
+    $\SO ar_1, ar_2, ..., ar_{\varphi(m)}$ -- приведенная система вычетов по $\Mod m$. Пусть $ar_i = \rho_i$
+    \[\SO ar_1 \cdot ar_2 \cdot ... ar_{\varphi(m)} = \rho_1 \rho_2 \cdot ... \cdot \rho_{\varphi(m)}\]
+    \[a^{\varphi(m)} r_1 \cdot r_2 \cdot ... \cdot r_{\varphi(m)} = \rho_1 \cdot \rho_2 \cdot ... \cdot \rho_{\varphi(m)} \SO a^{\varphi(m)} \equiv 1 \Mod m\]   
+\end{proof}
+
+\begin{Thm}[Теорема Ферма]
+    $p$ -- простое, $(a, p) = 1 \SO a^{p - 1} \equiv 1 \Mod p$ 
+\end{Thm}
+
+\begin{proof}
+    $\varphi(p) = p - 1$ 
+\end{proof}
+
+\begin{Def}
+    $\Z_m^* = \{r : 0 \leqslant r < m, (r, m) = 1\}$ -- приведенная система вычетов по $\Mod m$ 
+\end{Def}
+
+\begin{Thm}
+    $\Z_m^*$ -- коммутативная группа по умножению
+\end{Thm}
+
+\begin{proof}
+    $r_1, r_2 \in \Z_m^*$. $(r_1, m) = (r_2, m) = 1 \SO (r_1 \cdot r_2, m) = 1 \SO r_1 \cdot r_2 \in \Z_m^*, 1 \in \Z_m^*$
+    
+    $r \in \Z_m^*$, то $r^{-1} = r^{\varphi(m) - 1} \SO r^{\varphi(m) - 1} \cdot r = r^{\varphi(m)} \equiv 1 \Mod m$  
+\end{proof}
+
+\Subsection{Сравнения с одним неизвестным}
+\begin{Def}
+    $f(x) \equiv 0 \Mod m$. Решением этого сравнения называется $x_0 : f(x_0) \equiv 0 \Mod m$. Решения $x_1$ и $x_2$ называются эквивалентными, если $x_1 \equiv x_2 \Mod m$
+
+    Решить сравнение -- найти решений из полной системы вычетов.
+\end{Def}
+
+\begin{Thm}[Решение линейного сравнения]
+    $ax \equiv b \Mod m , (a, m) = d$ 
+    \begin{MyList}
+        \item $d \not| \ b \SO$ решений нет.
+        \item $d | b \SO \exists d$ решений $ : x = x_0 + m_1 t, t = 0, 1, ..., d - 1, m_1 = \frac{m}{d}, x_0$ -- какое-то решение
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Очевидно
+        \item Если $(a, m) = 1, x$ пробегает полную систему вычетов по $\Mod m \SO ax$ -- полная система вычетов по $\Mod m \SO \exists x_0 : ax_0 \equiv b \Mod m$
+        
+        Если $(a, m) = d, a = a_1d, m = m_1d, b = b_1d, (a_1, m_1) = 1$ \\
+        $a_1x \equiv b_1 \Mod {m_1}$ -- $\exists$ решение $x_0 : a_1x_0 \equiv b_1 \Mod {m_1}$. $x = x_0 + m_1 t$ -- решение $ax \equiv b \Mod m$
+        \[a(x_0 + m_1t) = a_1dx_0 + a_1dm_1t \equiv b_1d \Mod m\]
+        Посмотрим, какие решения принадлежат полной системе вычетов, т.е. $0 \leqslant x_0 + m_1 t < m$.
+        Ясно, что такие решения будут при $t = 0, 1, ..., d - 1$.       
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Методы решения $ax \equiv b \Mod m, (a, m) = 1$]
+    \begin{MyList}
+        \item $ax \equiv b \Mod m \SO x \equiv a^{\varphi(m) - 1} \cdot b \Mod m$ 
+        \item $ax \equiv b \Mod m \SO x \equiv (-1)^n p_{n - 1} \cdot b \Mod m$ \\
+        $\frac{m}{a}$ -- непрерывная дробь, $p_{n - 1}$ -- числитель $(n - 1)$-й подходящей дроби, $ \frac{p_n}{q_n} = \frac{m}{a}$  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $p_k \cdot q_{k - 1} - p_{k - 1} \cdot q_k = (-1)^{k - 1}$. $k = n$
+    \[m \cdot q_{n - 1} - p_{n - 1} \cdot a = (-1)^{n - 1} \SO -p_{n - 1} \cdot a \equiv (-1)^{n - 1} \Mod m\]
+    \[ap_{n - 1} b = (-1)^n b \Mod m \SO a \cdot (-1)^n p_{n - 1} \cdot b \equiv b \Mod m \SO x \equiv (-1)^n p_{n - 1} \cdot b \Mod m\]
+\end{proof}
+
+\Subsection{Диофантовы уравнения}
+
+\begin{Def}
+    Уравнение вида 
+    \[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b\]
+    где $a_i \in \Z, x_i$ -- переменные и $\exists i : a_i \neq 0$, называется диофантовым.  
+\end{Def}
+
+\begin{Lm}
+    $ax + by = c, a, b \neq 0$. Если $x_0 : ax_0 \equiv c \Mod b \SO (x_0, \frac{ax_0 - c}{b})$ -- решения уравнения 
+\end{Lm}
+
+\begin{proof}
+    $by \equiv c - ax$ при $x = x_0$ и $c - ax \ \vdots \ b \SO \frac{c - ax_0}{b} \in \Z$   
+\end{proof}
+
+\begin{Thm}
+    $ax + by = c, d = (a, b), d | c$. Пусть $(x_0, y_0)$ -- какое-то решение $\SO$ все решения:
+    \[\begin{cases}
+        x = x_0 - \frac{b}{d}t \\
+        y = y_0 + \frac{a}{d}t
+    \end{cases}, t \in \Z\]  
+\end{Thm}
+
+\Subsection{Системы сравнений}
+
+\[\begin{cases}
+    x \equiv b_1 \Mod m_1 \\
+    x \equiv b_2 \Mod m_2 \\
+    ... \\
+    x \equiv b_k \Mod m_k
+\end{cases}\]
+
+\begin{Thm}[Китайская теорема об остатках]
+    $(m_i, m_j) = 1, i \neq j$. Тогда
+    \begin{MyList}
+        \item Решение системы существует:
+        \[x \equiv \frac{M}{m_1} \cdot M_1' b_1 + \frac{M}{m_2} \cdot M_2' b_2 + ... + \frac{M}{m_k}M_k' b_k \Mod M\]
+        $M = m_1 \cdot m_2 \cdot ... \cdot m_k, M_i' : M_i' \cdot \frac{M}{m_i} \equiv 1 \Mod m_i$
+        \item Решение единственно 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Подставим в $i$-е уравнение: 
+        \[x \equiv \frac{M}{m_i} M_i' b_i \Mod m_i \SO x \equiv b_i \Mod m_i\]
+        \item Без доказательства.
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Теорема Вильсона]
+    $p$ -- простое $\EQ$ $(p - 1)! \equiv -1 \Mod p$  
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $\Z_p^* = \{1, 2, ..., p - 1\}$ -- группа, $a \in \Z_p^*$
+    \[a^2 = 1 \SO a = \pm 1, 1 \cdot 2 \cdot ... \cdot (p - 1) \SO 1 \cdot (p - 1) \equiv -1 \Mod p\]
+    \[a \neq a^{-1} \SO 2 \cdot ... \cdot (p - 2) = 1\]
+    
+    "$\Leftarrow$". Предположим, что $$k | p, k > 1, k \neq p \SO k < p \SO 1 \cdot 2 \cdot ... \cdot (p - 1) \ \vdots \ k \SO (p - 1)! \equiv 0 \Mod p$$ 
+\end{proof}
+
+\begin{Algo}[Алгоритм RSA]
+    \begin{MyList}
+        \item Выбираем $p, q$ -- простые
+        \item $n = p \cdot q, \varphi(n) = (p - 1)(q - 1)$
+        \item Выбираем $e : (e, \varphi(n)) = 1$
+        \item Решаем $e \cdot d \equiv 1 \Mod {\varphi(n)} \SO$ находим $d$  
+    \end{MyList}
+
+    Шифрование:
+    \begin{MyList}
+        \item $m$ -- текст (в виде цифрового кода)
+        \item $c \equiv m^e \Mod n \SO c$ -- шифр
+    \end{MyList}
+
+    Ключи:
+    \begin{MyItemize}
+        \item $(e, n)$ -- открытый ключ
+        \item $(d, n)$ -- закрытый ключ
+    \end{MyItemize}
+
+    Дешифрование:
+    \[c^d \equiv m^{ed} \equiv m \Mod n\]
+
+    Трудность $n = p \cdot q$. 
+\end{Algo}
+
+\Section{Комплексные числа}{}{Илья Дудников}
+
+\begin{Def}
+    Множество $\{(a, b) | a, b \in \R\}$ называется множество комплексных чисел, если:
+    \begin{MyList}
+        \item $(a, b) = (c, d) \EQ a = c, b = d$
+        \item $(a, b) + (c, d) = (a + c, b + d)$
+        \item $(a, b) \cdot (c, d) = (ac - bd, ad + bc)$
+        \item $a = (a, 0)$    
+    \end{MyList} 
+
+    Проверим корректность:
+    \begin{MyItemize}
+        \item 1 и 4: $a = b \EQ (a, 0) = (b, 0)$
+        \item 2 и 4: $a + b = (a, 0) + (b, 0) = (a + b, 0) = a + b$
+        \item 3 и 4: $a \cdot b = (a, 0) \cdot (b, 0) = (ab, 0) = ab$   
+    \end{MyItemize}
+\end{Def}
+
+\begin{Thm}
+    $\C$ образует коммутативное кольцо с единицей.
+\end{Thm}
+
+\begin{proof}
+    $(0, 0)$ -- нейтральный элемент по сложению. $(a, b) : -(a, b) = (-a, -b)$ -- обратный элемент по сложению. Остальные свойства несложно проверяются.
+\end{proof}
+
+\begin{Def}
+    Множество $K$ называется полем, если $K$ является коммутативным кольцом с единицей и 
+    \[\forall x \in K^* = K \setminus \{0\} \ \exists x^{-1} \in K : x \cdot x^{-1} = 1\]
+\end{Def}
+
+\begin{Thm}
+    $\Z_p (p \text{ -- простое}), \Q, \R, \C$ -- поля.   
+\end{Thm}
+
+\begin{proof}
+    $\Q, \R$ -- поля.
+    
+    $\Z_p$ -- коммутативное кольцо с единицей, $\Z_p^*$ -- мультипликативная группа $\SO \Z_p$ -- поле.
+    
+    $(a, b) \in \C^*, (a, b)^{-1} = \frac{(a, -b)}{a^2 + b^2} = \left(\frac{a}{a^2 + b^2}, \frac{-b}{a^2 + b^2}\right)$ 
+    \[(a, b) \cdot \frac{(a, -b)}{a^2 + b^2} = \frac{(a^2 + b^2, 0)}{a^2 + b^2} = (1, 0)\]
+\end{proof}
+
+\begin{Def}
+    $(a, b)$ и $(a, -b)$ -- комплексно-сопряженные числа. \\
+    $|(a, b)| = \sqrt{a^2 + b^2}$ -- модуль комплексного числа. Заметим, что $|(a, 0)| = \sqrt{a^2 + 0} = \sqrt{a^2} = |a|$ \\
+    $(a, b) \cdot (a, -b) = a^2 + b^2 = |(a, b)|^2$ 
+\end{Def}
+
+\Subsection{Алгебраическая форма записи комплексного числа}
+
+\begin{Def}
+    Положим $i = (0, 1)$. Тогда
+    \[(a, b) = (a, 0) + (0, b) = (a, 0) \cdot (1, 0) + (b, 0) \cdot (0, 1) = a + bi\]
+\end{Def}
+\Pagebreak
+
+\Subsection{Геометрическое представление комплексных чисел}
+
+\begin{Def}
+    $z = a + bi$. $\Real z = a$ -- вещественная часть числа $z$, $\Imag z = b$ -- мнимая часть.   \\
+    $z = a + bi \mapsto $ точка на комплексной плоскости. $(a, b)$ -- радиус-вектор $OM$.  \\
+    $\rho = |z| = \sqrt{a^2 + b^2}$ -- длина вектора $OM$. $\PHI = \widehat{(\Real, OM)}$ -- аргумент комплексного числа. \\
+    $\arg z = \PHI, \PHI = \PHI_0 + 2\pi k, \PHI_0 \in [0; 2\pi)$ или $\PHI_0 \in (-\pi; pi]$.
+
+    \begin{figure}[h]
+        \centering
+        \input{images/pic1.pdf_tex}
+    \end{figure}
+\end{Def}
+
+\Subsection{Тригонометрическая форма записи комплексного числа}
+
+\begin{Def}
+    $a = \rho \cos \PHI, b = \rho \sin \PHI \SO z = a + bi = \rho(\cos \PHI + i\sin \PHI)$
+    \[\tg \PHI = \frac{b}{a} \SO \PHI = \begin{cases}
+        \arctg \frac{b}{a}, z \in \text{ I и II четверти} \\
+        \arctg \frac{b}{a} + \pi, z \in \text{III и IV четверти} 
+    \end{cases}\] 
+
+\end{Def} 
+
+\begin{Def}[Неравенство треугольника]
+    $z_1, z_2 \in \C$
+    \begin{MyList}
+        \item $|z_1 + z_2| \leqslant |z_1| + |z_2|$
+        \item $|z_1 - z_2| \geqslant ||z_1| - |z_2||$  
+    \end{MyList} 
+\end{Def}
+
+\begin{proof}
+    \begin{MyList}
+        \item $z_1 = \rho_1(\cos \PHI_1 + i\sin \PHI_1), z_2 = \rho_2(\cos \PHI_2 + i\sin \PHI_2)$ \\
+        \begin{gather*}
+            |z_1 + z_2|^2 = |\rho_1 \cos \PHI_1 + \rho_2 \cos \PHI_2 + i(\rho_1 \sin \PHI_1 + \rho_2 \sin \PHI_2)|^2 = \\
+            = \rho_1^2 \cos^2 \PHI_1 + 2 \rho_1 \rho_2 \cos \PHI_1 \cos \PHI_2 + \rho_2^2 \cos^2 \PHI_2 + \rho_1^2 \sin^2 \PHI_1 + 2 \rho_1 \rho_2 \sin \PHI_1 \sin \PHI_2 + \rho_2^2 \sin^2 \PHI_2 = \\
+            = \rho_1^2 + 2\rho_1 \rho_2 \cos(\PHI_1 - \PHI_2) = \rho_2^2 \leqslant \rho_1^2 + 2\rho_1 \rho_2 + \rho_2^2 = (\rho_1 + \rho_2)^2 = (|z_1| + |z_2|)^2
+        \end{gather*}
+
+        \item \[
+            |z_1| = |z_1 - z_2 + z_2| \leqslant |z_1 - z_2| + |z_2| \SO |z_1| - |z_2| \leqslant |z_1 - z_2| \SO ||z_1| - |z_2|| \leqslant |z_1 - z_2|
+        \]
+    \end{MyList}
+\end{proof}
+
+\begin{Rem}
+    $|z_1 + z_2| = |z_1| + z_2| \EQ z_1 \parallel z_2$ 
+\end{Rem}
+
+\Pagebreak
+\begin{Thm}[Умножение комплексных чисел в тригонометрической форме]
+    $z_1 = \rho_1 (\cos \PHI_1 + i\sin \PHI_1), z_2 = \rho_2 (\cos \PHI_2 + i\sin \PHI_2)$. Тогда 
+    \[z_1 \cdot z_2 = \rho_1 \cdot \rho_2 (\cos (\PHI_1 + \PHI_2) + i\sin (\PHI_1 + \PHI_2))\] 
+\end{Thm}
+
+\begin{proof}
+    Достаточно перемножить, заметить формулу косинуса суммы и синуса суммы
+\end{proof}
+
+\begin{Cons}[Формула Муавра]
+    $z = \rho (\cos \PHI + i\sin \PHI) \SO z^n = \rho^n(\cos n\PHI + i\sin n\PHI)$ 
+\end{Cons}
+
+\begin{proof}
+    \begin{MyList}
+        \item $n \geqslant 0$. По индукции: $n = 1$ очевидно. \\
+        $n - 1 \to n:$
+        \[z^n = z^{n - 1} \cdot z = \rho^{n - 1}(\cos (n - 1)\PHI + i\sin(n - 1)\PHI) \cdot \rho(\cos \PHI + i\sin\PHI) = \rho^n(\cos n\PHI + i\sin n\PHI)\] 
+
+        \item $n < 0$. Пусть $n = -m, m > 0$. Тогда
+        \[z^n = \frac{1}{z^m} = \frac{1}{\rho^m(\cos m\PHI + i\sin m\PHI)} = \rho^{-m} \frac{\cos m\PHI - i\sin m\PHI}{1} = \rho^n (\cos n\PHI + i\sin n\PHI)\]
+    \end{MyList}
+\end{proof}
+
+\Subsection{Извлечение корней из комплексных чисел}
+
+\begin{Def}
+    Корнем $n$-й степени из комплексного числа $z$ называется $w \in \C : w^n = z$ 
+\end{Def}
+
+\begin{Thm}
+    $\forall z \in \C^* \ \exists n$ корней $n$-й степени $z_k, k = 0, 1, ..., n - 1$
+    \[z_k = \sqrt[n]{\rho}(\cos \frac{\PHI + 2\pi k}{n} + i\sin \frac{\PHI + 2\pi k}{n}), z = \rho(\cos \PHI + i\sin \PHI)\]  
+\end{Thm}
+
+\begin{proof}
+    $w^n = z, w = R(\cos \Theta + i \sin \Theta)$ 
+    \begin{gather*}
+        \SO (w^n = z): R^n (\cos (n \Theta) + i\sin (n \Theta)) = \rho(\cos \PHI + i\sin \PHI) \SO \\
+        \SO R = \sqrt[n]{\rho}, \cos (n \Theta) = \cos \PHI, \sin(n \Theta) = \sin \PHI \SO \\
+        \SO n \Theta = \PHI + 2\pi k \SO \Theta = \frac{\PHI + 2\pi k}{n} \SO \text{ любой корень имеет вид } z_k
+    \end{gather*}
+\end{proof}
+
+\Subsection{Корни из единицы}
+
+\begin{Def}
+    Корень из 1 $n$-й степени $\varepsilon_k$ называется первообразным, если он принадлежит показателю, т.е. $\forall m : 0 < m < n \to \varepsilon^m \neq 1$ 
+\end{Def}
+
+\begin{Thm}[О первообразном корне]
+    Корень из 1 $n$-й степени является первообразным $\EQ (k, n) = 1$. 
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $\varepsilon_k$ -- первообразный корень. Предположим, что $(k, n) = d > 1, k = k_1 d, n = n_1 d, n_1 < n$. Тогда 
+    \[\varepsilon_k^{n_1} = \cos \frac{2\pi k n_1}{n} + i \sin \frac{2\pi k n_1}{n} = \cos \frac{2\pi k_1 d n_1}{n} + i\sin \frac{2\pi k_1 d n_1}{n} = 1 ?! \SO d = 1\]
+    
+    "$\Leftarrow$". $(k, n) = 1$. Предположим, что $\varepsilon_k^m = 1 \SO \cos \frac{2\pi k m}{n} = 1, \sin \frac{2\pi k m}{n} = 0$
+    \[\EQ \frac{2\pi k m}{n} = 2\pi s \SO \frac{k m}{n} \in \Z \SO n | m \SO m \geqslant n\]  
+\end{proof}
+
+Свойства:
+
+\begin{MyList}
+    \item $\alpha$ -- корень из 1 степени $n, \beta$ -- корень из 1 степени $m \SO \alpha \cdot \beta$ -- тоже корень из 1.
+    \begin{proof}
+        $(\alpha \beta)^{\lcm (m, n)} = 1$ 
+    \end{proof}
+    \item Если $\alpha$ -- корень из 1 степени $n$, то $\alpha^{-1}$ -- корень из 1 степени $n$ 
+    \begin{proof}
+        $(\alpha^{-1})^n = \frac{1}{\alpha^n} = 1$ 
+    \end{proof}
+    \item $u_n = \{z \in \mathbb{C} : z^n = 1\}$ -- мультипликативная коммутативная группа. \\
+    $u_n = \{\varepsilon_k, \varepsilon_k^2, ..., \varepsilon_k^{n - 1}, 1\}, \varepsilon_k$ -- первообразный корень. 
+\end{MyList}
+
+\begin{Def}
+    Группа $G$ называется циклической, если $G = \{a, a^2, a^3, ...\}$. Пишут $G = \langle a\rangle$ -- группа $G$ порождается элементом $a$. 
+\end{Def}
+
+\begin{Def}
+    $G_1$ -- группа с операцией $*_1, G_2$ -- группа с операцией $*_2$. Говорят, что группы $G_1$ и $G_2$ \textbf{изоморфны},
+    если $\exists \PHI : G_1 \to G_2 : $
+    \begin{MyItemize}
+        \item $\PHI$ -- биективно
+        \item $\forall x, y \in G_1 \to \PHI(x *_1 y) = \PHI(x) *_2 \PHI(y)$ 
+    \end{MyItemize}    
+\end{Def}
+
+\begin{Thm}
+    $u_n \simeq \Z_n$ 
+\end{Thm}
+
+\begin{proof}
+    $\varepsilon$ -- первообразный корень, т.е. $u_n = \{\varepsilon^k\}, k = 0, ..., n - 1$ \\
+    $\PHI : \Z_n \to u_n, \PHI(k) = \varepsilon^k, \PHI$ -- биекция
+    \[\PHI(k + m) = \varepsilon^k \cdot \varepsilon^m = \PHI(k) \cdot \PHI(m)\]  
+\end{proof}
+
+\Subsection{Показательная форма записи комплексного числа}
+
+\begin{Def}
+    $e^{i\PHI} = \cos \PHI + i\sin \PHI$ -- показательная форма записи комплексного числа. 
+\end{Def}
+
+\begin{Def}[Формула Эйлера]
+    $e^{i\PHI} = \cos \PHI + i\sin \PHI, e^{-i\PHI} = \cos \PHI - i\sin \PHI$. Тогда
+    \begin{align*}
+        &\cos \PHI = \frac{e^{i\PHI} + e^{-i\PHI}}{2} \\
+        &\sin \PHI = \frac{e^{i\PHI} - e^{-i\PHI}}{2i}
+    \end{align*} 
+\end{Def}
+
+Свойства комплексных чисел:
+\begin{MyList}
+    \item $|z_1 \cdot z_2| = |z_1| \cdot |z_2|$ 
+    \item $\overline{z_1 \cdot z_2} = \overline{z_1} \cdot \overline{z_2}$
+    \item $\overline{z_1 \pm z_2} = \overline{z_1} \pm \overline{z_2}$
+    \item $z + \overline{z} \in \R$
+    \item $i(z - \overline{z}) \in \R$     
+\end{MyList}
+
+\Section{Многочлены}{}{Илья Дудников}
+
+\begin{Def}
+    $R$ -- коммутативное кольцо с 1. Множество $\{(a_0, a_1, ..., a_n, ...), \exists n : \forall m > n \to a_m = 0\}$
+    \begin{MyList}
+        \item $\alpha \in R \to \alpha(a_0, a_1, ..., a_n, ...) = (\alpha a_0, \alpha a_1, ..., \alpha a_n, ...)$
+        \item $(a_0, a_1, ..., a_n, ...) + (b_0, b_1, ..., b_n) = (a_0 + b_0, a_1 + b_1, ..., a_n + b_n, ...)$ 
+        \item $(a_0, a_1, ..., a_n) \cdot (b_0, b_1, ..., b_n, ...) = (c_0, c_1, ..., c_n, ...)$, где
+        \[c_k = \sum_{s + t = k} a_s b_t\]
+        \item $\forall a \in R \to a = (a, 0, 0, ...)$ 
+    \end{MyList} 
+    Это множество называется многочленами над $R$.
+\end{Def}
+
+Корректность определения:
+\begin{MyItemize}
+    \item все действия 1, 2, 3 не выводят из множества. 
+    \item Согласование 1 и 4, 2 и 4, 3 и 4.
+\end{MyItemize}
+
+\begin{Thm}
+    Множество многочленов над $R$ -- коммутативное кольцо с 1
+\end{Thm}
+
+\begin{proof}
+    $(0, 0, ...)$ -- нулевой элемент, $(1, 0, 0, ...)$ -- единица. Ассоциативность несложно доказывается.
+\end{proof}
+
+\begin{Def}
+    Введём $x = (0, 1, 0, ...)$. Тогда $x^2 = (0, 1, 0, 0, ...) \cdot (0, 1, 0, 0, ...) (0, 0 \cdot 1 + 1 \cdot 0, 0 \cdot 0 + 1 \cdot 1, 0, ...) = (0, 0, 1, 0, ...)$  
+    \[\SO x^k = (\underset{0}{0} , \underset{1}{0} , ..., \underset{k}{1} , \underset{k + 1}{0}, ... )\]
+    Тогда 
+    \[(a_0, a_1, ..., a_n, ...) = (a_0, 0, ...) + (0, a_1, 0, ...) + ... + (0, ..., a_k, ...) = a_0 + a_1 x + a_2 x^2 + ... + a_n x^n\]
+    Обозначение: $R[x] = \{a_0 + a_1 x + ... + a_n x^n\}$ -- кольцо многочленов над $R$ от переменной $x$. 
+\end{Def}
+
+\begin{Def}
+    Коэффициент $a_n \neq 0 : a_m = 0, m > n$ называется старшим коэффициентом. Если $n \geqslant 1$, то $n$ -- степень многочлена.
+    \[\deg (f) = n\]
+    Если $a_0$ -- старший коэффициент. Если $a_0 \neq 0$, то $\deg (f) = 0$. Если $a_0 = 0$, то $\deg (f) = -\infty$  
+\end{Def}
+
+\begin{Thm}
+    $f, g \in R[x]$ 
+    \begin{MyList}
+        \item $\deg(f + g) \leqslant \max \{\deg f, \deg g\}$
+        \item $\deg (f \cdot g) \leqslant \deg f + \deg g$  
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $f = a_0 + a_1 x + ... + a_n x^n, g = b_0 + b_1 x + ... b_m x^m$.
+    Тогда если $n > m$, то 
+    \[f + g = a_n x^n + ... \SO \deg (f + g) \leqslant \deg n\]
+
+    \[f \cdot g = a_n \cdot b_m x^{n + m} + ... \SO \deg (f \cdot g) \leqslant n + m\]
+\end{proof}
+
+\begin{Example}
+    $\Z_6 [x]$. $f = 2x^2 + 1, g = 3x + 2$ 
+    \[f \cdot g = 6x^3 + 4x^2 + 3x + 2 = 4x^2 + 3x + 2 \SO \deg (f \cdot g) = 2 < \deg f + \deg g = 3\]
+\end{Example}
+
+\begin{Def}
+    Коммутативное кольцо с 1 без делителей нуля называется областью целостности.
+\end{Def}
+
+\begin{Thm}
+    $R$ -- область целостности $\SO R[x]$ -- область целостности.
+\end{Thm}
+
+\begin{proof}
+    $f = a_n x^n + ..., g = b_m x^m + ... \SO f \cdot g = a_n b_m x^{n + m} + ..., a_n \cdot b_m \neq 0$ т.к. $R$ -- область целостности
+    $\SO R[x]$ -- область целостности. 
+\end{proof}
+
+\begin{Lm}[О сокращении]
+    $R$ -- область целостности, $a, b, c \in R, a \neq 0$. Тогда $ab = ac \SO b = c$. 
+\end{Lm}
+
+\begin{proof}
+    $ab = ac \SO a(b - c) = 0 \SO b - c = 0$ 
+\end{proof}
+
+\begin{Thm}[О делении с остатком]
+    $R$ -- область целостности, $\forall f \in R[x], \forall g \in R[x]$ с обратимым старшим коэффициентом 
+    $\exists ! \ q, r \in R[x] : f = g \cdot q + r, \deg r < \deg g$ 
+\end{Thm}
+
+\begin{proof}
+    Существование. $\deg f = n, \deg g = m, n < m \SO f = g \cdot 0 + f$ \\
+    $n \geqslant m$. Индукция по $n$. $n = 0 \SO a_0 = b_0(b_0^{-1} a_0) + 0$. \\
+    $n - 1 \mapsto n$. $f = a_n x^n + ... + a_0$, $g = b_m x^m + ... + b_0$. Рассмотрим 
+    \[\overline{f} = f - a_n b_m^{-1} x^{n - m} \cdot g \SO \deg \overline{f} < n\]
+    $\SO$ по предположению индукции $\overline{f} = g \cdot q + r \SO f - a_n b_m^{-1} x^{n - m} g = g \cdot q + r$ 
+    \[\SO f = (g + a_n b_m^{-1} x^{n - m})g + r, \deg r \leqslant \deg g\]
+
+    Единственность. Предположим, что 
+    \[f = g \cdot q_1 + r_1, f = g \cdot q_2 + r_2\]
+    $\SO g(q_1 - q_2) = r_2 - r_1$. Если $q_1 \neq q_2, r_1 \neq r_2$, то $\deg (g(q_1 - q_2)) \geqslant m, \deg (r_2 - r_1) < m$ -- противоречие.  
+\end{proof}
+
+\begin{Def}
+    $f = a_n x^n + ... + a_0, c \in R$. Тогда $f(c) = a_n c^n + ... + a_1 c + a_0$ -- значение многочлена в точке $c$. \\
+    Если $f(c) = 0$, то $c$ -- корень многочлена.
+\end{Def}
+
+\begin{Thm}[Теорема Безу]
+    $R$ -- область целостности, $a \in R, f \in R[x]$ 
+    \[\SO f = (x - a) \cdot q(x) + f(a)\]
+\end{Thm}
+
+\begin{proof}
+    $f = (x - a) q + r, \exists ! q, r, \deg r < 1 \SO r \in R$. $x = a \SO f(a) = 0 + r \SO r = f(a)$. 
+\end{proof}
+
+\begin{Cons}
+    $f \ \vdots \ x - a \EQ f(a) = 0$ 
+\end{Cons}
+
+\begin{Def}
+    Многочлен $f \in R[x]$ со старшим коэффициентом 1 называется нормализованным.
+\end{Def}
+
+\Subsection{Корни многочлена}
+
+\begin{Def}
+    Если многочлен $f = (x - c)^k q, q(c) \neq 0$, то $c$ -- корень кратности $k$. \\
+    Иначе, если $(x - c)^k | f, (x - c)^{k + 1} \not| f$, то $c$ -- корень кратности $k$.
+\end{Def}
+
+\begin{Thm}[О количестве корней многочлена]
+    Число корней многочлена $f$ с учетом их кратности $\leqslant \deg f$
+\end{Thm}
+
+\begin{proof}
+    Индукция по $\deg f$ \\
+    $\deg f = 0 \SO $ всё верно. Если нет корней $\SO$ всё верно. \\
+    Пусть для для $\deg f < n$ доказано. Докажем для $\deg f = n$. \\
+    $c_1$ -- корень $f \SO f = (x - c_1)^k g(x)$, если $c_2 \neq c_1 $ -- другой корень $\SO f(c_2) = (c_2 - c_1)^k g(c_1) = 0 \SO c_2$ -- корень $g$. 
+    $\deg g = n - k < n \SO$ корней $g \leqslant n - k \SO$ корней $f \leqslant k + n - k = n$.
+\end{proof}
+ 
+\begin{Cons}
+    $f, g \in R[x]$. Пусть $\max \{\deg f, \deg g\} = n$. Предположим, что $\exists c_1, ..., c_{n + 1} \in R : f(c_i) = g(c_i) \SO f$ совпадает с $g$   
+\end{Cons}
+
+\begin{proof}
+    $h = f - g, \deg h \leqslant n, h(c_i) = 0, i = 1, ..., n + 1 \SO h \equiv 0$ 
+\end{proof}
+
+Формальное равенство многочленов.
+$$f = g = a_n x^n + ... + a_1 x + a_0$$ 
+
+Функциональное равенство многочленов.
+\[f(x) = g(x) \ \forall x \in R\]
+
+\begin{Example}
+    $\Z_5$. $f = x^5 + x^4, g = x^4 + x$. \\ 
+    $f - g = x^5 - x, x^5 \equiv x \Mod 5 \SO x^5 - x = 0 \ \forall x \in \Z_5 \SO f(x) = g(x)$ 
+\end{Example}
+
+\begin{Rem}
+    $R$ -- бесконечно, то $\forall x \in R \ f(x) = g(x) \EQ f = g$
+\end{Rem}
+
+\begin{Ex}
+    Доказать утверждение выше
+\end{Ex}
+
+\Pagebreak
+\Subsection{Наибольший общий делитель}
+
+Пусть $R = K$ -- поле.
+
+\begin{Def}
+    $R$ -- область целостности, $a, b \in R$. $d = \gcd (a, b)$, если
+    \begin{MyList}
+        \item $d | a, d | b$ 
+        \item $c | a, c | b \SO c | d$ 
+    \end{MyList} 
+\end{Def}
+
+\begin{Thm}[О НОД для многочленов]
+    $\forall f, g \in K[x]$
+    \begin{MyList}
+        \item $\exists d = \gcd (f, g)$ определен однозначно с точностью до ассоциированного элемента
+        \item $\exists h_1, h_2 \in K[x] : h_1 f + h_2 g = d$ 
+    \end{MyList} 
+\end{Thm}
+
+\begin{proof}
+    Полностью аналогично доказательству о существовании нод над $\Z$
+\end{proof}
+
+\begin{Def}
+    $R$ -- область целостности. $R^*$ -- обратимые элементы. Если $a, b \in R, a = \varepsilon b, \varepsilon \in R^*$, то $a, b$ -- ассоциированные.
+\end{Def}
+
+\begin{Example}
+    $K$ -- поле, $K^* = K \setminus \{0\} \SO$ все элементы ассоциированны. 
+\end{Example}
+
+\begin{Example}
+    $\Z, \Z^* = \{-1, 1\}, a = -b$ 
+\end{Example}
+
+\begin{Example}
+    $\Z_n, \Z_n^* = \{m \in \Z : (m, n) = 1\}$ 
+    \begin{Ex}
+        Доказать.
+    \end{Ex}
+\end{Example}
+
+\begin{Example}
+    $K[x], (K[x])^* = K^*$ 
+\end{Example}
+
+\begin{Def}
+    $f, g \in K[x]$ -- взаимно-простые, если $(f, g) = 1$ 
+\end{Def}
+
+\Subsection{Факториальность кольца многочленов}
+
+\begin{Def}
+    $R$ -- область целостности. $p \in R :$ 
+    \begin{MyList}
+        \item $p \notin R^*$ 
+        \item $p = ab \SO a $ или $b \in R^*$ 
+    \end{MyList}
+
+    Тогда $p$ -- простой (неразложимый) элемент $R$.
+\end{Def}
+
+\begin{Def}
+    Если в области целостности $R \ \forall a \in R \setminus \{0\}$
+    $\exists a = \varepsilon \cdot p_1 \cdot ... \cdot p_s, \varepsilon \in R^*, p_1, ... p_s$ -- простые, определенное с точностью до порядка и умноженное на $\varepsilon$,
+    то $R$ -- факториальное кольцо.
+\end{Def}
+
+\begin{Def}
+    Простой элемент кольца $K[x]$ называется неприводимым многочленом.
+\end{Def}
+
+\begin{Example}
+    $x^2 - 2$ -- неприводим над $\mathbb{Q}$ 
+\end{Example}
+
+\begin{Example}
+    $\forall$ многочлен $x - a$ неприводим. 
+\end{Example}
+
+\begin{Ex}
+    Над бесконечным полем $K$ существует бесконечно много неприводимых многочленов.
+\end{Ex}
+
+Свойства:
+
+\begin{MyList}
+    \item $f \in K[x], \PHI$ -- неприводим над $K \SO$ либо $\PHI | f$, либо $(f, \PHI) = 1$.
+    \begin{proof}
+        $d = (f, \PHI)$. Если $d \neq 1 \SO d | f, d | \PHI \SO d = \varepsilon \cdot \PHI..., \varepsilon \in K^* \SO \PHI | f$ 
+    \end{proof}
+    \item $\PHI_1, \PHI_2 \in K[x]$ -- неприводимы. \TODO
+    \item $f, g, \PHI \in K[x], \PHI$ -- неприводим, $\PHI | fg \SO \PHI | f \vee \PHI | g$ 
+    \begin{proof}
+        $\PHI \not| f \SO (\PHI, f) = 1 \SO \exists h_1, h_2 \in K[x] : h_1 \PHI + h_2 f = 1 \SO h_1 \PHI g + h_2 f g = g \SO \PHI | (h_1 \PHI g + h_2 f g) \SO \PHI | g$ 
+    \end{proof}
+    \item $\PHI \in K[x]$ -- неприводим, $f_1, ..., f_s \in K[x]$, $\PHI | f_1 \cdot ... \cdot f_s \SO \exists i, 1 \leqslant i \leqslant s : \PHI | f_i$  
+\end{MyList}
+
+\begin{Lm}
+    $\forall f \in K[x] : \deg f \geqslant 1$ делится хотя бы на один неприводимый многочлен.
+\end{Lm}
+
+\begin{proof}
+    $\deg f = n$. $n = 1$ -- верно. Предположим, что для $m < n$ тоже всё верно.
+
+    $f$ -- приводим $\SO f = f_1 \cdot g, \deg f_1 < n \SO \exists $ неприводимый многочлен $\PHI$, который делит $f_1 \SO f_1 | f$.
+\end{proof}
+
+\begin{Thm}
+    $K$ -- поле. $K[x]$ -- факториальное кольцо.
+\end{Thm}
+
+\begin{proof}
+    Существование. $f \in K[x]$. Если $f$ -- неприводим, то очевидно.
+    Если $f = \PHI_1 \cdot f_1, \PHI$ -- неприводим; $f_1 = \PHI_2 \cdot f_2$ и т.д.
+    $\SO f = \PHI_1 \cdot \PHI_2 \cdot ... \cdot \PHI_k$
+    
+    Единственность. $f = \varepsilon \PHI_1 \PHI_2 ... \PHI_k = \eta \psi_1 \psi_2, ..., \psi_s, \varepsilon, \eta \in K^*, \PHI_i, \psi_j$ -- неприводимы.
+    $k \leqslant s \SO \PHI_1 | \eta \psi_1 \psi_2 ... \psi_s \SO \PHI_1 | \psi_j \SO \PHI_1 = \psi_j \SO \varepsilon^{-1} \eta \psi_{s - k}  ... \psi_s = 1 \SO \varepsilon = \eta, \psi_{s - k} ... \psi_s = 1$  
+\end{proof}
+
+\begin{Def}
+    $f = \varepsilon \cdot \PHI_1^{k_1} \cdot ... \cdot \PHI_s^{k_s}$, где $\varepsilon \in K^*, \PHI_1, \PHI_2, ..., \PHI_s$ -- различные неприводимые многочлены над $K$, $k_1, k_2, ..., k_s \geqslant 1 \in \Z$ -- каноническое разложение многочлена $f$.
+\end{Def}
+
+\Subsection{Каноническое разложение многочлена над $\C$}
+
+\begin{Def}
+    Поле $K$ называется алгебраически замкнутым, если любой многочлен $\deg \geqslant 1$ имеет хотя бы один корень.
+\end{Def}
+
+\begin{Example}
+    $\Q(x^2 - 2), \R (x^2 + 1), \Z_p$ не являются алгебраически замкнутыми.
+\end{Example}
+
+\begin{Thm}[Основная теорема высшей алгебры]
+    $\C$ -- алгебраически замкнуто.
+\end{Thm}
+
+\begin{Cons}
+    Каноническое разложение многочлена над $\C$ 
+    \[f = a_n (x - z_1)^{k_1} (x - z_2)^{k_2} ... (x - z_s)^{k_s}\]
+    $z_1, ..., z_s \in \C, a_n \in \C$ 
+\end{Cons}
+
+\Pagebreak
+\Subsection{Каноническое разложение многочлена над $\R$}
+
+\begin{Def}
+    $R_1, R_2$ -- кольца с 1. Гомоморфизмом колец $R_1$ и $R_2$ называется $\PHI: R_1 \to R_2 : $
+    \begin{MyList}
+        \item $\forall x, y \in R_1 \ \PHI(x + y) = \PHI(x) + \PHI(y)$
+        \item $\forall x, y \in R_1 \ \PHI(x \cdot y) = \PHI(x) \cdot \PHI(y)$
+        \item $\PHI(1) = 1$   
+    \end{MyList}  
+\end{Def}
+
+\begin{Def}
+    Биективный гомоморфизм колец -- \textbf{изоморфизм}, при этом сами кольца называются \textbf{изоморфными}.
+\end{Def}
+
+\begin{Example}
+    \begin{MyList}
+        \item $id: R \to R$ -- изоморфизм.
+        \item $\PHI : \Z \to \Z_n, \PHI(a) = a \Mod n$ -- гомоморфизм. 
+        \begin{proof}
+            \[\PHI(a + b) = a + b \Mod n = \begin{cases}
+                a + b, 0 \leqslant a + b < n \\
+                a_0 + b_0 \equiv a + b \Mod n
+            \end{cases} = a \Mod n + b \Mod n = \PHI(a) + \PHI(b)\]
+            \[ab \equiv a_0 b_0 \Mod n \SO \PHI(ab) = ab \Mod n = (a \Mod n) \cdot (b \Mod n) = \PHI(a) \cdot \PHI(b)\]
+            \[\PHI(1) = 1\]
+            $\SO \PHI$ -- гомоморфизм. \\
+            $\PHI(kn) = 0 \SO$ не инъективно $\SO$ не изоморфизм. 
+        \end{proof}
+        
+        \item $\PHI: R \to R[x], \PHI(r) = r$ -- вложение - гомоморфизм.
+    \end{MyList}
+\end{Example}
+
+Свойства:
+\begin{MyList}
+    \item $\PHI(0) = 0$ 
+    \begin{proof}
+        $\PHI(x) = \PHI(x + 0) = \PHI(x) + \PHI(0) \SO \PHI(0) = \PHI(x) - \PHI(x) = 0$
+    \end{proof}
+
+    \item $\PHI(-x) = -\PHI(x)$ 
+    \begin{proof}
+        $0 = \PHI(x - x) = \PHI(x) + \PHI(-x) \SO \PHI(-x) = -\PHI(x)$ 
+    \end{proof}
+
+    \begin{Rem}
+        Противоположный элемент в кольце определен однозначно.
+
+        \begin{proof}
+            Пусть $x$ имеет $y$ и $z$ -- противоположные элементы. Тогда
+            \[z = 0 + z = y + x + z = y + 0 = y\]
+        \end{proof}
+    \end{Rem}
+\end{MyList}
+
+\begin{Def}
+    Поле $K_1$ и $K_2$ называются изоморфными, если они изоморфны как кольца.
+\end{Def}
+
+\begin{Rem}
+    При этом $\forall x \in K, \PHI(x^{-1}) = \PHI(x)^{-1}$
+    $$1 = \PHI(x \cdot x^{-1}) = \PHI(x) \cdot \PHI(x^{-1}) \SO \PHI(x^{-1}) = \PHI(x)^{-1}$$
+
+    Обратный элемент определен однозначно: если $y, z$ -- обратные к $x$ 
+    \[(yx = zx = 1) \SO y = yxz = z\]
+\end{Rem}
+
+\begin{Def}
+    Изоморфизм $\PHI: K \to K$ ( $K$ -- поле) называется автоморфизмом.
+\end{Def}
+
+\begin{Example}
+    \begin{MyList}
+        \item Найдем все автоморфизмы $\Q \to \Q$. $\PHI: \Q \to Q$ -- произвольный автоморфизм. $\PHI(1) = 1 \SO n \in \Z, n > 0$
+        \[\PHI(n) = \PHI(\underbrace{1 + 1 + ... + 1}_n) = \underbrace{\PHI(1) + ... + \PHI(1)}_n = n\]
+        $\SO \PHI(-n) = -n \SO\PHI|_\Z = id$ \\
+        $q \cdot \PHI \left(\frac{1}{q}\right) = \underbrace{\PHI \left(\frac{1}{q}\right) + ... + \PHI \left(\frac{1}{q}\right)}_q = \PHI\left(\frac{1}{q} + ... + \frac{1}{q}\right) = \PHI(1) = 1 \SO \PHI\left(\frac{1}{q}\right) = \frac{1}{q} \SO \PHI \left(\frac{p}{q}\right) = p \cdot \PHI \left(\frac{1}{q}\right) = \frac{p}{q} $
+        $\SO$ автоморфизмы $\Q = \{id\}$    
+
+        \item автоморфизмы $\R = \{id\}$
+        \item $\C$, автоморфизмы: $id, \PHI(z) = \overline{z}$   
+    \end{MyList}
+\end{Example}
+
+\begin{Def}
+    $K$ -- поле, тогда $k$ -- подполе поля $K$, если $k \subset K$ и $k$ -- поле.
+\end{Def}
+
+\begin{Lm}
+    $f \in k[x], c \in K, k \subset K, f(c) = 0, \PHI : K \to K$ -- автоморфизм, $\PHI |_k = id \SO \PHI(c) $ -- корень $f$.
+\end{Lm}
+
+\begin{proof}
+    $f = a_n x^n + ... + a_0, a_i = k, i = 0, ..., n$
+    \[\PHI(f) = \PHI(a_n x^n + ... + a_0) = \PHI(a_n) \cdot \PHI(x^n) + ... + \PHI(a_1) \PHI(x) + \PHI(a_0) =\]
+    \[= a_n \PHI(x)^n + ... + a_1 \PHI(x) + a_0 = f(\PHI(x))\]
+    $x = c : \PHI(f(c)) = \PHI(0) = 0$. С другой стороны $\PHI(f(c)) = f(\PHI(c)) \SO \PHI(c)$ корень $f$. 
+\end{proof}
+
+\begin{Thm}[Неприводимые многочлены над $\R$]
+    Неприводимые многочлены над $\R$ 
+
+    \begin{MyList}
+        \item $x - \alpha, \alpha \in \R$ 
+        \item $ax^2 + bx = c, b^2 - 4ac < 0$ 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $f$ -- неприводимый многочлен над $\R, \deg f \geqslant 2$, корней из $\R$ нет.
+    Пусть $\alpha + \beta i$ -- комплексный корень $f$ ( $\beta \neq 0$ ). По лемме $a - \beta i $ -- тоже корень $\SO f \ \vdots \ (x - \alpha - \beta i)(x - \alpha + \beta i)$.
+    \[(x - \alpha - \beta i)(x - \alpha + \beta i) = (x - \alpha)^2 + \beta^2 = x^2 - 2\alpha x + \alpha^2 + \beta^2 \in \R[x] \text{ -- неприводим}\]  
+    $\SO f = a(x^2 - 2 \alpha x + \alpha^2 + \beta^2), a \in \R^*$ 
+\end{proof}
+
+\begin{Cons}
+    Каноническое разложение над $\R$. 
+    \[f = a(x - \alpha_1)^{k_1} ... (x - \alpha_s)^{k_s} (x^2 + p_1 x + q_1)^{r_1} ... (x^2 + p_t x + q_t)^{r_t}\]
+    где $p_i^2 - 4q_i < 0, i = 1, ..., t$.  
+\end{Cons}
+
+\Pagebreak
+
+\Subsection{Уравнения 3-й степени}
+
+$ax^3 + bx^2 + cx + d = 0$
+\begin{Thm}[Метод Кардано]
+    \begin{MyList}
+        \item $x^3 + b'x^2 + c'x + d' = 0$ (поделили на $a$)
+        \item $x = y - \frac{b'}{3} \SO y^3 + py + q = 0$
+        \item $y = u + v : (u + v)^3 + p(u + v) + q = 0$
+        \[u^3 + 3u^2v + 3uv^2 + v^3 + p(u + v) + q = 0 \EQ (u + v)(3uv + p) + u^3 +v^3 + q = 0\]
+        \[\SO \begin{cases}
+            3uv + p = 0 \\
+            u^3 + v^3 + q = 0
+        \end{cases} \EQ \begin{cases}
+            v = -\frac{p}{3u} \\
+            u^3 - \frac{p}{27u^3} + q = 0
+        \end{cases} \EQ \begin{cases}
+            v = -\frac{p}{3u} \\
+            27u^6 + 27qu^3 - p^3 = 0
+        \end{cases}\] 
+        $\SO$ получим три несимметричных решения $(u, v)$
+        
+        \item Находим $y$ и $x$.
+    \end{MyList} 
+\end{Thm} 
+
+\Subsection{Уравнения 4-й степени}
+
+$ax^4 + bx^3 + cx^2 + dx + e = 0$ 
+
+\begin{Thm}[Метод Феррари]
+    \begin{MyList}
+        \item $x^4 + b'x^3 + c'x^2 + d'x + e' = 0$ (поделим на $a$)
+        \item $x = y - \frac{b'}{4} \SO y^4 + \alpha y^2 + \beta y + \gamma$ 
+        \item Введем $u : (y^2 + \alpha + u)^2 - (\alpha y^2 + uy^2 + 2 \alpha u - \beta y - \gamma + u^2 + \alpha^2) = 0$ \\
+        Выбираем $u : (\alpha + u)y^2 + \beta y + (u + \alpha)^2 - \gamma$ -- полный квадрат $\EQ \beta^2 - u(\alpha + u)((u + \alpha)^2 - \gamma) = 0$ -- уравнение третьей степени. Находим $u$.
+        
+        \item Раскладываем разность квадратов: 2 квадратных уравнения относительно $y$
+        \item Находим $x$.
+    \end{MyList}
+\end{Thm}
+
+\Subsection{Отделение кратных корней}
+
+\begin{Def}
+    $f \in K[x], f = a_n x^n + ... + a_1 x + a_0$.
+    Производной многочлена $f$ называется $f' = n a_n x^{n - 1} + ... + a_1$ 
+\end{Def}
+
+Свойства:
+
+\begin{MyList}
+    \item $\deg f = 0 \SO f' = 0$
+    \item $(f + g)' = f' + g'$
+    \item $(c \cdot f)' = c \cdot f', c \in K$ 
+    \item $(f \cdot g)' = f'g + fg'$  
+    \item $(f_1 \cdot f_2 \cdot ... \cdot f_k)' = f_1'f_2...f_k + f_1f_2'...f_k + f_1f_2...f_k'$
+    \item $(f^k)' = k \cdot f^{k - 1} \cdot f'$  
+\end{MyList}
+
+\Pagebreak
+\begin{proof}
+    4. $f = a_n x^n, g = b_m x^m$ 
+    \[(a_n x^n \cdot b_m x^m)' = (n + m)a_n b_m x^{n + m - 1}\]
+    \[(a_n x^n)' \cdot b_m x^m + a_n x^n \cdot (b_m x^m)' = a_n b_m (n + m) x^{n + m - 1}\]
+    $f = a_n x^n, g = b_m x^m + ... + b_1 x + b_0$ 
+    \[(fg)' = \left(\sum \right)' = \sum ()' = f'g + fg'\]
+    $f = a_n x^n + ... + a_1 x + a_0, g = b_m x^m + ... + b_1 x + b_0$ 
+    $a_k x^k \cdot g$ -- верно $\SO$ верно и для $f \cdot g$
+
+    5. Индукция \\
+    5. $\SO$ 6.
+\end{proof}
+
+\begin{Def}
+    Корни кратности 1 -- простые корни, корни кратности $> 1$ -- кратные корни.
+\end{Def}
+
+\begin{Thm}[Критерий кратности корня]
+    $f \in K[x]$. $c$ -- кратный корень $f \EQ f(c) = f'(c) = 0$ 
+\end{Thm}
+
+\begin{proof}
+    "$\SO$". $f = (x - c)^2 \cdot g, f(c) = 0$.
+    $f'(c) = 2(x - c)g + (x - c)^2 \cdot g' \SO f'(c) = 0$. \\
+    "$\Leftarrow$". $\deg f \geqslant 2, f$ делим на $(x - c)^2 \SO f = (x - c)^2 \cdot g + ax + b$
+    \[\SO f = (x - c)^2 g + a(x - c) + r\]
+    $f(c) = 0 \SO r = 0$
+    \[f' = 2(x - c)g + (x - c)^2g' + a, f'(c) = 0 \SO a = 0 \SO f = (x - c)^2 g\]   
+\end{proof}
+
+\end{document}
