@@ -2421,7 +2421,7 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
     \item Квадратная матрица: $m = n$ 
 \end{MyList}
 
-\Subsection{Действия над матрицами}
+\Subsubsection{Действия над матрицами}
 
 \begin{MyList}
     \item Сложение. $A = (a_{ij}) - m \times n, B = (b_{ij}) - m \times n$
@@ -2471,7 +2471,7 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
     \item $1 \cdot A = A$ 
 \end{MyList}
 
-\Subsection{Умножение матриц}
+\Subsubsection{Умножение матриц}
 
 \begin{Def}
     $B = \left(\begin{array}{cccc}
@@ -2560,7 +2560,7 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
     $M(n, K)$ -- кольцо с 1.
 \end{Thm}
 
-\Subsection{Транспонирование}
+\Subsubsection{Транспонирование}
 
 \begin{Def}
     $A = (a_{ij})$ -- $m \times n$.
@@ -2620,7 +2620,7 @@ a_{21} & a_{22} & a_{23} \\
 a_{31} & a_{32} & a_{33}
 \end{array}\right| = a_{11} a_{22} a_{33} + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32} - a_{31} a_{22} a_{13} - a_{32} a_{23} a_{11} - a_{33} a_{21} a_{12}\]
 
-\Subsection{Определение определителя}
+\Subsubsection{Определение определителя}
 
 Квадратная матрица $n \times n$ -- матрица порядка $n$.
 \begin{Def}
@@ -2635,7 +2635,7 @@ a_{31} & a_{32} & a_{33}
     \[= \sum_{(i_1, i_2, ..., i_n) \in S_n} (-1)^{\inv (i_1, i_2, ..., i_n)} a_{1i_1} a_{2i_2} ... a_{ni_n}\]
 \end{Def}
 
-\Subsection{Свойства определителя}
+\Subsubsection{Свойства определителя}
 
 \begin{MyList}
     \item Знак $(a_{i_1 j_1} \cdot a_{i_2 j_2} \cdot ... \cdot a_{i_n j_n}) = (-1)^{\inv (i_1, i_2, ..., i_n) + \inv(j_1, j_2, ..., j_n)}$ 
@@ -2717,7 +2717,7 @@ a_{31} & a_{32} & a_{33}
     \end{proof}
 \end{MyList}
 
-\Subsection{Алгебраические дополнения и миноры}
+\Subsubsection{Алгебраические дополнения и миноры}
 
 \begin{Def}
     Определитель матрицы, полученный вычеркиванием из матрицы $A$ $k$ строк и $k$ столбцов, называется минором $(n - k)$-го порядка.
@@ -2859,11 +2859,415 @@ a_{31} & a_{32} & a_{33}
             \end{array}\right|\]  
 \end{proof}
 
-\Subsection{Геометрическая интерпретация}
+\Subsubsection{Геометрическая интерпретация}
 
 $A_1, ..., A_n$ -- веткоры в пространстве $\R^n$ (строки).
 $A = (A_1, ..., A_n)$ \\
 $\Pi = \left\{\alpha_1 A_1 + ... + \alpha_n A_n,  0 \leqslant \alpha_i \leqslant 1, 1 \leqslant i \leqslant n\right\}$ -- $n$-мерный параллелепипед.
 \[|\det(A)| = V(\Pi)\]
+
+\Subsubsection{Определитель ступенчатой матрицы}
+
+\begin{Def}
+    Матрица вида
+    \[M = \left(\begin{array}{cc}
+    A & O \\ 
+    B & C
+    \end{array}\right) - n \times n,\]
+    где $A - k \times k, C - (n - k) \times (n - k), B - (n - k) \times k, O$ -- нулевая матрица $k \times (n - k)$ ,
+    называется \textbf{ступенчатой}
+\end{Def}
+
+\begin{Thm}[Определитель ступенчатой матрицы]
+    \[\det M = \det A \cdot \det C\]
+\end{Thm}
+
+\begin{proof}
+    Индукция по $k$. 
+    $k = 1$
+    \[\left|\begin{array}{cc}
+    a_{11} & 0, ..., 0 \\ 
+    B & C
+    \end{array}\right| = a_{11} \cdot \det C\]
+    Выполним индукционный переход: $k - 1 \mapsto k$.
+    \[\det M = a_{11} \cdot M_{11} + a_{12} \cdot M_{12} + ... + a_{1k} \cdot M_{1k}\]  
+    По индукционному предположению, $M_{1j} = A_{1j} \cdot \det C \SO \det M = (a_{11} \cdot A_{11} + ... + a_{1k} \cdot A_{1k}) \cdot \det C = \det A \cdot \det C$. 
+\end{proof}
+
+\begin{Cons}[Определитель произведения матриц]
+    \[\det (AB) = \det A \cdot \det B\]
+\end{Cons}
+
+\begin{proof}
+    \[M = \left(\begin{array}{cc}
+    A & O \\ 
+    -E & B
+    \end{array}\right) - 2n \times 2n\]
+    По теореме $\det M = \det A \cdot \det B$. С другой стороны:
+    \[\left|\begin{array}{cc}
+    A & O \\ 
+    -E & B
+    \end{array}\right| = \left|\begin{array}{cccccc}
+    a_{11} & \cdots & a_{1n} & 0 & \cdots & 0 \\ 
+    \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 
+    a_{n1} & \cdots & a_{nn} & 0 & \cdots & 0 \\ 
+    -1 & \cdots & 0 & b_{11}  & \cdots & b_{1n} \\ 
+    \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 
+    0 & \cdots & -1 & b_{n1} & \cdots & b_{nn}
+    \end{array}\right| = \left|\begin{array}{cc}
+    A & C \\ 
+    -E & O
+    \end{array}\right| =\] 
+    $c_{11} = a_{11} b_{11} + a_{12} b_{21} + a_{13} b_{31} + ... + a_{1n} b_{n1} \SO$
+    $c_{ij} = a_{i1} b_{1j} + ... + a_{in} b_{nj} \SO C = AB$   
+    \[= \left|\begin{array}{cc}
+    -E & O \\ 
+    A & C
+    \end{array}\right| = (-1)^n \det(-E) \det C = (-1)^n \cdot (-1)^n \cdot \det C = \det C \SO \det C = \det A \det B\]
+\end{proof}
+
+\Subsubsection{Обратная матрица}
+
+\begin{Def}
+    Для матрицы $A - n \times n$ матрица $B$ называется обратной, если $A \cdot B = B \cdot A = E_n$ 
+\end{Def}
+
+\begin{Def}
+    $\widetilde{A} = (A_{ij})^T$ -- взаимная матрица к $A$.
+\end{Def}
+
+\begin{Thm}[Об обратной матрице]
+    \[\exists ! \ A^{-1}, A^{-1} = \frac{1}{\det A} \cdot \widetilde{A} \EQ \det A \neq 0\]
+\end{Thm}
+
+\begin{proof}
+    ``$\SO$''. $A \cdot A^{-1} = E \SO \det (A \cdot A^{-1}) = \det A \cdot \det A^{-1} = 1 \SO \det A \neq 0$. \\
+    ``$\Leftarrow$''.
+    \[A \cdot \widetilde{A} = \left(\begin{array}{ccc}
+    a_{11} & \cdots & a_{1n} \\ 
+     &  & 
+    \end{array}\right) \left(\begin{array}{cc}
+    A_{11} &  \\ 
+    \vdots &  \\ 
+    A_{1n} & 
+    \end{array}\right) = \left(\begin{array}{cccc}
+    \det A & 0 & ... & 0 \\ 
+    0 & \det A & ... & 0 \\ 
+    0 & 0 & ... & \det A
+    \end{array}\right) \SO A \cdot A^{-1} = E\]
+    Единственность. Пусть $B_1, B_2$ -- обратные матрицы к $A$.
+    \[B_1 = B_1 \cdot A \cdot B_2 = B_2\]
+\end{proof}
+
+Свойства обратной матрицы:
+\begin{MyList}
+    \item $(A^{-1})^{-1} = A$ 
+    \item $(AB)^{-1} = B^{-1} A^{-1}$ 
+    \item $\det A^{-1} = (\det A)^{-1}$ 
+    \item $(A^T)^{-1} = (A^{-1})^T$
+\end{MyList}
+
+\begin{proof}
+    \begin{MyList}
+        \item $A^{-1} \cdot A = E$
+        \item $AB \cdot B^{-1} \cdot A^{-1} = E \SO (AB)^{-1} = B^{-1} A^{-1}$
+        \item упражнение
+        \item $A \cdot A^{-1} = E \SO (A \cdot A^{-1})^T = E^{T} \SO (A^{-1})^T A^T = E$   
+    \end{MyList}
+\end{proof}
+
+\Subsubsection{Формулы Крамера}
+
+Система линейных уравнений $n \times n$: 
+\[(*) = \begin{cases}
+    a_{11} x_1 + ... + a_{1n} x_n = b_1 \\
+    a_{21} x_1 + ... + a_{2n} x_n = b_2 \\
+    \vdots \\
+    a_{n1} x_1 + ... + a_{nn} x_n = b_n
+\end{cases}\]
+
+$A = \left(\begin{array}{ccc}
+a_{11} & \cdots & a_{1n} \\ 
+\vdots & \ddots & \vdots \\ 
+a_{n1} & \cdots & a_{nn}
+\end{array}\right)$ -- матрица коэффициентов, $b = \begin{pmatrix}
+b_1 \\ 
+\vdots \\ 
+b_n
+\end{pmatrix}$ -- столбец свободных членов, $x = \begin{pmatrix}
+x_1 \\ 
+\vdots \\ 
+x_n
+\end{pmatrix}$ -- столбец неизвестных.
+Тогда в матричном виде СЛУ : $A x = b$.
+
+\begin{Thm}[Формула Крамера]
+    Если $\det A \neq 0 \SO$ решение $(*) \ \exists ! $ и
+    \[x_i = \frac{\Delta_i}{\Delta}, \Delta = \det A, \Delta_i = \left|\begin{array}{ccccc}
+    a_{11} & \cdots & b_1 & \cdots & a_{1n} \\ 
+    \vdots & \ddots & \vdots & \ddots & \vdots \\ 
+    a_{n1} & \cdots & b_n & \cdots & a_{nn}
+    \end{array}\right|\] 
+\end{Thm}
+
+\begin{proof}
+    $Ax = b \SO A^{-1} \cdot Ax = A^{-1} b \SO x = A^{-1} b$
+    \[\SO \begin{pmatrix}
+    x_1 \\ 
+    \vdots \\ 
+    x_n
+    \end{pmatrix} = \frac{1}{\Delta} \cdot \left(\begin{array}{cccc}
+    A_{11} & A_{21} & \cdots & A_{n1} \\ 
+    A_{12} & A_{22} & \cdots & A_{n2} \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
+    A_{1n} & A_{2n} & \cdots & A_{nn}
+    \end{array}\right) \begin{pmatrix}
+    b_1 \\ 
+    b_2 \\ 
+    \vdots \\ 
+    b_n
+    \end{pmatrix} = \frac{1}{\Delta} (A_{1i} b_1 + A_{2i} b_2 + ... + A_{ni} b_n) = \begin{pmatrix}
+    \frac{\Delta_1}{\Delta} \\ 
+    \vdots \\ 
+    \frac{\Delta_n}{\Delta}
+    \end{pmatrix}\]
+\end{proof}
+
+\Subsection{Векторные пространства}
+
+\begin{Def}
+    Векторным (линейным) пространством над полем $K$ называется множество $V$ элементов, называемых векторами, на котором определены две операции:
+    \begin{MyList}
+        \item $\forall x, y \in V \to x + y \in V$ (сумма векторов) 
+        \item $\forall \alpha \in K, \forall x \in V \ \alpha x \in V$ (умножение вектора на элемент поля) 
+    \end{MyList}
+    которые подчиняются следующим аксиомам:
+    \begin{MyList}
+        \item $x + y = y + x$ 
+        \item $(x + y) + z = x + (y + z)$ 
+        \item $\exists 0 \in V : x + 0 = x \ \forall x \in V$ 
+        \item $\forall x \in V \ \exists (-x) \in V : x + (-x) = 0$ 
+        \item $1 \cdot x = x \ \forall x \in V$ (унитарность)
+        \item $(\alpha \beta) x = \alpha (\beta x), \forall \alpha, \beta \in K, \forall x \in V$
+        \item $(\alpha + \beta)x = \alpha x + \beta x$
+        \item $\alpha (x + y) = \alpha x + \alpha y$    
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    \begin{MyList}
+        \item $V$ -- коммутативная группа по сложению векторов
+        \item $\alpha \in K, x \in V, \alpha x$, слева из $K$, справа из $V$.
+        \item $+$ и $\cdot$ условны.
+        \item Разность $x - y = x + (-y)$ 
+    \end{MyList}
+\end{Rem}
+
+\begin{Cons}
+    \begin{MyList}
+        \item $0 \cdot x = 0$ ( $0 \cdot \overline{x} = \overline{0}$ ) $\forall x \in V$ 
+        \begin{proof}
+            $0 \cdot x = (0 + 0) \cdot x = 0 \cdot x + 0 \cdot x \SO 0 = 0 \cdot x$ 
+        \end{proof}
+
+        \item $\alpha \cdot 0 = 0 \ \forall \alpha \in K$
+        \begin{proof}
+            $\alpha \cdot 0 = \alpha (0 + 0) = \alpha \cdot 0 + \alpha \cdot 0 \SO \alpha \cdot 0 = 0$ 
+        \end{proof}
+
+        \item $\alpha x = 0 \SO \alpha = 0 \vee x = 0$
+        \begin{proof}
+            $\alpha \neq 0 \SO \exists \alpha^{-1} \SO \alpha^{-1} (\alpha x) = \alpha^{-1} \cdot 0 \SO x = 0$. 
+        \end{proof}
+
+        \item $(-1) \cdot x = -x$ 
+        \begin{proof}
+            $x + (-1) \cdot x = 1 \cdot x + (-1) \cdot x = (1 - 1) \cdot x = 0 \SO$ по единственности обратного $\SO (-1) \cdot x = -x$ 
+        \end{proof}
+    \end{MyList}
+\end{Cons}
+
+\begin{Example}
+    \begin{MyList}
+        \item Пространство столбцов (координатное пространство)
+        \[K^n = \left\{\begin{pmatrix}
+        \alpha_1 \\ 
+        \vdots \\ 
+        \alpha_n
+        \end{pmatrix}, \alpha_i \in K\right\}\]
+        -- векторное пространство
+
+        \item Пространство строк
+        \[^n K = \left\{(\alpha_1, ..., \alpha_n), \alpha_i \in K\right\}\]
+
+        \item $M(m, n, K)$ -- матрицы $m \times n$ 
+        \item $E$ -- векторы на плоскости или в пространстве ( $\R^2, \R^3$ ) 
+        \item $K[x]$ -- пространство многочленов
+        \item $K[x]_n$ -- пространство многочленов степени не выше $n$
+    \end{MyList}
+\end{Example}
+
+\begin{Rem}
+    Множество многочленов степени $n$ не образует векторного пространства.
+\end{Rem}
+
+\Subsubsection{Линейная зависимость}
+\begin{Def}
+    $\alpha_1, .., \alpha_n \in K, v_1, ..., v_n \in V$. Тогда
+    \[\alpha_1 v_1 + ... \alpha_n v_n \text{ -- линейная комбинация } v_1, ..., v_n\]
+    Множество всех линейных комбинаций $v_1, ..., v_n$:
+    \[\langle v_1, ..., v_n\rangle\left\{\alpha_1 v_1 + ... \alpha_n v_n, \alpha_i \in K, i = 1, ..., n\right\}\]
+    и называется \textbf{линейной оболочкой} векторов $v_1, ..., v_n$.  
+\end{Def}
+
+\begin{Def}
+    Говорят, что векторы $v_1, ..., v_n$ порождает векторное пространство $V$, если 
+    $\langle v_1, ..., v_n \rangle = V$.
+\end{Def}
+
+\begin{Def}
+    Пространство $V$ называется конечномерным, если оно порождается конечным числом векторов.
+    Иначе, $V$ -- бесконечномерное.
+\end{Def}
+
+\begin{Example}
+    \begin{MyList}
+        \item $\R^3 = \left\{\alpha_1 \begin{pmatrix}
+        1 \\ 
+        0 \\ 
+        0
+        \end{pmatrix} + \alpha_2 \begin{pmatrix}
+        0 \\ 
+        1 \\ 
+        0
+        \end{pmatrix} + \alpha_3 \begin{pmatrix}
+        0 \\ 
+        0 \\ 
+        1
+        \end{pmatrix}\right\} = \left\langle \begin{pmatrix}
+            1 \\ 
+            0 \\ 
+            0
+            \end{pmatrix}, \begin{pmatrix}
+            0 \\ 
+            1 \\ 
+            0
+            \end{pmatrix}, \begin{pmatrix}
+            0 \\ 
+            0 \\ 
+            1
+            \end{pmatrix} \right\rangle$ 
+
+        \item $K[x] = \left\langle 1, x, x^2, ..., \right\rangle$ -- бесконечномерное пространство. 
+    \end{MyList} 
+\end{Example}
+
+\begin{Def}
+    Множество векторов $v_1, ..., v_n \in V$ называется линейно независимым (ЛНЗ), если $\alpha_1 v_1 + ... + \alpha_n v_n = 0 \SO \alpha_1 = \alpha_2 = ... = \alpha_n = 0$ \\
+    Линейная комбинация $0 \cdot v_1 + ... + 0 \cdot v_n$ называется тривиальной.  
+\end{Def}
+
+\begin{Def}
+    Если $\exists \alpha_1, ..., a_n \in K$, не все равные 0, что 
+    $\alpha_1 v_1 + ... + \alpha_n v_n = 0$, то $v_1, ..., v_n$ называется линейно зависимым (ЛЗ).  
+\end{Def}
+
+\begin{Example}
+    \begin{MyList}
+        \item $e_1 = \begin{pmatrix}
+        1 \\ 
+        0 \\ 
+        0
+        \end{pmatrix}, e_2 = \begin{pmatrix}
+        0 \\ 
+        1 \\ 
+        0
+        \end{pmatrix}, e_3 = \begin{pmatrix}
+        0 \\ 
+        0 \\ 
+        1
+        \end{pmatrix}$ 
+        \[\alpha_1 e_1 + \alpha_2 e_2 + \alpha_3 + e_3 = \begin{pmatrix}
+        0 \\ 
+        0 \\ 
+        0
+        \end{pmatrix} = \begin{pmatrix}
+        \alpha_1 \\ 
+        \alpha_2  \\ 
+        \alpha_3 
+        \end{pmatrix} \EQ \alpha_1 = \alpha_2 = \alpha_3 = 0\]
+        
+        \item \[1 \cdot \begin{pmatrix}
+        1 \\ 
+        2 \\ 
+        3
+        \end{pmatrix} + 1 \cdot \begin{pmatrix}
+        2 \\ 
+        1 \\ 
+        0
+        \end{pmatrix} - 3 \cdot \begin{pmatrix}
+        1 \\ 
+        1 \\ 
+        1
+        \end{pmatrix} = \begin{pmatrix}
+        0 \\ 
+        0 \\ 
+        0
+        \end{pmatrix}\]
+
+        \item $K[x]_n, \{1, x, ..., x^n\}$ -- ЛНЗ.
+    \end{MyList} 
+\end{Example}
+
+\begin{Thm}[Свойства ЛЗ и ЛНЗ]
+    \begin{MyList}
+        \item $v_1, ..., v_n$ -- ЛЗ $\EQ \exists i : v_i = $ линейная комбинация остальных.
+        \item Множество векторов, содержащее 0 -- ЛЗ.
+        \item $X, Y$ -- множества векторов, $X \subset Y$. Если $Y$ -- ЛЗ, то $X$ -- ЛЗ.
+        Если $X$ -- ЛЗ, то $Y$ -- ЛЗ.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $\exists \alpha_i \neq 0, \alpha_1 v_1 + ... \alpha_i v_i + ... + \alpha_n v_n = 0 \SO v_i$ выражается. 
+        \item $1 \cdot 0 + 0 \cdot v_1 + ... + 0 \cdot v_n = 0$
+        \item самостоятельно.
+    \end{MyList}
+\end{proof}
+
+\begin{Lm}
+    $v_1, ..., v_n$ -- ЛЗ, $v_1 \neq 0 \SO \exists i, 2 \leqslant i \leqslant n : $
+    \begin{MyList}
+        \item $v_i \in \langle v_1, ..., v_{i - 1} \rangle$
+        \item $\langle v_1, ..., v_n \rangle = \langle v_1, ..., \widehat{v}_i, ..., v_n \rangle$  
+    \end{MyList}
+\end{Lm}
+
+\begin{proof}
+    \begin{MyList}
+        \item Рассмотрим $\alpha_1 v_1 + ... + \alpha_i v_i, i$ -- наименьший индекс $i : v_1, ..., v_i$ -- ЛЗ 
+        $\SO \alpha_1 v_1 + ... \alpha_i v_i = 0$. Если $\alpha_i = 0 \SO v_1, ..., v_{i - 1}$ -- ЛЗ $\SO a_i \neq 0 \SO v_i \in \langle v_1, ..., v_{i - 1} \rangle$.
+        
+        \item $\langle v_1, ..., \widehat{v}_i, ..., v_n \rangle = \langle v_1, ..., v_n \rangle$ $\subseteq$. \\
+        Возьмем произвольный $u \in \langle v_1, ..., v_n \rangle = \beta_1 v_1 + ... \beta_i v_i + ... + \beta_n v_n = \beta_1 v_1 + ... + \beta_i (\alpha_1' v_1 + ... + \alpha_{i - 1}'v_{i - 1}) + ... + \beta_n v_n$. 
+    \end{MyList}
+\end{proof}
+
+\begin{Cons}
+    $v_1, ... v_n$ -- ЛНЗ, $v \in V$. Тогда 
+    $v_1, ..., v_n, v $ -- ЛЗ $\EQ v \in \langle v_1, ..., v_n \rangle$ 
+\end{Cons}
+
+\begin{Thm}[Количество ЛНЗ $\leqslant$ к-во порождающих]
+    $V$ -- конечномерное векторное пространство. Пусть $u_1, ..., u_m$ -- ЛНЗ векторы, $V = \langle v_1, ..., v_n \rangle \SO m \leqslant n$ 
+\end{Thm}
+
+\begin{proof}
+    Если к $v_1, ..., v_n$ добавить $\forall u \in V$ -- ЛЗ.
+    Рассмотрим $u_1, v_1, ..., v_n$ -- ЛЗ $\SO$ по лемме $\exists i : 1 \leqslant i \leqslant n : \langle u_1, v_1, ..., v_n \rangle = \langle u_1, v_1, ..., \widehat{v}_i, ..., v_n \rangle$ и далее:
+    $\langle u_1, u_2, v_1, ..., \widehat{v}_i, ..., v_n \rangle \SO \exists j : $ можно убрать $v_j$ и т.д. и получаем $\langle u_i, ..., \rangle = V$.
+    Если $m > n \SO u_1, ..., u_n$ -- порождает все $V \SO u_1, ..., u_n, u_{n + 1}$ -- ЛЗ -- противоречие.
+\end{proof}
 
 \end{document}
