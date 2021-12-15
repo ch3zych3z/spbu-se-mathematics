@@ -8,6 +8,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \usepackage{amsthm,amsmath,amssymb}
 \usepackage{listings}
 \usepackage{color}
@@ -16,6 +17,8 @@
 \usepackage{mathrsfs}
 \usepackage{import}
 \usepackage{epigraph}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
 \usepackage{enumerate}
@@ -36,6 +39,8 @@
 %\listfiles
 
 \def\NAME{Лекции}
+
+\input code-format.tex
 
 \sloppy
 \voffset=-20mm
@@ -1095,5 +1100,276 @@ $P(X) = \frac{1}{\sqrt{2\pi \sigma}} \exp \left(- \frac{(X - a)^2}{\sigma^2}\rig
     \[\sup |F_n(x) - N(X)| \xrightarrow[n \to \infty]{} 0\]   
     т.е. $S_n \to N(na, n \sigma^2)$ 
 \end{Thm}
+
+\Section{Ликбез по алгоритмам}{}{Илья Дудников}
+
+\begin{Example}
+    $n! = \prod_{i = 1}^n i$ 
+\begin{lstlisting}
+int res = 1;
+for (int i = 1; i <= n; i++, res *= i);
+\end{lstlisting}
+
+Либо же можно избрать другой подход:
+\begin{lstlisting}
+int f(int t) {
+    if (n > 0)
+        return f(n - 1) * n;
+    return 1;
+}
+\end{lstlisting}
+
+Какой из этих алгоритмов лучше? Очевидно, что оба алгоритма работают за $O(n)$, однако на второй алгоритм требуется больше памяти, а именно $O(n)$ памяти, а первый лишь $O(1)$.
+\end{Example}
+
+\Subsection{Полный перебор}
+
+\begin{Example}
+    $2x + y = 100, x, y \in \N$. Заметим, что $1 \leqslant x \leqslant 49, 1 \leqslant y \leqslant 99$. Тогда несложно перебрать все варианты: $\forall (a, b) \in X \times Y$ проверяем, выполняется ли $2a + b = 100$.
+    Перебор можно было урезать, например, заметив, что $y < 99$, т.к. $x \geqslant 1 \SO 100 - 2x \leqslant 98$. Также, $y \vdots 2$, т.к. $2x \vdots 2, 100 \vdots 2$.
+    В конце концов, можно заметить, что $y = 100 - 2x$, значит $\overline{X} = \{1, ..., 99\}, \overline{Y} = \{100 - 2x\}, |X| = 49, |Y| = 1$.
+    Значит достаточно перебирать только $b \in X$, что сокращает перебор в 100 раз.
+\end{Example}
+
+\begin{Def}
+    Будем считать перебор \textbf{оптимальным}, если множество перебираемых значений по мощности асимптотически равно размеру ответа. 
+\end{Def}
+
+\begin{Example}
+    Решето Эратосфена. Хотим найти все простые числа, меньшие $n$.
+
+\begin{lstlisting}
+bool prime[n] = {1};
+prime[0] = prime[1] = 0;
+for (int i = 2; i * i < n; i++) {
+    if (prime[i]) {
+        for (int j = i * i; j < n; j += i)
+            prime[j] = 0;
+    }
+}
+\end{lstlisting}
+\end{Example}
+
+\Subsection{Линейные алгоритмы}
+
+\begin{Example}
+    Дана последовательность $\{a_0, ..., a_{n - 1}\}$. Хотим найти $i, j : \sum_{k=i}^{j} a_k$ максимальна.
+    
+\begin{lstlisting}
+int max_sum = 0;
+int cur_sum = 0;
+for (int i = 0; i < n; i++) {
+    cur_sum += a[i];
+    max_sum = max(max_sum, cur_sum);
+    if (cur_sum < 0)
+        cur_sum = 0;
+}
+\end{lstlisting}
+\end{Example}
+
+\Subsection{Разделяй и властвуй}
+
+Идея заключается в разделении задачи на несколько подзадач того же типа и в дальнейшем слиянии получившихся результатов.
+\begin{Example}[Сортировка слиянием]
+    Имеется массив, который мы хотим отсортировать. Делим массив пополам и рекурсивно выполняем сортировку в левой и правой половинах.
+    Слияние половинок выполняется несложно. Массив длиной 1 считаем отсортированным.
+    Тогда получается $\log_2 n$ уровней, на каждом из которых выполняется слияние за $O(n)$, тогда общая асимптотика 
+    $O(n \log n)$ 
+\end{Example}
+
+\begin{Thm}[Мастер теорема]
+    Если есть рекуррентное соотношение: 
+    \[T(n) = \begin{cases}
+        a \cdot T \left(\frac{n}{b}\right) + O(n^c), n > 1 \\
+        O(1), n = 1
+    \end{cases}\]
+    где $n$ -- длина задачи, которая делится на $a$ подзадач длины $\frac{n}{b}$ за время $O(n^c)$ 
+    Тогда
+    
+    \begin{MyList}
+        \item Если $c > \log_b a$, то $T(n) = O(n^c)$ 
+        \item Если $c = \log_b a$, то $T(n) = O(n^c \cdot \log n)$
+        \item Если $c < \log_b a$, то $T(n) = O(n^{\log_b a})$ 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим дерево рекурсии:
+
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}{.4\textwidth}
+            \centering
+            \input{img/d_and_c.pdf_tex}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{.59\textwidth}
+            \centering
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                № слоя & \# задач & Размер задач & Накладные расходы \\ \hline
+                0 & 1 & $n/b$  & $O(n^c)$  \\ 
+                1 & $a$ & $n/b^2$  & $O(n^c)$ \\ 
+                ... & $a^i$  & $n/b^i$  & $O \left(a^i \left(\frac{n}{b^i}\right)^c\right) = O\left(m^c \cdot \left(\frac{a}{b^c}\right)^i\right)$  \\
+                $\log_b n$  & $a^{\log_b n}$ & $O(1)$ & 1 \\ 
+                \hline
+            \end{tabular}
+        \end{subfigure}
+    \end{figure}
+
+
+    
+    Тогда 
+    \[T(n) = \sum_{i=0}^{\log_b n} O \left(n^c \cdot \left(\frac{a}{b^c}\right)^i\right) = O\left(n^c \cdot \sum_{i=0}^{\log_b n} \left(\frac{a}{b^c}\right)^i\right)\] 
+    \begin{MyList}
+        \item $c > \log_b a$, т.е. $\frac{a}{b^c} < 1 \SO \sum_{i=0}^{\log_b n} \left(\frac{a}{b^c}\right)^i$ -- сумма убывающей геометрической прогрессии, т.е. константа. Значит $T(n) = O(n^c)$
+        \item $c = \log_b a \SO T(n) = O\left(n^c \sum_{i=0}^{\log_b n} 1\right) = O(n^c \log n)$ 
+        \item $c < \log_b a \SO$ 
+        \[T(n) = O \left(n^c \sum_{i=0}^{\log_b n} \left(\frac{a}{b^c}\right)^i\right) = O\left(n^c \cdot \left(\frac{a}{b^c}\right)^{\log_b n}\right) = O\left(n^c \cdot \frac{a^{\log_b n}}{b^{\log_b n \cdot c}}\right) = O(a^{\log_b n}) = O(n^{\log_b a})\]
+    \end{MyList}
+\end{proof}
+
+\begin{Algo}[Алгоритм Карацубы]
+    Рассмотрим числа длины $2n$. $A = (A_1 \cdot 10^n + A_2), B = (B_1 \cdot 10^n + B_2)$.
+    Тогда $A \cdot B = A_1 B_1 \cdot 10^{2n} + 10^n(A_1 B_2 + A_2 B_1) + A_2 B_2$. Обратимся к мастер теореме.
+    $a = 4, b = 2, c = 1$. $\log_b a = \log_2 4 = 2$. Тогда оценка сложности $T(n) = O(n^2)$.
+    Рассмотрим следующую величину: $\underbrace{(A_1 + A_2) \cdot (B_1 + B_2)}_\delta = \underbrace{A_1 B_1}_\alpha + \underbrace{A_1 B_2 + A_2 B_1}_\beta + \underbrace{A_2 B_2}_\gamma$. Тогда $a = 3, b = 2, c = 1 \SO T(n) = O(n^{\log_2 3})$         
+\end{Algo}
+
+\Subsection{Жадные алгоритмы}
+
+\begin{Example}
+    Пусть имеются монетки номиналом в 1, 2, 5, 10, 50, 100. Каким наименьшим количеством монет можно разменять данную сумму?
+    \begin{align*}
+        x &= \left(\frac{x}{100}\right)k_1 + \underbrace{x \% 100}_{y_1} \\
+        y_1 &= \left(\frac{y}{50}\right)k_2 + \underbrace{y_1 \% 50}_{y_2} \\
+        ... \\
+        y_5 &= \left(\frac{y_4}{1}\right)k_6 + 0 \\
+    \end{align*}
+\end{Example}
+
+\Subsection{Динамическое программирование}
+
+\begin{Def}
+    Динамическое программирование -- способ решений рекуррентных задач с помощью запоминания промежуточных результатов.
+\end{Def}
+
+\begin{Example}
+    $\PHI_n = \PHI_{n - 1} + \PHI_{n - 2}, \PHI_0 = \PHI_1 = 1$. Если решать эту задачу рекурсивно, несколько значений придётся вычислять несколько раз, что неоптимально.
+    Вместо этого можно решать итеративно, запоминая промежуточные результаты:
+
+\begin{lstlisting}
+int fib[n];
+fib[0] = fib[1] = 1;
+for (int i = 2; i < n; i++)
+    fib[i] = fib[i - 1] + fib[i - 2]
+\end{lstlisting}
+\end{Example}
+
+\Section{Теория графов}{}{Илья Дудников}
+
+\begin{Def}
+    Пусть $V = \{v_1, v_2, ..., v_n\}, E \subset V \times V$.
+    $(V, E) = G$ -- граф. $V$ -- множество вершин, $E$ -- множество рёбер.
+\end{Def}
+
+\begin{Def}
+    Мультиграф -- \TODO. 
+\end{Def}
+
+\begin{Def}
+    $G = (V, E), v_i \in V, e_j = (v_k, v_l) \in E$.
+    $v_i$ \textbf{инцидентно} $e_j$, если $v_k = v_i$ или $v_l = v_i$.
+\end{Def} 
+
+\begin{Def}
+    Степень вершина - число ребер, ей инцидентных.
+\end{Def}
+
+\begin{Prop}
+    Сумма степеней графа -- четна.
+\end{Prop}
+
+\begin{proof}
+    $\sum_{i=1}^{n} \deg v_i = \deg v_1 + \deg v_2 + ... + \deg v_n = \sum_{e_i \in E} (1 + 1) = |E| \cdot 2$ 
+\end{proof}
+
+\begin{Def}
+    $v_i, v_j \in V$. $v_i$ смежна с $v_j$, если $\exists e_k = (v_i, v_j)$ 
+\end{Def}
+
+\Subsection{Способы задания графов}
+
+\begin{MyList}
+    \item Матрица смежности. 
+    \[\begin{array}{c|c|c|c|c}
+     & v_1 & v_2 & ... & v_n \\ \hline 
+    v_1 &  &  &  &  \\ \hline
+    v_2 &  &  &  &  \\ \hline
+    ... &  &  &  &  \\ \hline
+    v_n &  &  &  & 
+    \end{array} = M, M_{i, j} = \begin{cases}
+        0, (v_i, v_j) \notin E \\
+        1, (v_i, v_j) \in E
+    \end{cases}\]
+    Очевидно, что для её хранения требуется $O(|V|^2)$ памяти.
+
+    \item Список смежности.
+    \begin{align*}
+        v_1 &: \overbrace{v_{11}, v_{12}, ...}^{\text{смежные с $v_i$}} \\
+        v_2 &: v_{21}, v_{22}, ... \\
+        &\vdots \\
+        v_n &: v_{n1}, v_{n2}, ...
+    \end{align*}
+    Поскольку мы храним все ребра, то нужно $O(|E|)$ памяти.
+
+    \item Список ребер.
+    \item Матрица инцидентности.
+    Матрица размера $|V| \cdot |E|:$ 
+    \[\begin{array}{c|c|c|c|c}
+        & e_1 & e_2 & ... & e_m \\ \hline 
+       v_1 &  &  &  &  \\ \hline
+       v_2 &  &  &  &  \\ \hline
+       ... &  &  &  &  \\ \hline
+       v_n &  &  &  & 
+       \end{array} = MI, MI_{i, j} =\begin{cases}
+           0, v_i \text{ не инцидентно } e_j \\
+           1, \text{иначе}
+       \end{cases}\]
+\end{MyList}
+
+\Subsection{Пути в графе}
+
+\begin{Def}
+    Пусть в графе -- последовательность вершин $u_1, u_2, ... u_k : \forall 2 \leqslant i \leqslant k \to (u_{i - 1}, u_i) \in E$ \\
+    Простой путь -- путь, в котором вершины не повторяются.
+\end{Def}
+
+\begin{Def}
+    Наличие пути между двумя вершинами -- отношение эквивалентности $\SO$ вершины разбиваются на классы эквивалентности -- \textbf{компоненты связности} 
+\end{Def}
+
+\begin{Def}
+    Цикл в графе -- последовательность вершин $u_1, ..., u_k : \begin{cases}
+        \forall i \to (u_{i - 1}, u_i) \in E \\
+        (u_k, u_1) \in E
+    \end{cases}$ 
+\end{Def}
+
+\begin{Def}
+    Простой цикл -- цикл без повторяющихся ребер.
+\end{Def}
+
+\begin{Def}
+    Если $V_1 \subset V, E_1 \subset E, H = (V_1, E_1)$ -- граф, тогда $H$ -- подграф $G$.
+\end{Def}
+
+\begin{Def}
+    $H$ -- остовный подграф $G$, если $V_1 = V$
+\end{Def}
+
+\begin{Def}
+    $H$ -- индуцированный подграф $G$, если $\forall x, y \in V_1 ((x, y) \in E \SO (x, y) \in E_1)$ 
+\end{Def}
 
 \end{document}
