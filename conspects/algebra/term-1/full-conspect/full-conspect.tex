@@ -328,6 +328,7 @@
 \newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 
 \DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\inv}{inv}
 \DeclareMathOperator{\Imag}{Im}
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\characteristic}{char}
@@ -2394,10 +2395,10 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
 \begin{Def}
     Матрицей называется таблица размера $m \times n$ элементов.
     \[A = \left(\begin{array}{cccc}
-    a_{11} & a_{12} & ... & a_{1n} \\ 
-    a_{21} & a_{22} & ... & a_{2n} \\ 
-    ... & ... & ... & ... \\
-    a_{m1} & a_{m2} & ... & a_{mn}
+    a_{11} & a_{12} & \cdots & a_{1n} \\ 
+    a_{21} & a_{22} & \cdots & a_{2n} \\ 
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{m1} & a_{m2} & \cdots & a_{mn}
     \end{array}\right)\]
     $A = (a_{ij})_{1 \leqslant i \leqslant m, 1 \leqslant j \leqslant n}, a_{ij} \in K, K$ -- поле 
 \end{Def}
@@ -2409,13 +2410,13 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
     \item Матрица $1 \times n \SO (a_1, ..., a_n) $ -- строка
     \item Матрица $m \times 1 \SO \left(\begin{array}{c}
     a_1 \\ 
-    ... \\ 
+    \vdots \\ 
     a_n
     \end{array}\right)$ -- столбец
     \item Нулевая матрицы $0 = \left(\begin{array}{ccc}
-    0 & ... & 0 \\ 
-    ... & ... & ... \\ 
-    0 & ... & 0
+    0 & \cdots & 0 \\ 
+    \vdots & \ddots & \vdots \\ 
+    0 & \cdots & 0
     \end{array}\right)$ 
     \item Квадратная матрица: $m = n$ 
 \end{MyList}
@@ -2426,16 +2427,16 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
     \item Сложение. $A = (a_{ij}) - m \times n, B = (b_{ij}) - m \times n$
     \[A + B = \left(\begin{array}{cccc}
     a_{11} + b_{11} & a_{12} + b_{12} & ... & a_{1n} + b_{1n} \\ 
-    ... & ... & ... & ... \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
     a_{m1} + b_{m1} & a_{m2} + b_{m2} & ... & a_{mn} + b_{mn}
     \end{array}\right)\]
 
     \item Умножение на элемент поля $K$, $c \in K, A = (a_{ij}) - m \times n$ 
     \[c \cdot A = \left(\begin{array}{cccc}
-    c \cdot a_{11} & c \cdot a_{12} & ... & c \cdot a_{1n} \\ 
-    c \cdot a_{21} & c \cdot a_{22} & ... & c \cdot a_{2n} \\ 
-    ... & ... & ... & ... \\ 
-    c \cdot a_{m1} & c \cdot a_{m2} & ... & c \cdot a_{mn}
+    c \cdot a_{11} & c \cdot a_{12} & \cdots & c \cdot a_{1n} \\ 
+    c \cdot a_{21} & c \cdot a_{22} & \cdots & c \cdot a_{2n} \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
+    c \cdot a_{m1} & c \cdot a_{m2} & \cdots & c \cdot a_{mn}
     \end{array}\right)\]
 \end{MyList}
 
@@ -2474,11 +2475,11 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
 
 \begin{Def}
     $B = \left(\begin{array}{cccc}
-    b_1 & b_2 & ... & b_n
+    b_1 & b_2 & \cdots & b_n
     \end{array}\right), A = \left(\begin{array}{c}
     a_1 \\ 
     a_2 \\ 
-    ... \\ 
+    \vdots \\ 
     a_n
     \end{array}\right)$
     \[B \cdot A = b_1 a_1 + b_2 a_2 + ... + b_n a_n\] 
@@ -2498,30 +2499,30 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
         \item $\left(\begin{array}{c}
         a_1 \\ 
         a_2 \\ 
-        ... \\ 
+        \vdots \\ 
         a_n
         \end{array}\right) \cdot \left(\begin{array}{cccc}
-        b_1 & b_2 & ... & b_n
+        b_1 & b_2 & \cdots & b_n
         \end{array}\right) = \left(\begin{array}{cccc}
-        a_1b_1 & a_1b_2 & ... & a_1b_n \\ 
-        a_2b_1 & a_2b_2 & ... & a_2b_n \\ 
-        ... & ... & ... & ... \\ 
-        a_nb_1 & a_nb_2 & ... & a_nb_n
+        a_1b_1 & a_1b_2 & \cdots & a_1b_n \\ 
+        a_2b_1 & a_2b_2 & \cdots & a_2b_n \\ 
+        \vdots & \vdots & \ddots & \vdots \\ 
+        a_nb_1 & a_nb_2 & \cdots & a_nb_n
         \end{array}\right)$ 
 
         \item $B = \left(\begin{array}{cccc}
-        B^1 & B^2 & ... & B^n
+        B^1 & B^2 & \cdots & B^n
         \end{array}\right), B^j$ -- столбцы.
         \[A \cdot B = \left(\begin{array}{cccc}
-        AB^1 & AB^2 & ... & AB^n
+        AB^1 & AB^2 & \cdots & AB^n
         \end{array}\right)\]
 
         \item $M(n, n, K) = M(n, K)$ -- квадратные матрицы порядка $n$. $E = E_n \in M(n, K)$ -- единичная матрица.
         \[E = \left(\begin{array}{cccc}
-        1 & 0 & ... & 0 \\ 
-        0 & 1 & ... & 0 \\ 
-        ... & ... & ... & ... \\ 
-        0 & 0 & ... & 1
+        1 & 0 & \cdots & 0 \\ 
+        0 & 1 & \cdots & 0 \\ 
+        \vdots & \vdots & \ddots & \vdots \\ 
+        0 & 0 & \cdots & 1
         \end{array}\right)\]
     \end{MyList}
 \end{Rem}
@@ -2541,16 +2542,16 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
         $(AB)C$ -- определено $\SO C $ -- $l \times n \SO (AB)C$ -- $m \times n$. \\
         $BC$ -- $(k \times l) \cdot (l \times n) = (k \times n)$. $A(BC)$ -- $(m \times k) \cdot (k \times n) = (m \times n)$.
         $C = \left(\begin{array}{cccc}
-        C^1 & C^2 & ... & C^n
+        C^1 & C^2 & \cdots & C^n
         \end{array}\right)$ -- столбцы. Тогда $A(BC) = A \left(\begin{array}{cccc}
-        BC^1 & BC^2 & ... & BC^n
+        BC^1 & BC^2 & \cdots & BC^n
         \end{array}\right) = \left(\begin{array}{cccc}
-        ABC^1 & ABC^2 & ... & ABC^n
+        ABC^1 & ABC^2 & \cdots & ABC^n
         \end{array}\right)$ \\
         $(AB)C = (AB) \left(\begin{array}{cccc}
-        C^1 & C^2 & ... & C^n
+        C^1 & C^2 & \cdots & C^n
         \end{array}\right) = \left(\begin{array}{cccc}
-        ABC^1 & ABC^2 & ... & ABC^n
+        ABC^1 & ABC^2 & \cdots & ABC^n
         \end{array}\right)$   
     \end{proof}
 \end{MyList}
@@ -2585,5 +2586,284 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
         \[g_{ij} = \sum_{t=1}^{k} d_{it} c_{tj} = \sum_{t=1}^{k} b_{ti} a_{jt} = \sum_{t=1}^{k} a_{jt} b_{ti} = f_{ji}\]
     \end{proof}
 \end{MyList}
+
+\Subsection{Теория определителей}
+
+Рассмотрим систему из двух линейных уравнений с двумя неизвестными.
+
+\[\begin{cases}
+    a_{11} x + a_{12} y = b_1 \\
+    a_{21} x + a_{22} y = b_2
+\end{cases} \EQ \begin{cases}
+    -a_{11}a_{21}x - a_{21} a_{12} = - a_{21} b_1  \\
+    a_{11} a_{21} x + a_{11} a_{22} y = a_{11} b_2 \SO
+\end{cases}\]
+
+\[\SO (a_{11} a_{22} - a_{12} a_{21}) y = a_{11} b_2 - a_{21} b_1 \SO \begin{cases}
+    y = \frac{a_{11} b_2 - a_{21} b_1}{a_{11} a_{22} - a_{12} a_{21}} \\
+    x = \frac{b_1 a_{22} - b_2 a_{12}}{a_{11} a_{22} - a_{12} a_{21}}
+\end{cases}\]
+\[\Delta = \left|\begin{array}{cc}
+a_{11} & a_{12} \\ 
+a_{21} & a_{22}
+\end{array}\right| = a_{11} a_{22} - a_{21} a_{12}, \Delta_1 = \left|\begin{array}{cc}
+b_1 & a_{12} \\ 
+b_2 & a_{22}
+\end{array}\right|, \Delta_2 = \left|\begin{array}{cc}
+a_{11} & b_1 \\ 
+a_{21} & b_2
+\end{array}\right|\]
+
+\[\left|\begin{array}{ccc}
+a_{11} & a_{12} & a_{13} \\ 
+a_{21} & a_{22} & a_{23} \\ 
+a_{31} & a_{32} & a_{33}
+\end{array}\right| = a_{11} a_{22} a_{33} + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32} - a_{31} a_{22} a_{13} - a_{32} a_{23} a_{11} - a_{33} a_{21} a_{12}\]
+
+\Subsection{Определение определителя}
+
+Квадратная матрица $n \times n$ -- матрица порядка $n$.
+\begin{Def}
+    Определителем матрицы порядка $n$ называется 
+    \[\left|\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n} \\ 
+    a_{21} & a_{22} & \cdots & a_{2n} \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
+    a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{array}\right| = \sum_{(i_1, i_2, ..., i_n)} \pm a_{1i_1} a_{2i_2} ... a_{ni_n} = \sum \varepsilon_\sigma = a_{1\sigma(1)} a_{2\sigma(2)} ... a_{n \sigma(n)} =\]
+    где $\varepsilon_\sigma$ -- знак перестановки. $\varepsilon = (-1)^{\inv (i_1, i_2, ..., i_n)}$   
+    \[= \sum_{(i_1, i_2, ..., i_n) \in S_n} (-1)^{\inv (i_1, i_2, ..., i_n)} a_{1i_1} a_{2i_2} ... a_{ni_n}\]
+\end{Def}
+
+\Subsection{Свойства определителя}
+
+\begin{MyList}
+    \item Знак $(a_{i_1 j_1} \cdot a_{i_2 j_2} \cdot ... \cdot a_{i_n j_n}) = (-1)^{\inv (i_1, i_2, ..., i_n) + \inv(j_1, j_2, ..., j_n)}$ 
+    \begin{proof}
+        $a_{i_1 j_1} a_{i_2 j_2} ... a_{i_n j_n} \to a_{1j_1'} a_{2j_2'} ... a_{n j_n'}$.
+        $(i_1, ..., i_n), (j_1, ..., j_n)$ совершали 2 транспозиции $\SO \inv(i_1, ..., i_n) + \inv(j_1, ..., j_n) $ -- четность осталась та же самая
+        \[\SO (-1)^{\inv(i_1, ..., i_n) + \inv(j_1, ..., j_n)} = (-1)^{\inv (1, ..., n) + \inv(j_1', ..., j_n')} = (-1)^{\inv (j_1', ..., j_n')}\]  
+    \end{proof}
+
+    \item $\det A = \det A^T$
+    \begin{proof}
+        $\det A = \sum \pm a_{1i_1} ... a_{ni_n}$. В $\det A^T$ слагаемые без учета знака будут одинаковые.
+        \[(-1)^{\inv(1, ..., n) + \inv(j_1', ..., j_n')} = (-1)^{\inv(i_1', ..., i_n') + \inv(1, ..., n)} = (-1)^{\inv (i_1, ..., i_n) + \inv(j_1, ..., j_n)}\]  
+    \end{proof}
+
+    \item $A = \left(\begin{array}{ccc}
+    A_1 & \cdots & A_n
+    \end{array}\right), A_i$ -- строки $1 \leqslant i \leqslant n$. \\
+    $\left(\begin{array}{c}
+    A_1 \\ 
+    \vdots \\ 
+    A_n
+    \end{array}\right), A = \left(\begin{array}{ccc}
+    A^1 & \cdots & A^n
+    \end{array}\right), A^j$ -- столбцы, $1 \leqslant j \leqslant n$.
+    
+    \begin{Rem}
+        Все свойства, которые верны для строк матрицы, будут верны и для столбцов.
+    \end{Rem}
+
+    \[\det(A_1, ..., A_i' + A_i'', ..., A_n) = \det(A_1, ..., A_i', ..., A_n) + \det (A_1, ..., A_i'', ..., A_n)\]
+    \[\left|\begin{array}{ccc}
+    a_{11} & a_{12} & a_{13} \\ 
+    b_1 + c_1 & b_2 + c_2 & b_3 + c_3 \\ 
+    a_{31} & a_{32} & a_{33}
+    \end{array}\right| = \left|\begin{array}{ccc}
+    a_{11} & a_{12} & a_{13} \\ 
+    b_1 & b_2 & b_3 \\ 
+    a_{31} & a_{32} & a_{33}
+    \end{array}\right| + \left|\begin{array}{ccc}
+    a_{11} & a_{12} & a_{13} \\ 
+    c_1 & c_2 & c_3 \\ 
+    a_{31} & a_{32} & a_{33}
+    \end{array}\right|\]
+
+    \begin{proof}
+        $\det A = \sum_{\sigma} \varepsilon_\sigma a_{1\sigma(1)} ... (a_{i \sigma(i)}' + a_{i \sigma(i)}'') ... a_{n \sigma(n)} = \sum \varepsilon_\sigma a_{1\sigma(1)} ... a_{i \sigma(i)}' ... a_{n \sigma(n)} + \sum \varepsilon_\sigma a_{1 \sigma(i)} ... a_{i \sigma(i)}'' ... a_{n \sigma(n)} =$
+        \[= \det (A_1, ..., A_i', ..., A_n) + \det(A_1, ..., A_i'', ..., A_n)\] 
+    \end{proof}
+
+    \item $\det(A_1, ..., \lambda A_i, ..., A_n) = \lambda \det (A_1, ..., A_n)$ 
+    \item $\det (A_1, ..., \underbrace{A_i}_i, ..., \underbrace{A_i}_j, ..., A_n) = 0$
+    \begin{proof}
+        \[\det A = \begin{array}{c|ccc|}
+         &  &  &  \\ 
+        i & a_{i1} & \cdots & a_{in} \\ 
+         & \vdots & \ddots & \vdots \\ 
+        j & a_{j1} & \cdots & a_{jn} \\ 
+         &  &  & 
+        \end{array} = \sum_{\sigma \text{ -- чет.}} a_{1 \sigma(1)} ... a_{n \sigma(n)} - \sum_{\sigma \text{ -- неч.}} a_{1\sigma(1)} ... a_{n \sigma(n)}\]
+        Все нечетные перестановки получаются из четных, если сделать одну транспозицию
+        $\SO$ сделав транспозицию $(ij) \SO$ из четной получим нечетную. 
+    \end{proof}
+
+    \item \[\det (A_1, ..., A_i, ..., A_j, ... A_n) = -\det(A_1, ..., A_j, ..., A_i, ..., A_n)\]
+    \begin{proof}
+        $0 = \det (A_1, ..., \underbrace{A_i + A_j}_i, ..., \underbrace{A_i + A_j}_j, ..., A_n) = \det(A_1, ..., A_i, ... A_i, ..., A_n) + \det(A_1, ..., A_i, ..., A_j, ..., A_n) + \det(A_1, ..., A_j, ..., A_i, ..., A_n) + \det(A_1, ..., A_j, ..., A_j, ..., A_n)$
+        \[\SO \det(A_1, ..., A_i, ..., A_j, ..., A_n) = \det(A_1, ..., A_j, ..., A_i, ..., A_n) = 0\] 
+    \end{proof}
+
+    \item Определитель с двумя пропорциональными строками равен нулю.
+    \[\det (A_1, ..., A_n) = 0 \Leftarrow A_i = \lambda A_j, 1 \leqslant i \neq j \leqslant n\]
+
+    \item Определитель не изменится, если к одной строке прибавить другую, умноженную на $\lambda$.
+    \[\det(A_1, ..., A_n) = \det(A_1, ..., A_i + \lambda A_j, ..., A_n)\]
+
+    \begin{proof}
+        \[\det (A_1, ..., A_i + \lambda A_j, ..., A_j, ..., A_n) = \det (A_1, ..., A_i, ... A_j, ... A_n) + \underbrace{\det(A_1, ..., \lambda A_j, ..., A_j, ..., A_n)}_0 = \det A\]
+    \end{proof}
+\end{MyList}
+
+\Subsection{Алгебраические дополнения и миноры}
+
+\begin{Def}
+    Определитель матрицы, полученный вычеркиванием из матрицы $A$ $k$ строк и $k$ столбцов, называется минором $(n - k)$-го порядка.
+\end{Def}
+
+\begin{Def}
+    Минор $(n - 1)$-го порядка называется главным.
+    \[\Delta_{ij} = \begin{array}{c|cccc|}
+     & a_{11} &  & \vdots & a_{1n} \\ 
+    i & \cdots & \cdots & \vdots & \cdots \\ 
+     &  &  & \vdots &  \\ 
+     & a_{n1} &  & \vdots & a_{nn} \\
+     & & & j &
+    \end{array}\]
+\end{Def}
+
+\begin{Def}
+    $A_{ij} = (-1)^{i+j} \Delta_{ij}$ -- алгебраическое дополнение к $a_{ij}$ 
+\end{Def}
+
+\begin{Lm}
+    \begin{MyList}
+        \item $\left|\begin{array}{cccc}
+            a_{11} & 0 & \cdots & 0 \\ 
+            a_{21} & a_{22} & \cdots & a_{2n} \\ 
+            \vdots & \vdots & \ddots & \vdots \\ 
+            a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{array}\right| = a_{11} A_{11}$ 
+
+        \item $\left|\begin{array}{ccccc}
+        a_{11} & \cdots & a_{1j} & \cdots & a_{in} \\ 
+        \vdots & \ddots & \vdots & \ddots & \vdots \\ 
+        0 & \cdots & a_{ij} & \cdots & 0 \\ 
+        \vdots & \ddots & \vdots & \ddots & \vdots \\ 
+        a_{n1} & \cdots & a_{nj} & \cdots & a_{nn}
+        \end{array}\right| = a_{ij} A_{ij}$ 
+    \end{MyList}
+
+    \begin{proof}
+        \begin{MyList}
+            \item $\det A = \sum_{\sigma(i) \neq 1} \varepsilon_\sigma a_{11} a_{2 \sigma(2)} ... a_{n \sigma(n)} = a_{11} \Delta_{11} = a_{11} A_{11}$ 
+            \item $\left|\begin{array}{ccccc}
+            a_{11} & \cdots & a_{1j} & \cdots & a_{1n} \\ 
+            \vdots & \ddots & \vdots & \ddots & \vdots \\ 
+            0 & \cdots & a_{ij} & \cdots & 0 \\ 
+            \vdots & \ddots & \vdots & \ddots & \vdots \\ 
+            a_{n1} & \cdots & a_{nj} & \cdots & a_{nn}
+            \end{array}\right| = \varepsilon \cdot \left|\begin{array}{cccc}
+            a_{ij} & 0 & \cdots & 0 \\ 
+            a_{1j} & a_{11} & \cdots & a_{1n} \\ 
+            \vdots & \vdots & \ddots & \vdots \\ 
+            a_{nj} & a_{n1} & \cdots & a_{nn}
+            \end{array}\right| = \varepsilon \cdot a_{ij} \cdot \Delta_{ij} = (-1)^{i + j}a_{ij} \Delta_{ij} = a_{ij} A_{ij}$ 
+        \end{MyList}
+    \end{proof}
+\end{Lm}
+
+\begin{Thm}[Разложение определителя по строке]
+    $\forall i, 1 \leqslant i \leqslant n$
+    \[\det A = a_{i1} A_{i1} + ... + a_{in} A_{in}\] 
+\end{Thm}
+
+\begin{proof}
+    $$\left|\begin{array}{ccc}
+    a_{11} & \cdots & a_{1n} \\ 
+    \vdots & \ddots & \vdots \\ 
+    a_{i1} & \cdots & a_{in} \\ 
+    \vdots & \ddots & \vdots \\ 
+    a_{n1} & \cdots & a_{nn}
+    \end{array}\right| = \left|\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n} \\ 
+    a_{i1} & 0 & \cdots & 0 \\ 
+    a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{array}\right| + \left|\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n} \\ 
+    0 & a_{i2} & \cdots & 0 \\ 
+    a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{array}\right| + \cdots + \left|\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n} \\ 
+    0 & 0 & \cdots & a_{in} \\ 
+    a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{array}\right| =$$
+    \[= a_{i1} A_{i1} + a_{i2} A_{i2} + ... + a_{in} A_{in}\] 
+\end{proof}
+
+\begin{Cons}
+    $a_{i1} A_{j1} + ... + a_{in} A_{jn} = 0, i \neq j$ 
+\end{Cons}
+
+\begin{proof}
+    \[x_1 A_{j1} + ... + x_n A_{jn} = \begin{array}{c|ccc|}
+        &  &  &  \\ 
+       i & a_{i1} & \cdots & a_{in} \\ 
+        & \vdots & \ddots & \vdots \\ 
+       j & x_1 & \cdots & x_n \\ 
+        &  &  & 
+       \end{array} = 0\]
+\end{proof}
+
+\begin{Example}[Определитель Вондермонда]
+    \[\left|\begin{array}{ccccc}
+    1 & x_1 & x_1^2 & \cdots & x_1^{n - 1} \\ 
+    1 & x_2 & x_2^2 & \cdots & x_2^{n - 1} \\ 
+    \vdots & \vdots & \vdots & \ddots & \vdots \\ 
+    1 & x_n & x_n^2 & \cdots & x_n^{n - 1}
+    \end{array}\right| = \prod_{1 \leqslant j < i \leqslant n} (x_i - x_j)\]    
+\end{Example}
+
+\begin{proof}
+    Докажем по индукции. \\
+    $n = 2: \left|\begin{array}{cc}
+    1 & x_1 \\ 
+    1 & x_2
+    \end{array}\right| = x_2 - x_1$. \\
+    Индукционный переход: домножаем $k$-й столбец на $x_1$ и вычитаем его из $(k + 1)$-го столбца, $k = n - 1, ..., 1$.
+    \[\left|\begin{array}{ccccc}
+    1 & x_1 & \cdots & x_1^{n - 2} & x_1^{n - 1} \\ 
+    1 & x_2 & \cdots & x_2^{n - 2} & x_2^{n - 1} \\ 
+    \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+    1 & x_n & \cdots & x_n^{n - 2} & x_n^{n - 1}
+    \end{array}\right| = \left|\begin{array}{ccccc}
+        1 & x_1 & \cdots & x_1^{n - 2} & 0 \\ 
+        1 & x_2 & \cdots & x_2^{n - 2} & x_2^{n - 1} - x_1 \cdot x_2^{n - 2} \\ 
+        \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+        1 & x_n & \cdots & x_n^{n - 2} & x_n^{n - 1} - x_1 \cdot x_n^{n - 2}
+        \end{array}\right| =\]
+        \[= \left|\begin{array}{ccccc}
+        1 & 0 & 0 & \cdots & 0 \\ 
+        1 & x_2 - x_1 & x_2^2 - x_2x_1 & \cdots & x_2^{n - 1} - x_2^{n - 2}x_1 \\ 
+        \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+        1 & x_n - x_1 & x_n^2 - x_nx_1 & \cdots & x_n^{n - 1} - x_n^{n - 2}x_1
+        \end{array}\right| = a_{11} A_{11} = \]
+        \[ = (x_2 - x_1) (x_3 - x_1) ... (x_n - x_1) \cdot 
+        \left|\begin{array}{cccc}
+            1 & x_1 & \cdots & x_1^{n - 2} \\ 
+            1 & x_2 & \cdots & x_2^{n - 2} \\ 
+            \vdots & \vdots & \ddots & \vdots \\ 
+            1 & x_n & \cdots & x_n^{n - 2}
+            \end{array}\right|\]  
+\end{proof}
+
+\Subsection{Геометрическая интерпретация}
+
+$A_1, ..., A_n$ -- веткоры в пространстве $\R^n$ (строки).
+$A = (A_1, ..., A_n)$ \\
+$\Pi = \left\{\alpha_1 A_1 + ... + \alpha_n A_n,  0 \leqslant \alpha_i \leqslant 1, 1 \leqslant i \leqslant n\right\}$ -- $n$-мерный параллелепипед.
+\[|\det(A)| = V(\Pi)\]
 
 \end{document}
