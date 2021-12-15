@@ -2429,13 +2429,19 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     \item $(\arcctg x)' = \left(\frac{\pi}{2} - \arctg x\right)' = -\frac{1}{x^2 + 1}$ 
 \end{MyList} 
 
-\Section{Теоремы о средних}{}{Илья Дудников}
+\Subsection{Теоремы о средних}
 
 \begin{Thm}[Теорема Ферма]
     $a \in (A, B), f : \langle A, B\rangle \to \R$ -- дифференцируема в точке $a$. 
     Если $f(a) = \max_{a \in \langle A, B\rangle} f$ или $f(a) = \min_{a \in \langle A, B\rangle} f$, то $f'(a) = 0$.
-    
-    Геометрический смысл: Картинка \TODO. 
+
+    Геометрический смысл: 
+    \begin{figure*}[h]
+        \centering
+        \def\svgwidth{0.5\columnwidth} 
+        \input{images/fermat.pdf_tex}
+        \caption{Горизонтальная касательная}
+    \end{figure*}
 \end{Thm}
 
 \begin{proof}
@@ -2445,6 +2451,925 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
     Если $x < a$, то $ \frac{f(x) - f(a)}{x - a} \geqslant 0$ 
     \[f_-'(a) = \lim_{x \to a-} \frac{f(x) - f(a)}{x - a} \geqslant 0\]
     $f$ дифференцируема в точке $a \SO f_-'(a) = f_+'(a) = f'(a) \SO f'(a) = 0$ 
+\end{proof}
+
+\Pagebreak
+\begin{Thm}[Теорема Ролля]
+    $f: [a, b] \to \R$. Если
+    \begin{MyList}
+        \item $f$ дифференцируема на $(a, b)$ (т.е. дифференцируема в каждой точке).
+        \item непрерывна на $[a, b]$ 
+        \item $f(a) = f(b)$
+    \end{MyList}
+    Тогда $\exists c \in (a, b) : f'(c) = 0$
+    \begin{figure*}[h]
+        \centering
+        \def\svgwidth{0.5\columnwidth} 
+        \input{images/rolle.pdf_tex}
+        \caption{Теорема Ролля}
+    \end{figure*}
+\end{Thm}
+
+\begin{proof}
+    $f$ непрерывна на $[a, b] \SO f$ достигает наибольшего и наименьшего значения.
+    Если $a, b$ -- те точки, в которых достигается наибольшее и наименьшее значение, то $f$ постоянная на $[a, b] \SO f'(x) = 0 \ \forall x \in (a, b)$.
+
+    Если хотя бы в одной из точек $a$ и $b$ не достигает наибольшего или наименьшего значения, тогда одно из них достигается на $(a, b)$. Тогда по теореме Ферма в этой точке производная равна нулю.
+\end{proof}
+
+\begin{Rem}
+    Все три условия существенны.
+\end{Rem}
+
+\begin{Thm}[Теорема Лагранжа или формула конечных приращений.]
+    $f : [a, b] \to \R$. $f$ непрерывна на $[a, b], f$ -- дифференцируема на $(a, b)$.
+    Тогда $\exists c \in (a, b) : f(b) - f(a) = f'(c)(b - a)$ 
+
+    Геометрический смысл: $ \frac{f(b) - f(a)}{b - a} = f'(c)$.
+    
+    \begin{figure*}[h]
+        \centering
+        \def\svgwidth{0.4\columnwidth} 
+        \input{images/lagrange.pdf_tex}
+        \caption{Теорема Лагранжа}
+    \end{figure*}
+\end{Thm}
+
+\begin{proof}
+    $g(x) = f(x) - kx$ -- непрерывна на $[a, b]$, дифференцируема на $(a, b)$. Хотим подобрать $k : g(a) = g(b)$
+    \[f(a) - ka = f(b) - kb \SO k = \frac{f(b) - f(a)}{b - a}\]
+    Тогда $g(x) = f(x) - x \cdot \frac{f(b) - f(a)}{b - a}$ подходит под условия теоремы Ролля.
+    Тогда $\exists c \in (a, b) : g'(c) = 0$.
+    \[g'(x) = f'(x) - \frac{f(b) - f(a)}{b - a} \SO \exists c \in (a, b) : f'(c) = \frac{f(b) - f(a)}{b - a}\]  
+\end{proof}
+
+\begin{Thm}[Теорема Коши]
+    $f, g : [a, b] \to \R, f, g$ -- непрерывны на $[a, b]$, дифференцируемы на $(a, b)$, $\forall x \in (a, b) \ g'(x) \neq 0$.
+    Тогда $\exists c \in (a, b) : \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(c)}{g'(c)}$    
+\end{Thm}
+
+\begin{proof}
+    $h(x) = f(x) - kg(x)$ -- непрерывна на $[a, b]$, дифференцируема на $(a, b)$. 
+    Подберем $k : h(a) = h(b)$ 
+    \[f(a) - kg(a) = f(b) - kg(b) \SO k = \frac{f(b) - f(a)}{g(b) - g(a)}\]
+    Тогда $h(x) = f(x) - g(x) \cdot \frac{f(b) - f(a)}{g(b) - g(a)} \SO \exists c \in (a, b) : h'(c) = 0$
+    \[f'(c) - g'(c) \cdot \frac{f(b) - f(a)}{g(b) - g(a)} = 0\] 
+\end{proof}
+
+\begin{Rem}
+    \begin{MyList}
+        \item Точка $c$ может быть не единственной.
+        \item Теорема Лагранжа -- частный случай теоремы Коши, теорема Ролля -- частный случай теоремы Лагранжа.
+        \item Теорему Лагранжа можно записать в следующем виде:
+        \[ \frac{f(b) - f(a)}{b - a} = f'(a + \Theta \cdot (b - a)), \Theta \in (0, 1)\]
+    \end{MyList}
+\end{Rem}
+
+\begin{Cons}[Оценка конечных приращений]
+    $f$ непрерывна на $[a, b]$, дифференцируема на $(a, b)$. 
+    Если $\exists m, M \in \R : m \leqslant f'(x) \leqslant M \ \forall x \in (a, b)$, тогда 
+    \[m(b - a) \leqslant f(b) - f(a) \leqslant M(b - a)\]
+    В частности, если $\exists M \in \R : |f'(x)| \leqslant M \ \forall x \in (a, b)$, то
+    \[|f(b) - f(a)| \leqslant M \cdot (b - a)\] 
+\end{Cons}
+
+\begin{proof}
+    По теореме Лагранжа $\exists c \in (a, b) : f(b) - f(a) = f'(c)(b - a)$
+    \[m(b - a) \leqslant f(b) - f(a) = f'(c)(b - a) \leqslant M(b - a)\] 
+\end{proof}
+
+\begin{Cons}
+    Если $\forall x \in (a, b) \ f'(x) \geqslant 0$, то $f$ нестрого монотонно возрастает.
+\end{Cons}
+
+\begin{proof}
+    $x_1 < x_2 \in (a, b)$. $\exists c \in (x_1, x_2)$ :
+    \[f(x_2) - f(x_1) = f'(c)(x_2 - x_1) \SO f(x_2) \geqslant f(x_1)\]
+\end{proof}
+
+\begin{Cons}
+    Если $\forall x \in (a, b) \ f'(x) > 0$, то $f$ строго возрастает.
+\end{Cons}
+
+\begin{Cons}
+    Если $\forall x \in (a, b) \ f'(x) \leqslant 0$, то $f$ нестрого монотонно убывает.
+\end{Cons}
+
+\begin{Cons}
+    Если $\forall x \in (a, b) \ f'(x) < 0$, то $f$ строго монотонно убывает.
+\end{Cons}
+
+\begin{Rem}
+    Если $f$ дифференцируема на $(a, b)$ и $f$ строго монотонно убывает $\SO f'(x) < 0 \ \forall x \in (a, b)$ -- вообще говоря, неверно.
+
+    $f(x) = -x^3, f'(x) = -3x^2 \leqslant 0$ и равенство достигается при $x = 0$.
+\end{Rem}
+
+\begin{Thm}[Теорема Дарбу]
+    $f : [a, b] \to \R$ -- дифференцируема на $[a, b]$.
+    Пусть $C$ лежит строго между $f'(a)$ и $f'(b)$. 
+    Тогда $\exists c \in (a, b) : f'(c) = C$ 
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $C = 0$. Для определенности $f'(a) < 0 < f'(b)$. $f$ непрерывна на $[a, b] \SO f$ достигает наибольшего и наименьшего значения на $[a, b]$.
+        При таких знаках производной наименьшее значение достигается на $(a, b) \SO$ в такой точке минимума $f'(c) = 0$ (по теореме Ферма).
+
+        \item $C \neq 0$. Рассмотрим $h(x) = f(x) - Cx$.
+        \[h'(a) = f'(a) - C, h'(b) = f'(b) - C \SO h'(a) \text{ и } h'(b) \text{ -- разных знаков}\]
+        Тогда по предыдущему пункту $\exists c \in (a, b) : h'(c) = 0 \SO f'(c) = C$ 
+    \end{MyList}
+\end{proof}
+
+\begin{Thm}[Правило Лопиталя]
+    Пусть $-\infty \leqslant a < b \leqslant +\infty$.
+    $f, g : (a, b) \to \R,$ дифференцируемы на $(a, b), g'(x) \neq 0 \ \forall x \in (a, b)$ 
+    и $\lim_{x \to b-} f(x) = \lim_{x \to b-} g(x) = 0$.
+
+    Если $\lim_{x \to b-} \frac{f'(x)}{g'(x)} = l \in \overline{\R}$, то $\exists \lim_{x \to b-} \frac{f(x)}{g(x)} = l$
+\end{Thm}
+
+\begin{proof}
+    $g$ дифференцируема на $(a, b) \SO g$ непрерывна на $(a, b)$. Кроме того, $g'(x)~\neq~0 \ \forall x \in (a, b) \SO g$ строго монотонна на $(a, b)$
+    $\SO$ знакопостоянна на $(a, b)$ (и ни в какой точке не равна нулю).
+
+    По Гейне: $\forall \{x_n\} : x_n \to b, x_n \in (a, b) \ g(x_n) \to 0$. 
+    Возьмем строго возрастающую последовательность $\{x_n\} : x_n \in (a, b), x_n \to b$. Тогда
+    $\{g(x_n)\}$ строго монотонна. Тогда по теореме Штольца 
+    \[\lim_{n \to \infty} \frac{f(x_n)}{g(x_n)} = \lim_{n \to \infty} \frac{f(x_n) - f(x_{n - 1})}{g(x_n) - g(x_{n - 1})}\]
+    если предел справа существует.
+
+    По теореме Коши:
+    \[\exists c_n \in (x_{n - 1}, x_n) : \frac{f(x_n) - f(x_{n - 1})}{g(x_n) - g(x_{n - 1})} = \frac{f'(c_n)}{g'(c_n)}\]
+    \[\lim_{n \to \infty} \frac{f'(c_n)}{g'(c_n)} = \lim_{x \to b-} \frac{f'(x)}{g'(x)} \text{ -- существует и равен } l\]
+    т.к. $x_n \to b \SO c_n \to b$.
+    
+\end{proof}
+
+\begin{Thm}[правило Лопиталя для бесконечностей]
+    Условия те же, но $\lim_{x \to b-} f(x) = \lim_{x \to b-} g(x) = +\infty$.
+    Тогда если $\lim_{x \to b-} \frac{f'(x)}{g'(x)} = l \in \overline{\R}$, то $\exists \lim_{x \to b-} \frac{f(x)}{g(x)} = l$. 
+\end{Thm}
+
+\begin{Rem}
+    Обратить правило Лопиталя нельзя.
+    $f(x) = x + \sin x, g(x) = x$ 
+    \[\lim_{x \to +\infty} \frac{x + \sin x}{x} = \lim_{x \to +\infty} \left(1 + \frac{\sin x}{x}\right) = 1\]
+    Но
+    \[ \frac{f'(x)}{g'(x)} = \frac{1 + \cos x}{1} \SO \not\exists \lim_{x \to +\infty} \frac{f'(x)}{g'(x)}\]
+\end{Rem}
+
+\Subsection{Производные высших порядков}
+
+$f$ дифференцируема на $E$. $x \mapsto f'(x)$ область определения $E$.  
+
+Если $f'(x)$ дифференцируема на $E_1$, то $f$ дифференцируема на $E_1$ дважды.
+
+\begin{Def}
+    Второй производной функции $f$ в точке $a$ называется $(f')'(a) = f''(a)$,
+    третья производная -- $f'''(a) = (f'')'(a)$. $n$-ая производная -- $(f^{(n - 1)})' = f^{(n)}$ 
+\end{Def}
+
+\begin{Example}
+    $(x^3)''' = (3x^2)'' = (6x)' = 6$ 
+\end{Example}
+
+\begin{Example}
+    $(\sin x)^{(14)} = (\cos x)^{(13)} = (-\sin x)^{(12)} = (-\cos x)^{(11)} = (\sin x)^{(10)} = (\sin x)'' = -\sin x$ 
+\end{Example}
+
+\begin{Thm}[Арифметические действия с производными высших порядков]
+    $f$ и $g$ $n$ раз дифференцируемы в точке $a$. Тогда 
+    
+    \begin{MyList}
+        \item $\forall \alpha, \beta \in \R \ \alpha f + \beta g$ -- $n$ раз дифференцируема и 
+        $$(\alpha f + \beta g)^{(n)}(a) = \alpha \cdot f^{(n)}(a) + \beta \cdot g^{(n)}(a)$$
+        \item $f \cdot g$ -- $n$ раз дифференцируема в точке $a$ и 
+        \[(fg)^{(n)}(a) = \sum_{k=0}^{n} C_n^k \cdot f^{(k)}(a) \cdot g^{(n - k)}(a)\]
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item База при $n = 1$ -- верно. \\
+        Индукционный переход: пусть верно для $l$. Тогда для $l + 1$:
+        \[(\alpha f + \beta g)^{(l + 1)} = \left((\alpha f + \beta g)^{(l)}\right)' = \left(\alpha f^{(l)} + \beta g^{(l)}\right)' = \alpha f^{(l + 1)} + \beta g^{(l + 1)}\]
+
+        \item База при $n = 1$: $(fg)' = fg' + f'g$. \\
+        Индукционный переход: пусть верно для $l$
+
+        \begin{align*}
+            (fg)^{(l + 1)} &= ((fg)^{(l)})' = \left(\sum_{k=0}^{l} C_l^k f^{(k)} g^{(l - k)}\right)' = \sum_{k=0}^{l} C_l^k \left(f^{(k)} g^{(l - k)}\right)' = \\
+            &= \sum_{k=0}^{l} C_l^k \left(f^{(k + 1)} g^{(l - k)} + f^{(k)} g^{(l + 1 - k)}\right) = \sum_{k=0}^{l} C_l^k f^{(k + 1)}g^{(l - k)} + \sum_{k=0}^{l} C_l^k f^{(k)} g^{(l + 1 - k)} = \\
+            &= \sum_{j=1}^{l + 1} C_l^{j - 1} f^{(j)} g^{(l + 1 - j)} + \sum_{k=0}^{l} C_l^k f^{(k)} g^{(l + 1 - k)} = \\
+            &= C_l^l f^{(l + 1)} g + \sum_{j=1}^{l} \left(C_l^{j - 1} + C_l^j\right)f^{(j)} g^{(l + 1 - j)} + C_l^0 f g^{(l + 1)} \\
+            &= \sum_{k=0}^{l + 1} C_{l + 1}^k f^{(k)} g^{(l + 1 - k)}
+        \end{align*}
+
+    \end{MyList}
+\end{proof}
+
+\begin{Prop}
+    $\left(f(\alpha x + \beta)\right)^{(n)} = \alpha^n + f^{(n)} (\alpha x + \beta)$ 
+\end{Prop}
+
+\begin{Def}
+    $f$ дифференцируема на $E$ и $f'$ непрерывна на $E$. Тогда $f$ называется непрерывно дифференцируемой. \\
+    $f \in C^1 (E)$ -- непрерывно дифференцируемые функции. \\
+    $f \in C^2 (E)$ -- дважды непрерывно дифференцируемые функции. \\
+    $f \in C^n (E)$ -- $n$ раз непрерывно дифференцируемые функции. \\
+    $f \in C^\infty (E)$ -- бесконечно непрерывно дифференцируемые функции.
+\end{Def}
+
+\begin{Example}
+    $f(x) = |x| \in C(\R)$, но $f(x) \notin C^1 (\R)$  
+\end{Example}
+
+\begin{Example}
+    $f(x) = x^2 \in C^{\infty} (\R)$ 
+\end{Example}
+
+\begin{Example}
+    $f(x) = x^{\frac{4}{3}}$ на $\R$. $f'(x) = \frac{4}{3}x^{\frac{1}{3}}$ на $\R$. \\
+    $f''(x) = \frac{4}{3} \cdot \frac{1}{3} \cdot x^{-\frac{2}{3}}$ на $\R$ разрывна в нуле.
+    Тогда $f(x) \in C^1 (\R)$,но $f(x) \notin C^2(\R)$    
+\end{Example}
+
+\begin{Ex}
+    $g(x) = \begin{cases}
+        x^2, x \in \Q \\
+        0, x \notin \Q
+    \end{cases}$. Дифференцируема ли $g(x)$ в нуле?
+\end{Ex}
+
+\Subsection{Формула Тейлора}
+
+$P(x)$ многочлен степени не выше $n$, $a \in \R$ 
+\[P(x) = \sum_{k=0}^{n} c_k (x - a)^k, c_i \in \R\]
+$c_0 = P(a)$
+
+\begin{Thm}[Формула Тейлора для многочлена]
+    Пусть $n \in \Z_+, P$ -- многочлен степени не выше $n$. Тогда $\forall a, x \in \R$ 
+    \[P(x) = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!}(x - a)^k\] 
+\end{Thm}
+
+\begin{proof}
+    Проверим, что $\left.\left((x - a)^k\right)^{(m)} \right|_{x = a} = \begin{cases}
+        0, k \neq m \\
+        k!, k = m
+    \end{cases}$. \\
+    $k > m$ 
+    \[\left((x - a)^k\right)^{(m)} = \left(k(x - a)^{k - 1}\right)^{(m - 1)} = k...(k - m + 1)(x - a)^{k - m} = 0\] 
+    $k < m \SO \left((x - a)^k\right)^{(m)} = 0$ \\
+    $k = m$
+    \[\left((x - a)^k\right)^{(k)} = k!\]
+    $P(x) = \sum_{k=0}^{n} c_k(x - a)^k \SO P^{(m)}(a) = c_m \cdot m! \SO c_m = \frac{P^{(m)}(a)}{m!}$ 
+\end{proof}
+
+\Pagebreak
+\begin{Lm}
+    Пусть $E \subset \R, a \in E, g : E \to \R, n \in \N$. Предположим, что $g$ дифференцируема в точке $a$ $n$ раз и $g(a) = g'(a) = g''(a) = g^{(n)}(a) = 0$.
+    Тогда $g(x) = o((x - a)^n), x \to a$.   
+\end{Lm}
+
+\begin{proof}
+    База: $k = 1. g(a) = g'(a) = 0$  
+    \[g(x) = g(a) + g'(a)(x - a) + o(x - a), x \to a \SO g(x) = o(x - a), x \to a\]
+    Индукционный переход: Пусть при $n = k$ выполняется. При $n = k + 1 \ g \ k + 1$ раз дифференцируема в точке $a$ и $g(a) = g'(a) = ... = g^{(k + 1)}(a) = 0$
+    \[g'(a) = \left(g'\right)'(a) = ... = \left(g'\right)^{(k)}(a) = 0 \SO g'(x) = o((x - a)^k), x \to a\]
+    $|g'(x)| \leqslant \varepsilon |x - a|^k, |x - a| < \delta$. По формуле конечных приращений 
+    \[\exists \Theta : g(x) - g(a) = g'(a + \Theta(x - a)) \cdot (x - a)\] 
+    $|a + \Theta(x - a) - a| = \Theta(x - a) < \delta$. Тогда $|g'(a + \Theta(x - a))| \leqslant \varepsilon \cdot |x - a|^k$
+    \[|g(x)| = |g'(a + \Theta(x - a)) \cdot (x - a)| \leqslant \varepsilon |x - a|^k \cdot |x - a| = \varepsilon |x - a|^{k + 1}\] 
+    $\SO g(x) = o \left((x - a)^{n + 1}\right)$ 
+\end{proof}
+
+\begin{Thm}[Формула Тейлора]
+    $E \subset \R, a \in E, f : E \to \R, n \in \N$. Пусть $f \ n$ раз дифференцируема в точке $a$. Тогда 
+    \[f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k + \underbrace{o((x - a)^n)}_\text{остаток в форме Пеано}, x \to a\]
+\end{Thm}
+
+\begin{proof}
+    Положим $P(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} \cdot (x - a)^k$.
+    По формуле Тейлора для многочлена:
+    \[P(x) = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!}(x - a)^k \SO f^{(k)}(a) = P^{(k)}(a) \ \forall k = 0, ..., n\]
+    Возьмем $g = f - P$.
+    \begin{align*}
+        g(a) &= f(a) - P(a) = 0 \\
+        g'(a) &= f'(a) - P'(a) = 0 \\
+        g^{(n)}(a) &= f^{(n)}(a) - P^{(n)}(a) = 0
+    \end{align*}
+    $\SO$ По лемме $g(x) = o((x - a)^n), x \to a \SO f(x) = P(x) + o((x - a)^n), x \to a$, т.е.
+    \[f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k + o((x - a)^n)\]
+\end{proof}
+
+\begin{Thm}[Формула Тейлора-Лагранжа]
+    $a, x \in \R, a \neq x$. Обозначим $\Delta_{a, x}$ -- отрезок $[a, x]$ или $[x, a]$, $\widetilde{\Delta}_{a, x}$ -- интервал с концами $a$ и $x$.
+    $n \in \Z_+, f \ n + 1$ раз дифференцируема в на $\langle A, B\rangle, a, x \in \langle A, B\rangle$.
+    Тогда $\exists c \in \widetilde{\Delta}_{a, x}$, для которой 
+    \[f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k + \underbrace{\frac{f^{(n + 1)}(c)}{(n + 1)!}(x - a)^{n + 1}}_\text{остаток в форме Лагранжа}\] 
+\end{Thm}
+
+\begin{Rem}
+    Точка $c$ зависит от $x$, поэтому, вообще говоря, не многочлен. \\
+    Можно взять $c = a + \Theta(x - a), \Theta(0, 1)$ 
+\end{Rem}
+
+\begin{proof}
+    $t \in \Delta_{a, x}$. Пусть $\PHI(t) = (x - t)^{n + 1}, F(t) = f(x) - f(t) - \sum_{k=1}^{n} \frac{f^{(k)}(t)}{k!}(x - t)^k$.
+    Тогда $t \in \widetilde{\Delta}_{a, x}$.
+    \begin{align*}
+        F'(t) &= 0 - f'(t) - \sum_{k=1}^{n} \left( \frac{f^{(k + 1)}(t)}{k!}(x - t)^k - \frac{f^{(k)}(t)}{k!} \cdot k \cdot (x - t)^{k - 1)}\right) \\
+        &= -f'(t) + \sum_{k=1}^{n} \frac{f^{(k)}(t)}{(k - 1)!}(x - t)^{k - 1} - \sum_{k=1}^{n} \frac{f^{(k + 1)}(t)}{k!}(x - t)^k \\
+        &= -f'(t) + \sum_{m=0}^{n - 1} \frac{f^{(m + 1)}(t)}{m!}(x - t)^m - \sum_{k=1}^{n} \frac{f^{(k + 1)}(t)}{k!}(x - t)^k \\
+        &= -f'(t) + f'(t) - \frac{f^{(n + 1)}(t)}{(n)!}(x - t)^{n} = - \frac{f^{(n + 1)}(t)}{n!}(x - t)^n
+    \end{align*}
+    По теореме Коши $\exists c \in \widetilde{\Delta}_{a, x} : $ 
+    \[ \frac{F(a)}{(x - a)^{n + 1}} = \frac{F(a) - F(x)}{\PHI(a) - \PHI(x)} = \frac{F'(c)}{\PHI'(c)} = \frac{\frac{-f^{(n + 1)}(c)}{n!}(x - c)^n}{-(n + 1)(x - c)^n} = \frac{f^{(n + 1)}(c)}{(n + 1)!}\]
+    $\SO F(a) = \frac{f^{(n + 1)}(c)}{(n + 1)!}(x - a)^{n + 1}$ 
+\end{proof}
+
+\begin{Rem}
+    Формула Тейлора-Пеано $\Leftarrow$ формула Тейлора-Лагранжа.
+    $f$ -- $n$ раз дифференцируема в точке $a$, $f^{(n)}$ -- непрерывна в точке $a$.
+    \[f(x) = \sum_{k=0}^{n - 1} \frac{f^{(k)}(a)}{k!}(x - a)^k + \frac{f^{(n)}(c(x))}{n!}(x - a)^n = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x - a)^k + \frac{f^{(n)}(c(x))}{n!}(x - a)^n - \frac{f^{(n)}(a)}{n!}(x - a)^n\]
+    Рассмотрим: 
+    \[ \frac{f^{(n)}\left(c(x)) - f^{(n)}(a)\right)}{n!}(x - a)^n, c(x) \in \widetilde{\Delta}_{a, x} \SO |c(x) - a| < |x - a|\]
+    Значит, если $x \to a$, то $c(x) \to a$. $f^{(n)}(c(x)) \xrightarrow[x \to a]{} f^{(n)}(a)$ (по непрерывности).
+    Тогда $\frac{f^{(n)}(c(x)) - f^{(n)}(a))}{n!}(x - a)^n = o((x - a)^n), x \to a$ 
+\end{Rem}
+
+\begin{Rem}
+    Обозначения: $T_{a, n} f$ -- многочлен Тейлора фукнции $f$ в точке $a$ порядка $n$. \\
+    Остаток: $R_{a, n} f(x) \left(f(x) - T_{a, n} f\right)$ 
+\end{Rem}
+
+\Subsection{Формулы Тейлора-Маклорена}
+
+Пусть $n \in \Z_+$. Выведем формулы при $x \to 0$.
+
+\begin{MyList}
+    \item $e^x = \sum_{k=0}^{n} \frac{x^k}{k!} + o(x^n) = 1 + \frac{x}{1!} + \frac{x^2}{2!} + ... + \frac{x^n}{n!} + o(x^n)$ 
+    \begin{proof}
+        $f(x) = e^x, f^{(x)} = e^x \ \forall x \in \N, x \in \R \SO f^{(k)}(0) = 1$
+        \[T_{0, n}f(x) = \sum_{k=0}^{n} \frac{x^k}{k!}\] 
+    \end{proof}
+
+    \item $\sin x = \sum_{k=0}^{n} (-1)^k \frac{x^{2k + 1}}{(2k + 1)!} + o(x^{2n + 2}) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ... + (-1)^n \frac{x^{2n + 1}}{(2n + 1)!} + o(x^{2n + 2})$ 
+    \begin{proof}
+        $f(x) = \sin x$ \\
+        $f^{(m)}(x) = \sin \left(x + \frac{\pi m}{2}\right) \ \forall m \in \Z_+$
+        \begin{proof}
+            $m = 0$ верно (база). \\
+            $f^{(m + 1)}(x) = \cos \left(x + \frac{\pi m}{2}\right) = \sin \left(x + \frac{\pi m}{2} + \frac{\pi}{2}\right) = \sin \left(x + \frac{\pi (m + 1)}{2}\right)$  
+        \end{proof} 
+        \[f^{(m)}(0) = \sin \frac{\pi m}{2} = \begin{cases}
+            0, m \ \vdots \ 2 \\
+            (-1)^{ \frac{m - 1}{2}}, \text{иначе}
+        \end{cases}\]
+
+        \[f(x) = 0 + x + - \frac{x^3}{3!} + 0 + \frac{x^5}{5!} + (*)\] 
+        $(*) : $ если $n$ -- нечетное, то $(*) = (-1)^n \frac{x^n}{n!} + o(x^n)$.
+        Заметим, что $T_{0, 2k + 1}f = T_{0, 2k + 2} f = \sum_{k=0}^{n} (-1)^k \frac{x^{2k + 1}}{(2k + 1)!}$.
+        Если $n$ -- четное, то последнее слагаемое в $T_{0, n}f$ равно 0  
+    \end{proof}
+
+    \item $\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - ... + (-1)^n \frac{x^{2n}}{(2n)!} + o(x^{2n + 1}) = \sum_{k=0}^{n} (-1)^k \frac{x^{2k}}{(2k)!} + o(x^{2n + 1})$ 
+    \item $\ln (1 + x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + ... + (-1)^{n + 1} \frac{x^n}{n} + o(x^n) = \sum_{k=1}^{n} (-1)^{k + 1} \frac{x^k}{k} + o(x^n)$ 
+    \begin{proof}
+        $f(x) = \ln(1 + x), f'(x) = \frac{1}{1 + x}, f'' = -\frac{1}{(1 + x)^2}, f'''(x) = \frac{2}{(1 + x)^3}$
+        \[\SO f^{(m)}(x) = (-1)^{m + 1} \frac{(m - 1)!}{(1 + x)^m}, x > -1\]
+        \[\SO f^{(m)}(0) = (-1)^{m + 1} \cdot (m - 1)!\]
+        Рассмотрим $m$-тое слагаемое:
+        \[ \frac{f^{(m)}(0)}{m!}(x - 0)^m = \frac{(-1)^{m + 1}(m - 1)!}{m!}x^m = \frac{(-1)^{m + 1}}{m}x^m\] 
+    \end{proof}
+
+    \begin{Conj}
+        У четных функций только четные степени, у нечетных функций -- только нечетные.
+        У функций общего вида -- и те, и другие.
+    \end{Conj}
+
+    \begin{Ex}
+        Объяснить это.
+    \end{Ex}
+
+    \item $(1 + x)^\alpha = \sum_{k=0}^{n} C_\alpha^k x^k + o(x^n)$. $\alpha \in \R, k \in \Z_+$. $C_\alpha^k = \frac{\alpha (\alpha - 1)(\alpha - 2) ... (\alpha - k + 1)}{k!}$ \\
+    \begin{Rem}
+        При $\alpha \in \N \ f(x) = (1 + x)^\alpha = T_{0, \alpha} f(x)$ 
+    \end{Rem}
+
+    \begin{proof}
+        $f(x) = (1 + x)^\alpha$ 
+        \begin{gather*}
+            f^{(m)}(x) = \alpha (\alpha - 1) (\alpha - 2) ... (\alpha - m + 1)(1 + x)^{\alpha - m} \\
+            f^{(m)}(0) = \alpha (\alpha - 1)(\alpha - 2) ... (\alpha - m + 1) \\
+            f(0) = 1
+        \end{gather*}
+        $T_{0, n} f(x) = \sum_{k=0}^{n} \frac{\alpha (\alpha - 1) ... (\alpha - k + 1)}{k!}x^k$ 
+    \end{proof}
+\end{MyList}
+
+\begin{Prop}
+    $\forall n \in \N \ \exists c \in (0, 1) : $
+    \[e^1 = 1 + \frac{1}{1!} + \frac{1}{2!} + ... + \frac{1}{n!} + \frac{e^c}{(n + 1)!}\] 
+\end{Prop}
+
+\begin{Cons}
+    $e - \left(1 + 1 + \frac{1}{2!} + ... + \frac{1}{n!}\right) < \frac{3}{(n + 1)!}$ 
+\end{Cons}
+
+\begin{Cons}
+    $e$ -- иррациональное число.
+\end{Cons}
+
+\begin{proof}
+    Пусть $e \in \Q, e \in (2, 3), e = \frac{m}{n}, m, n \in \N$.
+    \[\frac{m}{n} = e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + ... + \frac{1}{n!} + \frac{e^c}{(n + 1)!}, c \in (0, 1) = \]
+    \[= \underbrace{m (n - 1)!}_{\in \Z} = \underbrace{n! + n! + \frac{n!}{2!} + ... + 1}_{\in \Z} + \frac{e^c}{n + 1} \SO \frac{e^c}{n + 1} \in Z\]
+    но $0 < e^c < e < 3, n + 1 \geqslant 3$  !?
+\end{proof}
+
+
+\begin{Prop}[Критерий постоянства]
+    Пусть $f$ непрерывна на $\langle A, B\rangle$ и дифференцируема на $(A, B)$. Тогда равносильны следующие утверждения:
+    \begin{MyList}
+        \item $f$ постоянна на $\langle A, B\rangle$ 
+        \item $f' = 0 \ \forall x \in (A, B)$
+    \end{MyList}
+\end{Prop}
+
+\begin{proof}
+    $1) \SO 2)$ очевидно. \\
+    $2) \SO 1)$. $f'(x) = 0 \ \forall x \in (A, B) \SO f'(x) \geqslant 0, f'(x) \leqslant 0 \SO$ $f$ нестрого убывает и нестрого возрастает $\SO f$ -- постоянна. 
+\end{proof}
+
+\begin{Example}
+    $\arccos x + \arcsin x = \frac{\pi}{2}$. 
+\end{Example}
+
+\begin{proof}
+    $f(x) = \arccos x + \arcsin x$.
+    $f'(x) = -\frac{1}{\sqrt{1 - x^2}} + \frac{1}{\sqrt{1 + x^2}} = 0 \ \forall x \in (-1, 1) \SO f$ -- постоянна.
+    \[f(0) = \frac{\pi}{2} + 0 = \frac{\pi}{2} \SO f(x) = \frac{\pi}{2} \ \forall x \in [-1, 1]\]
+\end{proof}
+
+\begin{Prop}
+    $f, g$ непрерывны на $[A, B\rangle$ и дифференцируемы на $(A, B)$. 
+    Если $f(A) = g(A), f'(x) > g'(x) \ \forall x \in (A, B)$. Тогда
+    \[f(x) > g(x) \ \forall x \in (A, B\rangle\]
+\end{Prop}
+
+\begin{proof}
+    $h = f - g$ непрерывна на $[A, B\rangle$, дифференцируема на $(A, B), h'(x) > 0 \ \forall x \in (A, B), h(A) = 0$
+    $\SO h$ строго возрастает $\SO h(x) > 0 \ \forall x \in (A, B\rangle$   
+\end{proof}
+
+\begin{Example}
+    $\cos x > 1 - \frac{x^2}{2} \ \forall x > 0$.
+\end{Example}
+
+\begin{proof}
+    $\cos 0 = 1 - \frac{0^2}{2}, (\cos x)' = -\sin x, (1 - \frac{x^2}{2})' = -x$.
+    $\sin x < x \ \forall x > 0 \EQ -\sin x > -x \SO \cos x > 1 - \frac{x^2}{2}$   
+\end{proof}
+
+\begin{Def}
+    $E \subset \R, f : E \to \R, a \in E$.
+    \begin{MyList}
+        \item Пусть $\exists \delta > 0 : \forall x \in (a - \delta, a + \delta) \cap E \to f(x) \geqslant f(a)$. Тогда $a$ -- точка (локального) минимума $f$.
+        Если выполнено $f(x) \leqslant f(a)$, то $a$ точка (локального) максимума $f$.
+        \item Если $\forall x \in (a - \delta, a + \delta) \setminus \{a\}$неравенства строгие, то $a$ -- точка строгого минимума или максимума. 
+        \item Такие точки $a$ называются \textbf{точками (локального) экстремума}.
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}[Необходимое условие экстремума]
+    $f : \langle A, B\rangle \to \R, a \in (A, B), f $ -- дифференцируема в точке $a$.
+    Если $a$ является точкой экстремума $f$, то $f'(a) = 0$.  
+\end{Thm}
+
+\begin{proof}
+    Пусть $a$ -- точка минимума. $\exists \delta > 0 : [a - \delta, a + \delta] \subset (A, B), f(x) \geqslant f(a) \ \forall x \in [a - \delta, a + \delta]$.
+    Рассмотрим сужение $f|_{[a - \delta, a + \delta]}$. По теореме Ферма $f'(a) = 0$.  
+\end{proof}
+
+\begin{Def}
+    Точки, в которых $f' = 0$ называются стационарными.
+\end{Def}
+
+\begin{Def}
+    Пусть $a \in (A, B)$. Будем называть $a$ критической точкой (точкой, подозрительной на экстремум), если $f'(a) = 0$ или $f$ не дифференцируема в точке $a$.
+\end{Def}
+
+План исследования на наибольшее и наименьшее значение на отрезке:
+
+\begin{MyList}
+    \item Найти множество всех критических точек -- $C$.
+    \item Посчитать значения $f$ в каждой точке из $C$ и на концах отрезка.
+    \item Выбрать наибольшее и наименьшее.
+\end{MyList}
+
+\begin{Thm}[Достаточное условие экстремума в терминах первой производной]
+    $f : \langle A, B\rangle \to \R, a \in (A, B), \delta : (a - \delta, a + \delta) \subset \langle A, B\rangle$. 
+    Пусть $f$ непрерывна в точке $a$ и дифференцируема на $(a -\delta, a) \cup (a, a + \delta)$
+    \begin{MyList}
+        \item Если $f'(x) < 0$ при $x \in (a -\delta, a), f'(x) > 0$ при $x \in (a, a + \delta)$, то $a$ -- точка строгого минимума.
+        \item Если $f'(x) > 0$ при $x \in (a -\delta, a), f'(x) < 0$ при $x \in (a, a + \delta)$, то $a$ -- точка строгого максимума.     
+    \end{MyList}  
+\end{Thm}
+
+\begin{proof}
+    Докажем первое утверждение. \\
+    $f$ строго убывает на $(a - \delta, a] \SO f(x) > f(a) \ \forall x \in (a - \delta, a)$ \\
+    $f$ строго возрастает на $[a, a + \delta) \SO f(x) > f(a) \ \forall x \in (a, a + \delta) \SO a$ -- точка строгого локального минимума.  
+\end{proof}
+
+\begin{Rem}
+    Если $f'$ не меняет знак на $(a - \delta, a) \cup (a, a + \delta)$, то $f$ не имеет экстремума в точке $a$.  
+\end{Rem}
+
+\begin{proof}
+    $f$ монотонна на $(a - \delta, a + \delta)$ 
+\end{proof}
+
+\begin{Rem}
+    Верно ли, что если $f$ дифференцируема на $(A, B)$ и в точке $a \in (A, B)$ $f$ имеет строгий локальный минимум, то $\exists \delta : f'(x) < 0 \ \forall x \in (a - \delta, a)$ и $f'(x) > 0 \ \forall x \in (a, a + \delta)$  
+    Спойлер: нет.
+\end{Rem}
+
+\begin{Example}
+    \[f(x) = \begin{cases}
+        x^2 \left(\sin\frac{1}{x} + 2\right), x \neq 0 \\
+        0, x = 0
+    \end{cases}\]
+    $f$ дифференцируема на $\R$. $f(0) = 0$ и $f(x) > 0 \ \forall x \neq 0 \SO 0$ точка строгого минимума.
+    \[f'(x) = 2x\left(\sin \frac{1}{x} + 2\right) + x^2 \cos \frac{1}{x} \cdot -\frac{1}{x^2} = 2x\left(\sin \frac{1}{x} + 2\right) - \cos \frac{1}{x}\]
+    При $x \to 0+ : \ 2x \left(\sin \frac{1}{x} + 2\right) \to 0$. А $\cos \frac{1}{x}$ может принимать все значения он $[-1, 1]$ при $x \in (0, \delta) \ \forall \delta > 0$ 
+\end{Example}
+
+\begin{Thm}[Достаточное условие экстремума в терминах второй производной]
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Пусть $f$ дважды дифференцируема в точке $a$ и $f'(a) = 0$.
+    \begin{MyList}
+        \item Если $f''(a) > 0$, то $a$ -- точка строгого минимума.
+        \item Если $f''(a) < 0$, то $a$ -- точка строгого максимума. 
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Докажем первое утверждение. Применим к $f$ формулу Тейлора с остатком в форме Пеано:
+    \[f(x) = f(a) + f'(a) \cdot (x - a) + f''(a) \cdot \frac{(x - a)^2}{2} + o((x - a)^2)\]
+    \[f(x) - f(a) = f''(a) \cdot \frac{(x - a)^2}{2} + o((x - a)^2) = (x-a)^2 \cdot \frac{f''(a)}{2}(1 + o(1))\]
+    \[f(x) - f(a) = (x - a)^2 \frac{f''(a)}{2}(1 + o(1))\]
+    т.к. $1 + o(1) \xrightarrow[x \to a]{} 1$, то $\exists \delta > 0 : \forall x \in (a - \delta, a + \delta) \to (1 + o(1)) > 0$.
+    Тогда $\forall x \in (a - \delta, a + \delta) \setminus \{a\} \ f(x) - f(a) > 0$  
+\end{proof}
+
+\begin{Rem}
+    Если $f''(a) = 0$, то эта теорема не дает ответа на вопрос об экстремуме.
+\end{Rem}
+
+\begin{Thm}[О связи экстремума со старшими производными]
+    $f: \langle A, B\rangle, a \in (A, B), n \in \N$. Пусть $f$ $n$ раз дифференцируема в точке $a$, причем $f'(a) = f''(a) = ... = f^{(n - 1)}(a) = 0$.
+    Тогда
+    \begin{MyList}
+        \item Если $n$ -- нечетно, то $f$ не имеет экстремума в точке $a$.
+        \item Если $n$ -- четно и $f^{(n)}(a) > 0$, то $a$ -- точка строгого минимума.
+        \item Если $n$ -- четно и $f^{(n)}(a) < 0$, то $a$ -- точка строгого максимума. 
+    \end{MyList}
+\end{Thm}
+
+\Subsection{Выпуклость}
+
+\begin{Def}
+    $f: \langle A, B\rangle \to \R$ 
+    \begin{MyList}
+        \item Пусть $\forall a, b \in \langle A, B\rangle$ и $\lambda \in (0, 1)$ справедливо неравенство
+        \[f(\lambda a + (1 - \lambda) b) \leqslant \lambda f(a) + (1 - \lambda) f(b)\]
+        Тогда $f$ называется выпуклой на $\langle A, B\rangle$ 
+
+        \item Если знак в неравенстве строгий, то $f$ строго выпукла.
+        \item Если знак ``$\geqslant$'' ,то $f$ называется вогнутой на $\langle A, B\rangle$.
+        \item Если знак ``$>$'' ,то $f$ называется строго вогнутой на $\langle A, B\rangle$ . 
+    \end{MyList}
+\end{Def}
+
+\begin{Rem}
+    Не умаляя общности, $a < b$. 
+\end{Rem}
+
+\begin{Rem}
+    Если $a = b$, то знак "$=$" 
+\end{Rem}
+
+\begin{Rem}
+    Иногда называются выпуклая вниз и выпуклая вверх.
+\end{Rem}
+
+\begin{Rem}
+    $x = \lambda a + (1 - \lambda) b$.
+    При $\lambda \in (0, 1)$ точка $x$ пробегает $(a, b)$.
+    \[\lambda = \frac{b - x}{b - a}, 1 - \lambda = \frac{x - a}{b - a}\]
+    То есть определение можно переписать так:
+    \[f(x) \leqslant \underbrace{\frac{b - x}{b - a}f(a) + \frac{x - a}{b - a} \cdot f(b)}_{\text{хорда, проходящая через }(a, f(a)), (b, f(b))}\]
+    т.е. график $f$ лежит не выше, чем любая хорда.
+\end{Rem}
+
+\begin{Rem}
+    Пусть $f$ и $g$ -- выпуклые на $\langle A, B\rangle$
+    \begin{MyList}
+        \item $f + g$ тоже выпуклая на $\langle A, B\rangle$ 
+        \item $\forall \alpha > 0 \ \alpha \cdot f$ выпуклая
+        \item $\forall \alpha < 0 \ \alpha \cdot f$ вогнутая.
+    \end{MyList}
+\end{Rem}
+
+\begin{Lm}[Лемма о трех хордах]
+    $f : \langle A, B\rangle \to \R$. Тогда равносильны следующие утверждения:
+
+    \begin{MyList}
+        \item $f$ строго выпукла на $\langle A, B\rangle$ 
+        \item $\forall a, b, c \in \langle A, B\rangle : a < c < b$ выполняется
+        \[ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c}\] 
+
+        \item $\forall a, b, c \in \langle A, B\rangle : a < c < b$ выполнены неравенства:
+        \[ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(a)}{b - a} < \frac{f(b) - f(c)}{b - c}\]
+    \end{MyList}
+\end{Lm}
+
+\begin{Rem}
+    Рисунок \TODO
+\end{Rem}
+
+\begin{proof}
+    $3) \SO 2)$ очевидно. \\
+    $1) \SO 3)$. $f$ строго выпукла. Положим $\lambda = \frac{b - c}{b - a} \in (0, 1)$. Тогда $c = \lambda a + (1 - \lambda) b$.
+    \[f(c) < \lambda f(a) + (1 -\lambda)f(b)\]
+    Перепишем это неравенство в двух разных формах:
+    \[f(c) - f(b) < \lambda(f(a) - f(b)) \EQ f(b) - f(c) > \frac{b - c}{b - a}(f(b) - f(a)) \EQ \frac{f(b) - f(c)}{b - c} > \frac{f(b) - f(c)}{b - a}\] 
+    \[f(c) - f(a) < (1 - \lambda)(f(b) - f(a)) \EQ f(c) - f(a) < \frac{c - a}{b - a}(f(b) - f(a)) \EQ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(a)}{b - a}\] 
+    $2) \SO 1)$. Пусть $a, b \in \langle A, B\rangle$. Обозначим $c = \lambda a + (1 - \lambda)b, \lambda \in (0, 1)$.
+    Тогда $\lambda = \frac{b - c}{b - a}$ и $1 - \lambda = \frac{c - a}{b - a}$ 
+    \[\SO \frac{c - a}{1 - \lambda} = \frac{b - c}{\lambda}\]
+    Тогда 
+    \[\frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c} \EQ \frac{f(c) - f(a)}{1 - \lambda} < \frac{f(b) - f(c)}{\lambda} \EQ \lambda(f(c) - f(a)) < (1 - \lambda)(f(b) - f(c))\]  
+    \[\EQ \lambda f(c) - \lambda f(a) < f(b) - f(c) - \lambda f(b) + \lambda f(c) \EQ f(c) < (1 - \lambda) f(b) + \lambda f(a)\]
+\end{proof}
+
+\begin{Cons}
+    $f: \langle A, B\rangle \to \R, a \in \langle A, B\rangle$ и
+    \[F(x) = \frac{f(x) - f(a)}{x - a}\]
+    Тогда 
+    \begin{MyList}
+        \item Если $f$ выпукла на $\langle A, B\rangle$, то $F$ возрастает на $\langle A, B\rangle \setminus \{a\}$.
+        \item Если $f$ строго выпукла на $\langle A, B\rangle$, то $F$ строго возрастает на $\langle A, B\rangle \setminus \{a\}$.
+    \end{MyList}
+\end{Cons}
+
+\begin{proof}
+    Докажем 2. Пусть $x < y \in \langle A, B\rangle \setminus \{a\}$. Докажем, что $F(x) < F(y)$.
+    \begin{MyItemize}
+        \item $a < x < y \SO$ по лемме о трех хордах $\SO \frac{f(x) - f(a)}{x - a} < \frac{f(y) - f(a)}{y - a} \SO F(x) < F(y)$.
+        \item $x < y < a \SO \frac{f(a) - f(x)}{a - x} < \frac{f(a) - f(y)}{a - y} \SO F(x) < F(y)$.
+        \item $x < a < y \SO \frac{f(a) - f(x)}{a - x} < \frac{f(y) - f(a)}{y - a} \SO F(x) < F(y)$.
+    \end{MyItemize}
+\end{proof}
+
+\begin{Example}
+    $f(x) = x^2$ строго выпукла на $\R$.
+\end{Example}
+
+\begin{proof}
+    Пусть $a < c < b$. Тогда 
+    \[ \frac{f(c) - f(a)}{c - a} - \frac{f(b) - f(c)}{b - c} = \frac{c^2 - a^2}{c - a} - \frac{b^2 - c^2}{b - c} = (c + a) - (b + c) = a - b < 0\]
+    $\SO f(x)$ 
+\end{proof} строго выпукла.
+
+\begin{Thm}[Об односторонних производных]
+    $f : \langle A, B\rangle \to \R, f$ -- выпукла на $\langle A, B\rangle$. Тогда
+    \begin{MyList}
+        \item $\forall a < B \ \exists f_+'(a) \in [-\infty, +\infty), \forall a > A \ \exists f_-'(a) \in (-\infty, +\infty]$
+        \item Если $a \in (A, B)$, то $f_+'(a)$ и $f_-'(a)$ конечны и $f_-'(a) \leqslant f_+'(a)$.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    Рассмотрим $F(x) = \frac{f(x) - f(a)}{x - a}, F : \langle A, B\rangle \setminus \{a\} \to \R$.
+    \begin{MyList}
+        \item Пусть $a < B$. Тогда $F$ возрастает на $(a, B\rangle$. Тогда 
+        \[\exists \lim_{x \to a+} F(x) \in [-\infty, +\infty) \text{(по т. о пределе монотонной функции)}\]
+        \[\lim_{x \to a+} \frac{f(x) - f(a)}{x - a} = f_+'(a)\]
+        Для $f_-'(a)$ аналогично.
+
+        \item Пусть $a \in (A, B)$. Возьмем $x < a < y, x, y \in \langle A, B\rangle$. Тогда по следствию 
+        \[F(x) < F(y) \xRightarrow[x, y \to a]{} f_-'(a) \leqslant f_+'(a)\]
+        $f_-'(a) \in (-\infty, +\infty], f_+'(a) \in [-\infty, +\infty) \SO$ обе конечны. 
+    \end{MyList}
+\end{proof}
+
+\begin{Cons}
+    Если $f$ выпукла на $\langle A, B\rangle$, то она непрерывна на $(A, B)$.
+\end{Cons}
+
+\begin{proof}
+    Пусть $a \in (A, B)$. Т.к. $\exists f_+'(a)$, то $f$ непрерывна в точке $a$ справа,
+    т.к. $\exists f_-'(a)$, то $f$ непрерывна на т. $a$ слева $\SO f$ непрерывна в точке $a$. 
+\end{proof}
+
+\begin{Example}
+    Рисунок \TODO.
+    \[f(x) = \begin{cases}
+        -\sqrt{1 - x^2}, x \in (-1, 1] \\
+        1, x = -1
+    \end{cases}\]  
+\end{Example}
+
+\begin{Ex}
+    $f_+'(-1) = ?, f_-'(1) = ?$.
+\end{Ex}
+
+\begin{Thm}[Критерий выпуклости в терминах касательных]
+    $f : \langle A, B\rangle \to \R, f$ дифференцируема на $\langle A, B\rangle$. Тогда 
+    \begin{MyList}
+        \item Функция $f$ выпукла на $\langle A, B\rangle \EQ \forall a, x \in \langle A, B\rangle \to f(x) \geqslant T_{a, 1}f(x)$ 
+        \item Функция $f$ строго выпукла $\EQ \forall a \neq x \in \langle A, B\rangle \to f(x) > T_{a, 1} f(x)$.
+    \end{MyList}
+\end{Thm}
+
+\begin{Ex}
+    Доказать.
+\end{Ex}
+
+\begin{Thm}[Выпуклость и асимптоты]
+    $f : \langle A, +\infty) \to \R$ и имеет асимптоту $y = kx + b$.
+    Тогда
+    \begin{MyList}
+        \item Если $f$ выпукла на $\langle A, +\infty)$, то $f(x) \geqslant kx + b \ \forall x \geqslant A$
+        \item Если $f$ строго выпукла на $\langle A, +\infty)$, то $f(x) > kx + b \ \forall x > A$.
+    \end{MyList}
+\end{Thm}
+
+\begin{Ex}
+    Доказать.
+\end{Ex}
+
+\begin{Thm}[Критерий выпуклости в терминах первой производной]
+    $f : \langle A, B\rangle \to \R$, непрерывна на $\langle A, B\rangle$ и дифференцируема на $(A, B)$. Тогда
+    \begin{MyList}
+        \item $f$ выпукла на $\langle A, B\rangle \EQ f'$ возрастает на $(A, B)$.
+        \item $f$ строго выпукла на $\langle A, B\rangle \EQ f'$ строго возрастает на $(A, B)$.    
+    \end{MyList} 
+\end{Thm}
+
+\begin{proof}
+    Докажем 2. ``$\SO$'' 
+    Возьмем $x < y \in (A, B)$. Покажем, что $f'(x) < \frac{f(y) - f(x)}{y - x} < f'(y)$.
+    \[F(t) = \frac{f(t) - f(x)}{t - x}, t \neq x\]
+    Т.к. $f$ строго выпукла, то $F$ строго возрастает на $(x, y]$
+    \[\SO f'(x) = \lim_{t \to x+} F(t) = \inf_{t \in (x, y]} F(t) < F(y) = \frac{f(y) - f(x)}{y - x}\]
+    Аналогично: $f'(y) > F(y)$. \\
+    ``$\Leftarrow$''. Достаточно показать, что $\forall a < c < b \in \langle A, B\rangle$ верно
+    \[ \frac{f(c) - f(a)}{c - a} < \frac{f(b) - f(c)}{b - c}\]
+    По теореме Лагранжа $\exists \alpha \in (a, c) : \frac{f(c) - f(a)}{c - a} = f'(\alpha), \exists \beta \in (c, b) : \frac{f(b) - f(c)}{b - a} = f'(\beta)$
+    $\SO \alpha < \beta$, т.к. $f'$ строго возрастает, то $f'(\alpha) < f'(\beta)$ 
+\end{proof}
+
+\begin{Thm}[Критерий выпуклости в терминах второй производной]
+    $f : \langle A, B\rangle \to \R, $ непрерывна на $\langle A, B\rangle$ и дважды дифференцируема на $(A, B)$.
+    Тогда
+    \begin{MyList}
+        \item $f$ выпукла на $\langle A, B\rangle \EQ f''(x) \geqslant 0 \ \forall x \in (A, B)$.
+        \item Если $f''(x) > 0 \ \forall x \in (A, B)$, то $f$ строго выпукла.
+    \end{MyList}
+
+    \begin{Rem}
+        Обратное к 2 не всегда выполнено: $f(x) = x^4$ -- строго выпукла, но $f''(x) = 12x^2, f''(0) = 0$ 
+    \end{Rem}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item По предыдущей теореме выпуклость $\EQ$ возрастанию $f' \EQ f''(x) \geqslant 0$.
+        
+        \item $f''(x) > 0 \SO f'(x)$ строго возрастает $\SO f$ строго выпукла. 
+    \end{MyList}
+\end{proof}
+
+\begin{Example}
+    $f(x) = \sin x$ на $\left[0, \frac{\pi}{2}\right]$. $f'(x) = \cos x, f''(x) = -\sin x \leqslant 0$ на $\left[0, \frac{\pi}{2}\right]$
+    $\SO f$ строго вогнута на $\left(0, \frac{\pi}{2}\right)$ ( $f''(x) = 0$ только при $x = 0$) $\SO \sin x > \frac{2}{\pi} x$ на $\left(0, \frac{\pi}{2}\right)$.  
+\end{Example}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Предположим, что выполнены следующие условия:
+    \begin{MyList}
+        \item $\exists \delta > 0 : (a - \delta, a + \delta) \subset (A, B), f$ имеет разный характер выпуклости на $(a - \delta, a]$ и $[a, a + \delta)$.
+        \item $f$ непрерывна в точке $a$.
+        \item $f'(a) \in \overline{\R}$
+    \end{MyList}
+    Тогда $a$ называется точкой перегиба функции $f$.
+\end{Def}
+
+\begin{Thm}[Необходимое условие перегиба]
+    $f : \langle A, B\rangle \to \R, a \in (A, B)$. Пусть $f$ дважды дифференцируема в точке $a$. 
+    Если $a$ является точкой перегиба, то $f''(a) = 0$.    
+\end{Thm}
+
+\begin{proof}
+    Пусть $f$ вогнута слева от $a$, выпукла справа от $a$. Возьмем $\delta > 0 : f$ дифференцируема на $(a - \delta, a + \delta)$.
+    Тогда $f'$ убывает на $(a - \delta, a]$ и $f'$ возрастает на $[a, a + \delta)$. Тогда $a$ -- точка минимума $f' \SO f''(a) = 0$.
+\end{proof}
+
+\begin{Thm}[Достаточное условие перегиба]
+    $f : \langle A, B\rangle \to \R, a \in (A, B), f$ непрерывна в точке $a$ и $f'(a) \in \overline{\R}$.
+    Пусть $\exists \delta > 0 : f$ дважды дифференцируема на $(a - \delta, a) \cup (a, a + \delta)$ и выполнено одно из следующих условий:
+    \begin{MyList}
+        \item $f'' > 0$ на $(a - \delta, a)$ и $f'' < 0$ на $(a, a + \delta)$ 
+        \item $f'' < 0$ на $(a - \delta, a)$ и $f'' > 0$ на $(a, a + \delta)$   
+    \end{MyList}     
+    Тогда $a$ -- точка перегиба.
+\end{Thm}
+
+\begin{proof}
+    Пусть выполнено 1. Тогда $f$ выпукла на $(a - \delta, a)$, вогнута на $(a, a + \delta)$
+    $\SO a$ -- точка перегиба.  
+\end{proof}
+
+План исследования функции:
+\begin{MyList}
+    \item Область определения функции (и множество значений функции).
+    \item Нули функции, знакопостоянство.
+    \item Четность/нечетность.
+    \item Периодичность.
+    \item Разрывы функции.
+    \item Монотонность (экстремумы).
+    \item Выпуклость (перегибы).
+    \item Асимптоты. 
+\end{MyList}
+
+\begin{Prop}[Обобщение неравенства Бернулли]
+    $\alpha > 1$. Тогда $(1 + x)^\alpha > 1 + \alpha x \ \forall x > -1, x \neq 0$.
+\end{Prop}
+
+\begin{proof}
+    $f(x) = (1 + x)^\alpha, f''(x) = \alpha(\alpha - 1)(1 + x)^{\alpha - 2} > 0 \ \forall x > -1$
+    $\SO f$ строго выпукла. $1 + \alpha x = T_{0, 1} f(x)$. По теореме о касательных $f$ лежит над своей касательной в $x = 0$,
+    т.е. $f(x) > T_{0, 1} f(x)$ (при $x = 0$ равен).
+\end{proof}
+
+\Subsection{Классические неравенства}
+
+$p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные показатели.
+
+\begin{Thm}[Неравенство Юнга]
+    Пусть $x, y \geqslant 0, p, q$ -- сопряженные показатели. Тогда
+    \[xy \leqslant \frac{x^p}{p} + \frac{y^q}{q}\]
+    Причем равенство достигается тогда и только тогда, когда $x^p = y^q$.
+\end{Thm}
+
+\begin{proof}
+    Если $x = 0$ или $y = 0$, то очевидно. Будем считать, что $x > 0$ и $y > 0$. Возьмем $f(t) = \ln t$.
+    $f$ строго вогнутая на $(0, +\infty)$. Подставим в определение точки $x^p$ и $y^q$.
+    \[\forall \lambda \in (0, 1) \ f(\lambda x^p + (1 - \lambda)y^q) > \lambda f(x^p) + (1 - \lambda)f(y^q)\]
+    Причем равенство возможно лишь когда $x^p = y^q$. Возьмем $\lambda = \frac{1}{p}$, тогда $1 - \lambda = \frac{1}{q}$.\
+    \[\ln \left(\frac{1}{p} x^p + \frac{1}{q}y^q\right) > \frac{1}{p} \ln x^p + \frac{1}{q} \ln y^q = \ln(xy)\]
+    Т.к. $\ln x$ строго возрастает на $(0, +\infty)$, то $ \frac{x^p}{p} + \frac{y^q}{q} > xy$.
+\end{proof}
+
+Векторы в $\R^n$. $x = (x_1, ..., x_n), y = (y_1, ..., y_n)$, $x, y \in \R^n$ 
+
+\begin{MyList}
+    \item $x + y = (x_1 + y_1, ..., x_n + y_n)$ 
+    \item $\lambda x = (\lambda x_1, ..., \lambda x_n)$ 
+    \item Скалярное произведение: $x \cdot y = x_1 y_1 + ... + x_n y_n$.
+    \item Длина вектора: $|x| = \sqrt{x_1^2 + ... + x_n^2}$ 
+    \item $p$-норма вектора: $||x||_p = \sqrt[p]{|x_1|^p + ... + |x_n|^p}$ (обощение понятия длины).
+    \item $x$ и $y$ коллинеарны, если либо один из них нулевой, либо $\exists \lambda \in \R \setminus \{0\} : x = \lambda y$.
+    \item $x$ и $y$ сонаправлены, если либо один из них нулевой, либо $\exists \lambda > 0 : x = \lambda y$.  
+\end{MyList}
+
+\begin{Thm}[Неравенство Минковского для неотрицательных чисел]
+    $n \in \N, p \geqslant 1$. Предположим, что векторы $x$ и $y \in \R^n$ имеют неотрицательные координаты. Тогда
+    \[ \left(\sum_{k=1}^{n} (x_k + y_k)^p \right)^{\frac{1}{p}} \leqslant \left( \sum_{k=1}^{n} x_k^p\right)^{\frac{1}{p}} + \left(\sum_{k = 1}^n y_k^p\right)^{\frac{1}{p}}\]
+    Равенство $\EQ$ либо $p = 1$, либо $x$ и $y$ сонаправлены.
+\end{Thm}
+
+\begin{proof}
+    Если $p = 1$, то очевидно. \\
+    Пусть $p > 1$ и $x$ и $y$ ненулевые.
+    \[X = ||x||_p, Y = ||y||_p, X, Y > 0\]
+    Рассмотрим $f(x) = x^p$ -- строго выпуклая на $[0, +\infty)$.
+    $f''(x) = p(p - 1)x^{p - 2} > 0$ при $x > 0$ и $f$ непрерывна в точке $0$.
+    Запишем определение выпуклости для $ \frac{x_k}{Y}$ и $ \frac{y_k}{Y}$.
+    \[\forall \lambda \in (0, 1) \ f\left(\lambda \frac{x_k}{Y} + (1 - \lambda)\frac{y_k}{Y}\right) \leqslant \lambda f\left(\frac{x_k}{Y}\right) + (1 - \lambda) f\left(\frac{y_k}{Y}\right)\]
+    Равенство тогда и только тогда, когда $ \frac{x_k}{X} = \frac{y_k}{Y}$. Возьмем $\lambda = \frac{X}{X + Y}, 1 - \lambda = \frac{Y}{X + Y}$
+    \[f \left( \frac{x_k + y_k}{X + Y}\right) \leqslant \frac{X}{X + Y} f \left( \frac{x_k}{X}\right) + \frac{Y}{X + Y} f \left( \frac{y_k}{Y}\right)\]
+    \[ \frac{(x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{y_k^p}{Y^p} \ \forall k = 1, ..., n\]
+    Сложим все неравенства:
+    \[ \frac{\sum_{k = 1}^n (x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{\sum_{k=1}^n x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{\sum_{k=1}^n y_k^p}{Y^p} =\]
+    Заметим, что $\sum_{k=1}^{n} \frac{x_k^p}{X^p} = \frac{1}{||x||_p^p} \sum_{k=1}^{n} x_k^p = 1$ 
+    \[\frac{X}{X + Y} + \frac{Y}{X + Y} = 1 \SO ||x + y||_p \leqslant X + Y = ||x||_p + ||y||_p\]
+    Равенство $\EQ$ равенство $\forall k$, т.е. $ \frac{x_k}{X} = \frac{y_k}{Y} \SO x_k = \frac{X}{Y} y_k \SO$ $x$ и $y$ сонаправлены. 
 \end{proof}
 
 \end{document}
