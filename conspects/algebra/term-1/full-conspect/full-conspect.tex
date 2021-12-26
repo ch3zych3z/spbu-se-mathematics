@@ -3270,4 +3270,213 @@ x_n
     Если $m > n \SO u_1, ..., u_n$ -- порождает все $V \SO u_1, ..., u_n, u_{n + 1}$ -- ЛЗ -- противоречие.
 \end{proof}
 
+\Subsection{Базис и размерность}
+
+$V$ -- конечномерное векторное пространство над полем $K$.
+
+\begin{Def}
+    Система векторов $e_1, ..., e_n$ называется базисом пространства $V$ если выполняются:
+    \begin{MyList}
+        \item $\langle e_1, ..., e_n\rangle = V$ 
+        \item $e_1, ..., e_n$ -- ЛНЗ 
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}[Существование базиса]
+    \begin{MyList}
+        \item Любая линейная оболочка обладает базисом.
+        \item Все базисы $V$ состоят из одинакового количества векторов.
+        \item Разложение любого $v \in V$ по базису $v = \alpha_1 e_1 + ... \alpha_n e_n$ единственно.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $u_1, ..., u_k \in V$. $U = \langle u_1, ..., u_k\rangle$. Возьмем из $u_1, ..., u_k$ максимальное число ЛНЗ векторов $u_1, ..., u_s \SO u_1, ..., u_s, u_{s + 1}$ -- ЛЗ $\SO \langle u_1, ..., u_s\rangle = \langle u_1, ... u_{s + 1}\rangle \SO \langle u_1, ..., u_s\rangle = U$.  
+        \item Пусть $e_1, ..., e_n$ -- базис, $e_1', ... e_k'$ -- базис.
+        $e_1, ..., e_n$ -- ЛНЗ, $e_1', ..., e_k'$ -- порождающие векторы $\SO n \leqslant k$.
+        Аналогично, $e_1', ..., e_k'$ -- ЛНЗ, $e_1, ..., e_n$ -- порождающие $\SO k\leqslant n$.
+        
+        \item $v = \alpha_1 e_1 + \alpha_n e_n = \alpha_1' e_1 + ... \alpha_n'e_n \SO (\alpha_1 \alpha_1') e_1 + ... + (\alpha_n - \alpha_n')e_n = 0$. 
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    Коэффициенты $(\alpha_1, ..., \alpha_n)$ в разложении $v = \alpha_1 e_1 + ... \alpha_n e_n$ называются координатами вектора $v$ в базисе $e_1, ..., e_n$. 
+\end{Def}
+
+\begin{Def}
+    Количество векторов в базисе -- размерность $V$ -- $\dim V$.
+\end{Def}
+
+\begin{Thm}[Три равносильных определения базиса]
+    $V$ -- конечномерное векторное пространство над $K$
+    \begin{MyList}
+        \item $e_1, ..., e_n$ -- базис $V$
+        \item $e_1, ..., e_n$ -- максимальный ЛНЗ набор векторов.
+        \item $e_1, ..., e_n$ минимальный порождающий набор векторов.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $1) \SO 2)$. $e_1, ..., e_n, f \SO f$ выражается через $e_1, ..., e_n \SO e_1, ..., e_n, f$ -- ЛЗ. \\
+    $2) \SO 1)$. $e_1, ..., e_n$ -- максимальный $\SO \forall v \in V \ e_1, ..., e_n, f$ -- ЛЗ $\SO f \in \langle e_1, ..., e_n\rangle$. \\
+    $1) \SO 3)$. $\langle u_1, ..., u_k\rangle V$. $e_1, ..., e_n$ -- ЛНЗ, порождающие $\SO n \leqslant k \SO n$ -- минимально. \\
+    $3) \SO 1)$. Если $e_1, ..., e_n$ -- ЛЗ $\SO \exists i : \langle e_1, ..., e_n\rangle = \langle e_1, ..., \widehat{e_i}, ..., e_n\rangle$ -- противоречие. 
+\end{proof}
+
+\Subsubsection{Подпространства}
+
+\begin{Def}
+    $U \subset V$ называется подпространством, если оно само является векторным пространством над $K$.
+\end{Def}
+
+\begin{Rem}
+    $U$ -- подпространство достаточно проверить $\forall v, u \in U, \forall \lambda \in K \SO v + u, \lambda u \in U$.
+\end{Rem}
+
+\begin{Lm}
+    $U_1, U_2 \subset V$ -- подпространства $\SO U_1 \cap U_2 \subset V$ -- подпространство.
+\end{Lm} 
+
+\begin{proof}
+    $x, y, \lambda x \in U_1 \cap U_2 \SO x + y \in U_1, x + y \in U_2 \SO x + y \in U_1 \cap U_2, \lambda x \in U_1, U_2$ 
+\end{proof}
+
+\begin{Rem}
+    \begin{MyList}
+        \item $\bigcap_{i \in I} U_i$ -- подпространство
+        \item $U_1, U_2 \subset V$ -- подпространства $\SO U_1 \cup U_2$ -- необязательно подпространство.
+    \end{MyList}
+\end{Rem}
+
+\begin{Def}
+    Суммой подпространств называется $U_1 + U_2 = \{u_1 + u_2, u_1 \in U_1, u_2 \in U_2\}$ 
+\end{Def}
+
+\begin{Lm}[О дополнении до базиса]
+    Любой ЛНЗ набор векторов можно дополнить до базиса.
+\end{Lm}
+
+\begin{proof}
+    $e_1, ..., e_k$ -- ЛНЗ, $\dim V = n, k < n$. $\langle e_1, ..., e_k \rangle \subset V \SO \exists v \in V : v \notin \langle e_1, ..., e_k \rangle \SO e_1, ..., e_k, V$ -- ЛНЗ и т.д. 
+\end{proof}
+
+\begin{Thm}[Размерность суммы подпространств]
+    $U, W \in V$ -- подпространства.
+    \[\SO \dim(U + W) = \dim U + \dim W - \dim (U \cap W)\]
+\end{Thm}
+
+\begin{proof}
+    $\dim (U \cap W) = m, \dim U = k, \dim W = l, e_1, ..., e_m$ -- базис $U \cap W, U \cap W \subset U$.
+    Дополним базис $e_1, ..., e_m$ до $U : u_1, ..., u_{k - m}$.
+    $U \cap W \subset W$ $e_1, ..., e_m, w_1, ..., w_{l - m}$ -- базис $W$.
+    Докажем, что $e_1, ..., e_m, u_1, ..., u_{k - m}, w_1, ..., w_{l - m}$ -- базис $U + W$.
+    $\langle e_1, ..., e_m, u_1, ..., u_{k - m}, w_1, ..., w_{l - m}\rangle U + W \SO$ надо доказать ЛНЗ. Предположим, что набор ЛЗ: 
+    \[\sum_{i = 1}^n \alpha_i e_i + \sum_{j = 1}^{k - m} \beta_j u_j + \sum_{t = 1}^{l - m} \gamma_t w_t = 0 \SO \underbrace{-\sum_{t = 1}^{l - m} \gamma_t w_t}_{\in W} = \underbrace{\sum_{i = 1}^n \alpha_i e_i + \sum_{j = 1}^{k - m} \beta_j u_j}_{\in U}\]
+    \[\SO \sum_{t = 1}^{l - m} \gamma_t w_t \in U \cap W \SO \sum_{t = 1}^{l - m} \gamma_t w_t = \sum_s \delta_s e_s\] 
+    Но $e_1, ..., e_m, w_1, ..., w_{l - m}$ -- базис $W \SO \gamma_1 = ... \gamma_{l - m} = 0$.
+    \[\SO \sum_i \alpha_i e_i + \sum_j \beta_j u_j = 0\]
+    $e_i, u_j$ -- базис $\SO \alpha_i, \beta_j = 0 \ \forall i, \forall j \SO e_1, ..., e_m, u_1, ..., u_{k - m}, w_1, ..., w_{l - m}$ -- базис
+    \[\SO \dim(U + W) = m + k - m + l - m = k + l - m\] 
+\end{proof}
+
+\begin{Rem}
+    Если $\dim U + \dim W > \dim V \SO U \cap W \neq \{0\}$ 
+\end{Rem}
+
+\Subsubsection{Прямая сумма подпространств}
+
+\begin{Def}
+    $U, W \subset V$. Сумма $U + W$ называется прямой, если $\forall v \in U + W$ представляется $v = u + w, u \in U, w \in W$ единственными образом.
+    \[U \oplus W\]
+\end{Def}
+
+\begin{Rem}
+    Достаточно проверить, что 0 представляется единственным образом.
+    $v = u_1 + w_1 = u_2 + w_2 \EQ (u_1 - u_2) + (w_1 - w_2) = 0 = \underbrace{0}_{\in U} + \underbrace{0}_{\in W}$ 
+\end{Rem}
+
+\begin{Thm}[Критерий прямой суммы]
+    $U, W \in V$ -- подпространства. $U + W$ -- прямая $\EQ U \cap W = \{0\}$.
+\end{Thm}
+
+\begin{proof}
+    $\SO$. Предположим, что $u \in U \cap W \SO 0 = \underbrace{u}_{\in U} + \underbrace{(-u)}_{\in W} \SO U + W$ -- не прямое -- противоречие. \\
+    $\Leftarrow$. Предположим, что $U + W$ -- не прямая $v = u_1 + w_1 = u_2 + w_2 = 0 \SO \underbrace{u_1 - u_2}_{\in U} = \underbrace{w_2 - w_1}_{\in W} \SO u_1 - u_2, w_2 - w_1 \in U \cap W = \{0\} \SO u_1 = u_2, w_1 = w_2$.  
+\end{proof}
+
+\begin{Def}
+    $U_i \subset V, i = 1, ..., k$ -- подпространства. Сумма $\sum_{i = 1}^k U_i$ называется прямой, если 
+    $\forall v \in \sum_i U_i$ представляется единственным образом.
+\end{Def}
+
+\begin{Thm}
+    $\sum_{i = 1}^k U_i$ -- прямая $\EQ U_j \cap (U_1 + ... + \widehat{U}_j + ... + U_k) = \{0\} \ \forall j = 1, ..., k$. 
+\end{Thm}
+
+\begin{proof}
+    Аналогично, упражнение.
+\end{proof}
+
+\begin{Thm}[Размерность прямой суммы]
+    $\sum_{i = 1}^k U_i$ -- прямая сумма $\EQ \dim \left(\sum_{i = 1}^k U_i\right) = \sum_{i = 1}^k \dim U_i$. 
+\end{Thm}
+
+\begin{proof}
+    $\SO$. Индукция $k = 2 : \dim(U_1 \oplus U_2) = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2)$. \\
+    Индукционный переход: $U_1 + ... + U_{k - 1} + U_k = \overline{U} + U_k$ -- прямая сумма
+    $\SO \dim(\overline{U} + U_k) = \dim \overline{U} + \dim U_k = \sum_{i = 1}^{k - 1} \dim U_i + \dim U_k$.
+
+    $\Leftarrow$. Возьмем базисы в $\forall U_i$ из $\dim \sum U_i = \sum \dim U_i \SO$ базисы не пересекаются $\SO$ их объединение базис $\sum U_i$, сумма -- прямая.   
+\end{proof}
+
+\begin{Thm}[О дополнительном подпространстве]
+    $V$ -- векторное пространство $\SO \exists W \subset V : V = U \oplus W$.
+\end{Thm}
+
+\begin{proof}
+    $U = \langle e_1, ..., e_k \rangle$ -- базис, дополним до $V$ $e_1, ..., e_n \SO W = \langle e_{k + 1}, ..., e_n\rangle \SO V = U \oplus W$.
+\end{proof}
+
+\Subsubsection{Изоморфизм векторных пространств}
+
+\begin{Def}
+    $V, U$ -- векторные пространства над $K$. Изоморфизмом $\PHI : V \to U$ таких, что 
+    \begin{MyList}
+        \item $\PHI$ -- биекция
+        \item $\PHI(x + y) = \PHI(x) + \PHI(y) \ \forall x, y, \in x, y \in V$ 
+        \item $\PHI(\lambda x) = \lambda \PHI(x \ \forall \lambda \in K, x \in V)$ 
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}[Об изоморфизме векторных пространств]
+    $V$ -- векторное пространство над $K, \dim V = n$ $\SO V \simeq K^n$.
+\end{Thm}
+
+\begin{proof}
+    $V = \langle e_1, ..., e_n\rangle, \forall x \in V \ x = \alpha_1 e_1 + ... + \alpha_n e_n$.
+    $\PHI(x) = \begin{pmatrix}
+    \alpha_1 \\ 
+    \vdots \\ 
+    \alpha_n
+    \end{pmatrix}$ -- биекция.
+    \begin{gather*}
+        \PHI(x + y) = \PHI(\alpha_1 e_1 + ... + \alpha_n e_n + \beta_1 e_1 + ... + \beta_n e_n) = \PHI((\alpha_1 + \beta_1) e_1 + ... + (\alpha_n + \beta_n) e_n) = \\
+        = \begin{pmatrix}
+        \alpha_1 + \beta_1 \\ 
+        \vdots \\ 
+        \alpha_n + \beta_n
+        \end{pmatrix} = \begin{pmatrix}
+        \alpha_1 \\ 
+        \vdots \\ 
+        \alpha_n
+        \end{pmatrix} + \begin{pmatrix}
+        \beta_1 \\ 
+        \vdots \\ 
+        \beta_n
+        \end{pmatrix} = \PHI(x) + \PHI(y)
+    \end{gather*}
+\end{proof}
+
 \end{document}
