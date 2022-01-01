@@ -1954,7 +1954,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
 
 \begin{proof}
     $\cos 2\alpha = 1 - 2\sin^2 \alpha \EQ \sin^2 \alpha = \frac{1 - \cos 2\alpha}{2}$ 
-    \[ \frac{1 - \cos x}{2} = \frac{2 \sin^2 \frac{x}{2}}{x^2} = \frac{1}{2} \cdot \frac{\sin^2 \frac{x}{2}}{\left(\frac{x}{2}\right)^2} = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}}^2 \to \frac{1}{2}\right)\]
+    \[ \frac{1 - \cos x}{x^2} = \frac{2 \sin^2 \frac{x}{2}}{x^2} = \frac{1}{2} \cdot \frac{\sin^2 \frac{x}{2}}{\left(\frac{x}{2}\right)^2} = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}}\right)^2 \to \frac{1}{2}\]
 \end{proof}
 
 \begin{Cons}
@@ -2084,7 +2084,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
     \[
     \begin{array}{cc}
     \sin x = x + o(x) & \ln(1 + x) = x + o(x)  \\ 
-    \tan x = x + o(x)  & \arcsin x = x + o(x) \\ 
+    \tg x = x + o(x)  & \arcsin x = x + o(x) \\ 
     \cos x = 1 - \frac{x^2}{2} + o(x^2)  & a^x = 1 + x\ln a + o(x)  \\ 
     (1 + x)^\alpha = 1 + \alpha x + o(x)  &
     \end{array}
@@ -2140,7 +2140,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
     
     Т.к. $g_{k + 1}(x) = o(g_k(x))$, то $g_{k + 1}(x) = o(g_l(x)) \ \forall l \leqslant k$ при $x \to x_0$.
 
-    Обозначим $E_k = \{x : g_k(x) \neq 0, k = 0, ..., n\}$. Если $g_k = 0$ на $V(x_0)$, то $g_{k + 1} = 0$ на $V(x_0), g_n = 0$ на $V(x_0)$. 
+    Обозначим $E_k = \{x : g_k(x) \neq 0\}, k = 0, ..., n$. Если $g_k = 0$ на $V(x_0)$, то $g_{k + 1} = 0$ на $V(x_0), g_n = 0$ на $V(x_0)$. 
     \[g_{k + 1} = o(g_k) \EQ \exists \PHI : g_{k + 1} = \PHI \cdot g_k\]
 
     Если $x_0$ -- предельная точка $E_{k_0}$, то она предельная точка всех $E_k$.
@@ -2284,7 +2284,7 @@ f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
 
 \begin{proof}
     $\exists F : \langle A, B\rangle \to \R, F(a) = f'(a)$ и $f(x) - f(a) = F(x)(x - a), x \in \langle A, B\rangle$, $F$ непрерывна в точке $a$ \\
-    $\exists G : \langle C, D\rangle \to \R, G(f(a)) = g'(f(a))$ и $g(y) - g(f(a)) = G(y)(y - f(a)), y \in C, D\rangle$, $G$ непрерывна в точке $f(a)$ 
+    $\exists G : \langle C, D\rangle \to \R, G(f(a)) = g'(f(a))$ и $g(y) - g(f(a)) = G(y)(y - f(a)), y \in \langle C, D\rangle$, $G$ непрерывна в точке $f(a)$ 
     Подставим $y = f(x)$
     \[g(f(x)) - g(f(a)) = G(f(x))(f(x) - f(a)) = G(f(x))F(x)(x - a) = H(x)(x - a)\]
     $H(x)$ -- непрерывна в точке $x = a$, $H : \langle A, B\rangle \to \R$.
