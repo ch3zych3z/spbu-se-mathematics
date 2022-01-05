@@ -1875,7 +1875,7 @@ $$f = g = a_n x^n + ... + a_1 x + a_0$$
     \begin{proof}
         $d = (f, \PHI)$. Если $d \neq 1 \SO d | f, d | \PHI \SO d = \varepsilon \cdot \PHI..., \varepsilon \in K^* \SO \PHI | f$ 
     \end{proof}
-    \item $\PHI_1, \PHI_2 \in K[x]$ -- неприводимы. \TODO
+    \item $\PHI_1, \PHI_2 \in K[x]$ -- неприводимы $\SO (\PHI_1, \PHI_2) = 1$ или $\PHI_1 = \varepsilon \PHI_2, \varepsilon \in K^*$.  
     \item $f, g, \PHI \in K[x], \PHI$ -- неприводим, $\PHI | fg \SO \PHI | f \vee \PHI | g$ 
     \begin{proof}
         $\PHI \not| f \SO (\PHI, f) = 1 \SO \exists h_1, h_2 \in K[x] : h_1 \PHI + h_2 f = 1 \SO h_1 \PHI g + h_2 f g = g \SO \PHI | (h_1 \PHI g + h_2 f g) \SO \PHI | g$ 
@@ -2155,7 +2155,7 @@ $K$ -- поле. $1 + 1 + 1 + ... = 0 \vee \infty$
 \end{Def}
 
 \begin{Lm}
-    $K$ -- поле, $\characteristic K = n > 9 \SO n = p$ -- простое.
+    $K$ -- поле, $\characteristic K = n > 0 \SO n = p$ -- простое.
 \end{Lm}
 
 \begin{proof}
@@ -2855,7 +2855,6 @@ a_{31} & a_{32} & a_{33}
         \end{array}\right| = a_{11} A_{11} = \]
         \[ = (x_2 - x_1) (x_3 - x_1) ... (x_n - x_1) \cdot 
         \left|\begin{array}{cccc}
-            1 & x_1 & \cdots & x_1^{n - 2} \\ 
             1 & x_2 & \cdots & x_2^{n - 2} \\ 
             \vdots & \vdots & \ddots & \vdots \\ 
             1 & x_n & \cdots & x_n^{n - 2}
@@ -3250,7 +3249,7 @@ x_n
 \begin{proof}
     \begin{MyList}
         \item Рассмотрим $\alpha_1 v_1 + ... + \alpha_i v_i, i$ -- наименьший индекс $i : v_1, ..., v_i$ -- ЛЗ 
-        $\SO \alpha_1 v_1 + ... \alpha_i v_i = 0$. Если $\alpha_i = 0 \SO v_1, ..., v_{i - 1}$ -- ЛЗ $\SO a_i \neq 0 \SO v_i \in \langle v_1, ..., v_{i - 1} \rangle$.
+        $\SO \alpha_1 v_1 + ... + \alpha_i v_i = 0$. Если $\alpha_i = 0 \SO v_1, ..., v_{i - 1}$ -- ЛЗ $\SO a_i \neq 0 \SO v_i \in \langle v_1, ..., v_{i - 1} \rangle$.
         
         \item $\langle v_1, ..., \widehat{v}_i, ..., v_n \rangle = \langle v_1, ..., v_n \rangle$ $\subseteq$. \\
         Возьмем произвольный $u \in \langle v_1, ..., v_n \rangle = \beta_1 v_1 + ... + \beta_i v_i + ... + \beta_n v_n = \beta_1 v_1 + ... + \beta_i (\alpha_1' v_1 + ... + \alpha_{i - 1}'v_{i - 1}) + ... + \beta_n v_n$. 
@@ -3289,7 +3288,7 @@ $V$ -- конечномерное векторное пространство н
     \begin{MyList}
         \item Любая линейная оболочка обладает базисом.
         \item Все базисы $V$ состоят из одинакового количества векторов.
-        \item Разложение любого $v \in V$ по базису $v = \alpha_1 e_1 + ... \alpha_n e_n$ единственно.
+        \item Разложение любого $v \in V$ по базису $v = \alpha_1 e_1 + ... + \alpha_n e_n$ единственно.
     \end{MyList}
 \end{Thm}
 
