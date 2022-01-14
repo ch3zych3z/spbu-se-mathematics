@@ -333,6 +333,9 @@
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\characteristic}{char}
 
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
 \begin{document}
 
 \Header
@@ -1439,7 +1442,7 @@ $\overline{A_n} = S_n \setminus A_n$
     $z = a + bi$. $\Real z = a$ -- вещественная часть числа $z$, $\Imag z = b$ -- мнимая часть.   \\
     $z = a + bi \mapsto $ точка на комплексной плоскости. $(a, b)$ -- радиус-вектор $OM$.  \\
     $\rho = |z| = \sqrt{a^2 + b^2}$ -- длина вектора $OM$. $\PHI = \widehat{(\Real, OM)}$ -- аргумент комплексного числа. \\
-    $\arg z = \PHI, \PHI = \PHI_0 + 2\pi k, \PHI_0 \in [0; 2\pi)$ или $\PHI_0 \in (-\pi; pi]$.
+    $\arg z = \PHI, \PHI = \PHI_0 + 2\pi k, \PHI_0 \in [0; 2\pi)$ или $\PHI_0 \in (-\pi; \pi]$.
 
     \begin{figure}[h]
         \centering
@@ -1472,7 +1475,7 @@ $\overline{A_n} = S_n \setminus A_n$
         \begin{gather*}
             |z_1 + z_2|^2 = |\rho_1 \cos \PHI_1 + \rho_2 \cos \PHI_2 + i(\rho_1 \sin \PHI_1 + \rho_2 \sin \PHI_2)|^2 = \\
             = \rho_1^2 \cos^2 \PHI_1 + 2 \rho_1 \rho_2 \cos \PHI_1 \cos \PHI_2 + \rho_2^2 \cos^2 \PHI_2 + \rho_1^2 \sin^2 \PHI_1 + 2 \rho_1 \rho_2 \sin \PHI_1 \sin \PHI_2 + \rho_2^2 \sin^2 \PHI_2 = \\
-            = \rho_1^2 + 2\rho_1 \rho_2 \cos(\PHI_1 - \PHI_2) = \rho_2^2 \leqslant \rho_1^2 + 2\rho_1 \rho_2 + \rho_2^2 = (\rho_1 + \rho_2)^2 = (|z_1| + |z_2|)^2
+            = \rho_1^2 + 2\rho_1 \rho_2 \cos(\PHI_1 - \PHI_2) + \rho_2^2 \leqslant \rho_1^2 + 2\rho_1 \rho_2 + \rho_2^2 = (\rho_1 + \rho_2)^2 = (|z_1| + |z_2|)^2
         \end{gather*}
 
         \item \[
@@ -1482,7 +1485,7 @@ $\overline{A_n} = S_n \setminus A_n$
 \end{proof}
 
 \begin{Rem}
-    $|z_1 + z_2| = |z_1| + z_2| \EQ z_1 \parallel z_2$ 
+    $|z_1 + z_2| = |z_1| + |z_2| \EQ z_1 \parallel z_2$ 
 \end{Rem}
 
 \Pagebreak
@@ -1638,7 +1641,7 @@ $\overline{A_n} = S_n \setminus A_n$
 \end{proof}
 
 \begin{Def}
-    Введём $x = (0, 1, 0, ...)$. Тогда $x^2 = (0, 1, 0, 0, ...) \cdot (0, 1, 0, 0, ...) (0, 0 \cdot 1 + 1 \cdot 0, 0 \cdot 0 + 1 \cdot 1, 0, ...) = (0, 0, 1, 0, ...)$  
+    Введём $x = (0, 1, 0, ...)$. Тогда $x^2 = (0, 1, 0, 0, ...) \cdot (0, 1, 0, 0, ...) = (0, 0 \cdot 1 + 1 \cdot 0, 0 \cdot 0 + 1 \cdot 1, 0, ...) = (0, 0, 1, 0, ...)$  
     \[\SO x^k = (\underset{0}{0} , \underset{1}{0} , ..., \underset{k}{1} , \underset{k + 1}{0}, ... )\]
     Тогда 
     \[(a_0, a_1, ..., a_n, ...) = (a_0, 0, ...) + (0, a_1, 0, ...) + ... + (0, ..., a_k, ...) = a_0 + a_1 x + a_2 x^2 + ... + a_n x^n\]
@@ -1747,7 +1750,7 @@ $\overline{A_n} = S_n \setminus A_n$
 \begin{proof}
     Индукция по $\deg f$ \\
     $\deg f = 0 \SO $ всё верно. Если нет корней $\SO$ всё верно. \\
-    Пусть для для $\deg f < n$ доказано. Докажем для $\deg f = n$. \\
+    Пусть для $\deg f < n$ доказано. Докажем для $\deg f = n$. \\
     $c_1$ -- корень $f \SO f = (x - c_1)^k g(x)$, если $c_2 \neq c_1 $ -- другой корень $\SO f(c_2) = (c_2 - c_1)^k g(c_1) = 0 \SO c_2$ -- корень $g$. 
     $\deg g = n - k < n \SO$ корней $g \leqslant n - k \SO$ корней $f \leqslant k + n - k = n$.
 \end{proof}
@@ -1872,7 +1875,7 @@ $$f = g = a_n x^n + ... + a_1 x + a_0$$
     \begin{proof}
         $d = (f, \PHI)$. Если $d \neq 1 \SO d | f, d | \PHI \SO d = \varepsilon \cdot \PHI..., \varepsilon \in K^* \SO \PHI | f$ 
     \end{proof}
-    \item $\PHI_1, \PHI_2 \in K[x]$ -- неприводимы. \TODO
+    \item $\PHI_1, \PHI_2 \in K[x]$ -- неприводимы $\SO (\PHI_1, \PHI_2) = 1$ или $\PHI_1 = \varepsilon \PHI_2, \varepsilon \in K^*$.  
     \item $f, g, \PHI \in K[x], \PHI$ -- неприводим, $\PHI | fg \SO \PHI | f \vee \PHI | g$ 
     \begin{proof}
         $\PHI \not| f \SO (\PHI, f) = 1 \SO \exists h_1, h_2 \in K[x] : h_1 \PHI + h_2 f = 1 \SO h_1 \PHI g + h_2 f g = g \SO \PHI | (h_1 \PHI g + h_2 f g) \SO \PHI | g$ 
@@ -2002,7 +2005,7 @@ $$f = g = a_n x^n + ... + a_1 x + a_0$$
 
 \begin{Example}
     \begin{MyList}
-        \item Найдем все автоморфизмы $\Q \to \Q$. $\PHI: \Q \to Q$ -- произвольный автоморфизм. $\PHI(1) = 1 \SO n \in \Z, n > 0$
+        \item Найдем все автоморфизмы $\Q \to \Q$. $\PHI: \Q \to \Q$ -- произвольный автоморфизм. $\PHI(1) = 1 \SO n \in \Z, n > 0$
         \[\PHI(n) = \PHI(\underbrace{1 + 1 + ... + 1}_n) = \underbrace{\PHI(1) + ... + \PHI(1)}_n = n\]
         $\SO \PHI(-n) = -n \SO\PHI|_\Z = id$ \\
         $q \cdot \PHI \left(\frac{1}{q}\right) = \underbrace{\PHI \left(\frac{1}{q}\right) + ... + \PHI \left(\frac{1}{q}\right)}_q = \PHI\left(\frac{1}{q} + ... + \frac{1}{q}\right) = \PHI(1) = 1 \SO \PHI\left(\frac{1}{q}\right) = \frac{1}{q} \SO \PHI \left(\frac{p}{q}\right) = p \cdot \PHI \left(\frac{1}{q}\right) = \frac{p}{q} $
@@ -2022,7 +2025,7 @@ $$f = g = a_n x^n + ... + a_1 x + a_0$$
 \end{Lm}
 
 \begin{proof}
-    $f = a_n x^n + ... + a_0, a_i = k, i = 0, ..., n$
+    $f = a_n x^n + ... + a_0, a_i \in k, i = 0, ..., n$
     \[\PHI(f) = \PHI(a_n x^n + ... + a_0) = \PHI(a_n) \cdot \PHI(x^n) + ... + \PHI(a_1) \PHI(x) + \PHI(a_0) =\]
     \[= a_n \PHI(x)^n + ... + a_1 \PHI(x) + a_0 = f(\PHI(x))\]
     $x = c : \PHI(f(c)) = \PHI(0) = 0$. С другой стороны $\PHI(f(c)) = f(\PHI(c)) \SO \PHI(c)$ корень $f$. 
@@ -2033,7 +2036,7 @@ $$f = g = a_n x^n + ... + a_1 x + a_0$$
 
     \begin{MyList}
         \item $x - \alpha, \alpha \in \R$ 
-        \item $ax^2 + bx = c, b^2 - 4ac < 0$ 
+        \item $ax^2 + bx - c, b^2 - 4ac < 0$ 
     \end{MyList}
 \end{Thm}
 
@@ -2152,7 +2155,7 @@ $K$ -- поле. $1 + 1 + 1 + ... = 0 \vee \infty$
 \end{Def}
 
 \begin{Lm}
-    $K$ -- поле, $\characteristic K = n > 9 \SO n = p$ -- простое.
+    $K$ -- поле, $\characteristic K = n > 0 \SO n = p$ -- простое.
 \end{Lm}
 
 \begin{proof}
@@ -2354,7 +2357,7 @@ $R$ -- коммутативное кольцо с 1.
     \[\sum_{n=0}^{\infty} a_nx^n + \sum_{m=0}^{\infty} b_mx^m = \sum_{n=0}^{\infty} (a_n + b_n)x^n\]
 
     \item Умножение.
-    \[\left(\sum_{n=0}^{\infty} a_nx^n\right) \left(\sum_{m=0}^{\infty} b_mx^m\right) = \sum_{k=0}^{\infty} \left(\sum_{n + m=k}^{a_nb_m}\right)x^k\]
+    \[\left(\sum_{n=0}^{\infty} a_nx^n\right) \left(\sum_{m=0}^{\infty} b_mx^m\right) = \sum_{k=0}^{\infty} \left(\sum_{n + m=k}^{a_nb_m}x^k\right)\]
 \end{MyList}
 
 Множество $R[[x]] = \left\{\sum_{n=0}^{\infty} a_nx^n, a_n \in R\right\}$ образует коммутативное кольцо с 1.
@@ -2400,7 +2403,7 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
     \vdots & \vdots & \ddots & \vdots \\
     a_{m1} & a_{m2} & \cdots & a_{mn}
     \end{array}\right)\]
-    $A = (a_{ij})_{1 \leqslant i \leqslant m, 1 \leqslant j \leqslant n}, a_{ij} \in K, K$ -- поле 
+    $A = (a_{ij}), {1 \leqslant i \leqslant m, 1 \leqslant j \leqslant n}, a_{ij} \in K, K$ -- поле 
 \end{Def}
 
 Виды матриц:
@@ -2572,7 +2575,7 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
 Свойства:
 \begin{MyList}
     \item $(A^T)^T = A$ 
-    \item $(A + B)^T + A^T + B^T$ 
+    \item $(A + B)^T = A^T + B^T$ 
     \item $c \in K, (cA)^T = cA^T$ 
     \item $(AB)^T = B^T \cdot A^T$ 
     \begin{proof}
@@ -2582,7 +2585,7 @@ $R[x_1, x_2, ..., x_n]$ -- кольцо многочленов от переме
         $A^T = C = (c_{ij}), 1 \leqslant i \leqslant k, 1 \leqslant j \leqslant m$. \\
         $B^T = D = (d_{ij}), 1 \leqslant i \leqslant n, 1 \leqslant j \leqslant k$.
         \[AB = F = (f_{ij}), f_{ij} = \sum_{s=1}^{k} a_{is} b_{sj}\]
-        \[B^TA^T = G = (g_{ij}), g_{ij} = \sum_{t=1}^{d_{it} c_{tj}}\]
+        \[B^TA^T = G = (g_{ij}), g_{ij} = \sum_{t=1}^{k}d_{it} c_{tj}\]
         \[g_{ij} = \sum_{t=1}^{k} d_{it} c_{tj} = \sum_{t=1}^{k} b_{ti} a_{jt} = \sum_{t=1}^{k} a_{jt} b_{ti} = f_{ji}\]
     \end{proof}
 \end{MyList}
@@ -2630,7 +2633,7 @@ a_{31} & a_{32} & a_{33}
     a_{21} & a_{22} & \cdots & a_{2n} \\ 
     \vdots & \vdots & \ddots & \vdots \\ 
     a_{n1} & a_{n2} & \cdots & a_{nn}
-    \end{array}\right| = \sum_{(i_1, i_2, ..., i_n)} \pm a_{1i_1} a_{2i_2} ... a_{ni_n} = \sum \varepsilon_\sigma = a_{1\sigma(1)} a_{2\sigma(2)} ... a_{n \sigma(n)} =\]
+    \end{array}\right| = \sum_{(i_1, i_2, ..., i_n)} \pm a_{1i_1} a_{2i_2} ... a_{ni_n} = \sum \varepsilon_\sigma a_{1\sigma(1)} a_{2\sigma(2)} ... a_{n \sigma(n)} =\]
     где $\varepsilon_\sigma$ -- знак перестановки. $\varepsilon = (-1)^{\inv (i_1, i_2, ..., i_n)}$   
     \[= \sum_{(i_1, i_2, ..., i_n) \in S_n} (-1)^{\inv (i_1, i_2, ..., i_n)} a_{1i_1} a_{2i_2} ... a_{ni_n}\]
 \end{Def}
@@ -2720,7 +2723,7 @@ a_{31} & a_{32} & a_{33}
 \Subsubsection{Алгебраические дополнения и миноры}
 
 \begin{Def}
-    Определитель матрицы, полученный вычеркиванием из матрицы $A$ $k$ строк и $k$ столбцов, называется минором $(n - k)$-го порядка.
+    Определитель матрицы, полученной вычеркиванием из матрицы $A$ $k$ строк и $k$ столбцов, называется минором $(n - k)$-го порядка.
 \end{Def}
 
 \begin{Def}
@@ -2847,12 +2850,11 @@ a_{31} & a_{32} & a_{33}
         \[= \left|\begin{array}{ccccc}
         1 & 0 & 0 & \cdots & 0 \\ 
         1 & x_2 - x_1 & x_2^2 - x_2x_1 & \cdots & x_2^{n - 1} - x_2^{n - 2}x_1 \\ 
-        \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+        \vdots & \vdots & \vdots & \ddots & \vdots \\ 
         1 & x_n - x_1 & x_n^2 - x_nx_1 & \cdots & x_n^{n - 1} - x_n^{n - 2}x_1
         \end{array}\right| = a_{11} A_{11} = \]
         \[ = (x_2 - x_1) (x_3 - x_1) ... (x_n - x_1) \cdot 
         \left|\begin{array}{cccc}
-            1 & x_1 & \cdots & x_1^{n - 2} \\ 
             1 & x_2 & \cdots & x_2^{n - 2} \\ 
             \vdots & \vdots & \ddots & \vdots \\ 
             1 & x_n & \cdots & x_n^{n - 2}
@@ -2861,7 +2863,7 @@ a_{31} & a_{32} & a_{33}
 
 \Subsubsection{Геометрическая интерпретация}
 
-$A_1, ..., A_n$ -- веткоры в пространстве $\R^n$ (строки).
+$A_1, ..., A_n$ -- векторы в пространстве $\R^n$ (строки).
 $A = (A_1, ..., A_n)$ \\
 $\Pi = \left\{\alpha_1 A_1 + ... + \alpha_n A_n,  0 \leqslant \alpha_i \leqslant 1, 1 \leqslant i \leqslant n\right\}$ -- $n$-мерный параллелепипед.
 \[|\det(A)| = V(\Pi)\]
@@ -2917,10 +2919,10 @@ $\Pi = \left\{\alpha_1 A_1 + ... + \alpha_n A_n,  0 \leqslant \alpha_i \leqslant
     \end{array}\right| = \left|\begin{array}{cc}
     A & C \\ 
     -E & O
-    \end{array}\right| =\] 
+    \end{array}\right| \circled{=}\] 
     $c_{11} = a_{11} b_{11} + a_{12} b_{21} + a_{13} b_{31} + ... + a_{1n} b_{n1} \SO$
     $c_{ij} = a_{i1} b_{1j} + ... + a_{in} b_{nj} \SO C = AB$   
-    \[= \left|\begin{array}{cc}
+    \[\circled{=} \left|\begin{array}{cc}
     -E & O \\ 
     A & C
     \end{array}\right| = (-1)^n \det(-E) \det C = (-1)^n \cdot (-1)^n \cdot \det C = \det C \SO \det C = \det A \det B\]
@@ -2971,7 +2973,7 @@ $\Pi = \left\{\alpha_1 A_1 + ... + \alpha_n A_n,  0 \leqslant \alpha_i \leqslant
     \begin{MyList}
         \item $A^{-1} \cdot A = E$
         \item $AB \cdot B^{-1} \cdot A^{-1} = E \SO (AB)^{-1} = B^{-1} A^{-1}$
-        \item упражнение
+        \item $\det (A A^{-1}) = \det A \cdot \det A^{-1} = \det E \EQ \det A^{-1} = (\det A)^{-1}$ 
         \item $A \cdot A^{-1} = E \SO (A \cdot A^{-1})^T = E^{T} \SO (A^{-1})^T A^T = E$   
     \end{MyList}
 \end{proof}
@@ -3114,14 +3116,14 @@ x_n
 \Subsubsection{Линейная зависимость}
 \begin{Def}
     $\alpha_1, .., \alpha_n \in K, v_1, ..., v_n \in V$. Тогда
-    \[\alpha_1 v_1 + ... \alpha_n v_n \text{ -- линейная комбинация } v_1, ..., v_n\]
+    \[\alpha_1 v_1 + ... + \alpha_n v_n \text{ -- линейная комбинация } v_1, ..., v_n\]
     Множество всех линейных комбинаций $v_1, ..., v_n$:
-    \[\langle v_1, ..., v_n\rangle\left\{\alpha_1 v_1 + ... \alpha_n v_n, \alpha_i \in K, i = 1, ..., n\right\}\]
+    \[\langle v_1, ..., v_n\rangle = \left\{\alpha_1 v_1 + ... \alpha_n v_n, \alpha_i \in K, i = 1, ..., n\right\}\]
     и называется \textbf{линейной оболочкой} векторов $v_1, ..., v_n$.  
 \end{Def}
 
 \begin{Def}
-    Говорят, что векторы $v_1, ..., v_n$ порождает векторное пространство $V$, если 
+    Говорят, что векторы $v_1, ..., v_n$ порождают векторное пространство $V$, если 
     $\langle v_1, ..., v_n \rangle = V$.
 \end{Def}
 
@@ -3187,7 +3189,7 @@ x_n
         0 \\ 
         1
         \end{pmatrix}$ 
-        \[\alpha_1 e_1 + \alpha_2 e_2 + \alpha_3 + e_3 = \begin{pmatrix}
+        \[\alpha_1 e_1 + \alpha_2 e_2 + \alpha_3 e_3 = \begin{pmatrix}
         0 \\ 
         0 \\ 
         0
@@ -3223,14 +3225,14 @@ x_n
     \begin{MyList}
         \item $v_1, ..., v_n$ -- ЛЗ $\EQ \exists i : v_i = $ линейная комбинация остальных.
         \item Множество векторов, содержащее 0 -- ЛЗ.
-        \item $X, Y$ -- множества векторов, $X \subset Y$. Если $Y$ -- ЛЗ, то $X$ -- ЛЗ.
+        \item $X, Y$ -- множества векторов, $X \subset Y$. Если $Y$ -- ЛНЗ, то $X$ -- ЛНЗ.
         Если $X$ -- ЛЗ, то $Y$ -- ЛЗ.
     \end{MyList}
 \end{Thm}
 
 \begin{proof}
     \begin{MyList}
-        \item $\exists \alpha_i \neq 0, \alpha_1 v_1 + ... \alpha_i v_i + ... + \alpha_n v_n = 0 \SO v_i$ выражается. 
+        \item $\exists \alpha_i \neq 0, \alpha_1 v_1 + ... + \alpha_i v_i + ... + \alpha_n v_n = 0 \SO v_i$ выражается. 
         \item $1 \cdot 0 + 0 \cdot v_1 + ... + 0 \cdot v_n = 0$
         \item самостоятельно.
     \end{MyList}
@@ -3247,10 +3249,10 @@ x_n
 \begin{proof}
     \begin{MyList}
         \item Рассмотрим $\alpha_1 v_1 + ... + \alpha_i v_i, i$ -- наименьший индекс $i : v_1, ..., v_i$ -- ЛЗ 
-        $\SO \alpha_1 v_1 + ... \alpha_i v_i = 0$. Если $\alpha_i = 0 \SO v_1, ..., v_{i - 1}$ -- ЛЗ $\SO a_i \neq 0 \SO v_i \in \langle v_1, ..., v_{i - 1} \rangle$.
+        $\SO \alpha_1 v_1 + ... + \alpha_i v_i = 0$. Если $\alpha_i = 0 \SO v_1, ..., v_{i - 1}$ -- ЛЗ $\SO a_i \neq 0 \SO v_i \in \langle v_1, ..., v_{i - 1} \rangle$.
         
         \item $\langle v_1, ..., \widehat{v}_i, ..., v_n \rangle = \langle v_1, ..., v_n \rangle$ $\subseteq$. \\
-        Возьмем произвольный $u \in \langle v_1, ..., v_n \rangle = \beta_1 v_1 + ... \beta_i v_i + ... + \beta_n v_n = \beta_1 v_1 + ... + \beta_i (\alpha_1' v_1 + ... + \alpha_{i - 1}'v_{i - 1}) + ... + \beta_n v_n$. 
+        Возьмем произвольный $u \in \langle v_1, ..., v_n \rangle = \beta_1 v_1 + ... + \beta_i v_i + ... + \beta_n v_n = \beta_1 v_1 + ... + \beta_i (\alpha_1' v_1 + ... + \alpha_{i - 1}'v_{i - 1}) + ... + \beta_n v_n$. 
     \end{MyList}
 \end{proof}
 
@@ -3268,6 +3270,249 @@ x_n
     Рассмотрим $u_1, v_1, ..., v_n$ -- ЛЗ $\SO$ по лемме $\exists i : 1 \leqslant i \leqslant n : \langle u_1, v_1, ..., v_n \rangle = \langle u_1, v_1, ..., \widehat{v}_i, ..., v_n \rangle$ и далее:
     $\langle u_1, u_2, v_1, ..., \widehat{v}_i, ..., v_n \rangle \SO \exists j : $ можно убрать $v_j$ и т.д. и получаем $\langle u_i, ..., \rangle = V$.
     Если $m > n \SO u_1, ..., u_n$ -- порождает все $V \SO u_1, ..., u_n, u_{n + 1}$ -- ЛЗ -- противоречие.
+\end{proof}
+
+\Subsection{Базис и размерность}
+
+$V$ -- конечномерное векторное пространство над полем $K$.
+
+\begin{Def}
+    Система векторов $e_1, ..., e_n$ называется базисом пространства $V$ если выполняются:
+    \begin{MyList}
+        \item $\langle e_1, ..., e_n\rangle = V$ 
+        \item $e_1, ..., e_n$ -- ЛНЗ 
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}[Существование базиса]
+    \begin{MyList}
+        \item Любая линейная оболочка обладает базисом.
+        \item Все базисы $V$ состоят из одинакового количества векторов.
+        \item Разложение любого $v \in V$ по базису $v = \alpha_1 e_1 + ... + \alpha_n e_n$ единственно.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    \begin{MyList}
+        \item $u_1, ..., u_k \in V$. $U = \langle u_1, ..., u_k\rangle$. Возьмем из $u_1, ..., u_k$ максимальное число ЛНЗ векторов $u_1, ..., u_s \SO u_1, ..., u_s, u_{s + 1}$ -- ЛЗ $\SO \langle u_1, ..., u_s\rangle = \langle u_1, ..., u_{s + 1}\rangle \SO \langle u_1, ..., u_s\rangle = U$.  
+        \item Пусть $e_1, ..., e_n$ -- базис, $e_1', ... e_k'$ -- базис.
+        $e_1, ..., e_n$ -- ЛНЗ, $e_1', ..., e_k'$ -- порождающие векторы $\SO n \leqslant k$.
+        Аналогично, $e_1', ..., e_k'$ -- ЛНЗ, $e_1, ..., e_n$ -- порождающие $\SO k\leqslant n$.
+        
+        \item $v = \alpha_1 e_1 + ... + \alpha_n e_n = \alpha_1' e_1 + ... + \alpha_n'e_n \SO (\alpha_1 - \alpha_1') e_1 + ... + (\alpha_n - \alpha_n')e_n = 0$. 
+    \end{MyList}
+\end{proof}
+
+\begin{Def}
+    Коэффициенты $(\alpha_1, ..., \alpha_n)$ в разложении $v = \alpha_1 e_1 + ... \alpha_n e_n$ называются координатами вектора $v$ в базисе $e_1, ..., e_n$. 
+\end{Def}
+
+\begin{Def}
+    Количество векторов в базисе -- размерность $V$ -- $\dim V$.
+\end{Def}
+
+\begin{Thm}[Три равносильных определения базиса]
+    $V$ -- конечномерное векторное пространство над $K$
+    \begin{MyList}
+        \item $e_1, ..., e_n$ -- базис $V$
+        \item $e_1, ..., e_n$ -- максимальный ЛНЗ набор векторов.
+        \item $e_1, ..., e_n$ минимальный порождающий набор векторов.
+    \end{MyList}
+\end{Thm}
+
+\begin{proof}
+    $1) \SO 2)$. $e_1, ..., e_n, f \SO f$ выражается через $e_1, ..., e_n \SO e_1, ..., e_n, f$ -- ЛЗ. \\
+    $2) \SO 1)$. $e_1, ..., e_n$ -- максимальный $\SO \forall v \in V \ e_1, ..., e_n, v$ -- ЛЗ $\SO v \in \langle e_1, ..., e_n\rangle$. \\
+    $1) \SO 3)$. $\langle u_1, ..., u_k\rangle = V$. $e_1, ..., e_n$ -- ЛНЗ, порождающие $\SO n \leqslant k \SO n$ -- минимально. \\
+    $3) \SO 1)$. Если $e_1, ..., e_n$ -- ЛЗ $\SO \exists i : \langle e_1, ..., e_n\rangle = \langle e_1, ..., \widehat{e_i}, ..., e_n\rangle$ -- противоречие. 
+\end{proof}
+
+\Subsubsection{Подпространства}
+
+\begin{Def}
+    $U \subset V$ называется подпространством, если оно само является векторным пространством над $K$.
+\end{Def}
+
+\begin{Rem}
+    $U$ -- подпространство достаточно проверить $\forall v, u \in U, \forall \lambda \in K \SO v + u, \lambda u \in U$.
+\end{Rem}
+
+\begin{Lm}
+    $U_1, U_2 \subset V$ -- подпространства $\SO U_1 \cap U_2 \subset V$ -- подпространство.
+\end{Lm} 
+
+\begin{proof}
+    $x, y, \lambda x \in U_1 \cap U_2 \SO x + y \in U_1, x + y \in U_2 \SO x + y \in U_1 \cap U_2, \lambda x \in U_1, U_2$ 
+\end{proof}
+
+\begin{Rem}
+    \begin{MyList}
+        \item $\bigcap_{i \in I} U_i$ -- подпространство
+        \item $U_1, U_2 \subset V$ -- подпространства $\SO U_1 \cup U_2$ -- необязательно подпространство.
+    \end{MyList}
+\end{Rem}
+
+\begin{Def}
+    Суммой подпространств называется $U_1 + U_2 = \{u_1 + u_2, u_1 \in U_1, u_2 \in U_2\}$ 
+\end{Def}
+
+\begin{Lm}[О дополнении до базиса]
+    Любой ЛНЗ набор векторов можно дополнить до базиса.
+\end{Lm}
+
+\begin{proof}
+    $e_1, ..., e_k$ -- ЛНЗ, $\dim V = n, k < n$. $\langle e_1, ..., e_k \rangle \subset V \SO \exists v \in V : v \notin \langle e_1, ..., e_k \rangle \SO e_1, ..., e_k, v$ -- ЛНЗ и т.д. 
+\end{proof}
+
+\begin{Thm}[Размерность суммы подпространств]
+    $U, W \in V$ -- подпространства.
+    \[\SO \dim(U + W) = \dim U + \dim W - \dim (U \cap W)\]
+\end{Thm}
+
+\begin{proof}
+    $\dim (U \cap W) = m, \dim U = k, \dim W = l, e_1, ..., e_m$ -- базис $U \cap W, U \cap W \subset U$.
+    Дополним базис $e_1, ..., e_m$ до $U : u_1, ..., u_{k - m}$.
+    $U \cap W \subset W$ $e_1, ..., e_m, w_1, ..., w_{l - m}$ -- базис $W$.
+    Докажем, что $e_1, ..., e_m, u_1, ..., u_{k - m}, w_1, ..., w_{l - m}$ -- базис $U + W$.
+    $\langle e_1, ..., e_m, u_1, ..., u_{k - m}, w_1, ..., w_{l - m}\rangle = U + W \SO$ надо доказать ЛНЗ. Предположим, что набор ЛЗ: 
+    \[\sum_{i = 1}^m \alpha_i e_i + \sum_{j = 1}^{k - m} \beta_j u_j + \sum_{t = 1}^{l - m} \gamma_t w_t = 0 \SO \underbrace{-\sum_{t = 1}^{l - m} \gamma_t w_t}_{\in W} = \underbrace{\sum_{i = 1}^m \alpha_i e_i + \sum_{j = 1}^{k - m} \beta_j u_j}_{\in U}\]
+    \[\SO \sum_{t = 1}^{l - m} \gamma_t w_t \in U \cap W \SO \sum_{t = 1}^{l - m} \gamma_t w_t = \sum_s^m \delta_s e_s\] 
+    Но $e_1, ..., e_m, w_1, ..., w_{l - m}$ -- базис $W \SO \gamma_1 = ... = \gamma_{l - m} = 0$.
+    \[\SO \sum_i^m \alpha_i e_i + \sum_j^{k - m} \beta_j u_j = 0\]
+    $e_i, u_j$ -- базис $\SO \alpha_i, \beta_j = 0 \ \forall i, \forall j \SO e_1, ..., e_m, u_1, ..., u_{k - m}, w_1, ..., w_{l - m}$ -- базис
+    \[\SO \dim(U + W) = m + k - m + l - m = k + l - m\] 
+\end{proof}
+
+\begin{Rem}
+    Если $\dim U + \dim W > \dim V \SO U \cap W \neq \{0\}$ 
+\end{Rem}
+
+\Subsubsection{Прямая сумма подпространств}
+
+\begin{Def}
+    $U, W \subset V$. Сумма $U + W$ называется прямой, если $\forall v \in U + W$ представляется $v = u + w, u \in U, w \in W$ единственными образом.
+    \[U \oplus W\]
+\end{Def}
+
+\begin{Rem}
+    Достаточно проверить, что 0 представляется единственным образом.
+    $v = u_1 + w_1 = u_2 + w_2 \EQ (u_1 - u_2) + (w_1 - w_2) = 0 = \underbrace{0}_{\in U} + \underbrace{0}_{\in W}$ 
+\end{Rem}
+
+\begin{Thm}[Критерий прямой суммы]
+    $U, W \in V$ -- подпространства. $U + W$ -- прямая $\EQ U \cap W = \{0\}$.
+\end{Thm}
+
+\begin{proof}
+    $\SO$. Предположим, что $u \in U \cap W \SO 0 = \underbrace{u}_{\in U} + \underbrace{(-u)}_{\in W} \SO U + W$ -- не прямое -- противоречие. \\
+    $\Leftarrow$. Предположим, что $U + W$ -- не прямая $v = u_1 + w_1 = u_2 + w_2 = 0 \SO \underbrace{u_1 - u_2}_{\in U} = \underbrace{w_2 - w_1}_{\in W} \SO u_1 - u_2, w_2 - w_1 \in U \cap W = \{0\} \SO u_1 = u_2, w_1 = w_2$.  
+\end{proof}
+
+\begin{Def}
+    $U_i \subset V, i = 1, ..., k$ -- подпространства. Сумма $\sum_{i = 1}^k U_i$ называется прямой, если 
+    $\forall v \in \sum_{i = 1}^k U_i$ представляется единственным образом.
+\end{Def}
+
+\begin{Thm}
+    $\sum_{i = 1}^k U_i$ -- прямая $\EQ U_j \cap (U_1 + ... + \widehat{U}_j + ... + U_k) = \{0\} \ \forall j = 1, ..., k$. 
+\end{Thm}
+
+\begin{proof}
+    Аналогично, упражнение.
+\end{proof}
+
+\begin{Thm}[Размерность прямой суммы]
+    $\sum_{i = 1}^k U_i$ -- прямая сумма $\EQ \dim \left(\sum_{i = 1}^k U_i\right) = \sum_{i = 1}^k \dim U_i$. 
+\end{Thm}
+
+\begin{proof}
+    $\SO$. Индукция $k = 2 : \dim(U_1 \oplus U_2) = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2)$. \\
+    Индукционный переход: $U_1 + ... + U_{k - 1} + U_k = \overline{U} + U_k$ -- прямая сумма
+    $\SO \dim(\overline{U} + U_k) = \dim \overline{U} + \dim U_k = \sum_{i = 1}^{k - 1} \dim U_i + \dim U_k$.
+
+    $\Leftarrow$. Возьмем базисы в $\forall U_i$ из $\dim \sum U_i = \sum \dim U_i \SO$ базисы не пересекаются $\SO$ их объединение базис $\sum U_i$, сумма -- прямая.   
+\end{proof}
+
+\begin{Thm}[О дополнительном подпространстве]
+    $V$ -- векторное пространство $\SO \exists W \subset V : V = U \oplus W$.
+\end{Thm}
+
+\begin{proof}
+    $U = \langle e_1, ..., e_k \rangle$ -- базис, дополним до $V$ $e_1, ..., e_n \SO W = \langle e_{k + 1}, ..., e_n\rangle \SO V = U \oplus W$.
+\end{proof}
+
+\Subsubsection{Изоморфизм векторных пространств}
+
+\begin{Def}
+    $V, U$ -- векторные пространства над $K$. Изоморфизмом $\PHI : V \to U$ таких, что 
+    \begin{MyList}
+        \item $\PHI$ -- биекция
+        \item $\PHI(x + y) = \PHI(x) + \PHI(y) \ \forall x, y, \in x, y \in V$ 
+        \item $\PHI(\lambda x) = \lambda \PHI(x) \ \forall \lambda \in K, x \in V$ 
+    \end{MyList}
+\end{Def}
+
+\begin{Thm}[Об изоморфизме векторных пространств]
+    $V$ -- векторное пространство над $K, \dim V = n$ $\SO V \simeq K^n$.
+\end{Thm}
+
+\begin{proof}
+    $V = \langle e_1, ..., e_n\rangle, \forall x \in V \ x = \alpha_1 e_1 + ... + \alpha_n e_n$.
+    $\PHI(x) = \begin{pmatrix}
+    \alpha_1 \\ 
+    \vdots \\ 
+    \alpha_n
+    \end{pmatrix}$ -- биекция.
+    \begin{gather*}
+        \PHI(x + y) = \PHI(\alpha_1 e_1 + ... + \alpha_n e_n + \beta_1 e_1 + ... + \beta_n e_n) = \PHI((\alpha_1 + \beta_1) e_1 + ... + (\alpha_n + \beta_n) e_n) = \\
+        = \begin{pmatrix}
+        \alpha_1 + \beta_1 \\ 
+        \vdots \\ 
+        \alpha_n + \beta_n
+        \end{pmatrix} = \begin{pmatrix}
+        \alpha_1 \\ 
+        \vdots \\ 
+        \alpha_n
+        \end{pmatrix} + \begin{pmatrix}
+        \beta_1 \\ 
+        \vdots \\ 
+        \beta_n
+        \end{pmatrix} = \PHI(x) + \PHI(y)
+    \end{gather*}
+\end{proof}
+
+\Subsubsection{Факторпространство}
+
+$U \subset V, x, y \in V$ сравнимы по подпространству $U$, если $x - y \in U$. $x \equiv y (U)$. \\
+Если $x \equiv y (U), y \equiv z (U) \SO x \equiv z (U)$, т.е. отношение эквивалентности.
+\[x \equiv y (U), z \equiv w (U) \SO \alpha x + \beta z \equiv \alpha y + \beta w (U)\]   
+$\SO$ классы эквивалентности образуют векторные пространства.
+
+\begin{Def}
+    Факторпространством $V/U$ называется множество $\{x + U, x \in V\}$, т.е. классов эквивалентности по $U$.
+    \[\overline{v} + v/u, \overline{0} = U, \overline{x} = x + U\] 
+    $x$ -- представитель класса.
+\end{Def}
+
+\begin{Thm}
+    $V = U \oplus W \SO V/U \simeq W$.
+\end{Thm}
+
+\begin{proof}
+    Построим $\PHI : W \to V/U, w \to w + U$.
+    \begin{MyList}
+        \item Линейность $\PHI(w_1 + w_2) = w_1 + w_2 + U = w_1 + U + w_2 + U = \PHI(w_1) + \PHI(w_2), \PHI(\alpha w) = \alpha w + U = \alpha(w + U) = \alpha \PHI(w)$
+        \item Сюръективность $v + U \in V/U, v = w + u \SO v + U = w + u + U = w + U \SO \PHI(w) = w + U = v + U$
+        \item Инъективность $w_1 \neq w_2$, но $\PHI(w_1) = \PHI(w_2) \SO w_1 + U = w_2 + U \SO w_1 - w_2 \in U$, но $W \cap U = \{0\} \SO w_1 - w_2 = 0$  
+    \end{MyList}
+\end{proof}
+
+\begin{Cons}[Размерность факторпространства]
+    $\dim V/U = \dim V - \dim U, U \subset V$ 
+\end{Cons}
+
+\begin{proof}
+    $\forall u \in V \ \exists W \subset V : V = U \oplus W, \dim W = \dim V - \dim U$. По теореме $W \simeq V/U$.    
 \end{proof}
 
 \end{document}
