@@ -3360,15 +3360,15 @@ $p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные пока
     \[X = ||x||_p, Y = ||y||_p, X, Y > 0\]
     Рассмотрим $f(x) = x^p$ -- строго выпуклая на $[0, +\infty)$.
     $f''(x) = p(p - 1)x^{p - 2} > 0$ при $x > 0$ и $f$ непрерывна в точке $0$.
-    Запишем определение выпуклости для $ \frac{x_k}{Y}$ и $ \frac{y_k}{Y}$.
-    \[\forall \lambda \in (0, 1) \ f\left(\lambda \frac{x_k}{Y} + (1 - \lambda)\frac{y_k}{Y}\right) \leqslant \lambda f\left(\frac{x_k}{Y}\right) + (1 - \lambda) f\left(\frac{y_k}{Y}\right)\]
+    Запишем определение выпуклости для $ \frac{x_k}{X}$ и $ \frac{y_k}{Y}$.
+    \[\forall \lambda \in (0, 1) \ f\left(\lambda \frac{x_k}{X} + (1 - \lambda)\frac{y_k}{Y}\right) \leqslant \lambda f\left(\frac{x_k}{X}\right) + (1 - \lambda) f\left(\frac{y_k}{Y}\right)\]
     Равенство тогда и только тогда, когда $ \frac{x_k}{X} = \frac{y_k}{Y}$. Возьмем $\lambda = \frac{X}{X + Y}, 1 - \lambda = \frac{Y}{X + Y}$
     \[f \left( \frac{x_k + y_k}{X + Y}\right) \leqslant \frac{X}{X + Y} f \left( \frac{x_k}{X}\right) + \frac{Y}{X + Y} f \left( \frac{y_k}{Y}\right)\]
     \[ \frac{(x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{y_k^p}{Y^p} \ \forall k = 1, ..., n\]
     Сложим все неравенства:
     \[ \frac{\sum_{k = 1}^n (x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{\sum_{k=1}^n x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{\sum_{k=1}^n y_k^p}{Y^p} =\]
     Заметим, что $\sum_{k=1}^{n} \frac{x_k^p}{X^p} = \frac{1}{||x||_p^p} \sum_{k=1}^{n} x_k^p = 1$ 
-    \[\frac{X}{X + Y} + \frac{Y}{X + Y} = 1 \SO ||x + y||_p \leqslant X + Y = ||x||_p + ||y||_p\]
+    \[= \frac{X}{X + Y} + \frac{Y}{X + Y} = 1 \SO ||x + y||_p \leqslant X + Y = ||x||_p + ||y||_p\]
     Равенство $\EQ$ равенство $\forall k$, т.е. $ \frac{x_k}{X} = \frac{y_k}{Y} \SO x_k = \frac{X}{Y} y_k \SO$ $x$ и $y$ сонаправлены. 
 \end{proof}
 
@@ -3460,10 +3460,10 @@ $p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные пока
     $\sum_{k = 1}^n \lambda_k = 1$. Тогда
     \begin{MyList}
         \item Если $f$ выпукла на $\langle A, B\rangle$, то
-        \[f(\lambda_1 x_1 + \lambda_2 x_2 + ... + \lambda_n x_n) \leqslant \lambda_1f(x_1 + \lambda_2 f(x_2) + ... + \lambda_n f(x_n)\]
+        \[f(\lambda_1 x_1 + \lambda_2 x_2 + ... + \lambda_n x_n) \leqslant \lambda_1f(x_1) + \lambda_2 f(x_2) + ... + \lambda_n f(x_n)\]
 
         \item Если $f$ строго выпукла, то 
-        \[f(\lambda_1 x_1 + \lambda_2 x_2 + ... + \lambda_n x_n) < \lambda_1f(x_1 + \lambda_2 f(x_2) + ... + \lambda_n f(x_n)\]
+        \[f(\lambda_1 x_1 + \lambda_2 x_2 + ... + \lambda_n x_n) < \lambda_1f(x_1) + \lambda_2 f(x_2) + ... + \lambda_n f(x_n)\]
     \end{MyList} 
     Если $x_1 = x_2 = ... = x_n$, то равенство.
 \end{Thm}
@@ -3476,10 +3476,11 @@ $p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные пока
         По индукции: $n = 1$ -- очевидно $f(x_1) = f(x_1)$.
         Пусть $\lambda_1 + \lambda_2 + ... + \lambda_n = 1 - \lambda_{n + 1}$ и 
         \[a = \frac{\sum_{k = 1}^n \lambda_k x_k}{1 - \lambda_{n + 1}}\]
+        По предположению индукции:
+        \[f(a) = f \left( \frac{\lambda_1}{1 - \lambda_{n + 1}}x_1 + \frac{\lambda_2}{1 - \lambda_{n + 1}}x_2 + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}}x_n\right)\]
         Тогда
-        \[f((1 - \lambda_{n + 1}) \cdot a + \lambda_{n + 1} \cdot x_{n + 1}) \leqslant (1 - \lambda_{n + 1}) f(a) + \lambda_{n + 1} \cdot f(x_{n + 1})\]
-        \[f(a) = f \left( \frac{\lambda_1}{1 - \lambda_{n + 1}}x_1 + \frac{\lambda_2}{1 - \lambda_{n + 1}}x_2 + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}}x_n\right) \leqslant\]
-        \[\leqslant \frac{x_1}{1 - \lambda_{n + 1}} f(x_1) + \frac{\lambda_2}{1 - \lambda_{n + 1}}f(x_2) + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}} f(x_n) \leqslant \lambda_1 f(x_1) + \lambda_2 f(x_2) + ... + \lambda_{n + 1} f(x_{n + 1})\]
+        \[f((1 - \lambda_{n + 1}) \cdot a + \lambda_{n + 1} \cdot x_{n + 1}) \leqslant (1 - \lambda_{n + 1}) f(a) + \lambda_{n + 1} \cdot f(x_{n + 1}) \leqslant\]
+        \[\leqslant \frac{\lambda_1}{1 - \lambda_{n + 1}} f(x_1) + \frac{\lambda_2}{1 - \lambda_{n + 1}}f(x_2) + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}} f(x_n) \leqslant \lambda_1 f(x_1) + \lambda_2 f(x_2) + ... + \lambda_{n + 1} f(x_{n + 1})\]
     \end{MyItemize}
 \end{proof}
 
