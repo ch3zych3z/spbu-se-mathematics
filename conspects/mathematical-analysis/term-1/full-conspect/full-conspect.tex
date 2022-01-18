@@ -1797,7 +1797,7 @@ $0^x = 0 \ \forall x > 0$
         \[\forall \varepsilon > 0 \ \exists N' : \forall n \geqslant N \to |a^{x_n} - 1| < \varepsilon \EQ a^{x_n} \to 1\]
 
         Докажем непрерывность в точке $x_0 \neq 0$. \\
-        Рассмотрим $a^{x_0 + x_n} - a^{x_n} = a^{x_0} (a^{x_n} - 1) \to 0$  
+        Рассмотрим $a^{x_0 + x_n} - a^{x_0} = a^{x_0} (a^{x_n} - 1) \to 0$  
     \end{proof}
     
     \item $(ab)^x = a^x b^x$
@@ -2375,7 +2375,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
 
     \item $f(x) = \log_b x, b > 0, b \neq 1, a \in (0, +\infty)$
     \[\lim_{x \to a} \frac{\log_b x - \log_b a}{x - a} = \lim_{x \to a} \frac{\log_b \frac{x}{a}}{x - a}\]
-    \[\frac{x}{a} \xrightarrow[x \to a]{} 1 \SO \log_b \frac{x}{a} = \frac{\ln \frac{x}{a}}{\ln b} = \ln \frac{\left(1 + \left(\frac{x}{a} - 1\right)\right)}{\ln b} \thicksim \frac{\frac{x}{a} - 1}{\ln b}\]
+    \[\frac{x}{a} \xrightarrow[x \to a]{} 1 \SO \log_b \frac{x}{a} = \frac{\ln \frac{x}{a}}{\ln b} = \frac{\ln \left(1 + \left(\frac{x}{a} - 1\right)\right)}{\ln b} \thicksim \frac{\frac{x}{a} - 1}{\ln b}\]
     \[\SO \lim_{x \to a} \frac{\log_b \frac{x}{a}}{x - a} = \lim_{x \to a} \frac{\frac{x}{a} - 1}{(x - a)\ln b} = \lim_{x \to a} \frac{x - a}{a(x - a)\ln b} = \frac{1}{a\ln b}\]
     Значит
     \[(\log_b x)' = \frac{1}{x\ln b}\]
@@ -2445,7 +2445,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
 \end{Thm}
 
 \begin{proof}
-    $f(a) = \max_{\langle A, B\rangle} \SO f(x) - f(a) \leqslant 0 \ \forall x \in \langle A, B\rangle$. 
+    $f(a) = \max_{\langle A, B\rangle} f \SO f(x) - f(a) \leqslant 0 \ \forall x \in \langle A, B\rangle$. 
     Если $x > a$, то $ \frac{f(x) - f(a)}{x - a} \leqslant 0$ 
     \[f_+'(a) = \lim_{x \to a+} \frac{f(x) - f(a)}{x - a} \leqslant 0\] 
     Если $x < a$, то $ \frac{f(x) - f(a)}{x - a} \geqslant 0$ 
@@ -3477,10 +3477,10 @@ $p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные пока
         Пусть $\lambda_1 + \lambda_2 + ... + \lambda_n = 1 - \lambda_{n + 1}$ и 
         \[a = \frac{\sum_{k = 1}^n \lambda_k x_k}{1 - \lambda_{n + 1}}\]
         По предположению индукции:
-        \[f(a) = f \left( \frac{\lambda_1}{1 - \lambda_{n + 1}}x_1 + \frac{\lambda_2}{1 - \lambda_{n + 1}}x_2 + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}}x_n\right)\]
+        \[f(a) \leqslant \frac{\lambda_1}{1 - \lambda_{n + 1}} f(x_1) + \frac{\lambda_2}{1 - \lambda_{n + 1}}f(x_2) + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}} f(x_n)\]
         Тогда
         \[f((1 - \lambda_{n + 1}) \cdot a + \lambda_{n + 1} \cdot x_{n + 1}) \leqslant (1 - \lambda_{n + 1}) f(a) + \lambda_{n + 1} \cdot f(x_{n + 1}) \leqslant\]
-        \[\leqslant \frac{\lambda_1}{1 - \lambda_{n + 1}} f(x_1) + \frac{\lambda_2}{1 - \lambda_{n + 1}}f(x_2) + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}} f(x_n) \leqslant \lambda_1 f(x_1) + \lambda_2 f(x_2) + ... + \lambda_{n + 1} f(x_{n + 1})\]
+        \[\leqslant \lambda_1 f(x_1) + \lambda_2 f(x_2) + ... + \lambda_{n + 1} f(x_{n + 1})\] 
     \end{MyItemize}
 \end{proof}
 
@@ -3506,7 +3506,7 @@ $d_a f(h) : x \mapsto f'(a) \cdot h$ -- линейная часть приращ
 \begin{MyList}
     \item Композиции : $d_a (g \circ f) = d_{f(a)} g \circ d_a f$ 
     \begin{proof}
-        $d_a (g \circ f) = (g \circ f)'(a) \cdot h = g'(f(a)) \cdot f'(a) h = d_{f(a)} g(d_a f(h)) = d_{f(a)} g \circ d_a f)(h)$ 
+        $d_a (g \circ f) = (g \circ f)'(a) \cdot h = g'(f(a)) \cdot f'(a) h = d_{f(a)} g(d_a f(h)) = d_{f(a)} g \circ d_a f(h)$ 
     \end{proof}
 
     \item Обратная функция $d_{f(a)} f^{-1} = (d_a f)^{-1}$ -- упражнение.
@@ -3518,7 +3518,7 @@ $d_a f(h) : x \mapsto f'(a) \cdot h$ -- линейная часть приращ
     \item Формула Тейлора.
     \[f(x) = \sum_{k=0}^{n}  \frac{d_a^{k} f(x - a)}{k!} + o((x - a)^n)\]
 
-    \item $d_a (f \cdot g) h = (f'(a) \cdot g(a) + f(a) \cdot g'(a)) h = g(a) \cdot d_a f(h) + f(a) d_a g(h)$ 
+    \item $d_a (f \cdot g) = (f'(a) \cdot g(a) + f(a) \cdot g'(a)) h = g(a) \cdot d_a f(h) + f(a) d_a g(h)$ 
 \end{MyList}
 
 $f$ непрерывна на $\langle A, B\rangle$ 
