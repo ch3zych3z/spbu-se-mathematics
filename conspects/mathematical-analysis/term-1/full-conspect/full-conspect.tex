@@ -1797,7 +1797,7 @@ $0^x = 0 \ \forall x > 0$
         \[\forall \varepsilon > 0 \ \exists N' : \forall n \geqslant N \to |a^{x_n} - 1| < \varepsilon \EQ a^{x_n} \to 1\]
 
         Докажем непрерывность в точке $x_0 \neq 0$. \\
-        Рассмотрим $a^{x_0 + x_n} - a^{x_n} = a^{x_0} (a^{x_n} - 1) \to 0$  
+        Рассмотрим $a^{x_0 + x_n} - a^{x_0} = a^{x_0} (a^{x_n} - 1) \to 0$  
     \end{proof}
     
     \item $(ab)^x = a^x b^x$
@@ -1954,7 +1954,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
 
 \begin{proof}
     $\cos 2\alpha = 1 - 2\sin^2 \alpha \EQ \sin^2 \alpha = \frac{1 - \cos 2\alpha}{2}$ 
-    \[ \frac{1 - \cos x}{2} = \frac{2 \sin^2 \frac{x}{2}}{x^2} = \frac{1}{2} \cdot \frac{\sin^2 \frac{x}{2}}{\left(\frac{x}{2}\right)^2} = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}}^2 \to \frac{1}{2}\right)\]
+    \[ \frac{1 - \cos x}{x^2} = \frac{2 \sin^2 \frac{x}{2}}{x^2} = \frac{1}{2} \cdot \frac{\sin^2 \frac{x}{2}}{\left(\frac{x}{2}\right)^2} = \frac{1}{2} \left( \frac{\sin \frac{x}{2}}{\frac{x}{2}}\right)^2 \to \frac{1}{2}\]
 \end{proof}
 
 \begin{Cons}
@@ -2084,7 +2084,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
     \[
     \begin{array}{cc}
     \sin x = x + o(x) & \ln(1 + x) = x + o(x)  \\ 
-    \tan x = x + o(x)  & \arcsin x = x + o(x) \\ 
+    \tg x = x + o(x)  & \arcsin x = x + o(x) \\ 
     \cos x = 1 - \frac{x^2}{2} + o(x^2)  & a^x = 1 + x\ln a + o(x)  \\ 
     (1 + x)^\alpha = 1 + \alpha x + o(x)  &
     \end{array}
@@ -2140,7 +2140,7 @@ $\sin x |_{x \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]} : \left[-\frac{\pi}
     
     Т.к. $g_{k + 1}(x) = o(g_k(x))$, то $g_{k + 1}(x) = o(g_l(x)) \ \forall l \leqslant k$ при $x \to x_0$.
 
-    Обозначим $E_k = \{x : g_k(x) \neq 0, k = 0, ..., n\}$. Если $g_k = 0$ на $V(x_0)$, то $g_{k + 1} = 0$ на $V(x_0), g_n = 0$ на $V(x_0)$. 
+    Обозначим $E_k = \{x : g_k(x) \neq 0\}, k = 0, ..., n$. Если $g_k = 0$ на $V(x_0)$, то $g_{k + 1} = 0$ на $V(x_0), g_n = 0$ на $V(x_0)$. 
     \[g_{k + 1} = o(g_k) \EQ \exists \PHI : g_{k + 1} = \PHI \cdot g_k\]
 
     Если $x_0$ -- предельная точка $E_{k_0}$, то она предельная точка всех $E_k$.
@@ -2284,7 +2284,7 @@ f(a) = P(a), f(x) = P(x) + o((x - a)^n), x \to a
 
 \begin{proof}
     $\exists F : \langle A, B\rangle \to \R, F(a) = f'(a)$ и $f(x) - f(a) = F(x)(x - a), x \in \langle A, B\rangle$, $F$ непрерывна в точке $a$ \\
-    $\exists G : \langle C, D\rangle \to \R, G(f(a)) = g'(f(a))$ и $g(y) - g(f(a)) = G(y)(y - f(a)), y \in C, D\rangle$, $G$ непрерывна в точке $f(a)$ 
+    $\exists G : \langle C, D\rangle \to \R, G(f(a)) = g'(f(a))$ и $g(y) - g(f(a)) = G(y)(y - f(a)), y \in \langle C, D\rangle$, $G$ непрерывна в точке $f(a)$ 
     Подставим $y = f(x)$
     \[g(f(x)) - g(f(a)) = G(f(x))(f(x) - f(a)) = G(f(x))F(x)(x - a) = H(x)(x - a)\]
     $H(x)$ -- непрерывна в точке $x = a$, $H : \langle A, B\rangle \to \R$.
@@ -2375,7 +2375,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
 
     \item $f(x) = \log_b x, b > 0, b \neq 1, a \in (0, +\infty)$
     \[\lim_{x \to a} \frac{\log_b x - \log_b a}{x - a} = \lim_{x \to a} \frac{\log_b \frac{x}{a}}{x - a}\]
-    \[\frac{x}{a} \xrightarrow[x \to a]{} 1 \SO \log_b \frac{x}{a} = \frac{\ln \frac{x}{a}}{\ln b} = \ln \frac{\left(1 + \left(\frac{x}{a} - 1\right)\right)}{\ln b} \thicksim \frac{\frac{x}{a} - 1}{\ln b}\]
+    \[\frac{x}{a} \xrightarrow[x \to a]{} 1 \SO \log_b \frac{x}{a} = \frac{\ln \frac{x}{a}}{\ln b} = \frac{\ln \left(1 + \left(\frac{x}{a} - 1\right)\right)}{\ln b} \thicksim \frac{\frac{x}{a} - 1}{\ln b}\]
     \[\SO \lim_{x \to a} \frac{\log_b \frac{x}{a}}{x - a} = \lim_{x \to a} \frac{\frac{x}{a} - 1}{(x - a)\ln b} = \lim_{x \to a} \frac{x - a}{a(x - a)\ln b} = \frac{1}{a\ln b}\]
     Значит
     \[(\log_b x)' = \frac{1}{x\ln b}\]
@@ -2445,7 +2445,7 @@ $f'(a), a \in E$ $a \mapsto f'(a)$
 \end{Thm}
 
 \begin{proof}
-    $f(a) = \max_{\langle A, B\rangle} \SO f(x) - f(a) \leqslant 0 \ \forall x \in \langle A, B\rangle$. 
+    $f(a) = \max_{\langle A, B\rangle} f \SO f(x) - f(a) \leqslant 0 \ \forall x \in \langle A, B\rangle$. 
     Если $x > a$, то $ \frac{f(x) - f(a)}{x - a} \leqslant 0$ 
     \[f_+'(a) = \lim_{x \to a+} \frac{f(x) - f(a)}{x - a} \leqslant 0\] 
     Если $x < a$, то $ \frac{f(x) - f(a)}{x - a} \geqslant 0$ 
@@ -3196,6 +3196,13 @@ $c_0 = P(a)$
     \end{MyList}
 \end{Thm}
 
+\begin{proof}
+    Докажем 1. Возьмем $x_1, x : a < x_1 < x$. Тогда по лемме о трех хордах:
+    \[ \frac{f(x_1) - f(a)}{x_1 - a} < \frac{f(x) - f(a)}{x - a}\]
+    Выполним предельный переход при $x_1 \to a$:
+    \[f'(a) \leqslant \frac{f(x) - f(a)}{x - a} \EQ f(x) \geqslant f(a) + f'(a)(x - a) = T_{a, 1} f(x)\] 
+\end{proof}
+
 \begin{Ex}
     Доказать.
 \end{Ex}
@@ -3360,16 +3367,220 @@ $p, q > 1$ и $\frac{1}{p} + \frac{1}{q} = 1$ -- сопряженные пока
     \[X = ||x||_p, Y = ||y||_p, X, Y > 0\]
     Рассмотрим $f(x) = x^p$ -- строго выпуклая на $[0, +\infty)$.
     $f''(x) = p(p - 1)x^{p - 2} > 0$ при $x > 0$ и $f$ непрерывна в точке $0$.
-    Запишем определение выпуклости для $ \frac{x_k}{Y}$ и $ \frac{y_k}{Y}$.
-    \[\forall \lambda \in (0, 1) \ f\left(\lambda \frac{x_k}{Y} + (1 - \lambda)\frac{y_k}{Y}\right) \leqslant \lambda f\left(\frac{x_k}{Y}\right) + (1 - \lambda) f\left(\frac{y_k}{Y}\right)\]
+    Запишем определение выпуклости для $ \frac{x_k}{X}$ и $ \frac{y_k}{Y}$.
+    \[\forall \lambda \in (0, 1) \ f\left(\lambda \frac{x_k}{X} + (1 - \lambda)\frac{y_k}{Y}\right) \leqslant \lambda f\left(\frac{x_k}{X}\right) + (1 - \lambda) f\left(\frac{y_k}{Y}\right)\]
     Равенство тогда и только тогда, когда $ \frac{x_k}{X} = \frac{y_k}{Y}$. Возьмем $\lambda = \frac{X}{X + Y}, 1 - \lambda = \frac{Y}{X + Y}$
     \[f \left( \frac{x_k + y_k}{X + Y}\right) \leqslant \frac{X}{X + Y} f \left( \frac{x_k}{X}\right) + \frac{Y}{X + Y} f \left( \frac{y_k}{Y}\right)\]
     \[ \frac{(x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{y_k^p}{Y^p} \ \forall k = 1, ..., n\]
     Сложим все неравенства:
     \[ \frac{\sum_{k = 1}^n (x_k + y_k)^p}{(X + Y)^p} \leqslant \frac{X}{X + Y} \cdot \frac{\sum_{k=1}^n x_k^p}{X^p} + \frac{Y}{X + Y} \cdot \frac{\sum_{k=1}^n y_k^p}{Y^p} =\]
     Заметим, что $\sum_{k=1}^{n} \frac{x_k^p}{X^p} = \frac{1}{||x||_p^p} \sum_{k=1}^{n} x_k^p = 1$ 
-    \[\frac{X}{X + Y} + \frac{Y}{X + Y} = 1 \SO ||x + y||_p \leqslant X + Y = ||x||_p + ||y||_p\]
+    \[= \frac{X}{X + Y} + \frac{Y}{X + Y} = 1 \SO ||x + y||_p \leqslant X + Y = ||x||_p + ||y||_p\]
     Равенство $\EQ$ равенство $\forall k$, т.е. $ \frac{x_k}{X} = \frac{y_k}{Y} \SO x_k = \frac{X}{Y} y_k \SO$ $x$ и $y$ сонаправлены. 
 \end{proof}
+
+\begin{Cons}[Неравенство Минковского в $\R^n$ ]
+    Пусть $n \in \N, p \geqslant 1, x = (x_1, ..., x_n), y = (y_1, ..., y_n) \in \R^n$.
+    Тогда
+    \[\left(\sum_{k=1}^{n} |x_k + y_k|^p\right)^{\frac{1}{p}} \leqslant \left(\sum_{k = 1}^n |x_k|^p\right)^{\frac{1}{p}} + \left(\sum_{k=1}^{n} |y_k|^p\right)^{\frac{1}{p}}\]
+    С случае $p > 1$ равенство тогда и только тогда, когда $x$ и $y$ сонаправлены.
+\end{Cons}
+
+\begin{proof}
+    \begin{MyItemize}
+        \item $x$ или $y$ нулевой -- очевидно.
+        \item $p = 1$ -- очевидно (неравенство треугольника). 
+        \item $p > 1, x$ и $y$ ненулевые.
+        Применим теорему к векторам с координатами $|x_k|$ и $|y_k|$ 
+        \[\left(\sum_{k = 1}^n |x_k + y_k|^p\right)^{\frac{1}{p}} \leqslant \left(\sum_{k = 1}^n \left(|x_k| + |y_k|\right)^p\right)^{\frac{1}{p}} \leqslant \left(\sum_{k = 1}^n |x_k|^p\right)^{\frac{1}{p}} + \left(\sum_{k = 1}^n |y_k|^p\right)^{\frac{1}{p}}\]
+        Первый переход превращается в равенство, если $x_k$ и $y_k$ одного знака.
+    \end{MyItemize}
+\end{proof}
+
+\begin{Ex}
+    Когда равенство при $p = 1$?
+\end{Ex}
+
+\begin{Rem}
+    Можно записать в виде \[||x + y||_p \leqslant ||x||_p + ||y||_p\]
+    При $p = 2$ неравенство треугольника с вершинами в точках $0, x, x + y$.
+    Равенство, если эти три точки лежат на одной прямой.
+    Т.е. неравенство Минковского обобщает неравенство треугольника.
+\end{Rem}
+
+\begin{Thm}[Неравенство Гёльдера для неотрицательных чисел]
+    $p$ и $q$ -- сопряженные показатели, $n \in \N$. $x, y \in \R^n$ -- с неотрицательными координатами.
+    Тогда 
+    \[\sum_{k = 1}^n x_k y_k \leqslant \left(\sum_{k = 1}^n x_k^p\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 1}^n y_k^q\right)^{\frac{1}{q}}\]
+    Равенство тогда и только тогда, когда $x_k^p ||y||_q^q = y_k^q ||x||_p^p \ \forall k = 1, ..., n$.
+\end{Thm}
+
+\begin{proof}
+    $a_k = \frac{x_k}{||x||_p}, b_k = \frac{y_k}{||y||_q} \ \forall k = 1, ..., n$.
+    \[\sum_{k = 1}^n a_k^p = \frac{1}{||x||_p^p} \sum_{k = 1}^n x_k^p = 1, \sum_{k = 1}^n b_k^q = 1\]
+    По неравенству Юнга $a_k b_k \leqslant \frac{a_k^{p}}{p} + \frac{b_k^q}{q} \ \forall k = 1, ..., n$.
+    \[\sum_{k = 1}^n a_kb_k \leqslant \frac{1}{p}\sum_{k = 1}^n a_k^p + \frac{1}{q} \sum_{k = 1}^n b_k^q = \frac{1}{p} + \frac{1}{q} = 1\]  
+    \[\sum_{k = 1}^n x_k y_k \leqslant ||x||_p \cdot ||y||_q\]
+    Равенство $\EQ$ равенство для любого $k : a_k^p = b_k^q$ -- из неравенства Юнга. 
+\end{proof}
+
+\begin{Rem}
+    Равенство $x_k^p ||y||_q^q = y_k^q ||x||_p^p \ \forall k = 1, ..., n$ означает, что 
+    векторы $(x_1^p, x_2^p, ..., x_n^p)$ и $(y_1^q, y_2^q, ..., y_n^q)$ коллинеарны.  
+    \[x_k^{p} = y_k^{q} \cdot \frac{||x||_p^p}{||y||_q^q}\]
+\end{Rem} 
+
+\begin{Cons}[Неравенство Гёльдера в $\R^n$ ]
+    $n \in \N, p, q$ -- сопряженные показатели, $x, y \in \R^n$. Тогда
+    \[\left|\sum_{k = 1}^n x_ky_k\right| \leqslant \left(\sum_{k = 1}^n |x_k|^p\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 1}|y_k|^q\right)^{\frac{1}{q}}\]
+\end{Cons}
+
+\begin{proof}
+    По неравенству Гёльдера для $(|x_1|, |x_2|, ..., |x_n|), (|y_1|, ..., |y_n|)$ 
+    \[\left|\sum_{k = 1}^n x_k y_k\right| \leqslant \sum_{k = 1}^n |x_k||y_k| \leqslant \left(\sum_{k = 1}^n |x_k|^p\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 1}|y_k|^q\right)^{\frac{1}{q}}\]
+\end{proof}
+
+\begin{Thm}[Неравенство Коши в $\R^n$ ]
+    $n \in N, x, y \in \R^n$. Тогда 
+    \[\left|\sum_{k = 1}^n x_ky_k\right| \leqslant \sqrt{\sum_{k = 1}^n x_k^2} \cdot \sqrt{\sum_{k = 1}^n y_k^2}\] 
+    Равенство $\EQ$ $x$ и $y$ коллинеарны.
+\end{Thm}
+
+\begin{proof}
+    \begin{MyItemize}
+        \item Если $x$ или $y$ нулевой -- очевидно.
+        \item Пусть $x$ и $y$ -- ненулевые.
+        \[\left|\sum_{k = 1}^n x_k y_k\right| \leqslant \sum_{k = 1}^n |x_k| |y_k|\]
+        Равенство $\EQ$ все $(x_k y_k)$ имеют один знак.
+        По неравенству Гёльдера при $p = q = 2$:
+        \[\sum_{k = 1}^n |x_k||y_k| \leqslant \sqrt{\sum_{k = 1}^n x_k^2} \cdot \sqrt{\sum_{k = 1}^n y_k^2}\]
+        Равенство $\EQ$ $x_k^2 = \frac{||x||_2}{||y||_2} y_k^2$, т.е. $x$ и $y$ коллинеарны.
+    \end{MyItemize}
+\end{proof}
+
+\begin{Rem}
+    В $\R^2 \ x \cdot y = |x| \cdot |y| \cdot \cos \alpha \EQ |x \cdot y| \leqslant |x| \cdot |y|$ 
+\end{Rem}
+
+\begin{Thm}[Неравенство Йенсена]
+    $f : \langle A, B\rangle \to \R, n \in \N$ \\ $x_1, x_2, ..., x_n \in \langle A, B\rangle, \lambda_1, \lambda_2, ..., \lambda_n$ -- положительные числа: 
+    $\sum_{k = 1}^n \lambda_k = 1$. Тогда
+    \begin{MyList}
+        \item Если $f$ выпукла на $\langle A, B\rangle$, то
+        \[f(\lambda_1 x_1 + \lambda_2 x_2 + ... + \lambda_n x_n) \leqslant \lambda_1f(x_1) + \lambda_2 f(x_2) + ... + \lambda_n f(x_n)\]
+
+        \item Если $f$ строго выпукла, то 
+        \[f(\lambda_1 x_1 + \lambda_2 x_2 + ... + \lambda_n x_n) < \lambda_1f(x_1) + \lambda_2 f(x_2) + ... + \lambda_n f(x_n)\]
+    \end{MyList} 
+    Если $x_1 = x_2 = ... = x_n$, то равенство.
+\end{Thm}
+
+\begin{proof}
+    \begin{MyItemize}
+        \item Если все $x_k$ совпадают -- очевидно.
+        \item Пусть не все $x_k$ совпадают
+        \[c = \lambda_1 x_1 + ... + \lambda_n x_n \in (A, B)\]
+        По индукции: $n = 1$ -- очевидно $f(x_1) = f(x_1)$.
+        Пусть $\lambda_1 + \lambda_2 + ... + \lambda_n = 1 - \lambda_{n + 1}$ и 
+        \[a = \frac{\sum_{k = 1}^n \lambda_k x_k}{1 - \lambda_{n + 1}}\]
+        По предположению индукции:
+        \[f(a) \leqslant \frac{\lambda_1}{1 - \lambda_{n + 1}} f(x_1) + \frac{\lambda_2}{1 - \lambda_{n + 1}}f(x_2) + ... + \frac{\lambda_n}{1 - \lambda_{n + 1}} f(x_n)\]
+        Тогда
+        \[f((1 - \lambda_{n + 1}) \cdot a + \lambda_{n + 1} \cdot x_{n + 1}) \leqslant (1 - \lambda_{n + 1}) f(a) + \lambda_{n + 1} \cdot f(x_{n + 1}) \leqslant\]
+        \[\leqslant \lambda_1 f(x_1) + \lambda_2 f(x_2) + ... + \lambda_{n + 1} f(x_{n + 1})\] 
+    \end{MyItemize}
+\end{proof}
+
+\begin{Rem}
+    Для вогнутых поменять знак.
+\end{Rem}
+
+\begin{Rem}
+    $n = 2, \lambda_1 + \lambda_2 = 1, \lambda_2 = 1 - \lambda_1 $ -- определение выпуклости. 
+\end{Rem}
+
+\begin{Rem}
+    Точка $c = \lambda_1 x_1 + ... + \lambda_n x_n \in \langle A, B\rangle $ -- упражнение.
+    Если $x_1 = x_2 = ... = x_n$, то $c = x_i$.\\
+    Если не все равны, то $c \in (A, B)$. \\
+    Если $x_1 \leqslant x_2 \leqslant ... \leqslant x_n$ и не все равны, то $x_1 < c < x_n$ -- упражнение.
+\end{Rem}
+
+\Subsection{Дифференциалы}
+
+$d_a f(h) : x \mapsto f'(a) \cdot h$ -- линейная часть приращения.
+
+\begin{MyList}
+    \item Композиции : $d_a (g \circ f) = d_{f(a)} g \circ d_a f$ 
+    \begin{proof}
+        $d_a (g \circ f) = (g \circ f)'(a) \cdot h = g'(f(a)) \cdot f'(a) h = d_{f(a)} g(d_a f(h)) = d_{f(a)} g \circ d_a f(h)$ 
+    \end{proof}
+
+    \item Обратная функция $d_{f(a)} f^{-1} = (d_a f)^{-1}$ -- упражнение.
+    \item Старшие дифференциалы:
+    \[d_a^n f(h) = d_a(d_a^{n - 1} f(h))\]
+    \[d_a^2 f(h) = d_a (d_a f(h)) = d_a (f'(a) h) = f''(a) h^2\]
+    \[d_a^n f(h) = f^{(n)}(a) h^n\]
+
+    \item Формула Тейлора.
+    \[f(x) = \sum_{k=0}^{n}  \frac{d_a^{k} f(x - a)}{k!} + o((x - a)^n)\]
+
+    \item $d_a (f \cdot g) = (f'(a) \cdot g(a) + f(a) \cdot g'(a)) h = g(a) \cdot d_a f(h) + f(a) d_a g(h)$ 
+\end{MyList}
+
+$f$ непрерывна на $\langle A, B\rangle$ 
+\[\forall x_0 \in \langle A, B\rangle \ \forall \varepsilon > 0 \ \exists \delta > 0 : \forall x \ |x - x_0| < \delta, x \in \langle A, B\rangle \SO |f(x) - f(x_0)| < \varepsilon\]    
+
+\[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall x_0 \in \langle A, B\rangle \ \forall x : |x - x_0| < \delta, x \in \langle A, B\rangle \SO |f(x) - f(x_0)| < \varepsilon\]
+
+\begin{Def}
+    $f : D \to \R$ называется равномерно непрерывной на $D$, если 
+    \[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall x_1, x_2 \in D : |x_1 - x_2| < \delta \to |f(x_1) - f(x_2)| < \varepsilon\]
+\end{Def}
+
+\begin{Thm}[Теорема Кантора]
+    Непрерывная на отрезке функция равномерна непрерывна.
+\end{Thm}
+
+\begin{proof}
+    $f \in C[a, b]$. Пусть $f$ не равномерна непрерывна. Тогда
+    \[\exists \varepsilon > 0 : \forall \delta > 0 \ \exists x_1, x_2 \in [a, b] : |x_1 - x_2| < \delta \ |f(x_1) - f(x_2)| \geqslant \varepsilon\]
+    Будем рассматривать $\delta = \frac{1}{n}, n \in \N$ 
+    \[|\overline{x}_n - \overline{\overline{x}}_n| < \frac{1}{n}\]
+    По принципу выбора Больцано-Вейерштрасса
+    \[\exists \{\overline{x}_{n_k}\}_{k = 1}^\infty : \overline{x}_{n_k} \to c \in [a, b]\]
+    Тогда $\overline{\overline{x}}_{n_k} \to c$. Тогда $f(\overline{x}_{n_k}) \to f(c)$, т.к. $f$ непрерывна, $f(\overline{\overline{x}}_{n_k}) \to f(c)$.
+    \[|f(\overline{x}_{n_k}) - f(\overline{\overline{x}}_{n_k})| \geqslant \varepsilon*\]  
+\end{proof}
+
+\begin{Thm}
+    $f$ дифференцируема на $\langle A, B\rangle$ и $\exists M > 0 \ |f'(x)| \leqslant M \ \forall x \in \langle A, B\rangle$.
+    Тогда $f$ равномерное непрерывна. 
+\end{Thm}
+
+\begin{proof}
+    Пусть $\varepsilon > 0, \delta = \frac{\varepsilon}{M}$. Если $x, y \in \langle A, B\rangle$ и $|x - y| < \delta$, то
+    \[\exists c \in \langle A, B\rangle : f(x) - f(y) = f'(c) (x - y) \SO |f(x) - f(y)| \leqslant M \cdot |x - y| \leqslant M \cdot \delta = \varepsilon\]
+\end{proof}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, F : \langle A, B\rangle \to \R$ называется первообразной функцией $f$, если $F$ дифференцируема на $\langle A, B\rangle, F'(x) = f(x) \ \forall x \in \langle A, B\rangle$.
+\end{Def}
+
+\begin{Thm}
+    Пусть $f, F, G : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Тогда
+    $G$ -- первообразная $f \EQ \exists c \in \R : F(x) + c = G(x)$.
+\end{Thm}
+
+\begin{proof}
+    $H(x) = F(x) - G(x) \EQ H'(x) = F'(x) - G'(x) = f(x) - f(x) = 0 \EQ H'(x) = 0 \SO H(x) \equiv \text{const}$ \\
+    $(F(x) + c)' = (G(x))' \EQ f(x) = F'(x) = G'(x) \SO G$ -- первообразная.  
+\end{proof}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Множество функций 
+    $\{F(x) + c, c \in \R\}$ называется неопределенным интегралом $f$.
+    \[\int f(x) dx = F(x) + c, c \in \R \] 
+\end{Def}
 
 \end{document}
