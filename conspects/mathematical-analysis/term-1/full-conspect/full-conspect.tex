@@ -3196,6 +3196,13 @@ $c_0 = P(a)$
     \end{MyList}
 \end{Thm}
 
+\begin{proof}
+    Докажем 1. Возьмем $x_1, x : a < x_1 < x$. Тогда по лемме о трех хордах:
+    \[ \frac{f(x_1) - f(a)}{x_1 - a} < \frac{f(x) - f(a)}{x - a}\]
+    Выполним предельный переход при $x_1 \to a$:
+    \[f'(a) \leqslant \frac{f(x) - f(a)}{x - a} \EQ f(x) \geqslant f(a) + f'(a)(x - a) = T_{a, 1} f(x)\] 
+\end{proof}
+
 \begin{Ex}
     Доказать.
 \end{Ex}
