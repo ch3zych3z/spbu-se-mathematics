@@ -1,0 +1,280 @@
+\input{preamble.tex}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Интегральное исчисление}{}{Илья Дудников}
+
+\Subsection{Неопределенный интеграл}
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, F : \langle A, B\rangle \to \R$ называется первообразной функцией $f$, если $F$ дифференцируема на $\langle A, B\rangle, F'(x) = f(x) \ \forall x \in \langle A, B\rangle$.
+\end{Def}
+
+\begin{Thm}
+    Пусть $f, F, G : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Тогда
+    $G$ -- первообразная $f \EQ \exists c \in \R : F(x) + c = G(x)$.
+\end{Thm}
+
+\begin{proof}
+	$\SO$.  
+    Пусть $H(x) = F(x) - G(x)$. Тогда
+	\[H'(x) = F'(x) - G'(x) = f(x) - f(x) = 0 \EQ H'(x) = 0 \SO H(x) \equiv \const\]
+    $\Leftarrow$. $(F(x) + c)' = (G(x))' \EQ f(x) = F'(x) = G'(x) \SO G$ -- первообразная.  
+\end{proof}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Множество функций 
+    $\{F(x) + c, c \in \R\}$ называется неопределенным интегралом $f$.
+    \[\int f(x) \,dx = F(x) + c, c \in \R \] 
+\end{Def}
+
+Далее, $f : \langle A, B\rangle \to \R$. 
+
+\begin{MyList}
+	\item Дифференцирование
+	\[\left(\int f(x) \,dx\right)' = f(x), x \in \langle A, B\rangle\]
+
+	\item Арифметические действия: 
+	\[\int f(x) \,dx + \int g(x) \,dx = \left\{F(x) + G(x) + c, c \in \R\right\}\]
+	\[\int f(x) \,dx + H(x) = \left\{F(x) + H(x) + c, c \in \R\right\}\]
+	\[\lambda \int f(x) \,dx = \left\{\lambda F(x) + c, c \in \R\right\}, \lambda \neq 0, \lambda \in \R\]
+\end{MyList}
+
+\begin{Prop}
+	Если функция $f$ непрерывна на $\langle A, B\rangle$, то у неё есть первообразная на~$\langle A, B\rangle$.
+\end{Prop}
+
+\begin{Ex}
+	$f(x) = \begin{cases}
+		1, x \geqslant 0 \\
+		-1, x < 0
+	\end{cases}$. Есть ли первообразная у этой функции?
+\end{Ex}
+
+\begin{Def}
+	$E \subset \R, f : E \to \R$. Если $F$ дифференцируема на $E$ и $F'(x) = f(x)$ на $E$, то $F$ -- первообразная $f$ на множестве $E$.
+\end{Def}
+
+\Pagebreak
+Таблица неопределенных интегралов
+
+\begin{multicols}{2}
+	\begin{MyList}
+		\item $\int a \,dx = ax + c, a \in \R$ 
+		\item $\int x^a \,dx = \frac{x^{a + 1}}{a + 1} + c, a \neq -1$ 
+		\item $\int \frac{1}{x}\,dx = \ln |x| + c$ 
+		\item $\int e^x \,dx = e^x + c$ 
+		\item $\int a^x \,dx = \frac{a^x}{\ln a} + c, a > 0, a \neq 1$ 
+		\item $\int \sin x \,dx = -\cos x + c$
+		\item $\int \cos x \,dx = \sin x + c$ 
+		\item $\int \frac{1}{\cos^2 x}\,dx = \tg x + c$ 
+		\item $\int \frac{1}{\sin^2 x}\,dx = -\ctg x + c$ 
+		\item $\int \frac{\,dx}{x^2 + a^2} = \frac{1}{a} \arctg \frac{x}{a} + c, a \neq 0$
+		\item $\int \frac{\,dx}{\sqrt{a^2 - x^2}} = \arcsin \frac{x}{a} + c, a > 0$
+		\item $\int \frac{\,dx}{x^2 - a^2} = \frac{1}{2a}\ln \left| \frac{x - a}{x + a}\right| + c, a \neq 0$ 
+		\item $\int \frac{\,dx}{\sqrt{x^2 + a}} = \ln \left| x + \sqrt{x^2 + a}\right| + c, a \in \R$   
+	\end{MyList}	
+\end{multicols}
+
+\begin{proof}
+	Дифференцирование
+\end{proof}
+
+\begin{Example}
+	$\int \frac{\sin x}{x} \,dx$ -- неберущийся интеграл.
+	$\Si(x)$ -- интегральный синус (одна из первообразных, закрепленная при $x \to 0+$ ).
+	\[(\Si(x))' = \frac{\sin x}{x}\]
+\end{Example}
+
+\begin{Thm}[Линейность неопределенного интеграла]
+	$f, g : \langle A, B\rangle \to \R$, имеют первообразные на $\langle A, B\rangle$.
+	Тогда $\forall \alpha, \beta \in \R : \alpha, \beta \neq 0$
+	\[\int (\alpha f(x) + \beta g(x))\,dx = \alpha \int f(x) \,dx + \beta \int g(x) \,dx\] 
+\end{Thm}
+
+\begin{proof}
+	Пусть $F$ и $G$ -- первообразные $f$ и $g$ на $\langle A, B\rangle$.
+	Правая часть равенства: $\left\{\alpha F(x) + \beta G(x) + c, c \in \R\right\}$.
+	\[\left(\alpha F(x) + \beta G(x) + c\right)' = \alpha F'(x) + \beta G'(x) = \alpha f(x) + \beta g(x)\]
+\end{proof}
+
+\begin{Thm}[Замена переменной]
+	$f : \langle A, B\rangle \to \R, F$ -- первообразная $f$ на $\langle A, B\rangle$, $\PHI : \langle C, D\rangle \to \langle A, B\rangle$ -- дифференцируемая функция.
+	Тогда 
+	\[\int f(\PHI(x))\PHI'(x) \,dx = F(\PHI(x)) + c\]
+\end{Thm}
+
+\begin{proof}
+	\[\left(F(\PHI(x)) + c\right)' = F'(\PHI(x)) \cdot \PHI'(x) = f(\PHI(x)) \cdot \PHI'(x)\]
+\end{proof}
+
+\begin{Rem}
+	$\PHI'(x) \,dx = d \PHI(x)$. Пусть $y = \PHI (x)$ 
+	\[\int f(y) dy = F(y) + c = F(\PHI(x)) + c\] 
+\end{Rem}
+
+\begin{Example}
+	$\int \frac{\ln x}{x}\,dx = \int \ln x \cdot \frac{1}{x}\,dx$. Пусть $y = \ln x \SO dy = \frac{1}{x} \,dx$ 
+	\[\SO \int \frac{\ln x}{x}\,dx = \int y \,dy = \frac{y^2}{2} + c = \frac{\ln^2 x}{2} + c\]
+\end{Example}
+
+\begin{Cons}
+	Пусть в условиях теоремы $\PHI$ имеет обратную функцию $\psi : \langle A, B\rangle \to \langle C, D\rangle$. Если $G(x)$ -- первообразная функции $(f \circ \PHI(x)) \cdot \PHI'(x)$, то \[\int f(x) \,dx = G(\psi (x)) + c\]
+\end{Cons}
+
+\begin{proof}
+	Пусть $F$ -- первообразная $f$ на $\langle A, B\rangle$.
+	$F(\PHI(x))$ -- первообразная $f(\PHI(y)) \PHI'(y)$~(по теореме).
+	Рассмотрим $G(x) - F(\PHI(x))$ -- постоянная (т.к. производная равна нулю).
+	$y = \PHI(x) \EQ x = \psi(y)$. Тогда
+	\[G(\psi(y)) - F(y) = \const \SO \int f(y) \,dy = G(\psi(y)) + c \] 
+\end{proof}
+
+\begin{Example}
+	$\int \frac{dx}{1 + \sqrt{x}}$. Пусть $t = \sqrt{x}, t > 0 \EQ t^2 = x \SO dx = dt^2 = 2t \,dt$. Тогда
+	\[\int \frac{dx}{1 + \sqrt{x}} = \int \frac{2t \,dt}{1 + t} = \int \left( \frac{2t + 2}{t + 1} - \frac{2}{t + 1}\right) \,dt = \int \left(2 - \frac{2}{t + 1}\right) \,dt = 2\int dt - 2\int \frac{dt}{t + 1} =\] 
+	\[= 2t - \int \frac{d(t + 1)}{t + 1} = 2t - 2\ln |t + 1| + c = 2\sqrt{x} - 2\ln (\sqrt{x} + 1) + c\]
+\end{Example}
+
+\begin{Example}
+	$\int \sin x \cos x \,dx = \int \sin x \,d\sin x = \frac{\sin^2 x }{2} + c$. \\
+	Иначе: $\int \sin x \cos x \,dx = -\int \cos x \,d\cos x = - \frac{\cos^2 x}{2} + c$. \\
+	Иначе: $\int \sin x \cos x \,dx = \frac{1}{2} \int \sin 2x \,dx = \frac{1}{2} \cdot \frac{1}{2} \int \sin 2x \,d(2x) = \frac{-\cos 2x}{4} + c$. \\
+	Мораль сей басни такова: константы разные, а не $ \frac{\sin^2 x}{2} = - \frac{\cos^2 x}{2} = - \frac{\cos 2x}{4}$. 
+\end{Example}
+
+\begin{Thm}[Формула интегрирования по частям]
+	$f, g \in C^1 \langle A, B\rangle$. Тогда 
+	\[\int f(x)g'(x) \,dx = f(x) g(x) - \int f'(x) g(x) \,dx\] 
+\end{Thm}
+
+\begin{proof}
+	$H$ -- первообразная $g \cdot f'$. Тогда 
+	\[(f(x) g(x) - H(x))' = f'(x) g(x) + f(x)g'(x) - H'(x) = f(x)g'(x)\]
+\end{proof}
+
+\begin{Rem}
+	$\int u \,dv = uv - \int v \,du$
+\end{Rem}
+
+\begin{Example}
+	$\int x e^x \,dx$. Пусть $u = x, u' = 1, v' = e^x, v = e^x$
+	\[\int x e^x \,dx = xe^x - \int 1 \cdot e^x \,dx = x e^x - e^x + c\] 
+\end{Example}
+
+\begin{Example}
+	$\int \ln x \,dx$. Пусть $u = \ln x, u' = \frac{1}{x}, v' = 1, v = x$.
+	\[\int \ln x \,dx = x \ln x - \int \frac{1}{x} \cdot x \,dx = x \ln x - x + c\]  
+\end{Example}
+
+\begin{Ex}
+	$\int e^x \cdot \sin x \,dx$
+	Пусть $f = \sin x, g = e^x$. Тогда
+	\[\int f \, dg = fg - \int g \, df \EQ \int e^x \sin x = e^x\sin x - \int e^x \cos x\]
+	Пусть теперь $f = \cos x, g = e^x$. Тогда
+	\[\int f \, dg = fg - \int g \, df \EQ \int e^x \cos x = e^x \cos x + \int e^x \sin x\]
+	Отсюда 
+	\[\int e^x \sin x = e^x\sin x - e^x\cos x - \int e^x \sin x \EQ \int e^x\sin x = \frac{e^x}{2}(\sin x - \cos x)\]
+\end{Ex}
+
+\begin{Example}
+	Пусть $a \in \R, a \neq 0, I_n = \int \frac{dx}{(x^2 + a)^n}, n \in \N$. Выразим интеграл $I_{n + 1}$ через $I_n$ для произвольного натурального $n$.
+	
+	Обозначим $f(x) = \frac{1}{(x^2 + a)^n}$ и $g(x) = x$. Тогда
+	\[df(x) = \left(\frac{1}{(x^2 + a)^n}\right)' \, dx = -\frac{2nx}{(x^2 + a)^{n + 1}} \, dx, dg(x) = dx\]
+	По формуле интегрирования по частям:
+	\begin{align*}
+		I_n &= \frac{x}{(x^2 + a)^n} + 2n \int \frac{x^2}{(x^2 + a)^{n + 1}} \, dx = \frac{x}{(x^2 + a)^n} + 2n \int \frac{x^2 + a - a}{(x^2 + a)^{n + 1}} \, dx \\
+		&= \frac{x}{(x^2 + a)^n} + 2n \int \frac{dx}{(x^2 + a)^n} - 2na \int \frac{dx}{(x^2 + a)^{n + 1}} = \frac{x}{(x^2 + a)^n} + 2n I_n - 2na I_{n + 1} \\
+	\end{align*}
+	Откуда
+	\[2na I_{n + 1} = (2n - 1)I_n + \frac{x}{(x^2 + a)^n}\]
+\end{Example} 
+
+\begin{Prop}
+	Любая рациональная функция имеет элементарную первообразную.
+\end{Prop}
+
+Рассмотрим простешие дроби:
+
+\begin{MyList}
+	\item $\frac{a}{(x + p)^n}, n \in \N, a, p \in \R$ 
+	\item $ \frac{ax + b}{(x^2 + px + q)^n}$ 
+\end{MyList}
+
+Интегралы от простейших дробей первого рода вычисляются по таблице. Для простейших дробей второго рода используется следующий алгоритм:
+
+\begin{MyList}
+	\item Если $p \neq 0$, то выделим полный квадрат и выполним замену $y = x + \frac{p}{2}$. Если $p = 0$, тогда
+	\[\int \frac{ax + b}{(x^2 + px + q)^n} = a\int \frac{x \,dx}{(x^2 + q)^n} + b \int \frac{dx}{(x^2 + q)^n}\]
+	\item Интеграл $\int \frac{x \, dx}{(x^2 + q)^n}$ можно вычислить с помощью замены $y = x^2 + q$, т.к. $dy = 2x \, dx$.
+	\item Применяя к интегралу $I_n = \int \frac{dx}{(x^2 + q)^n}$ формулу понижения $n - 1$ раз сведем его к интегралу $I_1$, который является табличным.
+\end{MyList}
+
+\begin{Example}[12 и 13 из таблицы]
+	\[\int \frac{dx}{x^2 - 4} = \int \left( \frac{\frac{1}{4}}{x - 2} + \frac{-\frac{1}{4}}{x + 2}\right) \,dx = \frac{1}{4} \left(\ln |x - 2| - \ln |x + 2|\right) + c\]	
+\end{Example}
+
+\begin{Example}
+	$\int \frac{dx}{\sqrt{x^2 + 1}}$. Пусть $x = \sh t, dx = \ch t dt $. Тогда
+	\[\int \frac{\ch t dt}{\sqrt{1 + \sh^2 t}} = \int \frac{\ch t}{\ch t} dt = \int dt = t + c\]   
+\end{Example}
+
+\begin{Ex}
+	Найди формулу для $(\sh t)^{-1}$ 
+\end{Ex}
+
+Неберущиеся интегралы:
+
+\begin{multicols}{2}
+	\begin{MyItemize}
+		\item $\int \frac{\sin x}{x} \,dx$ 
+		\item $\int \frac{\cos x}{x} \,dx$ 
+		\item $\int \frac{\,dx}{\ln x}$ 
+		\item $\int \frac{e^x}{x} \,dx$ 
+		\item $\int \sin x^2 \,dx$ 
+		\item $\int \cos x^2 \,dx$ 
+		\item $\int e^{-x^2}\,dx$ 
+	\end{MyItemize}
+\end{multicols}
+
+\Subsection{Определенный интеграл Римана}
+
+\begin{Def}
+	$[a, b], a < b$. Набор точек $\tau = \{x_k\}_{k = 0}^n : x_0 = a < x_1 < x_2 < ... < x_n = b$ -- разбиение (дробление) отрезка $[a, b]$, $\Delta x_k = x_{k + 1} - x_k$ -- длина отрезка $[x_k, x_{k + 1}]$ . 
+	$\lambda = \lambda_\tau  = \max_{k \in [0, n - 1]} \Delta x_k$ -- ранг дробления (мелкость), $\xi = \{\xi_k\}_{k = 0}^{n - 1} : \xi_k \in [x_k, x_{k + 1}]$ -- оснащение дробления $\tau$.
+	Пара $(\tau, \xi)$ называется оснащенным дроблением.  
+\end{Def}
+
+\begin{Def}
+	$f : [a, b] \to \R, \sigma_\tau = \sum_{k = 0}^{n - 1} f(\xi_k) \Delta x_k$ -- суммы Римана (интегральные суммы). 
+\end{Def}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.5\columnwidth}
+	\input{img/riemann_sum.pdf_tex}
+\end{figure*}
+
+\begin{Def}
+	$f : [a, b] \to \R$. Число $I \in \R$ называют пределом интегральных сумм при ранге $\to 0 :$
+	\[I = \lim_{\lambda_\tau \to 0} \sigma_\tau (f, \xi) \quad (I = \lim_{\lambda \to 0} \sigma)\]
+	если $\forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta$
+	\[|\sigma_\tau (f, \xi) - I| < \varepsilon\] 
+\end{Def}
+
+\begin{Rem}
+	Последовательность оснащенных дроблений $\{(\tau^{(i)}, \xi^{(i)})\}_{i = 1}^\infty : \lambda^{(i)} \to 0$.
+	$\forall \{\tau^{(i)}, \xi^{(i)}\} : \lambda^{(i)} \to 0 \ \sigma_{\tau^{(i)}}(f, \xi^{(i)}) \to I$.  
+\end{Rem}
+
+\begin{Def}[Интеграл Римана]
+	$f : [a, b] \to \R$. Если $\exists \lim_{\lambda \to 0} \sigma = I $, то $f$ называется интегрируемой по Риману на $[a, b]$, а число $I$ называется интегралом $f$ по $[a, b]$. \\
+	$R[a, b]$ -- класс функций, интегрируемых по Риману на $[a, b]$.
+	\[\int_a^b f(x)\,dx\]
+\end{Def}
+
+\end{document}
