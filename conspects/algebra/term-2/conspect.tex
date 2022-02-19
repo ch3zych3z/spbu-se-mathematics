@@ -1,0 +1,218 @@
+\input{preamble.tex}
+
+\begin{document}
+	\Header
+	\BeginConspect
+
+	\Section{Системы линейных уравнений}{}{Илья Дудников}
+
+	\[ (*)\begin{cases}
+		a_{11} x_1 + a_{12} x_2 + ... + a_{1n} x_n = b_1 \\ 
+		a_{21} x_1 + a_{22} x_2 + ... + a_{2n} x_n = b_2 \\ 
+		\cdots\\
+		a_{m1} x_1 + a_{m2} x_2 + ... + a_{mn} x_n = b_n
+	\end{cases}\]
+	$A = (a_{ij})$ -- матрица коэффициентов, $X = \begin{pmatrix}
+	x_1 \\ 
+	x_2 \\ 
+	\vdots \\ 
+	x_n
+	\end{pmatrix}$, $B = \begin{pmatrix}
+	b_1 \\ 
+	b_2 \\ 
+	\vdots \\ 
+	b_n
+	\end{pmatrix}$.  
+
+	\begin{Def}
+		Решение СЛУ $(*)$ называется $\alpha_1, ..., \alpha_n \in K : $ при $x_i = \alpha_i$ все уравнения становятся верными.
+	\end{Def}
+
+	\begin{Def}
+		СЛУ $(*)$ совместна, если $\exists$ хотя бы одно решение. Иначе - несовместна.
+	\end{Def}
+
+	\Subsection{Ранг матрицы}
+
+	$A - m \times n, A = (A_1, A_2, ..., A_m), A_i$ -- строки. \\
+	$A = (A^1, A^2, ..., A^n), A^j$ -- столбцы.
+	
+	\begin{Def}
+		Строчным (столбцовым) рангом матрицы $A$ называется максимальное число ЛНЗ строк (столбцов). \\
+		Иначе, количество элементов в базисе $\langle A_1, ..., A_m\rangle (\langle A^1, ..., A^n\rangle)$. 
+	\end{Def}
+
+	\begin{Thm}
+		Строчный и столбцовый ранги совпадают.
+	\end{Thm}
+
+	Обозначение: $\rank A$.
+
+	\begin{Def}
+		Минором матрицы $A - m \times n$ $k$-го порядка называется определитель, 
+		составленный из элементов матрицы $A$, стоящих на $k$ выбранных строках и на $k$ выбранных столбцов.  
+	\end{Def}
+
+	\begin{Example}
+		$\left(\begin{array}{cccc}
+		1 & 4 & 8 & -3 \\ 
+		2 & 5 & 9 & -4 \\ 
+		3 & 6 & -2 & -5
+		\end{array}\right)$. Если вы выберем вторую и третью строку, а также первый и последний столбец, то минор второго порядка:
+		\[\left|\begin{array}{cc}
+		2 & -4 \\ 
+		3 & -5
+		\end{array}\right|\]
+	\end{Example}
+
+	\begin{Thm}
+		Ранг матрицы $A$ равен наибольшему порядку минора, отличного от нуля.
+	\end{Thm}
+
+	\begin{Thm}[Связь определителя с рангом матрицы]
+		$A - n \times n$. Тогда $\rank A < n \EQ \det A = 0$.
+	\end{Thm}
+
+	\begin{proof}
+		$\SO$. $\rank A < n \SO$ строки $A_1, ..., A_n$ ЛЗ, т.е.
+		$\exists \alpha_1, ..., \alpha_n \in K : \alpha_1 A_1 + \alpha_2 A_2 + ... + \alpha_n A_n = 0$ ( $\alpha_i$ не все равны нулю). 
+		Пусть $\alpha_1 \neq 0 \SO A_1 = - \frac{\alpha_2}{\alpha_1} A_2 - ... - \frac{\alpha_n}{\alpha_1} A_n$.
+		Обнулим первую строку: прибавим к ней $A_2$, умноженную на $-\frac{\alpha_2}{\alpha_1}$, $A_3$, умноженную на $-\frac{\alpha_3}{\alpha_1}$ и т.д.
+		Поскольку теперь первая строка целиком нулевая, то $\det A = 0$. \\
+
+		$\Leftarrow$. Индукция $n = 1 \SO a_{11} = 0$. $n - 1 \to n$.
+		\[\left|\begin{array}{cccc}
+		a_{11} & a_{12} & \cdots & a_{1n} \\ 
+		a_{21} & a_{22} & \cdots & a_{2n} \\ 
+		\vdots & \vdots & \ddots & \vdots \\ 
+		a_{n1} & a_{n2} & \cdots & a_{nn}
+		\end{array}\right| = \]
+		Можем считать, что $A^1 \neq 0, a_{11} \neq 0$. Домножим первую строку на $- \frac{a_{21}}{a_{11}}$ и прибавляем ко второй строке.
+		Затем домножаем первую строку на $-\frac{a_{31}}{a_{11}}$ и прибавляем ко третьей строке и т.д.  
+		\[= \left|\begin{array}{cccc}
+		a_{11} & a_{12} & \cdots & a_{1n} \\ 
+		0 & a_{22}' & \cdots & a_{2n}' \\ 
+		\vdots & \vdots & \ddots & \vdots \\ 
+		0 & a_{n2}' & \cdots & a_{nn}'
+		\end{array}\right| = a_{11} \cdot \left|\begin{array}{ccc}
+		a_{22}' & \cdots & a_{2n}' \\ 
+		\vdots & \ddots & \vdots \\ 
+		a_{n2}' & \cdots & a_{nn}'
+		\end{array}\right|\]
+		По предположению $A_2', ..., A_n'$ -- ЛЗ. $\begin{cases}
+			A_2' = A_2 - \frac{a_{21}}{a_{11}} \cdot A_1 \\
+			\cdots \\
+			A_n' = A_n - \frac{a_{n1}}{a_{11}} \cdot A_1
+		\end{cases}$. \\  
+		$0 = \alpha_2 A_2' + ... + \alpha_n A_n' = (...) A_1 + \alpha_2 \cdot A_2 + ... + \alpha_n A_n \SO A_1, ..., A_n$ -- ЛЗ $\SO \rank A < n$.
+	\end{proof}
+
+	\begin{Def}
+		Элементарными преобразованиями над строками (столбцами) называется
+		\begin{MyList}
+			\item Перестановка строк (столбцов).
+			\item Умножение строки (столбца) на $\lambda \neq 0$.
+			\item Прибавление к одной строке (столбцу) другой строки (столбца), умноженной на $\lambda \neq 0$.
+		\end{MyList}
+	\end{Def}
+
+	\begin{Thm}
+		При элементарных преобразованиях ранг матрицы не меняется.
+	\end{Thm}
+
+	\begin{proof}
+		$1, 2$ -- очевидно.
+		$(A_1, ..., A_i, ..., A_j, ..., A_n) \to (A_1, ..., A_i + \lambda A_j, ..., A_j, ..., A_n)$ 
+	\end{proof}
+
+	\begin{Def}
+		Матрица называется трапецевидной, если у неё в $\forall$ ненулевой строке число нулей слева различно.
+	\end{Def}
+
+	\begin{Rem}
+		$\rank$ трапецевидной матрицы равен числу ненулевых строк.
+	\end{Rem}
+
+	\begin{Thm}[О вычислении ранга]
+		Любую матрицу с помощью элементарных преобразований можно привести к трапецевидной.
+	\end{Thm}
+
+	\Subsection{Структура решений СЛУ}
+
+	\begin{Def}
+		СЛУ (*) называется однородной, если все свободные члены равны нулю.
+	\end{Def}
+
+	\begin{Def}
+		Нулевое решение однородной СЛУ называется тривиальным. Любое другое решение -- нетривиальным.
+	\end{Def}
+
+	\begin{Lm}
+		Пусть $Y, Z$ -- решения $AX = 0 \SO \alpha Y + \beta Z$ -- тоже решение, $\alpha, \beta \in K$.
+	\end{Lm}
+
+	\begin{proof}
+		\[AY = 0, AZ = 0 \SO A(\alpha Y + \beta Z) = \alpha AY + \beta AZ = 0\]
+	\end{proof}
+
+	\begin{Thm}[Структура решений однородной СЛУ]
+		$AX = 0, A - m \times n, n$ -- число неизвестных, $r = \rank A \SO$
+		$\exists n - r$ ЛНЗ решений $X_1, ..., X_{n - r} : \forall$ решение $Y = \alpha_1 X_1 + ... + \alpha_{n - r} X_{n - r}$.  
+	\end{Thm}
+
+	\begin{proof}
+		$A = (A^1, ..., A^n)$, $A^1, ..., A^r$ -- ЛНЗ столбцы $\SO $
+		\[
+		\begin{cases}
+			A_{r + 1} = \beta_{r + 1 \ 1}A^1 + ... + \beta_{r + 1 \ n} A^{r} \\
+			\cdots \\
+			A^n = \beta_{n \ 1}A^1 + ... + \beta_{n \ r}A^r
+		\end{cases}
+		\]
+		$AX = 0 \EQ x_1 A^1 + x_2 A^2 + ... + x_n A^n = 0$. \\
+		$X_1 = \begin{pmatrix}
+		\beta_{r + 1 \ 1} \\ 
+		\vdots \\ 
+		\beta_{r + 1 \ r} \\ 
+		-1 \\ 
+		0 \\ 
+		\vdots \\ 
+		0
+		\end{pmatrix}, X_2 = \begin{pmatrix}
+		\beta_{r + 2 \ 1} \\ 
+		\vdots \\ 
+		\beta_{r + 2 \ r} \\ 
+		0 \\ 
+		-1 \\
+		0 \\ 
+		\vdots \\ 
+		0
+		\end{pmatrix}, ..., X_{n + r} = \begin{pmatrix}
+		\beta_{n \ 1} \\ 
+		\vdots \\ 
+		\beta_{n \ r} \\ 
+		0 \\ 
+		\vdots \\ 
+		-1 \\ 
+		\end{pmatrix}$ -- решения. \\
+		Пусть $Z = \begin{pmatrix}
+		x_1^* \\ 
+		\vdots \\ 
+		x_r^* \\ 
+		\vdots \\ 
+		x_n^*
+		\end{pmatrix}$ -- решение. Рассмотрим $Y = Z + x_{r + 1}^* X_1 + x_{r + 2}^* X_2 + ... + x_n^* X_{n - r}$. 
+		$Y = \begin{pmatrix}
+		y_1 \\ 
+		\vdots \\ 
+		y_r \\ 
+		0 \\ 
+		\vdots \\
+		0
+		\end{pmatrix}$ -- решение~$\{y_1 A_1 + ... + y_r A_r = 0\}$. Но $A_1, ..., A_r$ -- ЛНЗ $\SO Y = \begin{pmatrix}
+		0 \\ 
+		\vdots \\ 
+		0
+		\end{pmatrix} \SO 0 = Z + x_{r + 1}^* X_1 + x_{r + 2}^* X_2 + ... + x_n^* X_{n - r}$.
+	\end{proof}
+\end{document}
