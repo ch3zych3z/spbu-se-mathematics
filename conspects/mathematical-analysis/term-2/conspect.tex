@@ -277,4 +277,193 @@
 	\[\int_a^b f(x)\,dx\]
 \end{Def}
 
+\Subsection{Суммы Дарбу}
+
+\begin{Def}
+	$f : [a, b] \to \R, \tau = \{x_k\}_{k = 0}^n$ -- дробление $[a, b]$.
+	\[M_k = \displaystyle{\sup_{x \in [x_k, x_{k + 1}]}} f(x), m_k = \displaystyle{\inf_{x \in [x_k, x_{k + 1}]}}f(x)\] 
+	Суммы
+	\[S = S_\tau (f) = \displaystyle{\sum_{k = 0}^{n - 1}} M_k \Delta x_k, s = s_\tau (f) = \displaystyle{\sum_{k = 0}^{n - 1}} m_k \Delta x_k\]
+	называются верхними и нижними интегральными суммами.
+\end{Def}
+
+\begin{Rem}
+	Если $f$ -- непрерывна на $[a, b]$, то это две частные суммы из сумм Римана.
+\end{Rem}
+
+\begin{Rem}
+	$f$ ограничена сверху $\EQ$ $S$ ограничена.
+\end{Rem}
+
+Свойства сумм Дарбу:
+
+\begin{MyList}
+	\item $S_\tau (f) = \displaystyle{\sup_\xi \sigma_\tau (f, \xi)}, s_\tau = \displaystyle{\inf_\xi \sigma_\tau (f, \xi)}$ 
+	\begin{proof}
+		$M_k \geqslant f(\xi_k), k = 0, ..., n - 1$. Тогда $M_k \Delta x_k \geqslant f(\xi_k) \Delta x_k \EQ \sum_{k = 0}^{n - 1} M_k \Delta x_k \geqslant \sum_{k = 0}^{n - 1} f(\xi_k) \Delta x_k \SO S_\tau (f) \geqslant \sigma_\tau $, т.е. $S_\tau$ -- верхняя граница. Докажем, что она является точной верхней границей. \\
+		Если $f$ ограничена на $[a, b]$. Фиксируем $\varepsilon > 0$. На каждом кусочке разбиения $\exists \xi_k^* \in [x_k, x_{k + 1}] : f(\xi_k^*) > M_k - \frac{\varepsilon}{b - a}$.
+		Тогда $\sigma^* = \sum_{k = 0}^{n - 1} f(\xi_k^*) \Delta x_k > S - \frac{\varepsilon}{b - a}\sum_{k = 0}^{n - 1} \Delta x_k = S - \varepsilon$. \\
+		Если $f$ не ограничена на $[a, b] \SO$ не ограничена на каком-то кусочке $[x_l, x_{l + 1}]$. 
+		Фиксируем $A > 0$ и выберем $\xi_k^*$ при $k \neq l$ произвольно, а для $\xi_l^*$
+		\[f(\xi_l^*) > \frac{1}{\Delta x_l}\left(A - \displaystyle{\sum_{k \neq l} f(\xi_k^*) \Delta x_k}\right)\]
+
+		Тогда 
+		\[\sigma^* = \displaystyle{\sum_{k = 0}^{n - 1} f(\xi_k^*) \Delta x_k} > A \SO \sup_\xi \sigma = +\infty = S\] 
+	\end{proof}
+
+	\item При добавлении новых точек дробления верхняя сумма не увеличится, а нижняя не уменьшится.
+	\begin{proof}
+		Докажем для верхних сумм при добавлении одной точки.
+		$\tau : \{x_k\}_{k = 0}^{n - 1}$. Добавим точку $c$ в $[x_l, x_{l + 1}] - T$ -- новое дробление. \\
+		\[S_\tau = \sum_{k = 0}^{l - 1} M_k \Delta x_k + M_l \Delta x_l + \sum_{k = l + 1}^{n - 1} M_k \Delta x_k\]
+		\[S_T = \sum_{k = 0}^{l - 1} M_k \Delta x_k + (c - x_l) \cdot M' + (x_{l + 1} - c) M'' + \sum_{k = l + 1}^{n - 1} M_k \Delta x_k\]
+		где $M' = \sup_{x \in [x_l, c]} f, M'' = \sup_{x \in [c, x_{l + 1}]} f$. $M_l \geqslant M', M_l \geqslant M''$, т.к. $[x_l, c] \subset [x_l, x_{l + 1}], [c, x_{l + 1}] \subset [x_l, x_{l + 1}]$.
+
+		Рассмотрим $S_\tau - S_T = M_l \Delta x_l - (c - x_l) M' - (x_{l + 1} - c) M'' \geqslant M_l (x_{l + 1} - x_l - c + x_l - x_{l + 1} + c) = 0$.
+		
+		Добавить больше точек можно по индукции.
+	\end{proof}
+
+	\item Каждая нижняя сумма Дарбу не превосходит каждой верхней.
+	\begin{proof}
+		$\tau_1, \tau_2$ -- разные дробления $[a, b]$. Докажем, что $s_{\tau_1} \leqslant S_{\tau_2}$. Возьмем $\tau = \tau_1 \cup \tau_2$. Тогда $s_{\tau_1} \leqslant s_\tau \leqslant S_\tau \leqslant S_{\tau_2}$ (по свойству 2).
+	\end{proof}
+\end{MyList}
+
+\begin{Prop}
+	$f \in R[a, b] \SO f$ ограничена на $[a, b]$.
+\end{Prop}
+
+\begin{proof}
+	Пусть $f$ не ограничена на $[a, b]$ сверху. Тогда $\forall \tau \SO \sup_\xi \sigma_\tau (f, \xi) = +\infty$. Тогда 
+	$\forall \tau$ и числа $I \ \exists$ оснащение $\xi' : \sigma_\tau (\xi') > I + 1 \SO$ никакое число $I$ не является пределом интегральных сумм.   
+\end{proof}
+
+\begin{Def}
+	$f : [a, b] \to \R$. Возьмем
+	\[I^* = \inf_\tau S_\tau \qquad I_* = \sup_\tau s_\tau\]
+	где $I^*$ -- верхний интеграл Дарбу, $I_*$ -- нижний интеграл Дарбу.
+\end{Def}
+
+\begin{Rem}
+	$I^* \geqslant I_*$.
+\end{Rem}
+
+\begin{Rem}
+	$f$ ограничена сверху $\EQ I^*$ ограничена. 
+\end{Rem}
+
+\begin{Thm}[Критерий интегрируемости функции]
+	Пусть $f : [a, b] \to \R$. Тогда $f \in R[a, b] \EQ S_\tau (f) - s_\tau (f) \xrightarrow[\lambda \to 0]{} 0$, т.е.
+	\[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta \ S_\tau(f) - s_\tau(f) < \varepsilon\] 
+\end{Thm}
+
+\begin{proof}
+	$\SO$. Пусть $f \in R[a, b]$. Обозначим $I = \int_a^b f$. Возьмем $\varepsilon > 0$, подберем $\delta > 0 :$
+	\[I - \frac{\varepsilon}{3} < \sigma_\tau (f, \xi) < I + \frac{\varepsilon}{3}\]
+	Переходя к супремуму и инфимуму, получим
+	\[I - \frac{\varepsilon}{3} \leqslant s_\tau \leqslant S_\tau \leqslant I + \frac{\varepsilon}{3}\]
+	откуда $S_\tau - s_\tau \leqslant I + \frac{\varepsilon}{3} - I + \frac{\varepsilon}{3} = \frac{2\varepsilon}{3} < \varepsilon$.
+
+	$\Leftarrow$. Пусть $S_\tau - s_\tau \xrightarrow[\lambda \to 0]{} 0 \SO$ все суммы Дарбу конечны.
+	\[s_\tau \leqslant I_* \leqslant I^* \leqslant S_\tau \SO 0 \leqslant I^* - I_* \leqslant S_\tau - s_\tau\]
+	$\SO I^* = I_*$ (т.к. это числа). Обозначим $I = I^* = I_*$.
+	\[s_\tau \leqslant I \leqslant S_\tau, s_\tau \leqslant \sigma_\tau \leqslant S_\tau \SO |I - \sigma_\tau| \leqslant S_\tau - s_\tau\]
+	$\SO \forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta \ |I - \sigma_\tau| < \varepsilon$.   
+\end{proof}
+
+\begin{Rem}
+	Если $f \in R[a, b] \SO s_\tau \leqslant \int_a^b f \leqslant S_\tau$. 
+\end{Rem}
+
+\begin{Cons}
+	$f \in R[a, b] \SO \lim_{\lambda \to 0} S_\tau = \lim_{\lambda \to 0} s_\tau = \int_a^b f$ 
+\end{Cons}
+
+\begin{proof}
+	$0 \leqslant S_\tau - \int_a^b f \leqslant S_\tau - s_\tau$, $0 \leqslant \int_a^b f - s_\tau \leqslant S_\tau - s_\tau$.
+\end{proof}
+
+\begin{Rem}
+	$\lim_{\lambda \to 0} S_\tau = I^*, \lim_{\lambda \to 0} s_\tau = I_*$. 
+\end{Rem}
+
+\begin{Prop}[Критерий Дарбу интегрируемости функции по Риману]
+	$f \in R[a, b] \EQ f$ ограничена на $[a, b]$ и $I_* = I^*$. 
+\end{Prop}
+
+\begin{Prop}[Критерий Римана интегрируемости]
+	$f \in R[a, b] \EQ \forall \varepsilon > 0 \ \exists \tau \ S_\tau(f) - s_\tau (f) < \varepsilon$. 
+\end{Prop}
+
+\begin{Def}
+	$f : D \to \R$. Величина
+	\[\omega (f)_D = \sup_{x, y \in D} (f(x) - f(y))\]
+	называется колебанием $f$ на $D$. Из определений граней функции ясно, что
+	\[\omega (f)_D = \sup_{x \in D} f(x) - \inf_{y \in D} f(y)\]
+
+	Если задано $\tau$ отрезка $[a, b]$, то 
+	\[\omega_k (f) = M_k - m_k\]
+\end{Def}
+
+Тогда теорему можно записать:
+\[f \in R[a, b] \EQ \lim_{\lambda \to 0} \sum_{k = 0}^{n - 1} \omega_k (f) \Delta x_k = 0\]
+
+\begin{Thm}[Интегрируемость непрерывной функции]
+	$f : [a, b] \to \R, f \in C[a, b] \SO f \in R[a, b]$.
+\end{Thm}
+
+\begin{proof}
+	По теореме Кантора $f \in C[a, b] \SO f$ равномерна непрерывна на $[a, b]$.
+	\[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall t', t'' \in [a, b] : |t' - t''| < \delta \ |f(t') - f(t'')| < \frac{\varepsilon}{b - a}\]
+	По теореме Вейерштрасса $f$ достигает наибольшего и наименьшего значения на любом отрезке, содержащемся в $[a, b]$.
+	Поэтому колебание $f$ на всяком отрезке, длина которого меньше $\delta$, будет меньше $\frac{\varepsilon}{b - a}$. Значит, $\forall \tau : \lambda_\tau < \delta$ 
+	\[\sum_{k = 0}^{n - 1} \omega_k(f) \Delta x_k < \sum_{k = 0}^{n - 1} \frac{\varepsilon}{b - a} \Delta x_k\]
+\end{proof}
+
+\begin{Thm}[Интегрируемость монотонной функции]
+	$f$ монотонна на $[a, b] \SO f \in R[a, b]$. 
+\end{Thm}
+
+\begin{proof}
+	Пусть $f$ монотонно возрастает на $[a, b]$. Если $f(a) = f(b) \SO f$ постоянна $\SO f \in C[a, b] \SO f \in R[a, b]$. \\
+	Если $f(a) < f(b)$. $\forall \varepsilon > 0$ возьмем $\delta = \frac{\varepsilon}{f(b) - f(a)}$. Возьмем произвольное $\tau : \lambda_\tau < \delta$ на $[x_k, x_{k + 1}]$. В силу монотонности $f$ верно $\omega_k(f) = f(x_{k + 1}) - f(x_k)$.
+	\[\sum_{k = 0}^{n - 1} \omega_k(f) \Delta_k = \sum_{k = 0}^{n - 1} (f(x_{k + 1}) - f(x_k)) \Delta x_k < \sum_{k = 0}^n (f(x_{k + 1}) - f(x_k)) \cdot \frac{\varepsilon}{f(b) - f(a)} = \varepsilon\]   
+\end{proof}
+
+\begin{Rem}
+	$f \in R[a, b]$. Если изменить значение $f$ в конечном числе точек, то интегрируемость не нарушится и интеграл не изменится.
+\end{Rem}
+
+\begin{proof}
+	$\widetilde{f}$ -- отличается от $f$ в точках $t_1, t_2, ..., t_m$.
+	$|f|$ ограничена на $[a, b] \SO |\widetilde{f}|$ ограничена.
+	$|f| \leqslant A$, возьмем $\widetilde{A} = \max \{A, |\widetilde{f}(t_1)|, |\widetilde{f}(t_2)|, ..., |\widetilde{f}(t_m)|\}$.
+	В интегральных суммах для $f$ и $\widetilde{f}$ отличаются не более $2m$ слагаемых, поэтому
+	\[|\sigma_\tau(f, \xi) - \sigma_\tau(\widetilde{f}, \xi)| \leqslant 2m(A + \widetilde{A}) \lambda_\tau \xrightarrow[\lambda_\tau]{}0\]  
+	Поэтому предел $\sigma_\tau (\widetilde{f}, \xi)$ существует и равен пределу $\sigma_\tau (f, \xi)$.  
+\end{proof}
+
+\begin{Thm}[Интегрируемость функции и её сужения]
+	\begin{MyList}
+		\item $f \in R[a, b], [\alpha, \beta] \subset [a, b] \SO f \in R[\alpha, \beta]$
+		\item Если $a < c < b, f : [a, b] \to \R$ и $f \in R[a, c], f \in R[c, b]$, то $f \in R[a, b]$.   
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Возьмем $\varepsilon > 0$, подберем $\delta > 0$ из критерия интегрируемости на $[a, b]$. \\
+		$\tau_0$ -- дробление $[\alpha, \beta], \lambda_{\tau_0} < \delta$. Добавим точек до дробления $[a, b]$. Получим $\tau (\lambda_\tau < \delta)$.
+		\[S_{\tau_0} - s_{\tau_0} = \sum_{k = l}^{m - 1} \omega_k (f) \Delta x_k \leqslant \sum_{k = 0}^{n - 1} \omega_k (f) \Delta x_k < \varepsilon\]
+
+		\item Пусть $f$ не постоянна, т.е. $\omega(f)_{[a, b]} > 0$.
+		Возьмем $\varepsilon > 0$, подберем $\delta_1, \delta_2 : \forall \tau_1 : \lambda_{\tau_1} < \delta_1, \forall tau_2 : \lambda_{\tau_2} < \delta_2$
+		\[S_{\tau_1} - s_{\tau_1} < \frac{\varepsilon}{3}, S_{\tau_2} - s_{\tau_2} < \frac{\varepsilon}{3}\]
+		$\delta = \min \{\delta_1, \delta_2, \frac{\varepsilon}{3 \omega}\}$. Пусть $\tau$ -- дробление $[a, b], \lambda_\tau < \delta$.
+		Точка $c \in [x_l, x_{l + 1})$. Обозначим $\tau' = \tau \cup \{c\}, \tau_1 = \tau' \cap [a, c], \tau_2 = \tau' \cap [c, b]$
+		\[S_\tau - s_\tau \leqslant S_{\tau_1} - s_{\tau_1} + S_{\tau_2} - s_{\tau_1} + \omega_l (f) \delta < \varepsilon\]   
+	\end{MyList}
+\end{proof}
+
 \end{document}
