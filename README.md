@@ -10,3 +10,4 @@
 - [Матанализ](https://github.com/ch3zych3z/spbu-se-mathematics/blob/mathematical-analysis/conspects/mathematical-analysis/term-2/conspect.pdf)
 - [Алгебра](https://github.com/ch3zych3z/spbu-se-mathematics/blob/algebra/conspects/algebra/term-2/conspect.pdf)
 - [Дискретная математика](https://github.com/ch3zych3z/spbu-se-mathematics/blob/discrete-mathematics/conspects/discrete-mathematics/term-2/conspect.pdf)
+- [Геометрия](https://github.com/ch3zych3z/spbu-se-mathematics/blob/geometry/conspects/geometry/term-2/conspect.pdf)
