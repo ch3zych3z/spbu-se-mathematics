@@ -216,4 +216,208 @@
 		Векторное пространство $V$ называется конечномерным, если $\exists$ конечный полный набор.
 	\end{Def}
 
+    \gdef\AuthorName{Дарья Гольденберг}
+	\Subsection{Скалярное умножение}
+
+	Будем определять скалярное произведение для элементов векторного пространства $V$.
+	
+	\begin{Def}
+	  $(\overline{a}, \overline{b})$ -- скалярное произведение: $V \times V \to \R$
+	\end{Def}
+	
+	Свойства:
+	\begin{MyList}
+		\item Свойства 1-8, необходимые для существования векторного пространства.
+		\item $\forall \overline{a} \in V \ (\overline{a}, \overline{a}) \geqslant 0$ -- положительная определённость. \\
+		Кроме того, $(\overline{a}, \overline{a}) = 0 \Leftrightarrow \overline{a} = \overline{0}$ -- невырожденность.
+		\item $\forall \overline{a}, \overline{b}, \overline{c} \in V \ (\overline{a} + \overline{b}, \overline{c}) = (\overline{a}, \overline{c}) + (\overline{b}, \overline{c})$ -- аддитивность.\\
+		$\forall \lambda \in \R, \overline{a}, \overline{b} \in V \ (\lambda \overline{a}, \overline{b}) = \lambda(\overline{a}, \overline{b})$ -- однородность.
+		\item $\forall \overline{a}, \overline{b} \in V \ (\overline{a}, \overline{b}) = (\overline{b}, \overline{a})$. -- коммутативность.
+	\end{MyList}
+  
+	\begin{Example}
+	  $\R^n = \{ (x_1, x_2, ..., x_n): x_i \in \R \}$ \\
+	  $\overline{v} = (x_1, ..., x_n), \overline{w} = (y_1, ..., y_n)$ \\
+	  Тогда скалярное произведение: $(\overline{v}, \overline{w}) = x_1 y_1 + ... + x_n y_n.$ \\
+	  Проверим свойства: 
+	  \begin{MyList}
+		\item $(\overline{v}, \overline{v}) = x_1^2 + ... + x_n^2 \geqslant 0$.\\
+		$(\overline{v}, \overline{v}) = 0 \Leftrightarrow \forall i \ x_i = 0$.
+		\item Пусть $ \overline{z} = (z_1, ..., z_n)$, тогда $(\overline{v} + \overline{w}, \overline{z}) = (x_1 + y_1)z_1 + ... + (x_n + y_n)z_n = x_1 z_1 + ... + x_n y_z + y_1 z_1 + ... + y_n z_n = (\overline{v}, \overline{z}) + (\overline{w}, \overline{z})$.\\
+		$(\lambda \overline{v}, \overline{w}) = \lambda x_1 y_1 + ... + \lambda x_n y_n = \lambda (x_1 y_1 + ... + x_n y_n) = \lambda(\overline{v}, \overline{w})$.
+		\item $(\overline{v}, \overline{w}) = x_1 y_1 + ... + x_n y_n = y_1 x_1 + ... + y_n x_n = (\overline{w}, \overline{v})$.
+	  \end{MyList}
+	\end{Example}
+  
+	\begin{Example}
+	  $C[0, 1]$ -- непрерывные функции на отрезке $[0, 1]$.\\
+	  Пусть $f, g, q \in C[0, 1]$ -- функции: $(f, g) = \int_0^1 fg \,dx$.
+	  \begin{MyList}
+		\item $(f, f) = \int_0^1 f^2 \,dx \geqslant 0. \\
+		(f, f) = 0  \Leftrightarrow f = 0$.
+		\item $(f + q, g) = \int_0^1 (f + q)g \,dx = \int_0^1 (fg + qg) \,dx = \int_0^1 fg \,dx + \int_0^1 qg \,dx = (f, g) + (q, g)$. \\
+		$(\lambda f, g) =\int_0^1 \lambda fg \,dx  = \lambda \int_0^1 fg \,dx = \lambda(f, g)$.
+		\item $(f, g) =\int_0^1 fg \,dx  = \int_0^1 gf \,dx = (g, f)$.
+	  \end{MyList}
+	  Таким образом, это скалярное произведение непрерывных на $[0, 1]$ функций.
+	\end{Example}
+  
+	Пусть есть конечномерное векторное пространство $V$, на нём задано скалярное произведение $(,)$, выберем базис векторного пространства $\{\overline{e}_i\}$, рассмотрим векторы $\overline{v} = (x_i), \overline{w} = (y_i)$, 
+	тогда их скалярное произведение $(\overline{v}, \overline{w}) = (x_1 \overline{e}_1 + ... + x_n \overline{e}_n, y_1 \overline{e}_1 + ... + y_n\overline{e}_n)$, т.е.
+	$$(\overline{v}, \overline{w}) = \sum_{i, j}^n x_i y_j (\overline{e}_i, \overline{e}_j)$$
+	Либо же запись вида:
+	\[(\overline{v}, \overline{w}) = \left(\begin{array}{cccc}
+	  x_1 & x_2 & \cdots & x_n
+	  \end{array}\right)
+	   \left(\begin{array}{cccc}
+	  (\overline{e}_1, \overline{e}_1) & (\overline{e}_1, \overline{e}_2) & \cdots & (\overline{e}_1, \overline{e}_n) \\ 
+	  \vdots & \vdots & \ddots & \vdots \\
+	  (\overline{e}_n, \overline{e}_1) & (\overline{e}_n, \overline{e}_2) & \cdots & (\overline{e}_n, \overline{e}_n)
+	  \end{array}\right) 
+	  \left(\begin{array}{c}
+		  y_1 \\ 
+		  y_2 \\ 
+		  \vdots \\ 
+		  y_n
+		  \end{array}\right)\] 
+	  где $G = ((\overline{e}_i, \overline{e}_j)), {1 \leqslant i \leqslant j \leqslant n}$ -- матрица Грама сколярного произведения.
+	  
+	  Тогда скалярное произведение можно записать в следующем виде: $(\overline{v}, \overline{w}) = \overline{v}^T G \overline{w}$.
+  
+	  В силу коммутативности скалярного произведения $G^T = G$.
+	  
+	  \begin{Thm}[Критерий Сильвестра]
+		 \[\forall k = 1,..., n \ \ \det(G_k) > 0\]
+		 где $G_n$ -- миноры главной диагонали.
+	  \end{Thm}
+  
+	  \begin{Prop}
+		  Если взять $R^n, G$, то $G$ -- матрица Грама $\Leftrightarrow G^T = G$, которая удовлетворяет критерию Сильвестра.
+	  \end{Prop}
+  
+	  \begin{Def}
+		  Если базис обладает свойством:
+		  $(e_i, e_j) = \begin{cases}
+		  1, i \neq j\\
+		  1, i = j
+	  \end{cases} \Rightarrow G = E$,
+	  тогда он называется ортонормированным базисом (ОРБ).
+	  \end{Def} 
+  
+	  \begin{Thm}[Теорема Грама-Шмидта]
+		  В $\forall V^n$ со скалярным произведением $(,) \ \exists$ ОНБ. 
+	  \end{Thm}
+  
+	  \begin{Def}
+		  $V$ -- векторное пространство, $(,)$ -- скалярное произведение на нём, тогда \textbf{модуль} (\textbf{длина}) $|\overline{a}| = \sqrt{(\overline{a}, \overline{a})}, |\overline{a}| = 0 \Leftrightarrow \overline{a} = 0$.
+	  \end{Def}
+	  
+	  \begin{Def}
+		  Величина угла между векторами -- число $\alpha \in [0; \pi] \in R: \cos \alpha = \frac{(\overline{a}, \overline{b})}{|\overline{a}||\overline{b}|}, \overline{a} \neq 0, \overline{b} \neq 0$.
+	  \end{Def}
+  
+	  \begin{Thm}[Неравенство Коши-Буняковского]
+		  $$(\overline{a}, \overline{b})^2 \leqslant \overline{a}^2 \overline{b}^2$$
+	  \end{Thm}
+  
+	  \begin{proof}
+		  По свойству скалярного произведения $(\overline{a} + t\overline{b})^2$ всегда невырожденная величина, т.е. $(\overline{a} + t\overline{b})^2 \geqslant 0 \Rightarrow \overline{a}^2 + 2t(\overline{a}, \overline{b}) + t^2 \overline{b}^2 \geqslant 0$, 
+		  тогда его дискриминант не положительный, т.к. $t$ -- любое число, то $$(\overline{a}, \overline{b})^2 - \overline{a}^2 \overline{b}^2 \leqslant 0 \Rightarrow (\overline{a}, \overline{b})^2 \leqslant \overline{a}^2 \overline{b}^2$$.
+	  \end{proof}
+  
+	  \Subsection{Векторное умножение}
+  
+	  Векторное умножение определяется только для трёхмерного пространства $V^3$, кроме того, необходимо, чтобы пространство было ориентированным, выберем в нём правый ОНБ $(\overline{i}, \overline{j}, \overline{k})$.
+	  
+	  \begin{figure*}[h]
+		  \centering
+		  \def\svgwidth{0.2\columnwidth}
+		  \input{img/right-oriented.pdf_tex}
+	  \end{figure*}
+	  \begin{Def}
+		  Пусть $\overline{v} = (x_1, x_2, x_3), \overline{w} = (y_1, y_2, y_3)$. Тогда \textbf{векторное произедение} \\
+		  $\overline{v} \times \overline{w} = \left|\begin{array}{cccc}
+			  \overline{i} & \overline{j} & \overline{k} \\ 
+			  x_1 & x_2 & x_3 \\ 
+			  y_1 & y_2 & y_3
+			  \end{array}\right| = \overline{i}(x_2 y_3 - x_3y_2) - \overline{j}(x_3 y_1 - x_1 y_3) + \overline{k}(x_1 y_2 - x_2 y_1)$.
+	  \end{Def}
+	  
+	  Свойства:
+	  \begin{MyList}
+		  \item $\overline{v} \times \overline{w} = - \overline{w} \times \overline{v}$ -- косокоммутативность.
+		  
+		  \item $\overline{v} \times \overline{v} = \overline{0}$.
+		  
+		  \item $(\overline{v} + \overline{w}) \times \overline{z} = 
+			  \left|\begin{array}{cccc}
+			  \overline{i} & \overline{j} & \overline{k} \\ 
+			  x_1 + y_1 & x_2 + y_2 & x_3 + y_3 \\ 
+			  z_1 & z_2 & z_3
+			  \end{array}\right| =
+			  \left|\begin{array}{cccc}
+			  \overline{i} & \overline{j} & \overline{k} \\ 
+			  x_1 & x_2 & x_3 \\ 
+			  z_1 & z_2 & z_3
+			  \end{array}\right| +
+			  \left|\begin{array}{cccc}
+			  \overline{i} & \overline{j} & \overline{k} \\ 
+			  y_1 & y_2 & y_3 \\ 
+			  z_1 & z_2 & z_3
+			  \end{array}\right| = \overline{v} \times \overline{z} + \overline{w} \times \overline{z}$ -- аддитивность.
+		  
+		  \item $(\lambda \overline{v}) \times \overline{w} = 
+			  \left|\begin{array}{cccc}
+			  \overline{i} & \overline{j} & \overline{k} \\ 
+			  \lambda x_1 & \lambda x_2 & \lambda x_3 \\ 
+			  y_1 & y_2 & y_3
+			  \end{array}\right| = \lambda \overline{v} \times \overline{w}$.
+  
+		  \item $\overline{v} \times \overline{w} \perp \overline{v}, \overline{w}\\
+		  (\overline{v}, \overline{v} \times \overline{w}) = 
+			  (\left|\begin{array}{cccc}
+			  \overline{i} & \overline{j} & \overline{k} \\ 
+			  x_1 & x_2 & x_3 \\ 
+			  y_1 & y_2 & y_3
+			  \end{array}\right|, \overline{v}) = 
+			  \left|\begin{array}{cccc}
+				  x_1 &  x_2 & x_3 \\ 
+				  x_1 &  x_2 & x_3 \\ 
+				  y_1 & y_2 & y_3
+				  \end{array}\right| = 0$.
+		  \item $\overline{v} \times \overline{w} = 0 \Leftrightarrow \overline{v} \parallel \overline{w} \\
+		  (\overline{v}, \overline{w}, \overline{v} \times \overline{w}) =
+		  \left|\begin{array}{cccc}
+			  x_1 & x_2 & x_3 \\ 
+			  y_1 & y_2 & y_3 \\ 
+			  (x_2 y_3 - x_3 y_2) & (x_3 y_1 - x_1 y_3) & (x_1 y_2 - x_2 y_1)
+			  \end{array}\right| = (x_2 y_3 - x_3 y_2)^2 + (x_3 y_1 - x_1 y_3)^2 + (x_1 y_2 - x_2 y_1)^2 \geqslant 0 \Rightarrow (\overline{v}, \overline{w}, \overline{v} \times \overline{w}) = 0 \Leftrightarrow \frac{x_2}{y_2} = \frac{x_3}{y_3}, \frac{x_3}{y_3} = \frac{x_1}{y_1}, \frac{x_1}{y_1} = \frac{x_2}{y_2} \Rightarrow \frac{x_1}{y_1} = \frac{x_2}{y_2} = \frac{x_3}{y_3}$.
+		  \item $\overline{v} \nparallel \overline{w}  \Rightarrow (\overline{v}, \overline{w}, \overline{v} \times \overline{w})$ -- правая.
+		  \item $\overline{i} \times \overline{j} = \overline{k}$. Получим таблицу умножения: $i \to j, j \to k, k \to i$.
+		  \item $(\overline{a} \times \overline{b})^2 = (x_2 y_3 - y_2 x_3)^2 + (...)^2 + (...)^2 \\
+		  \overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2 = (x_1^2 + x_2^2 + x_3^2)(y_1^2 + y_2^2 + y_3^2) - (x_1y_1 +x_2y_2 +x_3y_3)^2 \\
+		  (\overline{a} \times \overline{b})^2 = \overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2$ -- упражнение.\\
+		  $\overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2 = S^2 = |\overline{a}|^2 |\overline{b}|^2 \sin^2\alpha = a^2 b^2 (1 - \cos^2 \alpha) = \overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2$, т.к. $\cos^2 \alpha = \frac{(a, b)^2}{|a||b|}$.\\
+	  \begin{figure*}[h]
+		  \centering
+		  \def\svgwidth{0.3\columnwidth}
+		  \input{img/liner_transformation.pdf_tex}
+	  \end{figure*}
+	  Следствие: $|\overline{a}| = |\overline{b}| = 1,  (\overline{a}, \overline{b}) \Rightarrow |\overline{a} \times \overline{b}| = 1$.
+  \end{MyList}
+  
+	Рассмотрим $V^3$, фиксируем ОНБ $(\overline{i}, \overline{j}, \overline{k})$, зададим векторное произведение $\times: V \times V \to V$.
+
+	Выберем $\overline{a}, \overline{b}, \overline{c}$ -- правый ОНБ, таким образом, если взять любой ОНБ, можно получить таблицу умножения: $a \to b, b \to c, c \to a$.
+
+	$\overline{v} = (\lambda_1, \lambda_2, \lambda_3), \ \overline{w} = (\mu_1, \mu_2, \mu_3) \Rightarrow \overline{v} \times \overline{w} = (\lambda_1 \overline{a} + \lambda_2 \overline{b} + \lambda_3 \overline{c})\times (\mu_1 \overline{a} + \mu_2 \overline{b} + \mu_3 \overline{c}) = \\
+	= \lambda_1 \mu_1 \overline{a} \times \overline{a} + \lambda_1 \mu_2 \overline{a} \times \overline{b} + \lambda_1 \mu_3 \overline{a} \times \overline{c}
+	+ \lambda_2 \mu_1 \overline{b} \times \overline{a} + \lambda_2 \mu_2 \overline{b} \times \overline{b} + \lambda_2 \mu_3 \overline{b} \times \overline{c}
+	+ \lambda_3 \mu_1 \overline{c} \times \overline{a} + \lambda_3 \mu_2 \overline{c} \times \overline{b} + \lambda_3 \mu_3 \overline{c} \times \overline{c} = \\
+	= \overline{c}(\lambda_1 \mu_2 - \lambda_2 \mu_1) - \overline{b}(\lambda_1 \mu_3 - \lambda_3 \mu_1) + \overline{a}(\lambda_2 \mu_3 - \lambda_3 \mu_2) =  \left|\begin{array}{cccc}
+		\overline{a} & \overline{b} & \overline{c} \\ 
+		\lambda_1 & \lambda_2 & \lambda_3 \\ 
+		\mu_1 & \mu_2 & \mu_3
+		\end{array}\right|$.   
+
 \end{document}
