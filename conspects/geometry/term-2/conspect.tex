@@ -1,0 +1,219 @@
+\input{preamble.tex}
+
+\begin{document}
+	\Header
+
+	\BeginConspect
+
+	\Section{Аналитическая геометрия}{}{Илья Дудников}
+
+	\Subsection{Системы координат}
+	
+	\Subsubsection{Аффинные системы координат}
+
+	\begin{Def}
+		Аффинной системой координат на прямой называется взаимно-однозначное соответствие $l \longleftrightarrow \R$. \\
+		
+		\begin{figure*}[h]
+			\centering
+			\def\svgwidth{0.3\columnwidth}
+			\input{img/as_line.pdf_tex}
+		\end{figure*}
+		
+		Она определяется выбором точки $O$  и выбором вектора $\overline{e}$. АСК = $\{O, \{\overline{e}\}\}$.
+	\end{Def}
+
+	\begin{Def}
+		АСК на плоскости называется биекция $\pi \longleftrightarrow \R^2$. 
+
+		\begin{figure*}[h]
+			\centering
+			\def\svgwidth{0.3\columnwidth}
+			\input{img/as_plane.pdf_tex}
+		\end{figure*}
+
+		Она определяется выбором точки $O$ и векторов $\overline{e}_1, \overline{e}_2 \neq \overline{e}, \overline{e}_1 \not\parallel \overline{e}_2$. 
+		АСК = $\{O, \{\overline{e}_1, \overline{e}_2\}\}$.
+	\end{Def}
+
+	\begin{Def}
+		Если $|\overline{e}_1| = |\overline{e}_2| = 1, \overline{e}_1 \perp \overline{e}_2$, то АСК называется декартовой системой координат. 
+	\end{Def}
+
+	\begin{Def}
+		АСК в пространстве называется биекция $M \longleftrightarrow \R^3$ .
+		Она определяется выбором точки $O$ и векторов $\overline{e}_1, \overline{e}_2, \overline{e}_3 \neq \overline{0}$ -- не компланарны. АСК = $\{O, \{\overline{e}_1, \overline{e}_2, \overline{e}_3\}\}$.
+	\end{Def}
+
+	\begin{Def}
+		Упорядоченная тройка векторов $(\overline{u}, \overline{v}, \overline{w})$ называется \textbf{правой} , 
+		если из конца вектор $\overline{w}$ поворот то $\overline{u}$ к $\overline{v}$ по наименьшему углу выглядит происходящим против часовой стрелки,
+		и \textbf{левой} -- в противном случае. 
+	\end{Def}
+
+	\Pagebreak
+	\Subsubsection{Криволинейные системы координаты}
+
+	\begin{Def}
+		Выберем точку $O$ и построим из неё луч $p$, который назовем \textit{полярной осью}. Возьмем теперь произвольную точку $M$ на плоскости и измерим две величины:
+		расстояние от $M$ до $O$ и угол между вектором $\overline{OM}$ и полярной осью. Обозначим расстояние за $r$, а угол за $\PHI$.
+		Тогда, чтобы избежать неоднозначности, будем считать, что $r > 0, \PHI \in [0, 2\pi)$, и если $r = 0$, то $\PHI = 0$.    
+		Такая система координат называется \textbf{полярной}.		
+
+		\begin{figure*}[h]
+			\centering
+			\def\svgwidth{0.3\columnwidth}
+			\input{img/polar_system.pdf_tex}
+		\end{figure*}
+	\end{Def}
+
+	\begin{Def}
+		Полярная система координат, где $r \in \R, \PHI \in \R$, то она называется \textit{обобщенной} полярной системой координат.
+	\end{Def}
+
+	\begin{figure*}[h!]
+		\centering
+		\def\svgwidth{0.3\columnwidth}
+		\input{img/coordinate_net.pdf_tex}
+		\caption{Координатная сеть полярной системы координат}
+	\end{figure*}
+
+	\begin{Def}
+		Цилиндрической системой координат называют трёхмерную систему координат, являющуюся расширением полярной системы координат путём добавления третьей координаты (обычно обозначаемой ${\displaystyle z}$), которая задаёт высоту точки над плоскостью.
+	\end{Def}
+
+	\begin{Def}
+		Сферическая система координат — трёхмерная система координат, в которой каждая точка пространства определяется тремя числами, где r — расстояние до начала координат, а $\theta$ и $\varphi$ — зенитный и азимутальный углы соответственно.
+	\end{Def}
+
+	\Subsubsection{Параметризации}
+
+	Построим декартову систему координат. Теперь возьмем какую-то новую систему координат $x', y', z'$.
+	Проведем через $x', y'$ плоскость. Если $z'$ не совпадает с $z$, то эта плоскость пересекает плоскость $(x, y)$ по какой-то прямой.
+	Отсчитает от вектора $x$ до этой прямой угол $\PHI$. Угол между $z$ и $z'$ обозначим за $\psi$.
+	Теперь, мы можем эту прямую поворачивать вокруг оси $z'$ на угол $\delta$, пока она не совпадет с $x'$.
+	
+	\begin{figure*}
+		\centering
+		\def\svgwidth{0.3\columnwidth}
+		\input{img/parametrisation.pdf_tex}
+	\end{figure*}
+
+	Таким образом, мы совместили исходную систему координат с новой СК. То есть
+	мы построили соответствие между ( $\psi, \PHI, \delta$ ).
+	
+	\Subsection{Понятие вектора}
+
+	Пусть $E$ -- евклидово пространство.
+	\begin{Def}
+		Закрепленный вектор -- упорядоченная пара точек в евклидовом пространстве.
+		Обозначение: $\overrightarrow{AB}$, модуль $|\overrightarrow{AB}|$ -- расстояние между точками $A$ и $B$.
+	\end{Def}
+
+	\begin{Def}
+		Пусть $\{(A, B), A, B \in E\}$ -- множество закрепленных векторов. Введём на нём отношение равенства:
+		$(A, B) = (C, D) \EQ$:
+		\begin{MyList}
+			\item $|\overrightarrow{AB}| = |\overrightarrow{CD}|$ 
+			\item $(A, B) || (C, D)$ либо совпадают.
+			\item $\overrightarrow{AB} \upuparrows \overrightarrow{CD}$. 
+		\end{MyList}
+	\end{Def}
+
+	\begin{Rem}
+		$\forall A, B \to (A, A) = (B, B)$.
+	\end{Rem}
+
+	\begin{Prop}
+		Отношение, введённое в прошлом определении -- отношение эквивалентности.
+	\end{Prop}
+
+	\begin{proof}
+		\begin{MyList}
+			\item Рефлексивность: $(A, B) = (A, B)$ -- верно.
+			\item Симметричность -- очевидно.
+			\item Транзитивность: $(A, B) = (C, D), (C, D) = (F, G) \SO (A, B) = (F, G)$ -- верно.
+		\end{MyList}
+		Значит множество закрепленных векторов разбивается на классы эквивалентности.
+	\end{proof}
+
+	\begin{Def}
+		Класс эквивалентности называется \textbf{свободным вектором}.
+	\end{Def}
+
+	\Subsection{Сложение и умножение на число}
+
+	Пусть $\overline{a}, \overline{b} \in V$ -- классы.
+
+	\begin{Def}
+		Сложение векторов: $V \times V \to V$.
+		$[\overrightarrow{OO''}] = \overline{a} + \overline{b}$ 
+	\end{Def}
+
+	\begin{Def}
+		Пусть $\overline{a} \in V, \lambda \in \R$. Умножение на число на число: $\R \times V \to V$.
+	\end{Def}
+	
+	$(V, +, \cdot)$. Свойства:
+	\begin{MyList}
+		\item $\forall \overline{a}, \overline{b} \in V \ \overline{a} + \overline{b} = \overline{b} + \overline{a}$.
+		\item $\forall \overline{a}, \overline{b}, \overline{c} \in V \ (\overline{a} + \overline{b}) + \overline{c} = \overline{a} + (\overline{b} + \overline{c})$.
+		\item $\exists \overline{0} : \forall \overline{a} \ \overline{a} + \overline{0} = \overline{0} + \overline{a} = \overline{a}$.
+		\item $\forall \overline{a} \ \exists -\overline{a} : \overline{a} + (-\overline{a}) = \overline{0}$.
+		\item $\forall \lambda \in \R, \overline{a}, \overline{b} \in V \ \lambda(\overline{a} + \overline{b}) = \lambda \overline{a} + \lambda \overline{b}$.
+		\item $\forall \lambda, \mu \in \R, \overline{a} \in V \ (\lambda + \mu) \overline{a} = \lambda \overline{a} + \mu \overline{a}$.
+		\item $\forall \overline{a} \in V \ 1 \cdot \overline{a} = \overline{a}$.
+		\item $\forall \lambda, \mu \in \R, \overline{a} \in V \ \lambda(\mu \overline{a}) = (\lambda \mu) \overline{a}$.
+	\end{MyList} 
+
+	\begin{Def}
+		Множество $(V, +, \cdot)$, удовлетворяющее свойствам 1-8, называется \textbf{векторным пространством}. Элементы -- векторы.
+	\end{Def}
+
+	\Subsection{ЛЗ, ЛНЗ, Базис, размерность}
+
+	\begin{Def}
+		$\lambda_1 \overline{a}_1 + ... + \lambda_n \overline{a}_n$ -- линейная комбинация. Если $(\lambda_1, ..., \lambda_n) \neq (0, ..., 0)$ -- нетривиальная ЛК.  
+	\end{Def}
+
+	\begin{Def}
+		$\{\overline{a}_i\}_{i = 1}^n$ -- линейно зависимый, если $\exists$ нетривиальная ЛК $\{\lambda_i\}_{i = 1}^n : \sum_{i = 1}^n \lambda_i \overline{a}_i = 0$   
+	\end{Def}
+
+	\begin{Def}
+		$\{\overline{a}_i\}_{i = 1}^n$ -- ЛНЗ, если он не ЛЗ. 
+	\end{Def}
+
+	Свойства:
+	\begin{MyList}
+		\item $\{\overline{a} \neq \overline{0}\}$ -- ЛНЗ.
+		\item $\{\overline{0}\}$ -- ЛЗ.
+		\item $\{\overline{a_1}, ..., \overline{a}_n, \overline{0}\}$ -- ЛЗ.
+		\item Пусть $\{\overline{a}_i\}$ -- ЛЗ. Тогда $\{\overline{a}_i, \overline{a}_j\}_{i = 1, j = 1}^{n, m}$ -- ЛЗ.
+	\end{MyList}
+
+	\begin{Def}
+		$\{\overline{a}_\alpha\}_{\alpha \in \Lambda}$ -- ЛЗ, если в нем $\exists$ ЛЗ конечный поднабор.
+	\end{Def}
+
+	\begin{Def}
+		ЛНЗ -- набор, который не является ЛЗ.
+	\end{Def}
+
+	\begin{Def}
+		$\{\overline{a}_\alpha\}_{\alpha \in \Lambda}$ -- полный, если $\forall \overline{v} \in V \ \exists \{\alpha_i\}_{i = 1}^n, \{\lambda_i\}_{i = 1}^n \ \overline{v} = \lambda_1 \overline{a}_{\alpha_1} + ... + \lambda_n \overline{a}_{\alpha_n}$.
+	\end{Def}
+
+	\begin{Def}
+		$\{\overline{a}_\alpha\}_{\alpha \in \Lambda}$ -- базис $V$, если он полный и ЛНЗ.
+	\end{Def}
+
+	\begin{Def}
+		Размерность $V$ ( $\dim V$ ) -- мощность базиса.
+	\end{Def}
+
+	\begin{Def}
+		Векторное пространство $V$ называется конечномерным, если $\exists$ конечный полный набор.
+	\end{Def}
+
+\end{document}
