@@ -353,6 +353,8 @@
 	$f$ ограничена сверху $\EQ I^*$ ограничена. 
 \end{Rem}
 
+\Subsection{Критерии интегрируемости функции}
+
 \begin{Thm}[Критерий интегрируемости функции]
 	Пусть $f : [a, b] \to \R$. Тогда $f \in R[a, b] \EQ S_\tau (f) - s_\tau (f) \xrightarrow[\lambda \to 0]{} 0$, т.е.
 	\[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta \ S_\tau(f) - s_\tau(f) < \varepsilon\] 
@@ -466,4 +468,256 @@
 	\end{MyList}
 \end{proof}
 
-\end{document}
+\begin{Def}
+	Функция $f:[a,b] \to R$ называется кусочно-непрерывной на $[a,b],$ если множество её точек разрыв пусто или конечно (и все разрывы первого рода)
+\end{Def}
+
+\begin{Cons}
+	f -- кусочно-непрерывная на $[a, b] \Rightarrow f \in R[a,b]$
+\end{Cons}
+
+\begin{proof}
+	Возьмём точки $a_1, a_2, ..., a_m$ (может $a_1 = a$ и/или $a_m$ = b). Рассмотрим отрезки $[a_k, a_{k+1}]$. f непрерывна на $(a_k, a_{k+1})$  и $\exists$ 
+	конечные $\displaystyle \lim_{x \to a_k+} f(x)$ и $\displaystyle \lim_{x \to a_{k+1}-} f(x) \Rightarrow f \in R[a_k, a_{k+1}] \Rightarrow$  по теореме о сужении $f \in R[a,b]$
+\end{proof}
+
+\begin{Def} 
+	Множество X называется не более, чем счетным, если оно конечно или счетно. 
+\end{Def} 
+
+\begin{Def} 
+	$E \subset \R$ -- имеет нулевую меру, если для $\forall \varepsilon > 0$ множество E можно заключить в не более, чем счётное объединение интервалов, суммарная длина
+	которых < $\displaystyle  \varepsilon.\\$ \[ (\lim_{m \to \infty} \sum_{i=1}^m (b_i-a_i))\]
+\end{Def} 
+
+\begin{Example}
+	Множество из одной точки.
+\end{Example}
+
+\begin{Ex}
+	Чему равна мера $\N$?
+\end{Ex}
+
+\begin{Thm}[Критерий Лебега интегрируемости по Риману] 
+	Пусть $f:[a, b] \to R. \\ f \in R[a,b] \Leftrightarrow f$ ограничена и множество точек разрыва имеет нулевую меру.
+\end{Thm}
+
+\begin{Thm}[Арифметические действия над интегрируемыми функциями] 
+	$f, g \in \R [a,b]$. Тогда
+	\begin{enumerate}
+		\item $f+g \in R[a,b]$
+		\item $f \cdot g \in R[a,b]$
+		\item $\alpha f \in R[a,b], \alpha \in \R$
+		\item $|f| \in R[a,b]$
+		\item Если $\underset{[a,b]}{\inf} |g| > 0,$ то $\displaystyle \frac{f}{g} \in R[a,b]$
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	\begin{enumerate}
+		\item $D \subset [a,b].$ $x, y \in D \\ |(f+g)(x) - (f+g)(y)| = |f(x)+g(y) - f(y) - g(y)| \leqslant |f(x)-f(y)|+|g(x)-g(y)| \leqslant \omega_D(f)+\omega_D(g)\\
+		\omega_D(f+g) \leqslant \omega_D(f)+\omega_D(g)\\ \underset {[x_k, x_{k+1}]}{\omega} (f+g) \leqslant \underset{[x_k, x_{k+1}]}{\omega} (f) + \underset{[x_k, x_{k+1}]}{\omega} (g)\\
+		\omega_k(f+g) \leqslant \omega_k f + \omega_k g$ 
+		\[0 \leqslant \sum_{k=0}^{n-1} \omega_k(f+g) \delta x_k \leqslant \sum_{k=0}^{n-1} \omega_k f \Delta x_k+ \sum_{k=0}^{n-1} \omega_k g \Delta x_k (\to 0, \lambda \to 0)\]\\
+		$\Rightarrow f+g \in R[a,b]$
+		\item $|fg(x) - fg(y)| \leqslant |f(x)g(x)-f(y)g(x)+f(y)g(x)-f(y)g(y)| \leqslant |g(x)||f(x)-f(y)|+ \\ +|f(y)||g(x)-g(y)| \leqslant A|f(x)-f(y)|+ B|g(x)-g(y)| \ \ (\text{т.к. } R[a,b] \Rightarrow \text{ограничена на } [a,b])$
+		\item $g(x) = \alpha$
+		\item $||f(x)|-|f(y)|| \leqslant |f(x) - f(y)| \\ |\omega_k|f|| \leqslant |\omega_k f|$
+		\item $\displaystyle \frac{f}{g} = f \cdot \frac{1}{g}.$ Докажем, что $\displaystyle \frac{1}{g} \in R[a,b]\\ 0<m=\underset{[a,b]}{\inf}|g|\\ |\frac{1}{g(x)} - \frac{1}{g(y)}| = 
+		|\frac{g(x)-g(y)}{g(x)g(y)}| \leqslant \frac{g(x)-g(y)}{m^2}\\ \omega_k(\frac{1}{g}) \leqslant \frac{\omega_k(g)}{m^2}$
+	\end{enumerate}
+\end{proof}
+
+\begin{Example}
+	1. $\displaystyle \int_{0}^{1} x^2 dx\\ x^2 \in C[a,b] \Rightarrow x^2 \in R[a,b].$\\
+	Рассмотрим какую-нибудь интегральную сумму: $x_k = \frac{k}{n} = \xi_k$\\
+	\[\lim_{n \to \infty} \sum_{k=0}^{n-1}f(\xi_k) \Delta x_k = \lim_{n \to \infty} \sum_{k=0}^{n-1} (\frac{k}{n})^2 \cdot \frac{1}{n} = \lim \frac{1}{n^3}  \sum_{k=0}^{n-1} k^2 = \lim \frac{1}{n^3} \cdot \frac{(n-1)n(2n-1)}{6} = \frac{1}{3}\]
+
+	2. $\int_{0}^{1} e^xdx -$ упражнение\\
+
+	3. $f(x) = 
+	\begin{cases}
+		1, x \in \Q \\
+		0, x \notin \Q
+	\end{cases}$, $D \notin R[a,b], a<b$
+
+	\begin{proof}
+		\[\sum_{k=0}^{n-1} \omega_k(D)\Delta x_k = \sum_{k=0}^{n-1} \Delta x_k = b-a \underset{\lambda \to 0}{\nrightarrow} 0\]
+	\end{proof}
+
+	4. $ r(x)
+	\begin{cases}
+		\frac{1}{q} , x = \frac{p}{q} \in \Q \text{, дробь несократима} \\
+		0, x \notin \Q
+	\end{cases}$\\
+	$r(x)$ непрерывна в каждой точке, разрывна в каждой рациональной.\\
+	$r(x) \in R[0,1]$
+
+	\begin{proof}
+		Зафиксируем $\displaystyle \varepsilon > 0, N \in \N: \frac{1}{N}<\frac{\varepsilon}{2}$ Рациональные числа из [0,1] со знаменателем $\leqslant N$, конечное число $= C_N$, множество X.\\
+		Возьмём $\displaystyle \delta = \frac{\varepsilon}{4C_N}$ и дробление $\tau: \lambda_{\tau} < \delta$\\
+		Точки X попадут в не более, чем $2C_N$ отрезков дробления. В отрезках, где нет точек из X наибольшее значение $\displaystyle <\frac{1}{N}$\\
+		$s_{\tau}(r) = 0$
+		\[S_{\tau}(r)=\sum_{k:M_k \geqslant \frac{1}{N}} M_k \Delta x_k \sum_{k:M_k < \frac{1}{N}}M_l \Delta x_k \leqslant \underbrace{1 \cdot 2C_n}_{\frac{\varepsilon}{2}} 
+		\cdot \ \delta + \underbrace{\frac{1}{N}}_{<\frac{\varepsilon}{2}} < \varepsilon\] \\
+		$S_{\tau}(r) - s_{\tau}(r) = S_{\tau}(r) \underset{\lambda_r \to 0}{\to} 0 \Rightarrow r \in R[0,1]$ и $\displaystyle \int_{0}^{1} r(x)dx = 0$
+	\end{proof}
+
+	Если $f \in R_D \ g \in R[a, b]$, то $f(g) \in R[a,b]\text{?} \ \ (D -$ множество значений g$)$\\
+	Ответ: нет. Пример: 
+	$f(y) = 
+	\begin{cases}
+		1, y \in [0,1] \\
+		0, y = 0
+	\end{cases}$  и $g(x) = r(x)$ на $[0,1]$\\
+	$f(r(x)) = 
+	\begin{cases}
+		1, x \in \Q \\
+		0, x \notin \Q 
+	\end{cases} = D(x) \notin R[0,1]$
+\end{Example}
+
+\begin{Thm}[Интегрируемость композиции]
+	$\varphi: [\alpha, \beta] \to [a, b], f: [a,b] \to \R,\\ f(\varphi): [\alpha, \beta] \to \R\\
+	\varphi \in \R[\alpha, \beta], f \in C[a,b]$. Тогда $f \circ \varphi \in R[\alpha, \beta]$ 
+\end{Thm} 
+
+\begin{proof}
+	Например, из критерия Лебега.
+\end{proof}
+
+\Subsection{Свойства интеграла Римана}
+\begin{enumerate}
+	\item $\displaystyle \int_{b}^{a} f = - \int_{a}^{b} f$ 
+	\item $\displaystyle \int_{a}^{b} f = 0 \ (\forall f \text{ на вырожденном отрезке } f \in \R [a,a])$
+\end{enumerate}
+
+Свойства:
+
+\begin{itemize}
+	\item Аддитивность интеграла по отрезку:\\ $a, b, c \in \R, \ f \in \R [\min\{a, b, c\}, \max \{a, b, c\}]$
+	\[\int_{a}^{b} f = \int_{a}^{c} + \int_{c}^{b} f\]
+
+	\begin{proof}
+		$f\in \R[a,b] \Rightarrow f \in \R[a,c], f \in R[c,b] \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
+		последовательности оснащенных дроблений $[a,c]$ и $[c,b]$  (равномерных, т.е. $\widetilde{\lambda} = \frac{c-a}{n}, \overline{\overline{\lambda}}$)\\
+		$\tau^{(n)} = \overline{\tau}^{(n)} \cup \overline{\overline{\tau}}^{(n)} -$ дробление $[a,b]$\\
+		$\xi^{(n)} = \overline{\xi}^{(n)} \cup \overline{\overline{\xi}}^{(n)} -$ оснащение $\tau^{(n)}\\
+		\sigma = \overline{\sigma} + \overline{\overline{\sigma}}$ при $n \to \infty$\\
+		\[\underbrace{\int_{a}^{b} f = \int_{a}^{c} f - \int_{b}^{c} f}_{\text{по доказанному}}  = \int_{a}^{c} f + \int_{c}^{b} f\]
+		\[ \int_{a}^{b} f = \int_{a}^{c} f + \int_{c}^{b} f = \int_{a}^{c} f - \int_{b}^{c} f\]
+		Все остальные случаи -- аналогично.
+	\end{proof}
+
+	\item $f \equiv \alpha$ при $\displaystyle x \in [a,b] \Rightarrow \int_{a}^{b} f = \alpha(b-a)$
+	
+	\begin{proof}
+		\[\sum_{k=0}^{n-1} f(\xi_k) \Delta x_k = \alpha \cdot \sum_{k=0}^{n-1} \Delta x_k = \alpha (b-a)\]
+	\end{proof}
+
+	\item Линейность интеграла: $\alpha, \beta \in \R, f, g \in R[a,b]\\
+	\displaystyle \int_{a}^{b} (\alpha f + \beta g) = \alpha \int_{a}^{b} + \beta \int_{a}^{b} g$
+
+	\begin{proof}
+		$\alpha f + \beta g \in R [a,b]\\
+		\sigma_{\tau}(\alpha f + \beta g) = \sigma_{\tau}(\alpha f) + \sigma_{\tau} (\beta g)$ и переход к пределу.
+	\end{proof}
+
+	\item Монотонность интеграла: $a < b, \ \ f, g \in R[a,b]$ и $f \leqslant g$ на $\displaystyle [a,b] \Rightarrow \int_{a}^{b} f \leqslant \int_{a}^{b} g$
+
+	\begin{proof}
+		$\sigma_{\tau}(f) \leqslant \sigma_{\tau} (g)$
+	\end{proof}
+
+	\begin{Cons}
+		$a<b, f \in R[a,b]$, если $ f \leqslant M \in \R$ на $\displaystyle [a,b], \text{ то } \int_{a}^{b} f \leqslant M(b-a), \\
+		\text{ если } f \geqslant m \text{ на } [a,b] \text{то} \int_{a}^{b} f \geqslant m(b-a)$
+	\end{Cons}
+
+	\begin{Cons}
+		$\displaystyle f \geqslant 0 \Rightarrow \int_{a}^{b} f \geqslant 0$
+	\end{Cons}
+
+	\item $a < b, \underset{f \geqslant 0 \text{ на } [a,b]}{f \in R[a,b]}  \text{ и } \exists c \in [a,b]: f(c)>0$ и $f$ непрерывна в точке C.\\ 
+	Тогда $\displaystyle \int_{a}^{b} f > 0$
+
+	\begin{proof}
+		Пусть $\varepsilon = \frac{f(c)}{2} > 0 \Rightarrow \exists \delta: \forall x \in \underbrace{[c - \delta; c+\delta] \cap [a,b]}_{[\alpha, \beta]}:
+		|f(x) - f(c)| < \varepsilon\\
+		\displaystyle f(x) > f(c) - \varepsilon = \frac{f(c)}{2} \Rightarrow \int_{\alpha}^{\beta} f \geqslant \frac{f(c)}{2}(\beta - \alpha)$
+		\[ \int_{a}^{b} f = \int_{a}^{\alpha} f + \int_{\alpha}^{\beta} f + \int_{\beta}^{b} \geqslant \int_{\alpha}^{\beta} f \geqslant \frac{f(c)}{2} (\beta - \alpha) > 0\]
+	\end{proof}
+
+	\begin{Rem}
+		Таким же образом строгий знак в монотонности интеграла.
+	\end{Rem}
+
+	\begin{Rem}
+		$\displaystyle f \in R[a,b], f > 0 \Rightarrow \int_{a}^{b} f > 0$
+	\end{Rem}
+
+	\item $a < b, f \in R[a,b]$
+	\[\Big|\int_{a}^{b} f \Big| \leqslant \int_{a}^{b} |f| \]
+
+	\begin{proof}
+		$-|f| \leqslant f \leqslant |f|$ 
+	\end{proof}
+
+	Если не знаем, что $a \geqslant b \text{ или } b \geqslant a$
+	\[\displaystyle \Big| \int_{a}^{b} f \Big| \leqslant \Big|\int_{a}^{b} |f|\Big| \]
+\end{itemize}
+
+\Subsection{Интегральные теоремы о средних}
+
+\begin{Thm} 
+	$f, g \in R[a,b], g \geqslant 0 \text{ на } [a,b], m \leqslant f \leqslant M. \text{ Тогда } \exists \mu \in [m, M]: \displaystyle \int_{a}^{b} fg = \mu \int_{a}^{b} g$
+\end{Thm} 
+
+\begin{proof}
+	$mg \leqslant fg \leqslant Mg$ на $[a,b]$
+	\[m \int_{a}^{b} g \leqslant \int_{a}^{b} fg \leqslant M \int_{a}^{b} g \]
+	Если $\displaystyle \int_{a}^{b} g = 0,$ то $\exists \mu \in [m, M]: 0 = \mu \cdot 0$\\
+	Если $\displaystyle \int_{a}^{b} g > 0 m \leqslant \frac{\int_{a}^{b}fg}{\int_{a}^{b} g} \leqslant M$\\
+	Возьмём $\displaystyle \mu = \frac{\int_{a}^{b}fg}{\int_{a}^{b} g}$
+\end{proof}
+
+\begin{Rem}
+	Для $g \leqslant 0$ тоже верно.
+\end{Rem}
+
+\begin{Cons}
+	\begin{enumerate}
+		\item $f \in C[a,b], g \in R[a,b], g \geqslant 0 ($ или $g \leqslant 0)$.\\ 
+		Тогда $\displaystyle \exists c \in [a, b]: \int_{a}^{b} f \cdot g = f(c) \cdot \int_{a}^{b} g$ 
+		
+		\begin{proof}
+			По теореме Вейерштрасса: $\exists m = \underset{[a,b]}{\min} f$ и $M = \underset{[a,b]}{\max} f$\\
+			Подберём $\mu \in [m, M]$ по предыдущей теореме. Тогда по теореме Больцано-Вейерштрасса $\exists c \in [a,b]: f(c) = M$
+		\end{proof}
+
+		\item $f \in R[a,b], m, M \in \R: m \leqslant f \leqslant M \text{ на } [a,b]$. Тогда $\displaystyle \exists \mu \in [m, M]: \int_{a}^{b} f = \mu(b-a)$
+		
+		\begin{proof}
+			$g \equiv 1$ в теореме.
+		\end{proof}
+
+		\item $f \in C[a,b]$. Тогда $\displaystyle \exists c \in [a,b]: \int_{a}^{b} f = f(c)(b-a)$
+		
+		\begin{proof}
+			$g \equiv 1$ в следствии 1.
+		\end{proof}
+	\end{enumerate}
+\end{Cons}
+
+\begin{Rem}
+	Теорему и следствия называют ещё теоремами о средних. Почему?
+\end{Rem}
+
+\begin{Def}  
+	$f \in R[a, b], a<b$\\
+	$\displaystyle \frac{1}{b-a} \int_{a}^{b} f$ -- интегральное среднее f на $[a, b]$\\ 
+	Если возьмём равномерное разбиение $[a, b],$ то $\displaystyle \sigma_n =\sum_{k=0}^{n-1} f(\xi_k) \cdot \frac{b-a}{n}$\\
+	То есть $\displaystyle \frac{\sigma_n}{b-a} \to \frac{1}{b-a} \int_{a}^{b} f$, где $\displaystyle \frac{\sigma_n}{b-a}$ -- среднее арифметическое значений функции в точках $\xi_k$ 
+\end{Def} 	
+
+\end{document}$
