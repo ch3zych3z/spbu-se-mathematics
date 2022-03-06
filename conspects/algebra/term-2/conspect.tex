@@ -157,7 +157,7 @@
 
 	\begin{Thm}[Структура решений однородной СЛУ]
 		$AX = 0, A - m \times n, n$ -- число неизвестных, $r = \rank A \SO$
-		$\exists n - r$ ЛНЗ решений $X_1, ..., X_{n - r} : \forall$ решение $Y = \alpha_1 X_1 + ... + \alpha_{n - r} X_{n - r}$.  
+		$\exists n - r$ ЛНЗ решений $X_1, ..., X_{n - r} : \forall$ решение $X = \alpha_1 X_1 + ... + \alpha_{n - r} X_{n - r}$.  
 	\end{Thm}
 
 	\begin{proof}
@@ -215,4 +215,230 @@
 		0
 		\end{pmatrix} \SO 0 = Z + x_{r + 1}^* X_1 + x_{r + 2}^* X_2 + ... + x_n^* X_{n - r}$.
 	\end{proof}
+
+	\begin{Def}
+		$\forall n - r$ ЛНЗ решений однородной системы линейных уравнений называется
+		\textbf{фундаментальной системой решений},
+		решение вида $X = \alpha_1 X_1 + ... + \alpha_{n - r} X_{n - r}$ -- \textbf{общее решение}.
+	\end{Def}
+
+	\Subsection{Неоднородные СЛУ}
+
+	$AX = B, A - m \times n, X = \begin{pmatrix}
+	x_1 \\ 
+	\vdots \\ 
+	x_n
+	\end{pmatrix}, B = \begin{pmatrix}
+	b_1 \\ 
+	\vdots \\ 
+	b_n
+	\end{pmatrix}$. \\
+	$\overline{A} = \left(\begin{array}{c|c}
+	A & B
+	\end{array}\right)$ -- расширенная матрица $m \times (n + 1)$.
+
+	\begin{Thm}[Кронекера-Капелли]
+		$(*)$ -- совместна $\EQ \rank A = \rank \overline{A}$. 
+	\end{Thm}
+
+	\begin{proof}
+		$\SO$. $AX = B$ -- совместна $\SO \exists$ решение $x_1 A^1 + ... + x_n A^n = B \SO$
+		$B$ -- линейная комбинация $A^1, ..., A^n \SO \rank A = \rank \overline{A}$.
+
+		$\Leftarrow$. $\rank A = \rank \overline{A} = r \SO \exists A^1, ..., A^r$ -- ЛНЗ $\SO A^1, ..., A^r, B$ -- ЛЗ $\SO B = \alpha_1 A^1 + ... + \alpha_r A^r$, не все $\alpha_i = 0 \SO (\alpha_1, ..., \alpha_r, 0, ..., 0)$ -- решение системы.   
+	\end{proof}
+
+	\begin{Thm}[О структуре решений неоднородной СЛУ]
+		$AX = B, \rank A = r, n$ -- число неизвестных, система совместна. 
+		$X_*$ -- какое-то решение СЛУ, $X_1, ..., X_{n - r}$ -- фундаментальные решения $AX = 0$.
+		Тогда любое решение $(*)$ имеет вид $X = \alpha_1 X_1 + ... + \alpha_{n - r} X_{n - r} + X_*, \alpha_1, ..., \alpha_{n - r} \in K$. 
+	\end{Thm}
+
+	\begin{proof}
+		$AX_* = B \SO AX = AX_* \SO A (X - X_*) = 0 \SO X - X* = \alpha_1 X_1 + ... + \alpha_{n - r} X_{n - r}$.
+	\end{proof}
+
+	\begin{Example}[Решение СЛУ методом Гаусса]
+		\begin{gather*}
+			\begin{cases}
+				x_1 + x_2 + x_3 + x_4 = 4 \\
+				x_1 + x_2 + 2x_3 + 2x_4 = 2 \\
+				2x_1 + 2x_2 + 3x_3 + 3x_4 = 6
+			\end{cases} \thicksim \left(\begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 4 \\ 
+			1 & 1 & 2 & 2 & 2 \\ 
+			2 & 2 & 3 & 3 & 6
+			\end{array}\right) \thicksim \\
+			\thicksim \left(\begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 4 \\ 
+			0 & 0 & 1 & 1 & -2 \\ 
+			0 & 0 & 1 & 1 & -2
+			\end{array}\right) \thicksim \left(\begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 4 \\ 
+			0 & 0 & 1 & 1 & -2 \\ 
+			\end{array}\right) \thicksim \left(\begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 4 \\ 
+			0 & 1 & 0 & 0 & \alpha \\ 
+			0 & 0 & 1 & 1 & -2 \\ 
+			0 & 0 & 0 & 1 & \beta
+			\end{array}\right) \thicksim \left(\begin{array}{cccc|c}
+			1 & 1 & 1 & 0 & 4 - \beta \\ 
+			0 & 1 & 0 & 0 & \alpha \\ 
+			0 & 0 & 1 & 0 & -2 - \beta \\ 
+			0 & 0 & 0 & 1 & \beta
+			\end{array}\right) \thicksim \\
+			\thicksim \left(\begin{array}{cccc|c}
+			1 & 1 & 0 & 0 & 6 \\ 
+			0 & 1 & 0 & 0 & \alpha \\ 
+			0 & 0 & 1 & 0 & -2 - \beta \\ 
+			0 & 0 & 0 & 1 & \beta
+			\end{array}\right) \thicksim \left(\begin{array}{cccc|c}
+			1 & 0 & 0 & 0 & 6 - \alpha \\ 
+			0 & 1 & 0 & 0 & \alpha \\ 
+			0 & 0 & 1 & 0 & -2 - \beta \\ 
+			0 & 0 & 0 & 1 & \beta
+			\end{array}\right) \SO \begin{pmatrix}
+				x_1 \\ 
+				x_2 \\ 
+				x_3 \\ 
+				x_4
+				\end{pmatrix} = \begin{pmatrix}
+				6 \\ 
+				0 \\ 
+				-2 \\ 
+				0
+				\end{pmatrix} + \alpha \begin{pmatrix}
+				-1 \\ 
+				1 \\ 
+				0 \\ 
+				0
+				\end{pmatrix} + \beta \begin{pmatrix}
+				0 \\ 
+				0 \\ 
+				-1 \\ 
+				1
+				\end{pmatrix}
+		\end{gather*}
+	\end{Example}
+
+\Section{Линейные отображения векторных пространств}{}{Илья Дудников}
+
+\begin{Def}
+	$V, W$ -- векторные пространства над $K$. Отображение $f : V \to W$ называется линейным,
+	если:
+	\begin{MyList}
+		\item $f(x + y) = f(x) + f(y) \ \forall x, y \in V$
+		\item $f(\alpha x) = \alpha f(x) \ \forall x \in V, \alpha \in K$ 
+	\end{MyList}
+\end{Def}
+
+\begin{Rem}
+	$1, 2 \thicksim f(\alpha x + \beta y) = \alpha f(x) + \beta f(y) \ \forall x, y \in V, \alpha, \beta \in K$. 
+\end{Rem}
+
+\begin{Def}
+	$\Hom (V, W) = \{f : V \to W \text{ -- линейные}\}$
+\end{Def}
+
+\begin{Lm}
+	$\Hom (V, W)$ -- векторное пространство над $K$.
+\end{Lm}
+
+\begin{proof}
+	$f, g \in \Hom (V, W), (f + g)(x) = f(x) + g(x), (\alpha f)(x) = \alpha f(x) \SO f + g, \alpha f \in \Hom (V, W)$. 
+\end{proof}
+
+\begin{Def}
+	$f \in \Hom (V, W), \ker f = \{x \in V : f(x) = 0\}$ -- ядро отображения $f$, $\Image f = \{f(x), x \in V\}$ -- образ $f$. 
+\end{Def}
+
+\begin{Lm}
+	$\ker f \subset V, \Image f \subset W$ -- подпространства. 
+\end{Lm}
+
+\begin{proof}
+	$x, y \in \ker f, f(x + y) = f(x) + f(y) = 0 + 0 = 0 \SO x + y \in \ker f$.
+	Аналогично, $f(\alpha x) = \alpha f(x) = 0 \SO \alpha x \in \ker f \ \forall \alpha \in K \SO \ker f$ -- подпространство.  
+\end{proof}
+
+\begin{Ex}
+	$\Image f$ -- подпространство. 
+\end{Ex}
+
+\begin{Thm}
+	$f \in \Hom (V, W)$.
+	\begin{MyList}
+		\item $f$  -- инъективно $\EQ \ker f = \{0\}$.
+		\item $f$ -- сюръективно $\EQ \Image f = W$. 
+	\end{MyList} 
+\end{Thm} 
+
+\begin{proof}
+	$\Leftarrow.$ $x_1 \neq x_2$, если $f(x_1) = f(x_2) \SO f(x_1 - x_2) = 0 \SO x_1 - x_2 \in \ker f \SO x_1~-~x_2~=~0~!? $  \\
+	$\SO$. Пусть $x \in \ker f, x \neq 0 \SO f(x) = f(0) = 0 !?$.  
+\end{proof}
+
+\Subsection{Матрица линейного отображения}
+
+$e_1, ..., e_n$ -- базис $V, e_1', ..., e_m'$ -- базис $W, f \in \Hom (V, W)$ \\
+$x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n f(e_n) \EQ$ задать $f$ значит задать $f(e_i),~i~=~1, ..., n$. \\
+
+% $f(e_1) = a_{11} e_1' + a_{21} e_2' + ... + a_{m1} e_m'$
+
+\[\begin{cases}
+	f(e_1) = a_{11} e_1' + a_{21} e_2' + ... + a_{m1} e_m' \\
+	\cdots \\
+	f(e_n) = a_{1n} e_1' + a_{2n} e_2' + ... + a_{mn} e_m'
+\end{cases}\]
+
+\begin{Def}
+	Матрицей $f \in \Hom(V, W)$ в базисе $e_1, ..., e_n$ и $e_1', ..., e_m'$ назыается 
+	\[A=\left(\begin{array}{cccc}
+	a_{11} & a_{12} & \cdots & a_{1n} \\ 
+	\vdots & \vdots & \ddots & \vdots \\ 
+	a_{m1} & a_{m2} & \cdots & a_{mn}
+	\end{array}\right) = \left(\begin{array}{cccc}
+	f(e_1) & f(e_2) & \cdots & f(e_n)
+	\end{array}\right)\]
+\end{Def}
+
+\begin{Thm}
+	\begin{MyList}
+		\item $\Hom(V, W)$ взаимно-однозначно соответствует $M(m, n, K)$.
+		\item $e_1, ..., e_n$ -- базис $V$, $e_1', ..., e_m'$ -- базис $W$, $x \in V \to X = \begin{pmatrix}
+		x_1 \\ 
+		\vdots \\ 
+		x_n
+		\end{pmatrix}, f(x) \in W \to Y = \begin{pmatrix}
+		y_1 \\ 
+		\vdots \\ 
+		y_m
+		\end{pmatrix}, f \to A$
+		$\SO AX = Y$.  
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item $f \to A$ отображение однозначно определяется $f(e_i) \SO A$ определена однозначно.
+		С другой стороны, взяв произвольную матрицу $B$, можем построить по ней отображение $g$.
+
+		\item $f \to A = (a_{ij}), 1 \leqslant i \leqslant n, 1 \leqslant j \leqslant m$.
+		\begin{gather*}
+			f(x) = f(x_1 e_1 + ... x_n e_n) = x_1 f(e_1) + ... + x_n f(e_n) = \\
+			= x_1 (a_{11} e_1' + a_{21} e_2' + ... + a_{m1} e_m') + ... + x_n (a_{1n} e_1' + a_{2n} e_2' + ... + a_{mn} e_m') = \\
+			= \underbrace{(a_{11} x_1 + a_{12} x_2 + ... + a_{1n} x_n)}_{y_1} e_1' + ... + \underbrace{(a_{m1} x_1 + a_{m2} x_2 + ... + a_{mn} x_n)}_{y_m} e_m' \SO Y = AX
+		\end{gather*}
+	\end{MyList}
+\end{proof}
+
+\begin{Cons}
+	\begin{MyList}
+		\item $\dim \Hom(V, W) = \dim V \cdot \dim W$
+		\item $\alpha, \beta \in K, f, g \in \Hom(V, W), f \to A, g \to B$ в фиксированных базисах $\SO \alpha f + \beta g \to \alpha A + \beta B$.
+		\item $f : V \to W, g : W \to U \SO g \circ f : V \to U, g \circ f(x) = g(f(x))$.
+		Фиксируем базисы, $f \to A, g \to B \SO g \circ f \to BA$  
+	\end{MyList}
+\end{Cons}
+
 \end{document}
