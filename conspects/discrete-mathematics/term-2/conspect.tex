@@ -120,4 +120,194 @@
 	\begin{Thm}
 		Для того, чтобы набор длин $l_1, ..., l_m$ мог быть набором длин кодовых последовательностей некоторого ПК для алфавита из $m$ символов необходимо и достаточно, чтобы $\sum_{i = 1}^m 2^{-l_i} \leqslant 1$. 
 	\end{Thm}
+
+	\def\AuthorName{Ксения Кузьмина} 
+
+	\begin{proof}
+		$"\Rightarrow". \text{ Пусть } \exists$ префиксный код для алфавита с кодовыми последовательностями с длинами $l_1, ..., l_m$. множество кодовых последовательностей -- набор всех путей на двоичном дереве от корня к листьям.\\
+		Корень -- нулевой уровень. Далее последовательно увеличиваем номер по мере удаления от корня.\\
+		Каждой вершине $v$ на уровне $t$ сопоставим число $a(v) = 2^{-t}$\\
+		Пусть вершина $v$ на уровне $t$ -- не лист. Т.е. на уровне $t+1$ есть $\geqslant 1$ вершина, получившаяся из $v$. Обозначим её $N(v)$. Тогда $\displaystyle a(v) \geqslant \sum_{u \in N(v)} a(u)$\\ 
+		Просуммируем неравенства для всех не листов: \[\sum_{v \text{ не лист }} a(v) \geqslant \sum_{u \text{ не корень }} a(u)\]\\ 
+		$\displaystyle \Rightarrow 2^0 \geqslant \sum_{u \text{ листья }} a(u)$. Необходимость доказана.
+
+		$"\Leftarrow"$. Считаем, что выполнено неравенство и пусть $l_1 \leqslant l_2 \leqslant ... \leqslant l_m$\\ 
+		$n_j -$ число листьев на уровне $j: n_j = |\{i: l_i = j, i \in 1:m\}|$\\ \\
+		$\displaystyle \sum_{i \in 1:m} 2^{-l_i} \geqslant 1 \Rightarrow \sum_{j \in 1:l_m} 2^{-j}n_j \leqslant$. Тогда $\forall j \in 1:l_m: n_j \leqslant 2^j - (2^{j-1}n_1 + ... + 2n_{j-1})$\\ 
+		Пусть $m \neq 1$. Выделим на первом уровне вершин $n_1 \leqslant 2$, на втором уровне останется $2(2-n_1)$. Известно, что $n_2 \leqslant 2^2 - 2n_1 \Rightarrow$ осталось не меньше, чем требуется для второго уровня.\\ 
+		$(j-1)-$уровень: было свободно $2^{j-1} - (2^{j-2}n_1 + ... + 2n_{j-2})$ и $n_{j-1}$ не больше этой величины. Выделим $n_{j-1}$ узлов, останется $2^{j-1} - (2^{j-2}n_1 + ... + 2n_{j-2}) - n_{j-1}$. Значит на j-м уровне будет $2 \cdot (...) = 2^{j} - (2^{j-1}n_1 + ... + 2n_{j-1})$
+	\end{proof}
+
+	\Subsection{Напоминалка}
+
+	Пусть S -- конечное множество. $|S| = n$.\\ 
+	Пусть задана функция $f: S \to [0,1], \forall \omega \in S \exists ! f(\omega) \in [0,1]$\\ 
+	$\displaystyle \sum_{\omega \in S} f(\omega) = 1$. Определим $\forall A \subseteq S$ величину $\displaystyle Pr(A) = \sum_{\omega \in A} f(\omega)$\\ 
+	Функция f в общем-то и не нужна. Достаточно иметь Pr. 
+
+	\begin{Def} 
+		(S, Pr) называется вероятностным пространством.\\ 
+		S -- пространство элементарных событий.\\
+		$\omega \in S$ -- элементарное событие (исход). $A \subseteq S$ -- событие. 
+		Pr(A) -- вероятность A.\\
+		$A, B \subseteq S, Pr (A \cap B) = 0$ -- несовместные события.
+	\end{Def} 
+	
+	\textbf{Свойства вероятности:} 
+	\begin{itemize}
+		\item $Pr(A \cup B) = Pr(A) + Pr(B) - Pr (A \cap B)$
+		\item $Pr(A) + Pr(S \backslash A) = 1$
+		\item $Pr(A \cup B) \leqslant Pr(A) + Pr(B)$
+		\item $Pr(A) = Pr(A \backslash B) + Pr(A \cap B)$
+	\end{itemize}
+	
+	\textbf{Неравенство Йенсена:}
+
+	\begin{Def} 
+		Функция f называется выпуклой на $X \in R$, если $\forall x_1, x_2 \in X$ и $\forall \alpha \in [0,1]$ выполняется неравенство $f(\alpha x_1 + (1 - \alpha x_2) \leqslant \alpha f(x_1) + (1-\alpha)f(x_2)$
+	\end{Def} 
+
+	Неравенство Йенсена: пусть f выпуклая на X функция. Тогда $\displaystyle f(\sum_{i=1}^{n} \alpha_i x_i) \leqslant \sum_{i=1}^{n} \alpha_i f(x_i)$, где\\ $\displaystyle x_i \in X, \alpha_i \geqslant 0, \sum_{i=1}^{n} \alpha_i = 1$. 
+
+	\begin{proof}
+		База при n = 2 верна по определению выпуклой функции. Пусть f -- выпуклая на X функция. Тогда\\ 
+		$\displaystyle f(\sum_{i=1}^{n+1} \alpha_i x_i) = f((1-\alpha_{n+1})\sum_{i=1}^{n} \frac{\alpha_i}{1-\alpha_{n+1}}x_i + \alpha_{n+1} x_{n+1}) \leqslant (1 - \alpha_{n+1}) f(\sum_{i=1}^{n} \frac{\alpha_i}{1-\alpha_{n+1}}x_i) + \alpha_{n+1} f(x_{n+1}) \leqslant \\
+		\leqslant (1 - \alpha_{n+1}) \sum_{i=1}^{n} \frac{\alpha_i}{1-\alpha_{n+1}} f(x_i) + \alpha_{n+1} f(x_{n+1}) = \sum_{i=1}^{n+1} \alpha_i f(x_i)$
+	\end{proof}
+
+	\Subsection{Конечная случайная схема}
+	\begin{Def} 
+		Пусть $A_1, A_2, ..., A_n -$ разбиение множества исходов S вероятностного пространства (S, Pr). Конечной случайной схемой называется схема $\alpha$, сопоставляющая каждому $A_i$ вероятность $Pr(A_i)$
+	\end{Def} 
+
+	\begin{Def} 
+		Энтропией КСС называется $\displaystyle H(\alpha) = - \sum_{i=1}^{n} Pr(A_i) \times \log Pr(A_i)$
+	\end{Def} 
+
+	\textbf{Свойства энтропии:}
+	\begin{itemize}
+		\item $H(\alpha) \geqslant 0$
+		\item Энтропия характеризует неопределенность, заключенную в КСС
+		\item Для любой $\alpha \subset k$ исходами справедливо $H(\alpha) \leqslant \log k$ 
+	\end{itemize}
+	 
+	\begin{proof}
+		$f(x) := -x \cdot \log x.$ На $[0,1]$ функция $f(x)$ строго вогнутая $\Rightarrow$ по неравенству Йенсена $\displaystyle \sum_{i=1}^{n} \lambda_i \cdot f(x_i) \leqslant f(\sum_{i=1}^{n} \lambda_i \cdot x_i),$ причём равенство $\Leftrightarrow x_1 = ... = x_n$.\\
+		Тогда возьмём $x_i = Pr(A_i)$ и $\lambda_i = \frac{1}{k} \ \forall i \in 1...k,$ получаем $\displaystyle \sum_{i=1}^{k} \frac{1}{k} (-Pr(A_i) \times \log Pr(A_i)) \leqslant \\ \leqslant - \sum_{i=1}^{k} \frac{1}{k} Pr(A_i) \times \log(\sum_{i=1}^{k} Pr(A_i))$\\
+		$\displaystyle - \frac{1}{k} \sum_{i=1}^{k} Pr(A_i) \times \log Pr(A_i) \leqslant - \frac{1}{k} \log \frac{1}{k}$\\
+		$\displaystyle - \sum_{i=1}^{k} Pr(A_i) \times \log Pr(A_i) \leqslant \log k$\\
+		Максимальная энтропия для КСС имеет схема с k равновероятностными исходами.\\
+		$H(\alpha) = 0 \Leftrightarrow \exists !$ достоверный исход в $\alpha $
+	\end{proof}
+
+	Пусть есть КСС $\alpha$ с исходами $A_1, ..., A_k$  и КСС $\beta$  с исходами $B_1, ..., B_l$. Их пересечением $\alpha \cap \beta $ называются КСС, исходы которой -- $A_i \cap B_j, \forall i \in 1, ..., k, j \in 1, ..., l$\\
+	Тогда $\displaystyle H(\alpha \cap \beta ) = - \sum_{i=1}^{k} \sum_{j=1}^{l} Pr(A_i \cap B_j) \times \log Pr(A_i \cap B_j)$\\ \\ 
+	Т.к. $\displaystyle Pr(A_i \cap B_j) = Pr(A_i) \times Pr(B_j | A_i) \Rightarrow H(\alpha \cap \beta) = \\
+	 = - \sum_{i=1}^{k} \sum_{j=1}^{l} Pr(A_i)Pr(B_j|A_i) \times (\log Pr(A_i) + \log Pr(B_j | A_i)) = \\ 
+	 = - \sum_{i=1}^{k} \sum_{j=1}^{l} Pr(A_i)Pr(B_j | A_i) \times \log Pr(A_i) - \sum_{i=1}^{k} \sum_{j=1}^{l} Pr(A_i) Pr(B_j | A_i) \times \log Pr(B_j | A_i) = \\
+	 = - \sum_{i=1}^{k} Pr(A_i) \cdot \log Pr(A_i) \cdot \sum_{j=1}^{l} Pr(B_j | A_i) + \sum_{i=1}^{k} Pr(A_i) \cdot (- \sum_{j=1}^{l} Pr(B_j | A_i) \cdot \log Pr(B_j | A_i)) =\\
+	 = - \sum_{i=1}^{k} Pr(A_i) \cdot \log Pr(A_i) + ... = H(\alpha) + ...$
+
+	 \begin{Def} 
+		Величину $H(\beta | A_i) := - \sum_{j=1}^{l} Pr(A_i) Pr(B_j | A_i) \cdot \log Pr(B_j | A_i)$ называют условной энтропией $\beta$ при условии $A_i$ 
+	\end{Def} 
+
+	\begin{Def} 
+		Величину $H_{\alpha} (\beta) := \sum_{i=1}^{k} Pr(A_i) \cdot H(\beta | A_i)$ называют средней условной энтропией $\beta$ при условии $\alpha$.
+	\end{Def} 
+
+	Таким образом, $H(\alpha \cap \beta) = H(\alpha) + H_{\alpha}(\beta)$\\
+	Докажем, что $0 \leqslant H_{\alpha}(\beta) \leqslant H(\beta)$\\
+	Неотрицательность следует из неотрицательности энтропий. \\
+	fix $j, \ f(x) = - x \cdot \log x, \lambda_i = Pr(A_i), x_i = Pr(B_j | A_i) \ \  \forall i \in 1...k$
+
+	Неравенство Йенсена: $\displaystyle \sum_{i=1}^{k} Pr(A_i) \cdot (- Pr(B_j | A_i) \cdot \log Pr(A_i)) \leqslant \\
+	\leqslant (- \sum_{i=1}^{k} Pr(A_i) \cdot Pr(B_j | A_i)) \cdot \log \sum_{i=1}^{k} Pr(A_i) \cdot Pr(B_j | A_i)$\\
+	ПЧ $\displaystyle = (- \sum_{i=1}^{k} Pr(A_i) \cdot Pr(B_j | A_i)) \cdot \log \sum_{i=1}^{k} Pr(A_i) \cdot Pr(B_j | A_i) = \\
+	= -(\sum_{i=1}^{k} Pr(B_j \cap A_i)) \cdot \log \sum_{i=1}^{k} Pr(B_j \cap A_i) = -Pr(B_j) \cdot \log Pr(B_j)$ 
+
+	Просуммируем по j:
+	$\displaystyle \sum_{j=1}^{j} \sum_{i=1}^{k} Pr(A_i) \cdot (- Pr(B_j | A_i) \cdot \log Pr(A_i)) \leqslant \sum_{j=1}^{l} (- Pr(B_j) \cdot \log Pr(B_j))\\
+	\sum_{i=1}^{k} Pr(A_i) \cdot \sum_{j=1}^{l} (- Pr(B_j | A_i) \cdot \log Pr(A_i)) \leqslant - \sum_{j=1}^{l} Pr(B_j) \cdot \log Pr(B_j)\\
+	\sum_{i=1}^{k} Pr(A_i) \cdot H(\beta | A_i) \leqslant H(\beta) \Rightarrow H_{\alpha} (\beta) \leqslant H(\beta)\\
+	H_{\alpha} (\beta) = H(\beta) \Leftrightarrow$ все $Pr(B_j | A_i)$ равны между собой.\\
+	Формула полной вероятности: $\displaystyle \forall j \in 1...l Pr(B_j) = \sum_{i=1}^{k} Pr(B_j | A_i) \cdot Pr(A_i)\\
+	\forall j \in 1...l Pr(B_j) = Pr(B_j | A_1) \cdot \sum_{i=1}^{k} Pr(A_i) = Pr(B_j | A_1).$\\
+	То есть $\forall i \in 1...k, j \in 1...l \ \  Pr(B_j) = Pr(B_j | A_i)$
+
+	\begin{Def} 
+		События A и B -- взаимно независимы $\Leftrightarrow Pr(A \cap B) = Pr(A) \cdot Pr(B) \Leftrightarrow Pr(A) \cdot Pr(B|A) = Pr(A) \cdot Pr(B) \Leftrightarrow Pr(B|A) = Pr(B)$
+	\end{Def} 
+
+	\begin{Def} 
+	КСС $\alpha$ и $\beta$ называются независимыми, когда все исходы $\alpha$ независимы со всеми исходами $\beta$. В таком случае $H_{\alpha} (\beta)$ максимальна и равна $H(\beta)$
+	\end{Def} 
+	
+	\Subsection{Количество информации}
+
+	\begin{Def} 
+		Величина $I(\alpha, \beta) = H(\beta) - H_{\alpha} (\beta)$ называется количеством информации.
+	\end{Def} 
+
+	\textbf{Свойства:}
+	\begin{itemize}
+		\item $I(\alpha, \beta) \geqslant 0$
+		\item $I(\alpha, \beta) = H(\beta) \Leftrightarrow H_{\alpha} (\beta) = 0$
+		\item $I(\alpha, \beta) = I(\beta, \alpha)$
+		\item $I(\alpha, \beta) = 0 \Leftrightarrow \alpha \text{ и } \beta$ независимы.
+	\end{itemize}
+	
+	\textbf{Пример:}\\
+	Загадано натуральное число $x \in 1...N\\
+	\beta -$ опыт, состоящий в нахождении x, $\beta_m$ -- опыт, показывающий, делится ли $x$ на $m$, $m \in 1...N$.\\ У $\beta$ есть N исходов, у $\beta_m$ -- два исхода.\\
+	$\displaystyle H_{\beta_m}(\beta) = Pr (x \vdots m) \cdot H(\beta | x \vdots m) + Pr (x \nmid m) \cdot H (\beta | x \nmid m)\\
+	q := \Big| \frac{N}{m} \Big|$ -- количество чисел от 1 до N, делящихся на m. Тогда $\displaystyle Pr(x \vdots m) = \frac{q}{N}, Pr(x \nmid m) = \frac{N-q}{N}.\\
+	H(\beta|x \vdots m) = - \sum_{i \vdots m, i \in 1...m} \frac{1}{q} \cdot \log \frac{1}{q} = - \frac{q}{q} \cdot \log \frac{1}{q} = \log q$.\\
+	Аналогично $\displaystyle H(\beta | x \nmid m) = \log (N-q) \Rightarrow H_{\beta_m}(\beta) = \frac{q}{N} \cdot \log q + \frac{N-q}{N} \cdot \log (N-q)$\\
+	$\displaystyle I()\beta_m, \beta) = \log N - \frac{q}{N} \cdot \log q - \frac{N-q}{N} \cdot \log (N-q) = \\
+	= \frac{q}{N} \cdot \log N - \frac{q}{N} \log q - \frac{N-q}{N} \cdot \log N - \frac{N-q}{N} \cdot \log (N-q) =\\
+	= - \frac{q}{N} \cdot \log \frac{q}{N} - \frac{N-q}{N} \cdot \log \frac{N-q}{N} \leqslant \log 2$\\
+	Равенство  достигается при $q = N - q = \frac{N}{2}$.\\ \\ 
+
+	\textbf{Данетки:}\\ 
+	Загадано число от 1 до $N$.\\
+	Опыт $\beta$ -- угадать число.\\
+	Опыт $\alpha$ -- задать любой общий (да/нет) вопрос и получить ответ.\\
+	$H(\beta) = \log N$ (Числа загаданы с равной вероятностью)\\
+	$H(\alpha) \leqslant \log 2$ (Поскольку есть всего 2 варианта ответа)\\
+	$H(\alpha_1 \alpha_2 ... \alpha_k) \leqslant \log 2^k = k \log 2$ (k вопросов, 2 варианта ответа)\\
+	Чтобы угадать число потребуется $k \geqslant \frac{\log N}{\log 2} = \log_2 N$ вопросов.\\
+	Есть ли алгоритм, который умеет угадывать загаданное число за $O(\log N)$.\\ \\
+
+	\textbf{Избыточное кодирование:}\\
+	Есть сообщение $u \in \{0, 1\}^k$, которое нужно передать.\\
+	Можем передавать сообщение $x(u) \in \{0, 1\}^n, n \geqslant k,$ содержащую некоторую избыточную информацию (канал связи шумит и может допускать ошибки), но не более $d$ ошибок на сообщение.\\
+	$\beta$ заключается в нахождении всех $d$ ошибок. Сколько у $\beta$ исходов? Для каждого количества ошибок $j$ от 0 до $d$ есть $\binom{n}{j}$ вариантов их расположения, то есть всего исходов у $\beta$ ровно $\displaystyle \sum_{j=0}^{d} \binom{n}{j}$ \\
+	Следовательно, $\displaystyle H(\beta) = \log \sum_{j=0}^{d} \binom{n}{j}$\\
+	$\alpha$ -- дополнительное сообщение размера $n - k$. Их $2^{n-k}$ и $\Rightarrow H(\alpha) = \log 2^{n-k} = (n-k) \log 2$\\
+	Чтобы гарантированно найти все ошибки нужно $H(\alpha) \geqslant H(\beta)$
+	\[(n-k) \log 2 \geqslant \log \sum_{j=0}^{d} \binom{n}{j} \Rightarrow n-k \geqslant \log_2 \sum_{j=0}^{d} \binom{n}{j} \Rightarrow k \leqslant n - \log_2 \sum_{j=0}^{d} \binom{n}{j}\]
+	Таким образом, если канал связи допускает не более $d$ ошибок, то для передачи сообщения размером k понадобится не менее $k + \log_2 \sum_{j=0}^{d} \binom{n}{j}$.\\
+	Или, поскольку количество ошибок обычно зависит от размера переданного сообщения, если передаётся n бит и из них не более $d$ могут быть ошибочными, то в переданном сообщении можно закодировать сообщение длиной не более $\displaystyle n - \log_2 \sum_{j=0}^{d} \binom{n}{j}$. 
+	
+	\textbf{Код Хэмминга:}\\
+	Предыдущая задача при $d = 1$. Известно, что $\displaystyle 2^{n-k} \geqslant \sum_{j=0}^{1} \binom{n}{j} = 1+n$.\\
+	$l := n - k -$ длина "избыточного сообщения". Тогда $k \leqslant 2^l - l - 1$.\\
+	Чем большее сообщение, тем относительно меньше лишней информации. Как передавать дополнительную информацию?
+
+	%Вообще здесь по-хорошему сделать бы когда-нибудь таблицы
+
+	\textbf{Пример:}\\
+	Пусть k = 12  и мы хотим передать сообщение $u = 101101011100$. Зарезервируем в сообщении длины 17 места с номерами $2^i (1, 2, 4, 8, 16)$, а на остальные позиции запишем сообщение:\\ $x_0 (u) = \_ \_ 1 \_ 011 \_ 0101110 \_ 0$\\
+	Подберём на позицию $2^i$ такую цифру, чтобы произведение $x(u)$ и $i$-й строки матрицы было равно 0. На "неопределенных" позициях в строке с номером $i$ стоят $0 (2^j = 10 \dots 0)$.\\
+	На позиции $2^i$ в $i-$й строке стоит 1.\\
+	$?*1+\_*0+1*1+\_*0+0*1+1*0+1*1+\_*0+0*1+1*0+0*1+1*0+1*1+1*0+0*1+\_*0+0*1 = \\ = ? + 1 + 1 + 1 = 1 + ? = 0 \Rightarrow ? = 1$.\\
+	Получается $x_1 = 1\_1\_011\_0101110\_0$\\
+	Аналогично делаем для остальных. Итого $x(u) = 11110110010111000$\\
+	Как определять позицию ошибки? $y = 11110110000111000$\\
+	Посчитаем $A \times y^{T} = (0, 1, 0, 1, 0)^{T}$ -- двоичная запись позиции с ошибкой.\\
+	Старший бит -- справа. Почему так? %%Видимо, продолжение в следующей серии :)
+
+	%\def\AuthorName{раскомментируйте и вставьте сюда имя следующего, кто будет над этим страдать} 
+
 \end{document}
