@@ -468,6 +468,8 @@
 	\end{MyList}
 \end{proof}
 
+\gdef\AuthorName{Ксения Кузьмина}
+
 \begin{Def}
 	Функция $f:[a,b] \to R$ называется кусочно-непрерывной на $[a,b],$ если множество её точек разрыв пусто или конечно (и все разрывы первого рода)
 \end{Def}
@@ -718,6 +720,256 @@
 	$\displaystyle \frac{1}{b-a} \int_{a}^{b} f$ -- интегральное среднее f на $[a, b]$\\ 
 	Если возьмём равномерное разбиение $[a, b],$ то $\displaystyle \sigma_n =\sum_{k=0}^{n-1} f(\xi_k) \cdot \frac{b-a}{n}$\\
 	То есть $\displaystyle \frac{\sigma_n}{b-a} \to \frac{1}{b-a} \int_{a}^{b} f$, где $\displaystyle \frac{\sigma_n}{b-a}$ -- среднее арифметическое значений функции в точках $\xi_k$ 
-\end{Def} 	
+\end{Def}
 
-\end{document}$
+\begin{Def} 
+	$E \subset \R$ -- невырожденный промежуток (может быть и лучом), $f: E \to \R$, $f$ -- интегрируема на 
+	каждом отрезке, содержащемся в $E$. $a \in E$.\\
+	$\displaystyle \Phi(x) = \int_{a}^{x} f(t)dt, x \in E$ -- интеграл с переменным верхним пределом.
+\end{Def} 
+
+\begin{Thm}[Барроу, об интеграле с переменным верхним пределом] 
+	$E \subset \R$ -- невыраженный промежуток, $f: E \to \R$, интегрируема на каждом отрезке из E, $a \in E$,
+	$\displaystyle \Phi(x) = \int_{a}^{x} f, x\in E$. Тогда
+	\begin{enumerate}
+		\item $\Phi(x) \in C(E)$
+		\item Если f непрерывна в точке $x_0 \in E$, то $\Phi$ -- дифференцируема в точке $x_0, \ \ \Phi'(x_0) = 
+		f(x_0)$
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	\begin{enumerate}
+		\item Пусть $x_0 \in E, \text{ подберем }\delta > 0 [x_0 - \delta; x_0 + \delta] \cap E = [A,B]\\
+		|f| \text{ на } [A, B]$ ограничена числом M. $\displaystyle \Delta x: x_0 + \Delta x \in [A, B]\\
+		|\Phi(x_0 + \Delta x) - \Phi(x_0)| = |\int_{a}^{x_0 + \Delta x} f - \int_{a}^{x_0} f| = 
+		|\int_{x_0}^{x_0 + \Delta x} f| \leqslant |\int_{x_0}^{x_0+\Delta x} |f|| \leqslant 
+		|\Delta x| \cdot M \underset{\Delta x \to 0}{\to} 0$
+		\item Проверим, что $ \displaystyle \frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} \underset{\Delta x \to 0}{\to} f(x_0)$\\ %!
+		Возьмем $\varepsilon > 0$ и $\delta > 0: \forall t: |t-x_0| < \delta  |f(t) - f(x_0)| < \varepsilon$ (по
+		непрерывности.)\\ $\displaystyle \Big|\frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} - f(x_0) \Big| = \Big|\frac{1}{\Delta x} \int_{x_0}^{x_0 + \Delta x} 
+		f(t)dt = f(x_0)\Big| = \Big| \frac{1}{\Delta x} \int_{x_0}^{x_0+\Delta x} (f(t) - f(x_0))dt \Big| < \\ < \frac{1}{|\Delta x|}
+		\cdot \varepsilon \cdot |\Delta x| = \varepsilon$, $\displaystyle k = \int_{a}^{b} k \cdot \frac{1}{b-a}$
+	\end{enumerate}
+\end{proof}
+
+\begin{Example}
+	$\displaystyle \Phi(x) = \int_{1}^{x} \frac{\sin t}{t} dt, x>1$\\
+	$\displaystyle \Phi'(x) = \frac{\sin x}{x} \Rightarrow \Si'(x) = \frac{\sin x}{x}$
+\end{Example}
+
+\begin{Ex}
+	$\int \Si(x)dx = ?$
+\end{Ex}
+
+\begin{Cons}
+	Функция, непрерывная на промежутке имеет на нём первообразную. Ей является интеграл с переменным верхним пределом.
+\end{Cons}
+
+\begin{Def} 
+	$\displaystyle \Psi(x) = \int_{x}^{a} f$ (Условия на f  и a прежние) -- интеграл с переменным нижним пределом.\\
+	$\Rightarrow \Psi'(x) = - f(x)$ (Если f непрерывна).
+\end{Def} 
+
+\begin{Thm}[Формула Ньютона-Лейбница] 
+	$f \in R[a,b], F -$ первообразная f на $[a,b]$. Тогда: $\displaystyle \int_{a}^{b} f = F(b) - F(a)$
+\end{Thm} 
+
+\begin{proof}
+	Для каждого $n \in \N$:\\ %!
+	$\displaystyle F(x_1) - F(x_0) + F(x_2) - F(x_1) + F(x_3) - F(x_2) + ... + F(x_n) - F(x_{n-1}) = 
+	\sum_{k=0}^{n-1} (F(x_{k+1}) - F(x_k)) = F(b) - F(a)$\\
+	По теореме Лагранжа $\displaystyle \exists \xi_{k,n} \in (x_k, x_{k+1})\\ F(x_{k+1}) - F(x_k) = F'(\xi_{k, n})(x_{k+1} - x_k) =
+	f(\xi_{k,n}) \Delta x_k\\
+	\int_{a}^{b} f = \lim_{n \to \infty} \sum_{k=0}^{n-1} f(\xi_{k, n}) \Delta x_k = \lim (F(b) - F(a)) = F(b) - F(a)$
+\end{proof}
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} f = F \Big|^b_a\\
+	\int_{a}^{b} f(x)dx = F(x) \Big|^b_{x = a}$ -- двойная подстановка.
+\end{Rem}
+
+\begin{Rem}
+	$G(x) = F(x) + C$ -- тоже первообразная.\\
+	$G(b) - G(a) = F(b) - F(a)$
+\end{Rem}
+
+\begin{Example}
+	$\displaystyle \int_{0}^{1} x^2 dx = \frac{x^3}{3} \Big|^1_0 = \frac{1}{3}$
+\end{Example}
+
+\begin{Example}
+	$\displaystyle \int_{-1}^{1} \frac{1}{x^2} dx = - \frac{1}{x} \Big|^1_{-1} = -2$ - чушь!
+	\begin{enumerate}
+		\item $(-\frac{1}{x})' = \frac{1}{x^2}$ -- не везде на $[-1,1]$
+		\item $\frac{1}{x^2}$ не интегрируема на $[-1; 1], $ т.к. не ограничена.
+	\end{enumerate}
+\end{Example}
+
+\begin{Remark}
+	Обобщение теоремы.\\
+	$f \in R[a; b], F \in C[a,b], \ F$ -- первообразная f на $[a,b]$ за исключением некоторого конечного числа точек.\\
+	Тогда $\displaystyle \int_{a}^{b} f	= F(b) - F(a)$
+\end{Remark}
+
+\begin{proof} 
+	Пусть $\alpha_0 = a, \alpha_m = b$, $\alpha_1, \alpha_2, ..., \alpha_{m-1}$ -- все точки на $(a,b)$, в которых $F' \neq f$
+	$\displaystyle \int_{a}^{b} f = \sum_{k=0}^{m-1} \int_{\alpha_k}^{\alpha_{k+1}} f = \sum_{k=0}^{m-1} (F(\alpha_{k+1}) - F(\alpha_k)) = F(b) - F(a)$.\\
+	(Рассмотрим $\displaystyle \int_{\alpha_k}^{\alpha_{k+1}} f = \lim_{\varepsilon \to	0+} \int_{\alpha_k+\varepsilon}^{\alpha_{k+1}
+	 - \varepsilon} f =\lim_{\varepsilon \to 0+} (F(\alpha_{k+1} - \varepsilon) - F(\alpha_k + a)) = F(\alpha_{k+1}) - F(\alpha_k)$)
+\end{proof}
+
+\begin{Remark}
+	Без непрерывности $F$ не получится: на $[-1,1]$\\
+	$ F(x) = \sign x = 
+	\begin{cases}
+		1, x>0\\
+		0, x = 0\\
+		-1, x<0	
+	\end{cases}, f(x) = 0$\\
+	$\displaystyle 0 = \int_{-1}^{1} f \neq F \Big|^1_{-1} = 2$
+\end{Remark}
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} F'(x)dx = F(b) - F(a)$.\\ F дифференцируема, $F'$ интегрируема. 
+\end{Rem}
+
+\begin{Rem}
+	$F' \in R[a, b]$ -- существенно.\\
+	$F(x) = \begin{cases}
+		x^2 \cdot \sin \frac{1}{x^2}, x \neq 0\\
+		0, x = 0
+	\end{cases}$\\
+
+	$\displaystyle F'(x) = 
+	\begin{cases}
+		2x \sin \frac{1}{x^2} - \frac{2}{x} \cdot \cos \frac{1}{x^2}, x \neq 0 \\
+		0, x = 0
+	\end{cases}$\\ $F'$ не ограничена, а значит не интегрируема.
+\end{Rem}
+
+\begin{Rem}
+	Интегрируемость $\overset{?}{\Leftrightarrow} \exists$ первообразной.\\
+	$\cancel{\Rightarrow} \sign x$ интегрируема на [-1. 1], но первообразной нет.\\
+	$\cancel{\Leftarrow}$ Предыдущее замечание.   
+\end{Rem}
+
+\begin{Thm}[Интегрирование по частям в определенном интеграле.] 
+	$f, g$ -- дифференцируемы на $[a,b]$, $f', g' \in R[a,b]$. Тогда\\
+	$\displaystyle \int_{a}^{b} fg' = fg \Big|_a^b - \int_{a}^{b} f'g$
+\end{Thm} 
+
+\begin{proof}
+	$f, g -$ дифференцируемы $\Rightarrow$ непрерывны $\Rightarrow$ интегрируемы.\\
+	$(f \cdot g)' = f' \cdot g + g' \cdot f \in R[a,b]$\\
+	$\displaystyle \int_{a}^{b} (fg)' = fg \Big|_a^b$\\
+	$\displaystyle \int_a^b (fg)' = \int_{a}^{b} (f'g + g'f)$
+\end{proof}
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} f dg = fg \Big|_a^b - \int_{a}^{b} gdf$\\
+	$dg(x) = g'(x)dx$
+\end{Rem}
+
+\begin{Thm}[Замена переменной в определенном интеграле]
+	$\varphi: [\alpha, \beta] \to [A,B],$ дифференцируема на $[\alpha, \beta], \varphi' \in R[\alpha, \beta]$\\
+	$f \in C[A; B].$ Тогда
+	\[\int_{\alpha}^{\beta} f(\varphi) \cdot \varphi' = \int_{\varphi (\alpha)}^{\varphi (\beta)} f\]
+\end{Thm} 
+
+\begin{proof}
+	$f(\varphi) \in C[\alpha, \beta] \Rightarrow f(\varphi) \in R[a,b] \Rightarrow f(\varphi) \cdot \varphi' \in R[a,b]$\\
+	Пусть F - первообразная f на $[A,B] \Rightarrow F(\varphi)$ -- первообразная $f(\varphi) \cdot \varphi'$ на $[\alpha, \beta]$\\
+	$\displaystyle \int_{\alpha}^{\beta} f(\varphi) \cdot \varphi' = F(\varphi) \Big|_{\alpha}^{\beta} = 
+	F(\varphi(\beta)) - F(\varphi(\alpha))\\
+	\int_{\varphi(\alpha)}^{\varphi(\beta)} f = F \Big|^{\varphi(\beta)}_{\varphi(\alpha)} = F(\varphi(\beta))
+	- F(\varphi(\alpha))$
+\end{proof}
+
+\begin{Ex}
+	Пусть f четная функция. Доказать, что $\displaystyle \int_{-a}^{a} = 2 \int_{0}^{a} f$\\
+	Пусть f нечетная функция. Доказать, что $\displaystyle \int_{-a}^{a} f = 0$
+\end{Ex}
+
+\begin{Thm}[Формула Тейлора с остатком в интегральной форме] 
+	$n \in \N_0,\\ f \in C^{n+1} \langle A; B \rangle, a, x \in \langle A; B \rangle .$ Тогда $\displaystyle f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}
+	(x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t)(x-t)^n dt$
+\end{Thm} 
+
+\begin{proof}
+	По индукции:\\
+	База: $\displaystyle n=0: f(x) = f(a) + \int_{a}^{x} f'(t) dt$ (Формула Ньютона-Лейбница)\\
+	Пусть верно для $n-1$. Докажем для $n$.\\
+	$\displaystyle f(x) = \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} 
+	f^{(n)}(t) (x-t)^{n-1}dt$. Проинтегрируем остаток по частям: $\displaystyle u = f^{(n)}(t), u' = f^{(n+1)}(t), 
+	v' = (x-t)^{n-1}, v = \frac{(x-t)^n}{n}$\\
+	$\displaystyle \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} f^{(n)}(t) (x-t)^{n-1}dt = \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!}(x-a)^k +
+	\frac{1}{(n-1)!} (-f^{(n)}(t) \cdot \frac{(x-t)^n}{n} \Big|^x_{t=a} + 
+	\int_{a}^{x} \frac{f^{n+1}(t)(x-t)^n}{n}dt) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t) (x-t)^n dt$
+\end{proof}
+
+\begin{Rem}
+	$\displaystyle \exists c: \in (a,x) \int_{a}^{x} f^{(n+1)} (t) (x-t)^n dt = f^{(n+1)}(c) \int_{a}^{x} (x-t)^m dt = 
+	f^{(n+1)}(c) \frac{(x-t)^{n+1}}{n+1}$ (Т.е. остаток в форме Лагранжа 
+	следует отсюда)
+\end{Rem}
+
+Последовательность $\{x_n\}: x_i \in \Q, x_n \to \pi$
+
+\begin{Lm}
+	$\displaystyle m \in \N_0\\ \int_{0}^{\frac{\pi}{2}} \sin^m xdx = \int_{0}^{\frac{\pi}{2}} \sin^{m-1}
+	x \cdot \sin x dx = - \sin^{m-1} \cdot \cos x \Big|_0^{\frac{\pi}{2}} + (m-1)
+	\int_{0}^{\frac{\pi}{2}} \sin^{m-2} x \cdot \cos^2x dx = \\ = (m-1) \int_{0}^{\frac{\pi}{2}} 
+	\sin^{n-2} x (1 - \sin^2 x)dx\\
+	I_m = (m-1) \cdot (I_{m-2} - I_m) \Rightarrow I_m = \frac{m-1}{m} I_{m-2}\\
+	I_0 = \int_{0}^{\frac{\pi}{2}} \sin^0 x dx = \frac{\pi}{2}\\
+	I_1 = \int_{0}^{\frac{\pi}{2}} \sin x dx = - \cos x \Big|^{\frac{\pi}{2}}_0 = 1\\$
+	$I_m =
+	\begin{cases}
+		\frac{(m-1)!!}{m!!} \cdot \frac{\pi}{2}, m - \text{ четно}\\
+		I_m = \frac{(m-1)!!}{m!!} \cdot 1, m - \text { нечётно}
+	\end{cases}$ 
+\end{Lm}
+
+\begin{Ex}
+	$f: [-1; 1] \to \R$ - непрерывна. \\Доказать, что $\displaystyle \int_{0}^{\frac{\pi}{2}} f
+	(\sin x) dx = \int_{0}^{\frac{\pi}{2}} f(\cos x) dx$
+\end{Ex}
+
+\begin{Thm}[Формула Валлиса]
+	$\displaystyle \pi = \lim_{n \to \infty} \frac{1}{n} \Bigg(\frac{(2n)!!}{(2n-1)!!} \Bigg)^2$
+\end{Thm} 
+
+\begin{proof}
+	$\displaystyle \forall x \in (0; \frac{\pi}{2}) \ \ \ \sin x(0;1)\\
+	\forall n \in \N \ \ \ \sin^{2n+1} < \sin^{2n} x < \sin^{2n-1} x \Rightarrow 
+	\int_{0}^{\frac{\pi}{2}} \sin^{2n+1} x dx < \int_{0}^{\frac{\pi}{2}} 
+	\sin^{2n} x dx < \int_{0}^{\frac{\pi}{2}} \sin ^{2n-1} x dx$\\
+	$\displaystyle \frac{(2n)!!}{(2n+1)!!}  < \frac{\pi}{2} \cdot \frac{(2n-1)!!}{(2n)!!} < \frac{(2n-2)!!}{(2n-1)!!}\\
+	< \frac{\pi}{2} < \frac{(2n-2)!! \cdot (2n)!!)}{((2n-1)!!)^2}\\
+	\frac{1}{2n+1}\cdot \Bigg(\frac{(2n)!!}{(2n+1)!!} \Bigg)^2 < \frac{\pi}{2} < \frac{1}{2n} \Bigg(\frac{(2n)!!}{(2n-1)!!} \Bigg)^2$
+
+	$\displaystyle x_n = \frac{1}{n} \Bigg(\frac{(2n)!!}{(2n-1)!!}\Bigg)^2 \Rightarrow \pi < x_n < \frac{2n+1}{2n} \pi, \Rightarrow \ x_n \to \pi$
+\end{proof}
+
+\begin{Thm}[Вторая теорема о среднем для интегралова, Бонне] 
+	$f \in C[a,b], \\ g \in C^1[a,b], g$ монотонна на $[a,b].$ Тогда $\exists c \in [a,b]:$
+	\[\int_{a}^{b} fg = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f\]
+\end{Thm} 
+
+\begin{proof}
+	$\displaystyle F(x) = \int_{a}^{x} f, \ \ F' = f, F(a) = 0\\
+	\int_{a}^{b} fg = Fg \Big|^b_a - \int_{a}^{b} - \int_{a}^{b} Fg' = g(b) \int_{a}^{b} f - \int_{a}^{b} Fg' = 
+	g(b) \int_{a}^{b} f - \int_{a}^{c} f \cdot (g(b) - g(a)) = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f$
+\end{proof}
+
+\begin{Ex}
+	Оценить $\int_{100\pi}^{200\pi} \frac{\sin x}{x} dx$\\
+	\begin{enumerate}
+		\item По первой теореме о среднем.
+		\item По второй теореме о среднем.
+	\end{enumerate}
+	
+\end{Ex}
+
+\end{document}
