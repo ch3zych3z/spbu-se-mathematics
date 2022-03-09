@@ -15,6 +15,7 @@
 \usepackage{array}
 \usepackage{epigraph}
 \usepackage{multicol}
+\usepackage{cancel}
 
 \usepackage[russian,colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
 \usepackage{enumerate}
@@ -284,6 +285,13 @@
   \vspace*{0.5em}
   \makeparindent
 }
+
+\makeatletter
+\newcommand*{\encircled}[1]{\relax\ifmmode\mathpalette\@encircled@math{#1}\else\@encircled{#1}\fi}
+\newcommand*{\@encircled@math}[2]{\@encircled{$\m@th#1#2$}}
+\newcommand*{\@encircled}[1]{%
+  \tikz[baseline,anchor=base]{\node[draw,circle,outer sep=0pt,inner sep=.2ex] {#1};}}
+\makeatother
 
 \newcommand{\Header}{
   \pagestyle{empty}
