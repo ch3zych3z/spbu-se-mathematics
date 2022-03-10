@@ -441,4 +441,139 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 	\end{MyList}
 \end{Cons}
 
+\gdef\AuthorName{Дарья Гольденберг}
+
+\begin{proof}
+	\begin{MyList}
+		\item Соответствие матриц.
+		\item $(\alpha f  + \beta g) (e_i) = \alpha f (e_i) + \beta g (e_i) \in \alpha A + \beta B$.
+		\item $ V \to n, W \to l, U \to m, A \to l \times n, B \to m\times l\\ g \circ f (e_i) = g (\sum_{k=1}^l a_{ki}e_k) = \sum_{k=1}^n a_{ki} g(e_k') = \sum_{k=1}^l a_{ki} \sum_{j =1}^m b_{jk} e_j'' = \sum_{j = 1}^m \sum_{k = 1}^l b_{jk} a_{ki} e_j''$, где $b_{jk} a_{ki} \to BA$.
+	\end{MyList}
+\end{proof}
+
+\begin{Thm}
+	$f: V \to W, \ \dim V, \dim W < \inf$ 
+	$$ \Rightarrow \dim \ker f + \dim \Image f = \dim V$$
+\end{Thm}
+
+\begin{proof}
+	$\ker f \subset V, e_1,...,e_k$ - базис $\ker f$. Дополним до базиса $V: e_1, ..., e_k, e_{k+1},..., e_n $ -- базис $V$. \\
+	$x \in V, f(x)\in \Image f \ f(x) = x_{k+1} f(e_{k+1}) + ... + x_n f(e_n)  \in \Image f \\
+	f(e_1) = ... = f(e_k) = 0 \Rightarrow \Image f = \langle f(e_{k+1}), ..., f(e_n) \rangle $. Надо доказать, что $f(e_{k+1}), ..., f(e_n)$ -- ЛНЗ. \\
+	Предположим обратное. $\alpha_{k+1} f(e_{k+1}) + ... + \alpha_n  f(e_n) = 0 \Rightarrow f(\alpha_{k+1}e_{k+1} + ... + \alpha_n e_n) = 0 \Rightarrow\alpha_{k+1} e_{k+1} + ... + \alpha_n e_n \in \ker f = \langle e_1, ..., e_k\rangle$ -- невозможно.\\
+	$\dim \ker f = k,\dim V = n, \dim \Image f = n - k$.
+\end{proof}
+
+\Subsection{Линейные операторы}
+
+\begin{Def}
+	Линейным оператором называется линейное отображение $a: V \to V$, т.е. $a \in \Hom(V, V)$. \\
+	Обозначается $End V = \Hom(V, V)$.
+\end{Def}
+
+\begin{Def}
+	Тождественным отображением называется отображение  
+\end{Def}
+
+\begin{Def}
+
+\end{Def}
+
+\begin{Example}
+	\begin{MyList}
+		\item Нулевой оператор. $0 \in End V. \ \ 0(x) = 0$. $0 \to 
+			\left(\begin{array}{cccc}
+			0 & \cdots & 0 \\ 
+			\vdots & \ddots & \vdots \\
+			0 &  \cdots & 0
+			\end{array}\right) = 0 $
+		\item Оператор подобия. $\forall x \in V \ ax = \lambda x \to 
+		    \left(\begin{array}{cccc}
+			\lambda & \cdots & 0 \\ 
+			\vdots & \ddots & \vdots \\
+			0 &  \cdots & \lambda
+			\end{array}\right) $
+		\item Оператор поворота в $\R^2$. $z \to z e^{i\varphi}$ -- поворот на $\varphi$. Зафиксируем базис -- $1, i \Rightarrow a(1) = \cos \varphi + i\sin \varphi, a(i) = i(\cos \varphi + i\sin \varphi) = -\sin \varphi + i\cos \varphi  \ \to$
+			$\left(\begin{array}{cccc}
+				\cos \varphi & -\sin \varphi \\ 
+				\sin \varphi & \cos \varphi
+				\end{array}\right) $
+		\item Оператор дифференцирования. $V = \R[x]$. $\frac{\,d}{\,dx} f \to f'$, зафиксируем базис -- $1, x, x^2, x^3$. \\ 
+		$\frac{\,d}{\,dx}(1) = 0, \frac{\,d}{\,dx} (x) = 1, \frac{\,d}{\,dx}(x^2) = 2x, \frac{\,d}{\,dx} (x^3) = 3x^2$. Тогда матрица имеет вид: 
+			$\left(\begin{array}{cccc}
+			0 & 1 & 0 & 0\\ 
+			0 & 0 & 2 & 0\\
+			0 & 0 & 0 & 3 \\
+			0 & 0 & 0 & 0
+			\end{array}\right)$.\\
+		Возьмём другой базис -- $1, x+1, x^2 + x + 1, x^3 + x^2 + x + 1$. \\
+		Посчитаем значения: $\frac{\,d}{\,dx} (1) = 0, \frac{\,d}{\,dx}(x + 1) = 1, \frac{\,d}{\,dx}(x^2 + x + 1) = 2x + 1, \frac{\,d}{\,dx}(x^3 +x^2 + x + 1) = 3x^2 + 2x + 1$. \\
+		Матрица имеет вид: 
+		$\left(\begin{array}{cccc}
+			0 & 1 & 1 & 1\\ 
+			0 & 0 & 2 & 2\\
+			0 & 0 & 0 & 3 \\
+			0 & 0 & 0 & 0
+			\end{array}\right)$.
+	\end{MyList}
+\end{Example}
+
+\begin{Def}
+	$(e_i), (e_i')$ -- базисы V, $\dim V = n$. Разложим 
+	$\begin{cases}
+		e_1' = c_{11}e_1 + c_{21}e_2 + ... + c_{n1}e_n \\ 
+		\cdots\\
+		e_n' = c_{1n}e_1 + c_{2n}e_2 + ... + c_{nn}e_n
+	\end{cases}$. Тогда матрица вида $C = 
+	\left(\begin{array}{cccc}
+		c_{11} & c_{12} & \cdots & c_{1n} \\ 
+		c_{21} & c_{22} & \cdots & c_{2n} \\
+		\vdots & \ddots & \vdots \\
+		c_{n1} & c_{n2} & \cdots & c_{nn}
+		\end{array}\right)$ называется матрицой перехода от базиса $(e_i)$ к $(e_i')$.
+\end{Def}
+
+\begin{Thm}[Преобразование координат вектора при переходе к другому базису]
+	V -- векторное пространство над полем K, $(e_i), (e_i')$ -- базисы V, $x\in V, \ x \to X = 
+	\left(\begin{array}{c}
+		x_1 \\ 
+		x_2 \\ 
+		\vdots \\ 
+		x_n
+		\end{array}\right) $ -- координаты вектора в базисе $(e_i)$. $x \to X' = 
+		\left(\begin{array}{c}
+		x_1' \\ 
+		x_2' \\ 
+		\vdots \\ 
+		x_n'
+		\end{array}\right)$ -- координаты вектора в базисе $(e_i'), C$ -- матрица перехода от $(e_i)$ к $(e_i')$. 
+	\begin{MyList}
+		\item $X = CX'$
+		\item $C - \text{обратима} \ (\det C \neq 0)$		
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item $x = x_1' e_1' + ... + x_n'e_n' = x_1'(c_{11}e_1 + c_{21}e_2 +... + c_{n1}e_n) + ... + x_n'(c_{1n}e_1 + c_{2n}e_2 + ... + c_{nn}e_n) = \underbrace{(c_{11}x_1' + c_{12}x_2' + ... + c_{1n}x_n')}_{x_1} e_1 + ... + \underbrace{(c_{n1}x_1' + c_{n2}x_2' + ... + c_{nn}x_n')}_{x_n} e_n$\\
+		$\Rightarrow \left(\begin{array}{c}
+			x_1 \\ 
+			x_2 \\ 
+			\vdots \\ 
+			x_n
+			\end{array}\right) = C \left(\begin{array}{c}
+			x_1' \\ 
+			x_2' \\ 
+			\vdots \\ 
+			x_n'
+			\end{array}\right) $
+		\item $ \forall X \ X = C X'$ по доказанному, тогда $ X = C X' = C D X \Rightarrow CD = E \Rightarrow \det C \neq 0$.
+	\end{MyList}
+\end{proof}
+
+\begin{Thm}[Изменение матрицы линейного оператора при переходе к другому базису]
+	$V$ -- векторное пространство, $\dim V = n, a \in End V$, фиксируем базисы $(e_i), (e_i'), \ A$ -- матрица оператора в базисе $(e_i), \ A'$ -- в базисе $(e_i')$, C -- матрица перехода от $(e_i) \text{ к } (e_i')$.
+	$$\Rightarrow A' = C^{-1} A C$$ 
+\end{Thm}
+
 \end{document}
