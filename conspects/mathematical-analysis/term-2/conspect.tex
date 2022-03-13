@@ -28,7 +28,7 @@
 \begin{Def}
     $f : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Множество функций 
     $\{F(x) + c, c \in \R\}$ называется неопределенным интегралом $f$.
-    \[\int f(x) \,dx = F(x) + c, c \in \R \] 
+    \[\int f(x) \,  = F(x) + c, c \in \R \] 
 \end{Def}
 
 Далее, $f : \langle A, B\rangle \to \R$. 
@@ -135,7 +135,7 @@
 
 \begin{Example}
 	$\int \frac{dx}{1 + \sqrt{x}}$. Пусть $t = \sqrt{x}, t > 0 \EQ t^2 = x \SO dx = dt^2 = 2t \,dt$. Тогда
-	\[\int \frac{dx}{1 + \sqrt{x}} = \int \frac{2t \,dt}{1 + t} = \int \left( \frac{2t + 2}{t + 1} - \frac{2}{t + 1}\right) \,dt = \int \left(2 - \frac{2}{t + 1}\right) \,dt = 2\int dt - 2\int \frac{dt}{t + 1} =\] 
+	\[\int \frac{dx}{1 + \sqrt{x}} = \int \frac{2t \,dt}{1 + t} = \int \left( \frac{2t + 2}{t + 1} - \frac{2}{t + 1}\right) \,dt = \int \left(2 - \frac{2}{t + 1}\right) \,dt = 2\int \,dt - 2\int \frac{dt}{t + 1} =\] 
 	\[= 2t - \int \frac{d(t + 1)}{t + 1} = 2t - 2\ln |t + 1| + c = 2\sqrt{x} - 2\ln (\sqrt{x} + 1) + c\]
 \end{Example}
 
@@ -219,8 +219,8 @@
 \end{Example}
 
 \begin{Example}
-	$\int \frac{dx}{\sqrt{x^2 + 1}}$. Пусть $x = \sh t, dx = \ch t dt $. Тогда
-	\[\int \frac{\ch t dt}{\sqrt{1 + \sh^2 t}} = \int \frac{\ch t}{\ch t} dt = \int dt = t + c\]   
+	$\int \frac{dx}{\sqrt{x^2 + 1}}$. Пусть $x = \sh t, dx = \ch t \,dt $. Тогда
+	\[\int \frac{\ch t \,dt}{\sqrt{1 + \sh^2 t}} = \int \frac{\ch t}{\ch t} \,dt = \int \,dt = t + c\]   
 \end{Example}
 
 \begin{Ex}
@@ -460,7 +460,7 @@
 		\[S_{\tau_0} - s_{\tau_0} = \sum_{k = l}^{m - 1} \omega_k (f) \Delta x_k \leqslant \sum_{k = 0}^{n - 1} \omega_k (f) \Delta x_k < \varepsilon\]
 
 		\item Пусть $f$ не постоянна, т.е. $\omega(f)_{[a, b]} > 0$.
-		Возьмем $\varepsilon > 0$, подберем $\delta_1, \delta_2 : \forall \tau_1 : \lambda_{\tau_1} < \delta_1, \forall tau_2 : \lambda_{\tau_2} < \delta_2$
+		Возьмем $\varepsilon > 0$, подберем $\delta_1, \delta_2 : \forall \tau_1 : \lambda_{\tau_1} < \delta_1, \forall \tau_2 : \lambda_{\tau_2} < \delta_2$
 		\[S_{\tau_1} - s_{\tau_1} < \frac{\varepsilon}{3}, S_{\tau_2} - s_{\tau_2} < \frac{\varepsilon}{3}\]
 		$\delta = \min \{\delta_1, \delta_2, \frac{\varepsilon}{3 \omega}\}$. Пусть $\tau$ -- дробление $[a, b], \lambda_\tau < \delta$.
 		Точка $c \in [x_l, x_{l + 1})$. Обозначим $\tau' = \tau \cup \{c\}, \tau_1 = \tau' \cap [a, c], \tau_2 = \tau' \cap [c, b]$
@@ -489,7 +489,7 @@
 
 \begin{Def} 
 	$E \subset \R$ -- имеет нулевую меру, если для $\forall \varepsilon > 0$ множество E можно заключить в не более, чем счётное объединение интервалов, суммарная длина
-	которых < $\displaystyle  \varepsilon.\\$ \[ (\lim_{m \to \infty} \sum_{i=1}^m (b_i-a_i))\]
+	которых < $\displaystyle  \varepsilon.\\$ \[ \left(\lim_{m \to \infty} \sum_{i=1}^m (b_i-a_i)\right)\]
 \end{Def} 
 
 \begin{Example}
@@ -525,15 +525,15 @@
 		\item $|fg(x) - fg(y)| \leqslant |f(x)g(x)-f(y)g(x)+f(y)g(x)-f(y)g(y)| \leqslant |g(x)||f(x)-f(y)|+ \\ +|f(y)||g(x)-g(y)| \leqslant A|f(x)-f(y)|+ B|g(x)-g(y)| \ \ (\text{т.к. } R[a,b] \Rightarrow \text{ограничена на } [a,b])$
 		\item $g(x) = \alpha$
 		\item $||f(x)|-|f(y)|| \leqslant |f(x) - f(y)| \\ |\omega_k|f|| \leqslant |\omega_k f|$
-		\item $\displaystyle \frac{f}{g} = f \cdot \frac{1}{g}.$ Докажем, что $\displaystyle \frac{1}{g} \in R[a,b]\\ 0<m=\underset{[a,b]}{\inf}|g|\\ |\frac{1}{g(x)} - \frac{1}{g(y)}| = 
-		|\frac{g(x)-g(y)}{g(x)g(y)}| \leqslant \frac{g(x)-g(y)}{m^2}\\ \omega_k(\frac{1}{g}) \leqslant \frac{\omega_k(g)}{m^2}$
+		\item $\displaystyle \frac{f}{g} = f \cdot \frac{1}{g}.$ Докажем, что $\displaystyle \frac{1}{g} \in R[a,b]$.\\ $0<m=\underset{[a,b]}{\inf}|g|$ 
+		\[\left|\frac{1}{g(x)} - \frac{1}{g(y)}\right| = \left|\frac{g(x)-g(y)}{g(x)g(y)}\right| \leqslant \frac{g(x)-g(y)}{m^2} \EQ \omega_k \left(\frac{1}{g}\right) \leqslant \frac{\omega_k(g)}{m^2}\]
 	\end{enumerate}
 \end{proof}
 
 \begin{Example}
-	1. $\displaystyle \int_{0}^{1} x^2 dx\\ x^2 \in C[a,b] \Rightarrow x^2 \in R[a,b].$\\
+	1. $\displaystyle \int_{0}^{1} x^2 \,dx\\ x^2 \in C[a,b] \Rightarrow x^2 \in R[a,b].$\\
 	Рассмотрим какую-нибудь интегральную сумму: $x_k = \frac{k}{n} = \xi_k$\\
-	\[\lim_{n \to \infty} \sum_{k=0}^{n-1}f(\xi_k) \Delta x_k = \lim_{n \to \infty} \sum_{k=0}^{n-1} (\frac{k}{n})^2 \cdot \frac{1}{n} = \lim \frac{1}{n^3}  \sum_{k=0}^{n-1} k^2 = \lim \frac{1}{n^3} \cdot \frac{(n-1)n(2n-1)}{6} = \frac{1}{3}\]
+	\[\lim_{n \to \infty} \sum_{k=0}^{n-1}f(\xi_k) \Delta x_k = \lim_{n \to \infty} \sum_{k=0}^{n-1} \left(\frac{k}{n}\right)^2 \cdot \frac{1}{n} = \lim \frac{1}{n^3}  \sum_{k=0}^{n-1} k^2 = \lim \frac{1}{n^3} \cdot \frac{(n-1)n(2n-1)}{6} = \frac{1}{3}\]
 
 	2. $\int_{0}^{1} e^xdx -$ упражнение\\
 
@@ -562,7 +562,7 @@
 		$s_{\tau}(r) = 0$
 		\[S_{\tau}(r)=\sum_{k:M_k \geqslant \frac{1}{N}} M_k \Delta x_k \sum_{k:M_k < \frac{1}{N}}M_l \Delta x_k \leqslant \underbrace{1 \cdot 2C_n}_{\frac{\varepsilon}{2}} 
 		\cdot \ \delta + \underbrace{\frac{1}{N}}_{<\frac{\varepsilon}{2}} < \varepsilon\] \\
-		$S_{\tau}(r) - s_{\tau}(r) = S_{\tau}(r) \underset{\lambda_r \to 0}{\to} 0 \Rightarrow r \in R[0,1]$ и $\displaystyle \int_{0}^{1} r(x)dx = 0$
+		$S_{\tau}(r) - s_{\tau}(r) = S_{\tau}(r) \underset{\lambda_r \to 0}{\to} 0 \Rightarrow r \in R[0,1]$ и $\displaystyle \int_{0}^{1} r(x)\,dx = 0$
 	\end{proof}
 
 	Если $f \in R_D \ g \in R[a, b]$, то $f(g) \in R[a,b]\text{?} \ \ (D -$ множество значений g$)$\\
@@ -581,7 +581,7 @@
 
 \begin{Thm}[Интегрируемость композиции]
 	$\varphi: [\alpha, \beta] \to [a, b], f: [a,b] \to \R,\\ f(\varphi): [\alpha, \beta] \to \R\\
-	\varphi \in \R[\alpha, \beta], f \in C[a,b]$. Тогда $f \circ \varphi \in R[\alpha, \beta]$ 
+	\varphi \in R[\alpha, \beta], f \in C[a,b]$. Тогда $f \circ \varphi \in R[\alpha, \beta]$ 
 \end{Thm} 
 
 \begin{proof}
@@ -591,17 +591,17 @@
 \Subsection{Свойства интеграла Римана}
 \begin{enumerate}
 	\item $\displaystyle \int_{b}^{a} f = - \int_{a}^{b} f$ 
-	\item $\displaystyle \int_{a}^{b} f = 0 \ (\forall f \text{ на вырожденном отрезке } f \in \R [a,a])$
+	\item $\displaystyle \int_{a}^{b} f = 0 \ (\forall f \text{ на вырожденном отрезке } f \in R [a,a])$
 \end{enumerate}
 
 Свойства:
 
 \begin{itemize}
-	\item Аддитивность интеграла по отрезку:\\ $a, b, c \in \R, \ f \in \R [\min\{a, b, c\}, \max \{a, b, c\}]$
+	\item Аддитивность интеграла по отрезку:\\ $a, b, c \in \R, \ f \in R [\min\{a, b, c\}, \max \{a, b, c\}]$
 	\[\int_{a}^{b} f = \int_{a}^{c} + \int_{c}^{b} f\]
 
 	\begin{proof}
-		$f\in \R[a,b] \Rightarrow f \in \R[a,c], f \in R[c,b] \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
+		$f\in R[a,b] \Rightarrow f in \R[a,c], f \in R[c,b], \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
 		последовательности оснащенных дроблений $[a,c]$ и $[c,b]$  (равномерных, т.е. $\widetilde{\lambda} = \frac{c-a}{n}, \overline{\overline{\lambda}}$)\\
 		$\tau^{(n)} = \overline{\tau}^{(n)} \cup \overline{\overline{\tau}}^{(n)} -$ дробление $[a,b]$\\
 		$\xi^{(n)} = \overline{\xi}^{(n)} \cup \overline{\overline{\xi}}^{(n)} -$ оснащение $\tau^{(n)}\\
@@ -679,7 +679,7 @@
 	$mg \leqslant fg \leqslant Mg$ на $[a,b]$
 	\[m \int_{a}^{b} g \leqslant \int_{a}^{b} fg \leqslant M \int_{a}^{b} g \]
 	Если $\displaystyle \int_{a}^{b} g = 0,$ то $\exists \mu \in [m, M]: 0 = \mu \cdot 0$\\
-	Если $\displaystyle \int_{a}^{b} g > 0 m \leqslant \frac{\int_{a}^{b}fg}{\int_{a}^{b} g} \leqslant M$\\
+	Если $\displaystyle \int_{a}^{b} g > 0$, то $m \leqslant \frac{\int_{a}^{b}fg}{\int_{a}^{b} g} \leqslant M$\\
 	Возьмём $\displaystyle \mu = \frac{\int_{a}^{b}fg}{\int_{a}^{b} g}$
 \end{proof}
 
@@ -725,11 +725,11 @@
 \begin{Def} 
 	$E \subset \R$ -- невырожденный промежуток (может быть и лучом), $f: E \to \R$, $f$ -- интегрируема на 
 	каждом отрезке, содержащемся в $E$. $a \in E$.\\
-	$\displaystyle \Phi(x) = \int_{a}^{x} f(t)dt, x \in E$ -- интеграл с переменным верхним пределом.
+	$\displaystyle \Phi(x) = \int_{a}^{x} f(t)\,dt, x \in E$ -- интеграл с переменным верхним пределом.
 \end{Def} 
 
 \begin{Thm}[Барроу, об интеграле с переменным верхним пределом] 
-	$E \subset \R$ -- невыраженный промежуток, $f: E \to \R$, интегрируема на каждом отрезке из E, $a \in E$,
+	$E \subset \R$ -- невырожденный промежуток, $f: E \to \R$, интегрируема на каждом отрезке из $E$, $a \in E$,
 	$\displaystyle \Phi(x) = \int_{a}^{x} f, x\in E$. Тогда
 	\begin{enumerate}
 		\item $\Phi(x) \in C(E)$
@@ -742,24 +742,24 @@
 	\begin{enumerate}
 		\item Пусть $x_0 \in E, \text{ подберем }\delta > 0 [x_0 - \delta; x_0 + \delta] \cap E = [A,B]\\
 		|f| \text{ на } [A, B]$ ограничена числом M. $\displaystyle \Delta x: x_0 + \Delta x \in [A, B]\\
-		|\Phi(x_0 + \Delta x) - \Phi(x_0)| = |\int_{a}^{x_0 + \Delta x} f - \int_{a}^{x_0} f| = 
-		|\int_{x_0}^{x_0 + \Delta x} f| \leqslant |\int_{x_0}^{x_0+\Delta x} |f|| \leqslant 
+		\left|\Phi(x_0 + \Delta x) - \Phi(x_0)\right| = \left|\int_{a}^{x_0 + \Delta x} f - \int_{a}^{x_0} f\right| = 
+		\left|\int_{x_0}^{x_0 + \Delta x} f\right| \leqslant \left|\int_{x_0}^{x_0+\Delta x} |f|\right| \leqslant 
 		|\Delta x| \cdot M \underset{\Delta x \to 0}{\to} 0$
-		\item Проверим, что $ \displaystyle \frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} \underset{\Delta x \to 0}{\to} f(x_0)$\\ %!
-		Возьмем $\varepsilon > 0$ и $\delta > 0: \forall t: |t-x_0| < \delta  |f(t) - f(x_0)| < \varepsilon$ (по
-		непрерывности.)\\ $\displaystyle \Big|\frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} - f(x_0) \Big| = \Big|\frac{1}{\Delta x} \int_{x_0}^{x_0 + \Delta x} 
-		f(t)dt = f(x_0)\Big| = \Big| \frac{1}{\Delta x} \int_{x_0}^{x_0+\Delta x} (f(t) - f(x_0))dt \Big| < \\ < \frac{1}{|\Delta x|}
+		\item Проверим, что $ \displaystyle \frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} \xrightarrow[\Delta x \to 0]{} f(x_0)$\\ %!
+		Возьмем $\varepsilon > 0$ и $\delta > 0: \forall t: |t-x_0| < \delta \ |f(t) - f(x_0)| < \varepsilon$ (по
+		непрерывности.)\\ $\displaystyle \left|\frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} - f(x_0) \right| = \left|\frac{1}{\Delta x} \int_{x_0}^{x_0 + \Delta x} 
+		f(t)\,dt = f(x_0)\right| = \left| \frac{1}{\Delta x} \int_{x_0}^{x_0+\Delta x} (f(t) - f(x_0))\,dt \right| < \\ < \frac{1}{|\Delta x|}
 		\cdot \varepsilon \cdot |\Delta x| = \varepsilon$, $\displaystyle k = \int_{a}^{b} k \cdot \frac{1}{b-a}$
 	\end{enumerate}
 \end{proof}
 
 \begin{Example}
-	$\displaystyle \Phi(x) = \int_{1}^{x} \frac{\sin t}{t} dt, x>1$\\
+	$\displaystyle \Phi(x) = \int_{1}^{x} \frac{\sin t}{t} \,dt, x>1$\\
 	$\displaystyle \Phi'(x) = \frac{\sin x}{x} \Rightarrow \Si'(x) = \frac{\sin x}{x}$
 \end{Example}
 
 \begin{Ex}
-	$\int \Si(x)dx = ?$
+	$\int \Si(x)\,dx = ?$
 \end{Ex}
 
 \begin{Cons}
@@ -772,7 +772,7 @@
 \end{Def} 
 
 \begin{Thm}[Формула Ньютона-Лейбница] 
-	$f \in R[a,b], F -$ первообразная f на $[a,b]$. Тогда: $\displaystyle \int_{a}^{b} f = F(b) - F(a)$
+	$f \in R[a,b], F -$ первообразная $f$ на $[a,b]$. Тогда: $\displaystyle \int_{a}^{b} f = F(b) - F(a)$
 \end{Thm} 
 
 \begin{proof}
@@ -786,7 +786,7 @@
 
 \begin{Rem}
 	$\displaystyle \int_{a}^{b} f = F \Big|^b_a\\
-	\int_{a}^{b} f(x)dx = F(x) \Big|^b_{x = a}$ -- двойная подстановка.
+	\int_{a}^{b} f(x)\,dx = F(x) \Big|^b_{x = a}$ -- двойная подстановка.
 \end{Rem}
 
 \begin{Rem}
@@ -795,13 +795,13 @@
 \end{Rem}
 
 \begin{Example}
-	$\displaystyle \int_{0}^{1} x^2 dx = \frac{x^3}{3} \Big|^1_0 = \frac{1}{3}$
+	$\displaystyle \int_{0}^{1} x^2 \,dx = \left. \frac{x^3}{3} \right|^1_0 = \frac{1}{3}$
 \end{Example}
 
 \begin{Example}
-	$\displaystyle \int_{-1}^{1} \frac{1}{x^2} dx = - \frac{1}{x} \Big|^1_{-1} = -2$ - чушь!
+	$\displaystyle \int_{-1}^{1} \frac{1}{x^2} \,dx = - \left. \frac{1}{x} \right|^1_{-1} = -2$ - чушь!
 	\begin{enumerate}
-		\item $(-\frac{1}{x})' = \frac{1}{x^2}$ -- не везде на $[-1,1]$
+		\item $\left(-\frac{1}{x}\right)' = \frac{1}{x^2}$ -- не везде на $[-1,1]$
 		\item $\frac{1}{x^2}$ не интегрируема на $[-1; 1], $ т.к. не ограничена.
 	\end{enumerate}
 \end{Example}
@@ -831,7 +831,7 @@
 \end{Remark}
 
 \begin{Rem}
-	$\displaystyle \int_{a}^{b} F'(x)dx = F(b) - F(a)$.\\ F дифференцируема, $F'$ интегрируема. 
+	$\displaystyle \int_{a}^{b} F'(x)\,dx = F(b) - F(a)$.\\ F дифференцируема, $F'$ интегрируема. 
 \end{Rem}
 
 \begin{Rem}
@@ -867,8 +867,8 @@
 \end{proof}
 
 \begin{Rem}
-	$\displaystyle \int_{a}^{b} f dg = fg \Big|_a^b - \int_{a}^{b} gdf$\\
-	$dg(x) = g'(x)dx$
+	$\displaystyle \int_{a}^{b} f \,dg = fg \Big|_a^b - \int_{a}^{b} g \,df$\\
+	$dg(x) = g'(x)\,dx$
 \end{Rem}
 
 \begin{Thm}[Замена переменной в определенном интеграле]
@@ -879,7 +879,7 @@
 
 \begin{proof}
 	$f(\varphi) \in C[\alpha, \beta] \Rightarrow f(\varphi) \in R[a,b] \Rightarrow f(\varphi) \cdot \varphi' \in R[a,b]$\\
-	Пусть F - первообразная f на $[A,B] \Rightarrow F(\varphi)$ -- первообразная $f(\varphi) \cdot \varphi'$ на $[\alpha, \beta]$\\
+	Пусть F - первообразная $f$ на $[A,B] \Rightarrow F(\varphi)$ -- первообразная $f(\varphi) \cdot \varphi'$ на $[\alpha, \beta]$\\
 	$\displaystyle \int_{\alpha}^{\beta} f(\varphi) \cdot \varphi' = F(\varphi) \Big|_{\alpha}^{\beta} = 
 	F(\varphi(\beta)) - F(\varphi(\alpha))\\
 	\int_{\varphi(\alpha)}^{\varphi(\beta)} f = F \Big|^{\varphi(\beta)}_{\varphi(\alpha)} = F(\varphi(\beta))
@@ -887,29 +887,34 @@
 \end{proof}
 
 \begin{Ex}
-	Пусть f четная функция. Доказать, что $\displaystyle \int_{-a}^{a} = 2 \int_{0}^{a} f$\\
-	Пусть f нечетная функция. Доказать, что $\displaystyle \int_{-a}^{a} f = 0$
+	Пусть $f$ четная функция. Доказать, что $\displaystyle \int_{-a}^{a} = 2 \int_{0}^{a} f$\\
+	Пусть $f$ нечетная функция. Доказать, что $\displaystyle \int_{-a}^{a} f = 0$
 \end{Ex}
 
 \begin{Thm}[Формула Тейлора с остатком в интегральной форме] 
 	$n \in \N_0,\\ f \in C^{n+1} \langle A; B \rangle, a, x \in \langle A; B \rangle .$ Тогда $\displaystyle f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}
-	(x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t)(x-t)^n dt$
+	(x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t)(x-t)^n \,dt$
 \end{Thm} 
 
 \begin{proof}
 	По индукции:\\
-	База: $\displaystyle n=0: f(x) = f(a) + \int_{a}^{x} f'(t) dt$ (Формула Ньютона-Лейбница)\\
+	База: $\displaystyle n=0: f(x) = f(a) + \int_{a}^{x} f'(t) \,dt$ (Формула Ньютона-Лейбница)\\
 	Пусть верно для $n-1$. Докажем для $n$.\\
 	$\displaystyle f(x) = \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} 
-	f^{(n)}(t) (x-t)^{n-1}dt$. Проинтегрируем остаток по частям: $\displaystyle u = f^{(n)}(t), u' = f^{(n+1)}(t), 
+	f^{(n)}(t) (x-t)^{n-1}\,dt$. Проинтегрируем остаток по частям: $\displaystyle u = f^{(n)}(t), u' = f^{(n+1)}(t), 
 	v' = (x-t)^{n-1}, v = \frac{(x-t)^n}{n}$\\
-	$\displaystyle \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} f^{(n)}(t) (x-t)^{n-1}dt = \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!}(x-a)^k +
-	\frac{1}{(n-1)!} (-f^{(n)}(t) \cdot \frac{(x-t)^n}{n} \Big|^x_{t=a} + 
-	\int_{a}^{x} \frac{f^{n+1}(t)(x-t)^n}{n}dt) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t) (x-t)^n dt$
+
+	\begin{align*}
+		&\displaystyle \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} f^{(n)}(t) (x-t)^{n-1}\,dt = \\
+		= &\sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!}(x-a)^k 
+		+ \frac{1}{(n-1)!} \left(-f^{(n)}(t) \cdot \left. \frac{(x-t)^n}{n} \right|^x_{t=a} + 
+		\int_{a}^{x} \frac{f^{n+1}(t)(x-t)^n}{n}\,dt\right) = \\
+		= &\sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t) (x-t)^n \,dt
+	\end{align*}
 \end{proof}
 
 \begin{Rem}
-	$\displaystyle \exists c: \in (a,x) \int_{a}^{x} f^{(n+1)} (t) (x-t)^n dt = f^{(n+1)}(c) \int_{a}^{x} (x-t)^m dt = 
+	$\displaystyle \exists c: \in (a,x) \int_{a}^{x} f^{(n+1)} (t) (x-t)^n \,dt = f^{(n+1)}(c) \int_{a}^{x} (x-t)^m \,dt = 
 	f^{(n+1)}(c) \frac{(x-t)^{n+1}}{n+1}$ (Т.е. остаток в форме Лагранжа 
 	следует отсюда)
 \end{Rem}
@@ -918,12 +923,12 @@
 
 \begin{Lm}
 	$\displaystyle m \in \N_0\\ \int_{0}^{\frac{\pi}{2}} \sin^m xdx = \int_{0}^{\frac{\pi}{2}} \sin^{m-1}
-	x \cdot \sin x dx = - \sin^{m-1} \cdot \cos x \Big|_0^{\frac{\pi}{2}} + (m-1)
-	\int_{0}^{\frac{\pi}{2}} \sin^{m-2} x \cdot \cos^2x dx = \\ = (m-1) \int_{0}^{\frac{\pi}{2}} 
-	\sin^{n-2} x (1 - \sin^2 x)dx\\
+	x \cdot \sin x \,dx = - \sin^{m-1} \cdot \cos x \Big|_0^{\frac{\pi}{2}} + (m-1)
+	\int_{0}^{\frac{\pi}{2}} \sin^{m-2} x \cdot \cos^2x \,dx = \\ = (m-1) \int_{0}^{\frac{\pi}{2}} 
+	\sin^{n-2} x (1 - \sin^2 x)\,dx\\
 	I_m = (m-1) \cdot (I_{m-2} - I_m) \Rightarrow I_m = \frac{m-1}{m} I_{m-2}\\
-	I_0 = \int_{0}^{\frac{\pi}{2}} \sin^0 x dx = \frac{\pi}{2}\\
-	I_1 = \int_{0}^{\frac{\pi}{2}} \sin x dx = - \cos x \Big|^{\frac{\pi}{2}}_0 = 1\\$
+	I_0 = \int_{0}^{\frac{\pi}{2}} \sin^0 x \,dx = \frac{\pi}{2}\\
+	I_1 = \int_{0}^{\frac{\pi}{2}} \sin x \,dx = - \cos x \Big|^{\frac{\pi}{2}}_0 = 1\\$
 	$I_m =
 	\begin{cases}
 		\frac{(m-1)!!}{m!!} \cdot \frac{\pi}{2}, m - \text{ четно}\\
@@ -933,7 +938,7 @@
 
 \begin{Ex}
 	$f: [-1; 1] \to \R$ - непрерывна. \\Доказать, что $\displaystyle \int_{0}^{\frac{\pi}{2}} f
-	(\sin x) dx = \int_{0}^{\frac{\pi}{2}} f(\cos x) dx$
+	(\sin x) \,dx = \int_{0}^{\frac{\pi}{2}} f(\cos x) \,dx$
 \end{Ex}
 
 \begin{Thm}[Формула Валлиса]
@@ -943,8 +948,8 @@
 \begin{proof}
 	$\displaystyle \forall x \in (0; \frac{\pi}{2}) \ \ \ \sin x(0;1)\\
 	\forall n \in \N \ \ \ \sin^{2n+1} < \sin^{2n} x < \sin^{2n-1} x \Rightarrow 
-	\int_{0}^{\frac{\pi}{2}} \sin^{2n+1} x dx < \int_{0}^{\frac{\pi}{2}} 
-	\sin^{2n} x dx < \int_{0}^{\frac{\pi}{2}} \sin ^{2n-1} x dx$\\
+	\int_{0}^{\frac{\pi}{2}} \sin^{2n+1} x \,dx < \int_{0}^{\frac{\pi}{2}} 
+	\sin^{2n} x \,dx < \int_{0}^{\frac{\pi}{2}} \sin ^{2n-1} x \,dx$\\
 	$\displaystyle \frac{(2n)!!}{(2n+1)!!}  < \frac{\pi}{2} \cdot \frac{(2n-1)!!}{(2n)!!} < \frac{(2n-2)!!}{(2n-1)!!}\\
 	< \frac{\pi}{2} < \frac{(2n-2)!! \cdot (2n)!!)}{((2n-1)!!)^2}\\
 	\frac{1}{2n+1}\cdot \Bigg(\frac{(2n)!!}{(2n+1)!!} \Bigg)^2 < \frac{\pi}{2} < \frac{1}{2n} \Bigg(\frac{(2n)!!}{(2n-1)!!} \Bigg)^2$
@@ -952,19 +957,21 @@
 	$\displaystyle x_n = \frac{1}{n} \Bigg(\frac{(2n)!!}{(2n-1)!!}\Bigg)^2 \Rightarrow \pi < x_n < \frac{2n+1}{2n} \pi, \Rightarrow \ x_n \to \pi$
 \end{proof}
 
-\begin{Thm}[Вторая теорема о среднем для интегралова, Бонне] 
+\begin{Thm}[Вторая теорема о среднем для интегралов, Бонне] 
 	$f \in C[a,b], \\ g \in C^1[a,b], g$ монотонна на $[a,b].$ Тогда $\exists c \in [a,b]:$
 	\[\int_{a}^{b} fg = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f\]
 \end{Thm} 
 
 \begin{proof}
-	$\displaystyle F(x) = \int_{a}^{x} f, \ \ F' = f, F(a) = 0\\
-	\int_{a}^{b} fg = Fg \Big|^b_a - \int_{a}^{b} - \int_{a}^{b} Fg' = g(b) \int_{a}^{b} f - \int_{a}^{b} Fg' = 
-	g(b) \int_{a}^{b} f - \int_{a}^{c} f \cdot (g(b) - g(a)) = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f$
+	$\displaystyle F(x) = \int_{a}^{x} f, \ \ F' = f, F(a) = 0$
+	\begin{gather*}
+		\int_{a}^{b} fg = Fg \Big|^b_a - \int_{a}^{b} - \int_{a}^{b} Fg' = g(b) \int_{a}^{b} f - \int_{a}^{b} Fg' = \\
+		= g(b) \int_{a}^{b} f - \int_{a}^{c} f \cdot (g(b) - g(a)) = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f
+	\end{gather*}
 \end{proof}
 
 \begin{Ex}
-	Оценить $\int_{100\pi}^{200\pi} \frac{\sin x}{x} dx$\\
+	Оценить $\int_{100\pi}^{200\pi} \frac{\sin x}{x} \,dx$\\
 	\begin{enumerate}
 		\item По первой теореме о среднем.
 		\item По второй теореме о среднем.
