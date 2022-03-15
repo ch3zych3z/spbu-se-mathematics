@@ -979,4 +979,273 @@
 	
 \end{Ex}
 
+\Subsection{Интегральные неравенства}
+
+\def\AuthorName{Илья Дудников}
+
+\begin{Thm}[Неравенство Йенсена]
+	$f$ -- выпукла и непрерывна на $\langle A, B\rangle$, $\PHI : [a, b] \to \langle A, B\rangle$ -- непрерывна,
+	$\lambda : [a, b] \to [0, +\infty)$ -- непрерывна, $\int_a^b \lambda = 1$. Тогда
+	\[f\left( \int_a^b \lambda \PHI\right) \leqslant \int_a^b \lambda \cdot f(\PHI)\]
+\end{Thm}
+
+\begin{Ex}
+	Доказать.
+\end{Ex}
+
+\begin{Rem}
+	Строкое неравенство, если $f$ строго выпукла и $\PHI \not\equiv \const$. 
+\end{Rem}
+
+\begin{Thm}[Неравенство Гельдера]
+	$p, q > 1, \frac{1}{p} + \frac{1}{q} = 1, f, g \in C[a, b]$. Тогда
+	\[\left|\int_a^b fg\right| \leqslant \left(\int_a^b |f|^p\right)^{\frac{1}{p}} \cdot \left(\int_a^b |g|^q\right)^{\frac{1}{q}}\]
+\end{Thm}
+
+\begin{proof}
+	Пусть $x_k = \frac{k(b - a)}{n} + a, \xi_k = x_k$.
+	Обозначим $a_k = f(x_k) (\Delta x_k)^{\frac{1}{p}}, b_k = g(x_k) (\Delta x_k)^{\frac{1}{q}} \SO a_k b_k = f(x_k) g(x_k) \Delta x_k$. Тогда
+	\[\left| \sum_{k=0}^{n - 1} a_k b_k \right| \leqslant \left(\sum_{k=0}^{n - 1} |a_k|^p\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 0}^{n - 1}|b_k|^q\right)^{\frac{1}{q}}\]
+	\[\left| \sum_{k=0}^{n - 1} f(x_k)g(x_k) \Delta x_k \right| \leqslant \left(\sum_{k = 0}^{n - 1} |f(x_k)|^p \Delta x_k\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 0}^{n - 1}|g(x_k)|^q\right)^{\frac{1}{q}}\]
+	Выполним предельный переход:
+	\[\left|\int_a^b fg\right| \leqslant \left(\int_a^b |f|^p\right)\frac{1}{p} \cdot \left(\int_a^b |g|^q\right)\frac{1}{q}\] 	
+\end{proof}
+
+\begin{Cons}[Неравенство Коши-Буняковского]
+	$f, g \in C[a, b] \SO \left|\int_a^b fg\right| \leqslant \sqrt{\int_a^b f^2} \cdot \sqrt{\int_a^b g^2}$ 
+\end{Cons}
+
+\begin{Thm}[Неравенство Минковского]
+	$f, g \in C[a, b], p \geqslant 1$.
+	\[\left(\int_a^b |f + g|^p\right)^{\frac{1}{p}} \leqslant \left(\int_a^b |f|^p\right)^{\frac{1}{p}} + \left(\int_a^b |g|^q\right)^{\frac{1}{q}}\] 
+\end{Thm}
+
+\begin{Def}
+	Пусть $f \in C[a, b]$.
+	\begin{MyList}
+		\item Величина
+		\[\frac{1}{b - a}\int_a^b f\]
+		называется интегральным средним арифметическим функции $f$ на $[a, b]$.
+
+		\item Если $f > 0$, то величина
+		\[\exp \left(\frac{1}{b - a}\int_a^b f\right)\]
+		называется интегральным средним геометрическим функции $f$ на $[a, b]$.
+	\end{MyList}
+\end{Def}
+
+\begin{Rem}
+	Интегральное среднее геометрическое есть пределы при $n \to \infty$ последовательности
+	\[\sqrt[n]{\prod_{k = 0}^{n - 1} f(x_k)} = \exp \left(\frac{1}{n} \sum_{k = 0}^{n - 1} \ln f(x_k)\right) = \exp \left(\frac{1}{b - a} \sum_{k = 0}^{n - 1} \ln f(x_k) \Delta x_k\right)\]
+	при $x_k = a + \frac{k(b - a)}{n}$.  
+\end{Rem}
+
+\begin{Thm}[Об интегральных средних]
+	$f \in C[a, b], f > 0$. Тогда 
+	\[\exp\left(\frac{1}{b - a}\int_a^b \ln f\right) \leqslant \frac{1}{b - a}\int_a^b f\]
+\end{Thm}
+
+\begin{proof}
+	Предельный переход в неравенстве для сумм, либо применить неравенство Йенсена для $\ln x$.
+\end{proof}
+
+\Subsection{Несобственные интегралы}
+
+\begin{Def}
+	$f$ локально интегрируема (по Риману) на промежутке $E$, если она интегрируема на каждом отрезке из $E$.
+\end{Def}
+
+\begin{Rem}
+	Непрерывность влечет локальную интегрируемость.
+\end{Rem}
+
+\begin{Def}
+	Пусть $-\infty < a < b \leqslant +\infty, f \in R_{loc}[a, b]$. Тогда
+	$\int_a^{\to b}f$ -- несобственный интеграл. 
+	\[\lim_{t \to b-} \int_a^t f = \int_a^{\to b}\]
+	если предел существует в $\overline{\R}$. 
+\end{Def}
+
+\begin{Def}
+	Несобственный интеграл называется сходящимся, если из $\R$. 
+\end{Def}
+
+\begin{Def}
+	Аналогично, для $-\infty \leqslant a < b < +\infty, f \in R_{loc}(a, b]$ 
+	\[\int_{\to a}^b f = \lim_{t \to a+} \int_t^b f\]
+	если предел существует в $\overline{\R}$.  
+\end{Def}
+
+\begin{Thm}[Критерий Больцано-Коши сходимости интегралов]
+	Пусть $-\infty < a < b \leqslant +\infty, f \in R_{loc}[a, b)$. Тогда сходимость интеграла $\int_a^b f$ равносильна условию
+	\[\forall \varepsilon > 0 \ \exists \Delta \in (a, b) : \forall t_1, t_2 \in (\Delta, b) \ \left|\int_{t_1}^{t_2} f\right| < \varepsilon\]	
+\end{Thm}
+
+\begin{proof}
+	$\Phi (t) = \int_a^t f$. $\int_a^b$ сходится $\EQ \exists$ конечный $\lim_{t \to b-} \Phi (t)$.
+	Согласно критерию Больцано-Коши существования предела функции
+	\[\exists \varepsilon > 0 \ \exists \Delta \in (a, b) : \forall t_1, t_2 \in (\Delta, b) \ |\Phi(t_2) - \Phi(t_1)| < \varepsilon\]
+	и по аддитивности интеграла $\Phi(t_2) - \Phi(t_1) = \int_{t_1}^{t_2} f$.
+\end{proof}
+
+\begin{Rem}
+	Расходимость $\int_a^b f \EQ \exists \varepsilon > 0 \ \forall \Delta \in (a, b) \ \exists t_1, t_2 \in (\Delta, b) \ \left| \int_{t_1}^{t_2} f\right| \geqslant \varepsilon$
+\end{Rem}
+
+\begin{Rem}
+	Запись:
+	\[\int_a^b f = \lim_{t \to b-}\int_a^t f = \lim_{t \to b-} (F(t) - F(a)) = F(b-) - F(a)\]
+\end{Rem}
+
+\begin{Example}
+	$\int_1^{+\infty} \frac{1}{x^{\alpha}} \, dx$
+	\[\int_1^{+\infty} \frac{1}{x^\alpha}\,dx = \begin{cases}
+		\left.\frac{x^{1 - \alpha}}{1 - \alpha}\right|_{1}^{+\infty}, \alpha \neq 1 \\
+		\left.\ln x\right|_1^{+\infty}, \alpha = 1
+	\end{cases} = \begin{cases}
+		\frac{1}{\alpha - 1}, \alpha > 1 \\
+		+\infty, \alpha \leqslant 1
+	\end{cases}\] 
+\end{Example}
+
+\begin{Example}
+	$\int_0^1 \frac{1}{x^\alpha} \,dx = \begin{cases}
+		+\infty, \alpha \geqslant 1 \\
+		\frac{1}{1 - \alpha}, \alpha < 1.
+	\end{cases}$ 
+\end{Example}
+
+\Subsubsection{Свойства несобственного интеграла}
+
+Будем считать, что $f$ локально интегрируема на рассматриваемых промежутках.
+
+\begin{MyList}
+	\item \textbf{Аддитивность по промежутку.}  Если $\int_a^b f$ сходится, то $\forall c \in (a, b)$ интеграл $\int_c^b$ тоже сходится и
+	\[\int_a^b = \int_a^c f + \int_c^b f\]	
+	В обратную сторону, если при $c \in (a, b)$ интеграл $\int_c^b f$ сходится, то сходится и интеграл $\int_a^b f$.
+	\begin{proof}
+		$\forall t \in (a, b) \ \int_a^t f = \int_a^c f + \int_c^t f$ -- по аддитивности определенного интеграла.
+		Переидем к пределу при $t \to b-$ предел левой части и правой части существует или не существует одновременно.
+	\end{proof}
+
+	\item Если $\int_a^b f$ сходится, то $\underbrace{\int_t^b f \xrightarrow[t \to b-]{} 0}_{\text{остаток интеграла}}$.
+	\begin{proof}
+		\[\int_t^b f = \int_a^b f - \int_a^t \xrightarrow[t \to b-]{}\int_a^b f - \int_a^b f = 0\]
+	\end{proof}
+
+	\item \textbf{Линейность несобственного интеграла.}  Если интегралы $\int_a^b f, \int_a^b g$ сходятся, $\alpha, \beta \in \R$, то интеграл $\int_a^b(\alpha f + \beta g)$ сходится и
+	\[\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g\]
+	\begin{proof}
+		Для доказательства надо перейти к пределу в равенстве для частичных интегралов
+		\[\int_a^t (\alpha f + \beta g) = \alpha \int_a^b f + \beta \int_a^t g\]
+	\end{proof}
+
+	\begin{Rem}
+		Если интеграл $\int_a^b f$ расходится, а интеграл $\int_a^b g$ сходится, то интеграл $\int_a^b(f + g)$ расходится.
+		Действительно, если $f + g$ сходится, то сходится и интеграл от $f = (f + g) - f$ (?!).
+	\end{Rem}
+
+	\item \textbf{Монотонность несобственного интеграла.} Если интегралы $\int_a^b f, \int_a^b g$ существуют в $\overline{R}, f \leqslant g$ на $[a, b)$, то
+	\[\int_a^b f \leqslant \int_a^b g\]
+
+	\begin{proof}
+		Переидем к пределу в неравенстве для частичных пределов
+		\[\int_a^t f \leqslant \int_a^t g\]	
+	\end{proof}
+
+	\begin{Rem}
+		Аналогично, с помощью предельного перехода, на несобственные интегралы переносятся неравенства Йенсена, Гельдера, Минковского.
+	\end{Rem}
+
+	\item \textbf{Интегрирование по частям в несобственном интеграле.} Пусть $f, g$ дифференцируемы на $[a, b), f', g' \in R_{loc}[a, b)$.
+	Тогда
+	\[\int_a^b fg' = \left.fg\right|_a^b - \int_a^b f'g\]
+	Если два из этих трез пределов конечны, то третий предел также существует и конечен.
+
+	\begin{proof}
+		Устремим $t$ к $b$ слева в равенстве
+		\[\int_a^t fg' = \left.fg\right|_a^t - \int_a^t f'g\]
+	\end{proof}
+
+	\item \textbf{Замена переменной в несобственном интеграле.} 
+	Пусть $\PHI : [\alpha, \beta) \to [A, B)$ -- дифференцируема на $[\alpha, \beta)$, $\PHI' \in R_{loc}[\alpha, \beta)$, существует 
+	$\PHI(\beta -) \in \overline{R}, f \in C[A, B)$. Тогда
+	\[\int_\alpha^\beta (f \circ \PHI)\PHI' = \int_{\PHI(\alpha)}^{\PHI(\beta-)} f\]
+	Опять же, если существует один из интегралов, то существует и другой.    
+
+	\begin{proof}
+		Обозначим
+		\[\Phi(t) = \int_\alpha^t (f \circ \PHI) \PHI', \quad \Psi(y) = \int_{\PHI(\alpha)}^y f\]
+		По формуле замены переменной в собственном интеграле 
+		\[\Phi(t) = \Psi(\PHI(t))\]
+
+		\begin{MyList}
+			\item Пусть $\exists \int_{\PHI(\alpha)}^{\PHI(\beta)} f = I \in \overline{R}$. Докажем, что $\exists \int_\alpha^\beta f(\PHI)\PHI' = I$, т.е.
+			$\Phi(t) \xrightarrow[t \to \beta-]{} I$. Возьмем $\{t_n\} : t_n \to \beta, t_n < \beta$. 
+			Тогда $\PHI(t_n) \to \PHI(b-), \PHI(t_n) \in [A, B)$. Поэтому $\Phi(t_n) = \Psi(\PHI(t_n)) \to I$. В силу произвольности выбора $\{t_n\}$, $\Phi(t) \to I$ при $t \to \beta-$.
+			
+			\item Пусть существует интеграл $\int_\alpha^\beta (f \circ \PHI) \PHI' = J \in \overline{R}$. 
+			Докажем, что интеграл $\int_{\PHI(\alpha)}^{\PHI(\beta-)} f$ существует, и тогда по пункту 1 будет следовать, что он равен $J$. 
+			Если $\PHI(\beta -) \in [A, B)$, то интеграл собственный. 
+			Пусть $\PHI(\beta-) = B$. Возьмем $\{y_n\}, y_n \in [A, B), y_n \to B$. Не уменьшая общности, можно считать, что $y_n \in [\PHI(\alpha), B)$.
+			Тогда $\exists \gamma_n \in [\alpha, \beta) : \PHI(\gamma_n) = y_n$ (по теореме Больцано-Коши).
+
+			Докажем, что $\gamma_n \to \beta$. Пусть $\beta' \in [\alpha, \beta)$. Т.к. $\max_{[\alpha, \beta']} \PHI < \beta$, а
+			$\PHI(\gamma_n) \to B$, то, начиная с некоторого номера, $\gamma_n \in (\beta', \beta)$. Поэтому $\gamma_n \to \beta$, откуда $\Psi(y_n) = \Phi(\gamma_n) \to J$.     
+		\end{MyList}
+	\end{proof}
+
+	\begin{Example}
+		$\int_0^\pi \frac{dx}{2 + \cos x}$. Пусть $t = \tg \frac{x}{2}$. Тогда $x = 2 \arctg t, \cos x \frac{1 - t^2}{1 + t^2}, dx = \frac{2}{1 + t^2}\,dt$. 
+		Если $x = 0$, то $t = 0$. Если $x = \pi$, то $t = +\infty$. Тогда
+		\begin{gather*}
+		\int_0^\pi \frac{dx}{2 + \cos x} = \int_0^{+\infty} \frac{1}{2 + \frac{1 - t^2}{1 + t^2}} \cdot \frac{2}{1 + t^2}\,dt = \int_0^{+\infty} \frac{2dt}{(1 + t^2) \cdot 2 + 1 - t^2} = 2 \int_0^{+\infty} \frac{dt}{t^2 + 3} = \\
+		=  \left.2 \cdot \frac{1}{\sqrt{3}} \arctg{\frac{t}{\sqrt{3}}}\right|_0^{+\infty} = \frac{2}{\sqrt{3}}\left(\frac{\pi}{2} - 0\right) = \frac{\pi}{\sqrt{3}}
+		\end{gather*}
+	\end{Example}
+
+	\begin{Rem}
+		$a < b \in \R$. Пусть $x = b - \frac{1}{t}$.
+		\[\int_a^b f(x) \,dx = \int_{\frac{1}{b - a}}^{+\infty} f\left(b - \frac{1}{t}\right)\cdot \frac{1}{t^2}\,dt\]
+	\end{Rem}
+
+	\begin{Example}
+		\[\int_1^{+\infty} \cos x \,dx = \left.\sin x\right|_1^{+\infty} = \lim_{x \to +\infty} \sin x - \sin 1 \textrm{ -- не существует}\]
+	\end{Example}
+\end{MyList}
+
+\Subsubsection{Признаки сходимости несобтсвенных интегралов}
+
+\begin{Lm}
+	$f \in R_{loc} [a, b), f \geqslant 0$. Тогда $\int_a^b f$ сходится $\EQ$ $F(t) = \int_a^t f$ на $[a, b)$ ограничена сверху. 
+\end{Lm}
+
+\begin{proof}
+	$F(t)$ возрастает на $[a, b)$ $\left(t_1, t_2 \ F(t_2) - F(t_1) = \int_{t_1}^{t_2} f \geqslant 0\right)$.
+	$\displaystyle{\exists \lim_{t \to b-} F(t) \in \R \EQ F}$ возрастает и $F$ ограничена сверху. 
+\end{proof}
+
+\begin{Rem}
+	Если $f \geqslant 0$, то $\int_a^b f \in \overline{R}$.
+\end{Rem}
+
+\begin{Thm}[Признак сравнения]
+	$f, g \in R_{loc} [a, b), f, g \geqslant 0$
+	\[f(x) = O(g(x)) \qquad \textrm{при } x \to b-\]
+	Тогда 
+	\begin{MyList}
+		\item Если $\int_a^b g$ сходится, то $\int_a^b f$ сходится.
+		\item Если $\int_a^b f$ расходится, то $\int_a^b g$ расходится.
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item По определению $O$-большого найдутся такие $\Delta \in (a, b)$ и $K > 0$, что $f(x) \leqslant Kg(x)$ при всех $x \in [\Delta, b)$. Следовательно,
+		\[\int_\Delta^b f \leqslant K \int_\Delta^b g < +\infty\]
+		то есть остаток интеграла $\int_a^b f$ сходится, а тогда и сам интеграл $\int_a^b f$ сходится.
+
+		\item Если бы интеграл $\int_a^b g$ сходился, то по пункту 1 сходился бы и интеграл $\int_a^b f$.
+	\end{MyList} 
+\end{proof}
+
 \end{document}
