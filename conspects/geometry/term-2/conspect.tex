@@ -395,9 +395,9 @@
 		  \item $\overline{v} \nparallel \overline{w}  \Rightarrow (\overline{v}, \overline{w}, \overline{v} \times \overline{w})$ -- правая.
 		  \item $\overline{i} \times \overline{j} = \overline{k}$. Получим таблицу умножения: $i \to j, j \to k, k \to i$.
 		  \item $(\overline{a} \times \overline{b})^2 = (x_2 y_3 - y_2 x_3)^2 + (...)^2 + (...)^2 \\
-		  \overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2 = (x_1^2 + x_2^2 + x_3^2)(y_1^2 + y_2^2 + y_3^2) - (x_1y_1 +x_2y_2 +x_3y_3)^2 \\
-		  (\overline{a} \times \overline{b})^2 = \overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2$ -- упражнение.\\
-		  $\overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2 = S^2 = |\overline{a}|^2 |\overline{b}|^2 \sin^2\alpha = a^2 b^2 (1 - \cos^2 \alpha) = \overline{a}^2 \overline{b}^2 - (\overline{a} \overline{b})^2$, т.к. $\cos^2 \alpha = \frac{(a, b)^2}{|a||b|}$.\\
+		  \overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2 = (x_1^2 + x_2^2 + x_3^2)(y_1^2 + y_2^2 + y_3^2) - (x_1y_1 +x_2y_2 +x_3y_3)^2 \\
+		  (\overline{a} \times \overline{b})^2 = \overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2$ -- упражнение.\\
+		  $\overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2 = S^2 = |\overline{a}|^2 |\overline{b}|^2 \sin^2\alpha = |\overline{a}|^2 \overline{b}|^2 (1 - \cos^2 \alpha) = |\overline{a}|^2 |\overline{b}|^2 - (\overline{a}, \overline{b})^2$, т.к. $\cos^2 \alpha = \frac{(a, b)^2}{|a|^2|b|^2}$.\\
 	  \begin{figure*}[h]
 		  \centering
 		  \def\svgwidth{0.3\columnwidth}
@@ -406,7 +406,7 @@
 	  Следствие: $|\overline{a}| = |\overline{b}| = 1,  (\overline{a}, \overline{b}) \Rightarrow |\overline{a} \times \overline{b}| = 1$.
   \end{MyList}
   
-	Рассмотрим $V^3$, фиксируем ОНБ $(\overline{i}, \overline{j}, \overline{k})$, зададим векторное произведение $\times: V \times V \to V$.
+	Рассмотрим $V^3$, зафиксируем ОНБ $(\overline{i}, \overline{j}, \overline{k})$, зададим векторное произведение $\times: V \times V \to V$.
 
 	Выберем $\overline{a}, \overline{b}, \overline{c}$ -- правый ОНБ, таким образом, если взять любой ОНБ, можно получить таблицу умножения: $a \to b, b \to c, c \to a$.
 
@@ -418,6 +418,436 @@
 		\overline{a} & \overline{b} & \overline{c} \\ 
 		\lambda_1 & \lambda_2 & \lambda_3 \\ 
 		\mu_1 & \mu_2 & \mu_3
-		\end{array}\right|$.   
+		\end{array}\right|$.  
+	
+	\Subsection{Смешанное умножение}
+
+	Рассмотрим трёхмерное ориентированное векторное пространство $V^3$, в котором зафиксирован базис $\{\overline{i}, \overline{j}, \overline{k}\}$ и на котором задано векторное умножение: $\times$.
+
+	Зададим новую операцию -- смешанное произведение $(,,): V \times V \times V \to \R$. 
+
+	\begin{Def}
+		Смешанное произведение трёх векторов $\overline{a}, \overline{b}, \overline{c}$ -- скалярное произведение вектора $\overline{a}$ и векторного произведения векторов $\overline{b}$ и $\overline{c}$. $(\overline{a}, \overline{b}, \overline{c}) = (\overline{a}, \overline{b} \times \overline{c}).$
+	\end{Def}
+
+	\begin{Example}
+		Что подразумевает под собой смешанное произведение?
+		
+		Рассмотрим $\overline{a} = (a_1, a_2, a_3), \overline{b} = (b_1, b_2, b_3), \overline{c} = (c_1, c_2, c_3) $.
+		
+		$\overline{b} \times \overline{c} = 
+		\left|\begin{array}{cccc}
+			\overline{i}  & \overline{j}  & \overline{k}  \\ 
+			b_1 &  b_2 & b_3 \\ 
+			c_1 & c_2 & c_3
+			\end{array}\right| = \overline{i} 
+		\left|\begin{array}{cccc}
+			b_2 & b_3 \\ 
+			c_2 & c_3
+			\end{array}\right| - \overline{j}
+		\left|\begin{array}{cccc}
+			b_1 & b_3 \\ 
+			c_1 & c_3
+			\end{array}\right| + \overline{k}
+		\left|\begin{array}{cccc}
+			b_1 & b_2 \\ 
+			c_1 & c_2
+			\end{array}\right| $
+		
+			$(\overline{a}, \overline{b} \times \overline{c}) = a_1
+		\left|\begin{array}{cccc}
+		b_2 & b_3 \\ 
+		c_2 & c_3
+		\end{array}\right| - 
+		a_2 \left|\begin{array}{cccc}
+			b_1 & b_3 \\ 
+			c_1 & c_3
+			\end{array}\right| + 
+		a_3  \left|\begin{array}{cccc}
+			b_1 & b_2 \\ 
+			c_1 & c_2
+			\end{array}\right| = 
+		\left|\begin{array}{cccc}
+			a_1  & a_2  & a_3  \\ 
+			b_1 &  b_2 & b_3 \\ 
+			c_1 & c_2 & c_3
+			\end{array}\right| = (\overline{a}, \overline{b}, \overline{c})$
+
+		Таким образом, $(\overline{a}, \overline{b}, \overline{c}) = \left|\begin{array}{cccc}
+			a_1  & a_2  & a_3  \\ 
+			b_1 &  b_2 & b_3 \\ 
+			c_1 & c_2 & c_3
+			\end{array}\right|$
+	\end{Example}
+
+	Свойства смешанного произведения:
+	\begin{MyList}
+		\item Линейность по каждому аргументу, как композиция линейных отображений.
+		\item $(\overline{a}, \overline{b}, \overline{c}) = - (\overline{a}, \overline{c}, \overline{b})$ по свойству векторного произведения.
+		
+			  $(\overline{a}, \overline{b}, \overline{c}) = - (\overline{b}, \overline{a}, \overline{c}); (\overline{a}, \overline{b}, \overline{c}) = (\overline{b}, \overline{c}, \overline{a})$.
+
+			  Знак меняется в зависимости от чётности перестановки в силу свойств определителя.
+		\item Геометрический смысл для трёх некомпланарных.
+
+			Если $\overline{a}$ сходит туда же, куда и $\overline{b} \times \overline{c}$, то $(\overline{a}, \overline{b}, \overline{c})$ -- правая тройка. Если $\overline{a}$ "смотрит" в другую плоскость, то тройка -- левая.
+
+			$\overline{b} \times \overline{c} = S$, тогда $(\overline{a}, \overline{b} \times \overline{c}) = S \underbrace{|\overline{a}| \cos \alpha}_{h} = S\cdot h$.
+			Таким образом, $(\overline{a}, \overline{b}, \overline{c}) = S\cdot h = V_{\text{пар}}$. 
+
+			Вывод: смешанное произведение равно $\pm V$ параллелепипеда (знак зависит от ориентации).
+	\end{MyList}
+	
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.5\columnwidth}
+		\input{img/triple-product.pdf_tex}
+	\end{figure*}
+
+	\Subsection{Двойное векторное умножение. Тождество Якоби}
+
+	Рассмотрим ориентированное $V^3$ и $\overline{a} \times (\overline{b} \times \overline{c})$, выражение имеет смысл, поскольку и $\overline{a}$ -- вектор, и $(\overline{b} \times \overline{c})$ -- вектор. 
+
+	\begin{Prop}[Формула "бац минус цаб"]
+		$$\overline{a} \times (\overline{b} \times \overline{c}) = \overline{b}(\overline{a}, \overline{c}) - \overline{c}(\overline{a}, \overline{b}).$$
+	\end{Prop}
+		
+	\begin{proof}
+		И справа, и слева знака равенства линейные выражения. Представим, что есть функция с операцией из трёх аргументов $f(\overline{a}, \overline{b}, \overline{c})$, где каждый из векторов может быть расписан по базису, т.е. $f(\overline{a}, \overline{b}, \overline{c}) = f(a_1 \overline{i} + a_2 \overline{j} +a_3 \overline{k}, b_1 \overline{i} + b_2 \overline{j} + b_3 \overline{k}, c_1 \overline{i} + c_2 \overline{j} + c_3 \overline{k})
+		= a_1 b_1 c_1 f(\overline{i}, \overline{i}, \overline{i}) + a_1 b_1 c_2 f(\overline{i}, \overline{i}, \overline{j}) + ... + a_3 b_3 c_3 f(\overline{i}, \overline{j}, \overline{k})$, в силу линейности мы вынесли числа за скобки и получили все возможные наборы базисных элементов. В качестве первого, второго и третьего аргумента может быть один из трёх векторов: $\overline{i}, \overline{j}, \overline{k}$, т.е. 27 базисных наборов, в данном выражении 27 слагаемых. 
+
+		Чтобы вычислить значение трилинейной функции на каком-то наборе векторов, достаточно знать координаты этих векторов и значения отображения функции 27 базисных наборов.
+		Тогда для доказательства выражения достаточно проверить, совпадают ли две трилинейные функции на 27 базисных наборах, значит, они совпадают везде.\\
+		Проверим для базисного набора "$\overline{i}, \overline{i}, \overline{i}$": $\overline{i} \times \underbrace{(\overline{i} \times \overline{i})}_{0} = \overline{i} \underbrace{(\overline{i}, \overline{i})}_{1} - \overline{i}\underbrace{(\overline{i}, \overline{i})}_{1}$\\
+		Для набора "$\overline{i}, \overline{i}, \overline{j}$": $\overline{i} \times (\overline{i} \times \overline{j}) = \overline{i}(\overline{i}, \overline{j}) - \overline{j}(\overline{i}, \overline{i})$, используем таблицу умножения: $i \to j, j \to k, k \to i$, тогда $\overline{i} \times \underbrace{(\overline{i} \times j)}_{\overline{i} \times \overline{k} = - \overline{j} } = \overline{i}\underbrace{(\overline{i}, \overline{j})}_0 - \overline{j}\underbrace{(\overline{i}, \overline{i})}_1\\$
+		Аналогично для остальных 25 базисных наборов.
+	\end{proof}
+
+	\begin{Thm}[Тождество Якоби]
+		$$\overline{a} \times (\overline{b} \times \overline{c}) + \overline{b}\times(\overline{c} \times \overline{a}) + \overline{c} \times (\overline{a}\times \overline{b}) = 0$$
+	\end{Thm}
+
+	\begin{proof}
+		$\overline{b}(\overline{a},\overline{c}) - \overline{c}(\overline{a}, \overline{b}) + \overline{c}(\overline{a}, \overline{b}) - \overline{a}(\overline{b}, \overline{c}) + \overline{a}(\overline{c}, \overline{b}) - \overline{b}(\overline{a}, \overline{c}) = 0$
+	\end{proof}
+
+	Пусть $V$ -- векторное пространство, на нём есть бинарная операция $[,]: V \times V \to V$, которая обладает свойствами:
+	\begin{MyList}
+		\item Билинейность
+		\item Косокоммутативность: $[\overline{a}, \overline{b}] = -[\overline{b}, \overline{a}]$
+		\item Удовлетворяет тождеству Якоби: $[\overline{a}, [\overline{b}, \overline{c}]] + [\overline{b}, [\overline{c}, \overline{a}]] + [\overline{c}, [\overline{a}, \overline{b}]] = 0$
+	\end{MyList}
+	
+	\begin{Def}
+		Если выполняются все свойства, то операция $[,]$ называется скобка Ли, а векторное пространство $(V, [,])$ -- алгебра Ли.
+	\end{Def}
+
+	\Subsection{Уравнение прямой на плоскости}
+
+	Возьмём точку $M$ и вектор $\overline{v}$, который отложим от точки $M$, проведём прямую, кторая содержит эти два объекта. Отметим точку $M'$, которая записывается как $M' = M + t \overline{v}$.  
+
+	\begin{Def}
+		$M' = M + t \overline{v}$ -- параметрическое задание. 
+	\end{Def}
+
+	Выберем начало координат $O$, вектор $\overline{r}_0$, который соответсвует точке $M$ и вектор $\overline{r}$, который соответсвует произольной точке $M'$. Тогда вектор $\overline{r}$ в зависимости от $t$ представляется как $\overline{r}(t) = \overline{r}_0 + t \overline{v}$
+	
+	\begin{Def}
+		$$\overline{r}(t) = \overline{r}_0 + t \overline{v}$$ -- параметрическое уравнение прямой.
+	\end{Def}
+
+	Обозначим координаты вектора $\overline{r}$ как $(x, y)$, вектора $\overline{r}_0$ как $(x_0, y_0)$, вектора $\overline{v}$ как $(a, b)$. Тогда запишем это уравнение с каждой координатой.
+
+	\begin{Def}
+		$ \begin{cases}
+			x = x_0 + ta\\
+			y = y_0 + tb
+		\end{cases} $ -- параметрическое уравнение в координатах.
+	\end{Def}
+
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.5\columnwidth}
+		\input{img/line_in_Cartesian_coordinates.pdf_tex}
+		\caption{Изображение вектора $\overline{v}$ на плоскости}
+	\end{figure*}
+	Выразим из обоих уравнений $t$, из первого уравнения получаем $t = \frac{x - x_0}{a}$, из второго $t = \frac{y - y_0}{b}$, тогда верно $\frac{x-x_0}{a} = \frac{y - y_0}{b}$.
+
+	\begin{Def}
+		$$\frac{x-x_0}{a} = \frac{y - y_0}{b}$$ -- каноническое уравнение прямой на плоскости.
+	\end{Def}
+
+	\begin{Example}
+		$2x = y - 1$, можно записать данное выражение как: $\frac{x - 0}{1} = \frac{y - 1}{2}$
+	\end{Example}
+
+	Пусть нам известны координаты начала вектора $(x_0, y_0)$ и координаты конца $(x_1, y_1)$, тогда можно записать каноническое уравнение прямой в другом виде.
+
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.2\columnwidth}
+		\input{img/canonical_equation_of_line.pdf_tex}
+	\end{figure*}
+
+	\begin{Def}
+		$$\frac{x-x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0}$$ -- каноническое уравнение прямой на плоскости.
+	\end{Def}
+
+	Приведём первый вариант канонического уравнения прямой к следующему виду: \\
+	$bx - x_0b = ay - ay_0 \Rightarrow bx - ay + (ay_0 -bx_0) = 0$.\\
+	Введём обозначения, пусть $A$ -- коэффициент при $x$, $B$ -- коэффициент при $y$, а $C$ -- свободный член.
+
+	\begin{Def}
+		$A^2 + B^2 \neq 0$
+		$$Ax + By + C = 0$$ -- общее уравнение прямой на плоскости. \\
+		$(-B, A)$ -- направляющий вектор.\\
+		$(-\frac{C}{A}, 0)$ -- точка.\\
+		$(-B, A)$ -- перпендикуляр к прямой (вектор нормали). 
+	\end{Def}
+
+	$B \neq 0$, тогда $y = -\frac{A}{B} - \frac{C}{B}$, введём обозначения.
+	\begin{Def}
+		$$y = kx + b$$ -- уравнение прямой с угловым коэффициентом, где $k = \tg \alpha$.
+	\end{Def}
+
+	Пусть вектор $\overline{n}$ с координатами $(A,B)$ перпендикулярен вектору  $\overline{v}$ (рис. 2), т.е. $\overline{MM'} \perp \overline{n})$, тогда $(\overline{n}, \overline{MM'}) = 0$.
+
+	\begin{Def}
+		$$(\overline{n}, \overline{r} - \overline{r}_0) = 0$$ -- векторное уравнение прямой на плоскости.
+	\end{Def}
+
+	Раскроем скобки: $(\overline{n}, \overline{r}) - (\overline{n} - \overline{n}_0) = 0 \Rightarrow (\overline{n}, \overline{r}) = (\overline{n}, \overline{r}_0)$, обозначим $(\overline{n}, \overline{r}_0) = \alpha$, поскольку векторы $\overline{n}$ и $\overline{r}_0$ зафиксированы.
+
+	\begin{Def}
+		$$(\overline{n}, \overline{r}) = \alpha$$ -- векторное уравнение прямой на плоскости, где $\overline{n}$ -- перпендикуляр к исходной прямой.
+	\end{Def}
+
+	\Subsection{Уравнение плоскости в пространстве}
+	
+	Возьмём точку $M_0$ в $R^3$ и зададим плоскость двумя неколлинеарными векторами $\overline{a}$ и $\overline{b}$, т.е. $\overline{a} \nparallel \overline{b}$. Любая точка $M$ этой плоскости является линейной комбинацией: $M = M_0 + \alpha \overline{a} + \beta \overline{b}$.
+	
+	\begin{Def}
+		$M = M_0 + \alpha \overline{a}  + \beta \overline{b}$ -- параметрическое задание точек пространства $R^3$.
+	\end{Def}
+	
+	Аналогично, как в уравнении прямой на плоскости, возьмём начало координат $O$ и запишем через параметры радиус-вектор $\overline{r}$ точки $M$.
+
+	\begin{Def}
+		$$\overline{r} (\alpha, \beta) = \overline{r}_0 + \alpha \overline{a} + \beta \overline{b}$$ -- параметрическое уравнение плоскости в пространстве.
+	\end{Def}
+
+	Выберем систему координат, тогда у точки $M$ будут координаты $(x, y, z)$. Запишем параметрическое уравнение в координатах.
+
+	\begin{Def}
+		$ \begin{cases}
+			x = x_0 + \alpha a_1 +  \beta b_1\\
+			y = y_0 + \alpha a_2 + \beta b_2 \\
+			z = z_0 + \alpha a_3 + \beta b_3
+		\end{cases} $ -- параметрическое уравнение плоскости в координатах.
+	\end{Def}
+
+	Рассмотрим правоориентированное векторное пространство $R^3$. Если есть вектора $\overline{a}$ и $\overline{b}$, то их векторное произведение -- перпендикуляр $\overline{n}$ к плоскости, которая содержит эти вектора $\overline{a}$ и $\overline{b}$. С помощью этого перпендикуляра можно записать уравнение плоскости: $(\overline{n}, \overline{M_0M}) = 0$.
+
+	\begin{Def}
+		$$(\overline{n}, \overline{r} - \overline{r_0}) = 0$$ -- векторное уравнение плоскости.
+	\end{Def}
+
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.4\columnwidth}
+		\input{img/equation_of_a_plane.pdf_tex}
+	\end{figure*}
+
+	Если координаты вектора $\overline{n}$ -- $(A, B, C)$, то можно записать скалярное произведение в другом виде.
+
+	\begin{Def}
+		$$A(x- x_0) + B(y - y_0) + C(z - z_0) = 0$$ -- общее уравнение плоскости.
+	\end{Def}
+
+	$x_0,  y_0, z_0$ -- координаты конкретной точки, от которой можно отойти. Раскроем скобки, обозначим свободный член за $D$.
+	
+	\begin{Def}
+		$$Ax + By + Cz + D = 0$$ -- общее уравнение плоскости.
+	\end{Def}
+
+	Векторов, перпендикулярных плоскости, содержащей векторы $\overline{a}$ и $\overline{b}$, бесконечное множество, один из них -- векторное произведение векторов $\overline{a}$ и $\overline{b}$. Если "отойти"  от параметров, то получим общее уравнение, значит, коэффициенты $A, B, C$ будут пропорциональны векторному произведению.  
+
+	Сопоставляя общее уравнение плоскости и параметрическое можно прийти к другому виду общего уравнения, имея.
+
+	\begin{Def}
+		$$\left|\begin{array}{cccc}
+			a_2 & a_3 \\ 
+			b_2 & b_3
+			\end{array}\right| (x-x_0) - 
+		\left|\begin{array}{cccc}
+			a_1 & a_3 \\ 
+			b_1 & b_3
+			\end{array}\right| (y- y_0) + 
+		\left|\begin{array}{cccc}
+			a_1 & a_2 \\ 
+			b_1 & b_3
+			\end{array}\right| (z-z_0) = 0$$ -- общее уравнение плоскости.
+	\end{Def}
+
+	Плоскость можно задать тремя точками, не лежащими на одной прямой. Пусть их координаты $(x_1, y_1, z_1), \ (x_2, y_2, z_2), \ (x_3, y_3, z_3)$. Предположим, что необходимо найти плоскость через общее уравнение плоскости, т.е. $Ax + By + Cz + D = 0$. Подставим значения трёх точек в это уравнение:
+	$ \begin{cases}
+		Ax_1 + By_1 + Cz_1 + D = 0\\
+		Ax_2 + By_2 + Cz_2 + D = 0\\
+		Ax_3 + By_3 + Cz_3 + D = 0
+	\end{cases} $ \\
+	Необоходимо решить эту систему, чтобы найти значения коэффициентов $A, B, C, D$. Три уравнения, четыре переменные, значит, решений у такой системы много.
+	Добавим ещё одну точку $M(x, y, z)$, тогда система приниает вид:
+	$ \begin{cases}
+		Ax + By + Cz + D = 0 \\
+		Ax_1 + By_1 + Cz_1 + D = 0\\
+		Ax_2 + By_2 + Cz_2 + D = 0\\
+		Ax_3 + By_3 + Cz_3 + D = 0
+	\end{cases} $ \\
+	При каком условии у такой системы найдётся решение? Если эта новая точка $M$ лежит в одной плоскости с заданными трёмя точками, то решение есть, иначе -- нет.
+
+	В системе четыре уравнения, четыре неизвестных, все свободные члены равны нулю, получается, эта СЛУ однородная. Что значит, что эта система разрешима? У неё единственное решение, если эта система невырожденная, т.е. $(0, 0, 0, 0)$, это решение не подходит. \\
+	Если точка $M$ принадлежит искомой плоскости, то решение существует, причем решение системым должно быть не тождественный нуль, значит, эта система имеет вырожденную матрицу:
+	$\left|\begin{array}{cccc}
+		x & y & z & 1 \\ 
+		x_1 & y_1 & z_1 & 1 \\
+		x_2 & y_2 & z_2 & 1 \\
+		x_3 & y_3 & z_3 & 1 \\
+		\end{array}\right| = 0 \Leftrightarrow M \in \pi$, где $\pi$ -- плоскость.
+
+	\begin{Def}
+		$$\left|\begin{array}{cccc}
+			x & y & z & 1 \\ 
+			x_1 & y_1 & z_1 & 1 \\
+			x_2 & y_2 & z_2 & 1 \\
+			x_3 & y_3 & z_3 & 1 
+			\end{array}\right| = 0$$ -- матричное уравнение плоскости в пространстве.
+	\end{Def}
+
+	\Pagebreak
+	\Subsection{Уравнение прямой в пространстве}
+
+	\begin{Def}
+		$M' = M + t \overline{v}$ -- параметрическое задание. 
+	\end{Def}
+	
+	\begin{Def}
+		$$\overline{r}(t) = \overline{r}_0 + t \overline{v}$$ -- параметрическое уравнение прямой.
+	\end{Def}
+
+	Введём декартову систему координат.
+
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.25\columnwidth}
+		\input{img/equation_of_line.pdf_tex}
+	\end{figure*}
+
+	\begin{Def}
+		$$ \begin{cases}
+			x = x_0 + ta\\
+			y = y_0 + tb \\
+			z = z_0 + tc
+		\end{cases} $$ -- параметрическое уровнение прямой в координатах, где $a, b, c$ -- координаты направляющего вектора $\overline{v}$.
+	\end{Def}
+
+	"Избавимся" от параметра: 
+	\begin{Def}
+		$$\frac{x - x_0}{a} = \frac{y - y_0}{b} = \frac{z - z_0}{c}$$ -- каноническое уравнение прямой в пространстве.
+	\end{Def}
+	
+	Если есть произвольная точка $M_1$, лежащей на прямой, координаты которой мы знаем.
+
+	\begin{Def}
+		$$\frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 - z_0}$$ -- каноническое уравнение прямой через две точки.
+	\end{Def}
+
+	Можно переписать данное выражение в виде системы: 
+	$ \begin{cases}
+		\frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} \\
+		\frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 - z_0}
+	\end{cases} $, что эквивалентно другой системе:
+	$ \begin{cases}
+		Ax + By + Cz + D = 0 \\
+		A'x + B'y + C'z + D' = 0
+	\end{cases} $. Каждое из уравнений в этой системе -- уравнение плоскости, значит, прямая записана как пересечение двух плоскостей.
+
+	\begin{Def}
+		$$ \begin{cases}
+			Ax + By + Cz + D = 0 \\
+			A'x + B'y + C'z + D' = 0
+		\end{cases} $$ -- уравнение прямой как линия пересечения двух плоскостей.
+	\end{Def}
+
+	Значения $A, B, C$ -- координаты вектора нормали к плоскости. 
+	Пусть есть плоскость $\alpha$ с вектором нормали $\overline{n}_1$ и плоскость $\beta$ с вектором нормали $\overline{n}_2$. Тогда линия пересечения плоскостей -- необходимая прямая. 
+	
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.25\columnwidth}
+		\input{img/plane_intersection.pdf_tex}
+	\end{figure*}
+
+	Чтобы эту прямую явно задать каноническим способом, нужно знать направляющий вектор и точку. \\
+	Точку можно найти следующим образом: можно любую из координат "положить" нуль, например, $x = 0$, тогда решаем СЛУ стандартным образом.\\
+	Как найти направляющий вектор? Этот вектор -- векторное произведение двух нормалей плоскостей $\alpha$ и $\beta: \overline{n}_1 \times \overline{n}_2$.
+	
+	\begin{Example}
+		Допустим, координаты точки $(0, y_0, z_0)$. Тогда можно записать каноническое уравнение как:
+		$$\frac{x}{
+			\left|\begin{array}{cccc}
+				B & C \\ 
+				B' & C'
+				\end{array}\right| 
+		} = \frac{y - y_0}{
+			\left|\begin{array}{cccc}
+				C & A \\ 
+				C' & A'
+				\end{array}\right| 
+		} = \frac{z - z_0}{
+			\left|\begin{array}{cccc}
+				A & B \\ 
+				A' & B'
+				\end{array}\right| 
+		}
+		$$
+	\end{Example}
+
+	\begin{Rem}
+		Можно судить о пересечении двух плоскостей; если вектора нормали неколлинеарны, то это заведомо прямая, иначе -- нужно судить по свободным членам, 
+		если все коэффициенты пропорциональны, решение у этой системы -- вся плоскость (т.е. плоскости совпадают), если не пропорциональны, то решение -- $\varnothing$.
+	\end{Rem}
+
+	Рассмотрим некоторые векторы в ориентированном векторном пространстве $V^3$: зафиксированные $\overline{a}$ и $\overline{b}$ и переменный вектор $\overline{r}$ -- 
+	в выражении $\overline{a}\times \overline{r} = \overline{b}$. 
+	
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.4\columnwidth}
+		\input{img/geometric_equation.pdf_tex}
+	\end{figure*}
+
+	Чтоб решение у этого выражения существовало, необходимо задать, что $\overline{b} \perp \overline{a}$, 
+	значит, вектор $\overline{r}$ лежит в плоскости, перпендикулярной к $\overline{b}$. Разделим эту плоскость на две полуплоскости по отношению к $\overline{a}$, 
+	вектор $\overline{r}$ должен лежать так, чтобы (по правилу буравчика) от вектора $\overline{a}$ давать вектор $\overline{b}$. 
+	Каков геометрический смысл векторного произведения? $|\overline{a} \times \overline{r}| = S_{\text{пар}}$, кроме того, $S = |\overline{b}|$. 
+	С другой стороны, $S = |\overline{a}| h$, где $h$ -- расстроение от "кончика" вектора $\overline{r}$ до прямой, содержащей $\overline{a}$, поскольку вектор $\overline{b}$ фиксирован,
+	отчего фиксирована и величина $S$, то и все концы возможных векторов $\overline{r}$ должны лежать на одинаковом удалении от $\overline{a}$, равном $h$. 
+	Значит, все решения лежат на прямой, параллельной той, на которой лежит вектор $\overline{a}$, на расстоянии $h$ по определённую полуплоскость.
+	Таким образом, решение уравнения $\overline{a}\times \overline{r} = \overline{b}, \overline{b} \perp \overline{a}$ всегда есть, и им является прямая в пространстве.\\ 
+	
+	\begin{Def}
+		$$\overline{a} \times \overline{r} = \overline{b}, \ \overline{b} \perp \overline{a}$$ -- векторное уравнение прямой в пространстве.
+	\end{Def}
+
+	Найдём точку, которая лежит на данной прямой, поскольку мы уже знаем, что это за прямая.
+	Изобразим расстояние (перпендикуляр) от данной прямой, обозначим точкой $M_0$, до точки $O$. Из описанного ранее известно, что $h = \frac{S}{|\overline{a}|}$. 
+	Тогда $\overline{OM_0}$ это результат векторного произведения $\overline{a} \times \overline{b}$, тогда направление данного вектора это $\overline{e} = \frac{\overline{a} \times \overline{b}}{|\overline{a} \times \overline{b}|}$,
+	но нам необходим вектор, умноженный на $h$, тогда этот вектор $\overline{r}_0 = \frac{\overline{a} \times \overline{b}}{|\overline{a} \times \overline{b}|} \cdot \frac{|\overline{b}|}{|\overline{a}|}$ -- частное решение уравнения, где направляющий вектор $\overline{a}$. 
+
+	\begin{figure*}[h]
+		\centering
+		\def\svgwidth{0.4\columnwidth}
+		\input{img/private_solution.pdf_tex}
+	\end{figure*}
 
 \end{document}
