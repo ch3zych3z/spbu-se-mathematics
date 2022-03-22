@@ -1,6 +1,6 @@
 %% Creator: Inkscape 1.1.2 (b8e25be833, 2022-02-05), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'liner_transformation.pdf' (pdf, eps, ps)
+%% Accompanies image file 'triple-product.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -50,9 +50,9 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.47619048)%
+  \begin{picture}(1,0.57142857)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{img/liner_transformation.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{img/triple-product.pdf}}%
   \end{picture}%
 \endgroup%
