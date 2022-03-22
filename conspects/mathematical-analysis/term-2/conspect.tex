@@ -1213,7 +1213,7 @@
 	\end{Example}
 \end{MyList}
 
-\Subsubsection{Признаки сходимости несобтсвенных интегралов}
+\Subsubsection{Признаки сходимости несобственных интегралов}
 
 \begin{Lm}
 	$f \in R_{loc} [a, b), f \geqslant 0$. Тогда $\int_a^b f$ сходится $\EQ$ $F(t) = \int_a^t f$ на $[a, b)$ ограничена сверху. 
@@ -1247,5 +1247,242 @@
 		\item Если бы интеграл $\int_a^b g$ сходился, то по пункту 1 сходился бы и интеграл $\int_a^b f$.
 	\end{MyList} 
 \end{proof}
+
+\def\AuthorName{Ксения Кузьмина}
+
+\begin{Cons}[Признак сравнения в предельной форме]
+	$f, g \in R_{loc}[a;b), f \geqslant 0, g > 0$ и $\displaystyle \exists \lim_{x \to b-} \frac{f(x)}{g(x)} = l \in [0;+\infty]$. Тогда
+	\begin{enumerate}
+		\item Если $l \in [0, + \infty)$ и $\displaystyle \int_{a}^{b} g$ сходится, то $\displaystyle \int_{a}^{b} f$ сходится
+		\item Если $l \in (0, + \infty]$ и $\displaystyle \int_{a}^{b} f$ сходится, то $\displaystyle \int_{a}^{b} g$ сходится
+		\item Если $l \in (0, + \infty)$, то $\displaystyle \int_{a}^{b} f$ и $\displaystyle \int_{a}^{b} g$ сходятся или расходятся одновременно
+	\end{enumerate}
+\end{Cons}
+
+\begin{proof}
+	\begin{enumerate}
+		\item $\displaystyle \frac{f}{g}$ ограничено в $(b - \varepsilon; b) \Rightarrow f(x) = O_b(g(x))$ при $x \to b- \Rightarrow$ по теореме $\displaystyle \int_{a}^{b} f$ сходится
+		\item Т.к. $l>0$, то $f > 0$ в $(b - \varepsilon; b).$ Тогда поменяем $f$ и $g$ местами в п.1
+		\item Следует из пунктов 1 и 2.
+	\end{enumerate}
+\end{proof}
+
+\begin{Cons}
+	Интегралы от неотрицательных эквивалентных функций сходятся или расходятся одновременно.
+\end{Cons}
+
+\begin{Ex}
+	$\displaystyle \int_{5}^{+\infty} \frac{dx}{x^{\alpha}ln^7x} $
+\end{Ex}
+
+\begin{Example}
+	Докажем, что $\displaystyle f \geqslant 0, \int_{a}^{+\infty} f$ сходится $\cancel{\Rightarrow} f(x) \underset{x \to +\infty}{\to} 0$
+\end{Example}
+
+\begin{proof}
+	$\displaystyle E = \bigcup_{k=1}^{+\infty} \left(k - \frac{1}{k^2(k+1)}; k + \frac{1}{k^2(k+1)} \right)$\\
+
+	$f(x) = \begin{cases}
+		0, x \in \R \backslash E\\
+		k, x = k\\
+		\text{линейно и непрерывном соединим точки}, x \in E
+	\end{cases}$.
+
+	$\displaystyle \int_{0}^{+ \infty} f = \lim_{b \to \infty} \int_{a}^{b} f\\
+	\int_{a}^{b} f(x)dx = \sum_{k=1}^{N} \int_{k - \frac{1}{k^2(k+1)}}^{k+ \frac{1}{k^2(k+1)}} f(x) dx =
+	\sum_{k=1}^{N} \frac{1}{2}k \cdot \frac{2}{k^2(k+1)} = \sum_{k=1}^{N} \frac{1}{k(k+1)} = 
+	\sum_{k=1}^{N} \left(\frac{1}{k} - \frac{1}{k+1}\right) =\\= 1 - \frac{1}{N+1} \underset{N \to \infty}{\to}  1$
+\end{proof}
+
+\begin{Rem}
+	Можно построить пример с $\displaystyle g>0$. $\displaystyle g(x) = f(x) + \frac{1}{x^2}$ 
+\end{Rem}
+
+\Subsection{Интегралы от знакопеременных функций}
+\begin{Def}
+	$\displaystyle -\infty < a < b \leqslant + \infty, f \in R_{loc}[a;b)\\
+	\int_{a}^{b} f$ сходится абсолютно, если cходится $\displaystyle \int_{a}^{b} |f|$
+\end{Def}
+
+\begin{Rem}
+	Если $\displaystyle \int_{a}^{b} f$ и $\displaystyle \int_{a}^{b} g$ сходится абсолютно, то $\displaystyle \int_{a}^{b} (\alpha f + \beta g)$
+	сходится абсолютно $\forall \alpha, \beta \in \R$
+\end{Rem}
+
+\begin{proof}
+	$|\alpha f + \beta g| \leqslant |\alpha| \cdot |f| + |\beta| \cdot |g|$ + признак сравнения для неотрицательных функций.
+\end{proof}
+
+\begin{Rem}
+	Если $\displaystyle \int_{a}^{b} f \in \overline{\R},$ то $\displaystyle \left| \int_{a}^{b} f \right| \leqslant \int_{a}^{b}|f|$
+\end{Rem}
+
+\begin{Lm}
+	Если интеграл сходится абсолютно, то он сходится.
+\end{Lm}
+
+\begin{proof}
+	$\displaystyle \int_{a}^{b} |f|$ сходится $\displaystyle \Rightarrow \forall \varepsilon > 0 \exists \Delta \in (a;b) \int_{\Delta}^{b} |f| < \varepsilon$\\
+	Тогда $\displaystyle \left| \int_{\Delta}^{b} f \right| < \int_{\Delta}^{b} |f| < \varepsilon \Rightarrow 
+	\int_{a}^{b} f = \int_{a}^{\Delta} f + \int_{\Delta}^{b} f$ сходится по критерию Больцано-Коши.
+\end{proof}
+
+\begin{Def} 
+	$x_+= \max\{x,0\} = \begin{cases} x, x \geqslant 0\\ 0, x<0 \end{cases}$ -- положительная часть x\\
+	$x_-= \max\{-x,0\} = \begin{cases} 0, x > 0\\ -x, x \leqslant 0 \end{cases}$ -- отрицательная часть x\\
+	$x_+ - x_- = x \displaystyle \Rightarrow x_+ = \frac{|x|+x}{2}\\
+	x_+ + x_- = |x| \Rightarrow x_- = \frac{|x|-x}{2}$\\
+	$0 \leqslant x_{\pm} \leqslant |x|$\\
+	$f_+ = \max \{f;0\}$\\
+	$f_- = \max \{-f;0\}$
+\end{Def} 
+
+\begin{proof}[Второе доказательство леммы]
+	$\displaystyle \int_{a}^{b} |f|$ сходится $\displaystyle \underset{0 \leqslant f_{\pm} \leqslant|f|}{\Rightarrow} \int_{a}^{b} f_+$ и $\displaystyle \int_{a}^{b} f_-$ -- сходятся $\Rightarrow$ \\ 
+	$\displaystyle \underset{f = f_+ - f_-}{\Rightarrow} \int_{a}^{b} f$ сходится 
+\end{proof}
+
+\begin{Rem}
+	Обратное утверждение к лемме неверно:
+	$\displaystyle \int_{a}^{b} f$ сходится $\displaystyle \cancel{\Rightarrow} \int_{a}^{b} |f|$ сходится.
+\end{Rem}
+
+\begin{Def} 
+	Если $\displaystyle \int_{a}^{b} f$ сходится, а $\displaystyle \int_{a}^{b} |f|$ расходится, то 
+	$\displaystyle \int_{a}^{b} f$ называют условно сходящимся.
+\end{Def} 
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} f$ сходится абсолютно, $\displaystyle \int_{a}^{b} g$ сходится условно $\displaystyle \Rightarrow \int_{a}^{b} 
+	(f+g)$ сходится условно, т.к. $g = (f+g)-f$.
+\end{Rem}
+
+\begin{Thm}[Признаки Абеля и Дирихле сходимости несобственных интегралов]
+	$f \in C[a;b), g \in C^1[a;b], g$ монотонна.\\\\
+	\textbf{Признак Дирихле:} \\\\
+	$\left.
+		\begin{array}{ccc}
+		  \displaystyle \displaystyle F(t) = \int_{a}^{t} f \text{ ограничена}\\\\
+		  g(x) \underset{x \to b-}{\to}  0 \\
+		\end{array}
+  	\right\}$ $\displaystyle \Rightarrow \int_{a}^{b} fg$ сходится.\\
+
+	\textbf{Признак Абеля:}\\
+	$\left.
+  		\begin{array}{ccc}
+    		\displaystyle \int_{a}^{b} f \text{ сходится}\\\\
+    		g \text{ ограничена}. \\
+  		\end{array}
+	\right\}$ $\displaystyle \Rightarrow \int_{a}^{b} fg$ сходится.
+\end{Thm} 
+
+\begin{proof}
+	\textbf{Признак Дирихле:}  $\displaystyle \int_{a}^{b} fg = \int_{a}^{b} F'g = \underbrace{Fg \Big|_a^b}_{=0} - \int_{a}^{b} Fg'$
+	Докажем, что $\displaystyle \int_{a}^{b} Fg'$ сходится абсолютно. 
+	\[ \int_{a}^{b} |Fg'| \leqslant \underset{|F| \leqslant K}{K}  \int_{a}^{b} |g'| = K \left|\int_{a}^{b} g'\right| = 
+	K \cdot |g \Big|^b_a| = K|g(a)|\]
+
+	\textbf{Признак Абеля:}  $g$ ограничена и монотонна $\displaystyle \Rightarrow \alpha = \lim_{x \to b-} g(x)$\\
+	Функция $g - \alpha$ монотонна, $\displaystyle \underset{x \to b-}{\to} 0 \Rightarrow 
+	\int_{a}^{b} f(g - \alpha)$ сходится по признаку Дирихле. 
+	$\displaystyle \int_{a}^{b} fg = \underset{\text{сх-ся}}{\int_{a}^{b} f(g-\alpha)} + \underset{\text{сх-ся по усл.}}{\int_{a}^{b} f \cdot \alpha}$
+\end{proof}
+
+\begin{Rem}
+	Можно ослабить условия: $f \in R_{loc}[a;b), g$ монотонна на $[a;b)$
+\end{Rem}
+
+\begin{Def} 
+	v.p. $\displaystyle \int_{a}^{b} f = \lim_{\varepsilon \to 0} \left(\int_{a}^{c-\varepsilon} f + \int_{c+\varepsilon}^{b} f  \right)$ -- главное значение.\\
+	v.p.$\displaystyle \int_{-1}^{1} \frac{dx}{x} = 0$\\
+	v.p. $\displaystyle \int_{-\infty}^{\infty} x dx = 0$\\
+	v.p. $\displaystyle \int_{-\infty}^{\infty} x^2 dx = +\infty$
+\end{Def} 
+
+\begin{Example}
+	\begin{enumerate}
+		\item $\displaystyle \int_{1}^{+\infty} f(x) \cdot \sin x \, dx, f(x) \geqslant 0$.\\
+		\begin{itemize}
+			\item Если $\displaystyle \int_{1}^{+\infty} f$ сходится, то $\displaystyle \int_{1}^{+\infty} f(x) \sin x dx$ сходится абсолютно.\\
+			$0 \leqslant |f(x) \cdot \sin x| \leqslant |f(x)| = f(x)$\\
+			\item Если $\displaystyle \int_{1}^{+\infty} f$ расходится\\
+			$\displaystyle l = \lim_{x \to + \infty} f(x)$
+
+			\begin{enumerate}
+				\item $l = 0$ и $f$ монотонна, то признак Дирихле и $\displaystyle \int_{1}^{+\infty} f(x) \sin x dx$ -- сходится.\\
+				Но: $\displaystyle \int_{1}^{+\infty} |f(x) \sin x| dx$ не сходится.\\
+				$\displaystyle |\sin x| \geqslant \sin^2 x = \frac{1 - \cos 2x}{2}$\\
+				$\displaystyle \int_{1}^{\infty} f(x) |\sin x| dx \geqslant \underbrace{\int_{1}^{+\infty} \frac{1}{2}f(x)dx}_{\text{расходится}} - 
+				\underbrace{\int_{1}^{+\infty} \frac{1}{2} f(x) \cos 2x dx}_{\text{сходится}}$
+				\item $\displaystyle l > 0 \Rightarrow \int_{1}^{+ \infty} f \sin x dx$ расходится.\\
+				$\displaystyle \int_{a_k}^{b_k} f(x) \cdot \sin x dx \geqslant \frac{1}{2} \int_{a_k}^{b_k}
+				f(x)dx \geqslant \frac{1}{2} \cdot \frac{2 \pi}{3} \cdot \min\{f(a_k), f(b_k)\} 
+				\underset{k \to \infty}{\to} \frac{\pi}{3} \cdot l = \varepsilon > 0$
+			\end{enumerate}
+		\end{itemize}
+		
+		\item $\displaystyle \int_{1}^{+\infty} \frac{\sin x}{x} dx$ сходится условно.\\
+		$\displaystyle \int_{1}^{+\infty} \frac{\sin x}{x^2} dx$ сходится абсолютно по признаку сравнения.\\ 
+		$\displaystyle \int_{1}^{+\infty} \frac{\sin x}{\sqrt{x}} dx$ сходится условно\\
+		$\displaystyle \int_{1}^{+\infty} \sqrt{x} \sin x dx$ расходится	
+		\item Нельзя пользоваться эквивалентностью в случае знакопеременной функции.\\
+		$\displaystyle \int_{1}^{\infty} \frac{\sin x}{\sqrt{x} - \sin x} dx$ -- расходится\\
+		$\displaystyle f(x) \sim \frac{\sin x}{\sqrt{x}}$ при $\displaystyle x \to \infty$ 
+		$\displaystyle\int_{1}^{\infty} \frac{\sin x}{\sqrt{x}} $ сходится.\\ 
+		Выделим главную часть: $\displaystyle \frac{\sin x}{\sqrt{x}} \left( \frac{1}{1 - \frac{\sin x}{\sqrt{x}}}  \right) = 
+		\frac{\sin x}{\sqrt{x}} (1 + \frac{\sin x}{\sqrt{x}} + \frac{\sin^2 x}{x} + \frac{\sin^3 x}{x\sqrt{x}} + r(x)) =
+		\underset{\text{сх-ся}}{\frac{\sin x}{\sqrt{x}}} + \underset{\text{расходится}}{\frac{\sin^2 x}{x}} +
+		\underset{\text{сх-ся абс-но}}{\frac{\sin^3 x}{x\sqrt{x}}} + \underset{\text{сх-ся абс.}}{\frac{\sin^4 x}{x^2}} + |q(x)|, \ \ \ |q(x)| \leqslant \frac{c}{x^2}$\\
+		$\displaystyle \left(\frac{1}{1-t} = 1 + t + t^2 + t^3 + r(t), t \to 0\right)$
+		\item $\displaystyle \int_{0}^{+\infty} \frac{\sin x}{x^{\alpha}}dx = \int_{0}^{1} + \int_{1}^{+\infty} $\\
+		При $x \to 0 \sin x \sim x$  и $\sin x > 0$ на $(0;1)$\\
+		$\displaystyle \int_{0}^{1} \frac{dx}{x^{\alpha -1}}$
+		\item $\displaystyle \int_{-1}^{1} \frac{dx}{x} = \int_{-1}^{0} \frac{dx}{x} + \int_{0}^{1} \frac{dx}{x}$ расходится.
+		Но сходится в смысле главного значения.
+	\end{enumerate}
+\end{Example}
+
+\begin{Rem}
+	$\displaystyle \int_{1}^{+\infty} f \cdot g, f$ -- периодична c периодом $T > 0, g$ -- монотонна $\underset{x \to + \infty}{\to} 0$\\
+	Тогда 
+	\begin{enumerate}
+		\item Если $\displaystyle \int_{1}^{+\infty} g$ сходится $\displaystyle \Rightarrow \int_{1}^{+\infty} fg$
+		\item Если $\displaystyle \int_{1}^{+\infty} g$ расходится, то 
+		$\displaystyle \left(\int_{1}^{+\infty} fg \text{ сходится } \Leftrightarrow \int_{1}^{1+T} f = 0 \right)$
+	\end{enumerate}
+\end{Rem}
+
+\begin{proof}
+	Упражнение.
+\end{proof}
+
+\begin{Cons}
+	$\displaystyle \int_{1}^{+\infty} \frac{\sin^2 x}{x} dx$ расходится\\
+	$\displaystyle \int_{1}^{+\infty} \frac{\sin^3 x}{x} dx$ сходится
+\end{Cons}
+
+\Subsection{Длина, площадь и  объём}\\
+\Subsubsection{Площадь}
+\begin{Def} 
+	$||x||, x \in \R^n$ -- длина вектора. \\
+	$\displaystyle ||A-B|| = \sqrt{\sum_{i=1}^{n} (A_i - B_i)^2}$
+\end{Def} 
+
+\begin{Def} 
+	Движение -- отображение $U: \R^n \to \R^n$, сохраняющее расстояния.\\
+	$||A-B|| = ||U(A) - U(B)|| \ \ \ \forall A, B \in \R^n$ 
+\end{Def} 
+
+\begin{Def} 
+	Площадь -- функционал $S: {P} \to [0; +\infty),$ где $\{P\}$ -- множество квадрируемых фигур из $\R^2$
+\end{Def} 
+
+Свойства площади: 
+\begin{enumerate}
+	\item Аддитивность: $P_1, P_2$ -- квадрируемы и $P_1 \bigcap P_2 = \varnothing$. Тогда
+	$P_1 \bigcup P_2$ -- квадрируемая и \\$S(P_1 \bigcup P_2) = S(P_1) + S(P_2)$
+	\item Нормированность на прямоугольниках: площадь прямоугольника со сторонами $a$ и $b$ равна $ab$
+	\item Инвариантность относительно движений: $S(U(P)) = S(P)$
+\end{enumerate}
 
 \end{document}
