@@ -1213,6 +1213,7 @@
 	\end{Example}
 \end{MyList}
 
+
 \Subsubsection{Признаки сходимости несобственных интегралов}
 
 \begin{Lm}
@@ -1328,13 +1329,11 @@
 \end{proof}
 
 \begin{Def} 
-	$x_+= \max\{x,0\} = \begin{cases} x, x \geqslant 0\\ 0, x<0 \end{cases}$ -- положительная часть x\\
-	$x_-= \max\{-x,0\} = \begin{cases} 0, x > 0\\ -x, x \leqslant 0 \end{cases}$ -- отрицательная часть x\\
-	$x_+ - x_- = x \displaystyle \Rightarrow x_+ = \frac{|x|+x}{2}\\
-	x_+ + x_- = |x| \Rightarrow x_- = \frac{|x|-x}{2}$\\
-	$0 \leqslant x_{\pm} \leqslant |x|$\\
-	$f_+ = \max \{f;0\}$\\
-	$f_- = \max \{-f;0\}$
+	$$x_+= \max\{x,0\} = \begin{cases} x, x \geqslant 0\\ 0, x<0 \end{cases} - \textrm{ положительная часть }x$$
+	$$x_-= \max\{-x,0\} = \begin{cases} 0, x > 0\\ -x, x \leqslant 0 \end{cases} - \textrm{ отрицательная часть } x$$
+	$$x_+ - x_- = x \displaystyle \Rightarrow x_+ = \frac{|x|+x}{2}$$
+	$$x_+ + x_- = |x| \Rightarrow x_- = \frac{|x|-x}{2}$$
+	$0 \leqslant x_{\pm} \leqslant |x|, f_+ = \max \{f;0\}, f_- = \max \{-f;0\}$
 \end{Def} 
 
 \begin{proof}[Второе доказательство леммы]
@@ -1358,34 +1357,30 @@
 \end{Rem}
 
 \begin{Thm}[Признаки Абеля и Дирихле сходимости несобственных интегралов]
-	$f \in C[a;b), g \in C^1[a;b], g$ монотонна.\\\\
-	\textbf{Признак Дирихле:} \\\\
-	$\left.
-		\begin{array}{ccc}
-		  \displaystyle \displaystyle F(t) = \int_{a}^{t} f \text{ ограничена}\\\\
-		  g(x) \underset{x \to b-}{\to}  0 \\
-		\end{array}
-  	\right\}$ $\displaystyle \Rightarrow \int_{a}^{b} fg$ сходится.\\
+	$f \in C[a;b), g \in C^1[a;b], g$ монотонна.
 
-	\textbf{Признак Абеля:}\\
-	$\left.
-  		\begin{array}{ccc}
-    		\displaystyle \int_{a}^{b} f \text{ сходится}\\\\
-    		g \text{ ограничена}. \\
-  		\end{array}
-	\right\}$ $\displaystyle \Rightarrow \int_{a}^{b} fg$ сходится.
+	\begin{MyList}
+		\item \textbf{Признак Дирихле.}
+		Если функция $F(t) = \int_a^t f$ ограничена, а $g(x) \xrightarrow[x \to b-]{} 0$, то интеграл $\int_a^b fg$ сходится.
+
+		\item \textbf{Признак Абеля.}
+		Если интеграл $\int_a^b f$ сходится, а $g$ ограничена, то интеграл $\int_a^b fg$ сходится.
+	\end{MyList}
 \end{Thm} 
 
 \begin{proof}
-	\textbf{Признак Дирихле:}  $\displaystyle \int_{a}^{b} fg = \int_{a}^{b} F'g = \underbrace{Fg \Big|_a^b}_{=0} - \int_{a}^{b} Fg'$
-	Докажем, что $\displaystyle \int_{a}^{b} Fg'$ сходится абсолютно. 
+	\begin{MyList}
+	\item Проинтегрируем по частям:
+	$$\displaystyle \int_{a}^{b} fg = \int_{a}^{b} F'g = Fg \Big|_a^b - \int_{a}^{b} Fg'$$
+	Двойная подстановка обнуляется, поэтому сходимость исходного интеграла равносильна сходимости интеграла $\int_a^b Fg'$. Докажем, что $\int_{a}^{b} Fg'$ сходится абсолютно. 
 	\[ \int_{a}^{b} |Fg'| \leqslant \underset{|F| \leqslant K}{K}  \int_{a}^{b} |g'| = K \left|\int_{a}^{b} g'\right| = 
 	K \cdot |g \Big|^b_a| = K|g(a)|\]
 
-	\textbf{Признак Абеля:}  $g$ ограничена и монотонна $\displaystyle \Rightarrow \alpha = \lim_{x \to b-} g(x)$\\
-	Функция $g - \alpha$ монотонна, $\displaystyle \underset{x \to b-}{\to} 0 \Rightarrow 
-	\int_{a}^{b} f(g - \alpha)$ сходится по признаку Дирихле. 
-	$\displaystyle \int_{a}^{b} fg = \underset{\text{сх-ся}}{\int_{a}^{b} f(g-\alpha)} + \underset{\text{сх-ся по усл.}}{\int_{a}^{b} f \cdot \alpha}$
+	\item $g$ ограничена и монотонна $\Rightarrow \alpha = \lim_{x \to b-} g(x)$\\
+	Функция $g - \alpha$ монотонна, $\xrightarrow[x \to b-]{} 0 \Rightarrow 
+	\int_{a}^{b} f(g - \alpha)$ сходится по признаку Дирихле. Поэтому интегра $\int_a^b f(g - \alpha)$ сходится, а интеграл $\int_a^b fg$ сходится как сумма двух сходящихся: 
+	$$\displaystyle \int_{a}^{b} fg = \int_{a}^{b} f(g-\alpha) + \int_{a}^{b} f \cdot \alpha$$
+	\end{MyList}
 \end{proof}
 
 \begin{Rem}
@@ -1394,21 +1389,26 @@
 
 \begin{Def} 
 	v.p. $\displaystyle \int_{a}^{b} f = \lim_{\varepsilon \to 0} \left(\int_{a}^{c-\varepsilon} f + \int_{c+\varepsilon}^{b} f  \right)$ -- главное значение.\\
-	v.p.$\displaystyle \int_{-1}^{1} \frac{dx}{x} = 0$\\
-	v.p. $\displaystyle \int_{-\infty}^{\infty} x dx = 0$\\
-	v.p. $\displaystyle \int_{-\infty}^{\infty} x^2 dx = +\infty$
 \end{Def} 
 
 \begin{Example}
-	\begin{enumerate}
+	\begin{align*}
+		\displaystyle &\int_{-1}^{1} \frac{dx}{x} = 0 \\
+		\displaystyle &\int_{-\infty}^{\infty} x dx = 0 \\
+		\displaystyle &\int_{-\infty}^{\infty} x^2 dx = +\infty
+	\end{align*}
+\end{Example}
+
+\begin{Example}
+	\begin{MyList}
 		\item $\displaystyle \int_{1}^{+\infty} f(x) \cdot \sin x \, dx, f(x) \geqslant 0$.\\
-		\begin{itemize}
+		\begin{MyItemize}
 			\item Если $\displaystyle \int_{1}^{+\infty} f$ сходится, то $\displaystyle \int_{1}^{+\infty} f(x) \sin x dx$ сходится абсолютно.\\
 			$0 \leqslant |f(x) \cdot \sin x| \leqslant |f(x)| = f(x)$\\
 			\item Если $\displaystyle \int_{1}^{+\infty} f$ расходится\\
 			$\displaystyle l = \lim_{x \to + \infty} f(x)$
 
-			\begin{enumerate}
+			\begin{MyList}
 				\item $l = 0$ и $f$ монотонна, то признак Дирихле и $\displaystyle \int_{1}^{+\infty} f(x) \sin x dx$ -- сходится.\\
 				Но: $\displaystyle \int_{1}^{+\infty} |f(x) \sin x| dx$ не сходится.\\
 				$\displaystyle |\sin x| \geqslant \sin^2 x = \frac{1 - \cos 2x}{2}$\\
@@ -1418,8 +1418,8 @@
 				$\displaystyle \int_{a_k}^{b_k} f(x) \cdot \sin x dx \geqslant \frac{1}{2} \int_{a_k}^{b_k}
 				f(x)dx \geqslant \frac{1}{2} \cdot \frac{2 \pi}{3} \cdot \min\{f(a_k), f(b_k)\} 
 				\underset{k \to \infty}{\to} \frac{\pi}{3} \cdot l = \varepsilon > 0$
-			\end{enumerate}
-		\end{itemize}
+			\end{MyList}
+		\end{MyItemize}
 		
 		\item $\displaystyle \int_{1}^{+\infty} \frac{\sin x}{x} dx$ сходится условно.\\
 		$\displaystyle \int_{1}^{+\infty} \frac{\sin x}{x^2} dx$ сходится абсолютно по признаку сравнения.\\ 
@@ -1439,17 +1439,17 @@
 		$\displaystyle \int_{0}^{1} \frac{dx}{x^{\alpha -1}}$
 		\item $\displaystyle \int_{-1}^{1} \frac{dx}{x} = \int_{-1}^{0} \frac{dx}{x} + \int_{0}^{1} \frac{dx}{x}$ расходится.
 		Но сходится в смысле главного значения.
-	\end{enumerate}
+	\end{MyList}
 \end{Example}
 
 \begin{Rem}
 	$\displaystyle \int_{1}^{+\infty} f \cdot g, f$ -- периодична c периодом $T > 0, g$ -- монотонна $\underset{x \to + \infty}{\to} 0$\\
 	Тогда 
-	\begin{enumerate}
+	\begin{MyList}
 		\item Если $\displaystyle \int_{1}^{+\infty} g$ сходится $\displaystyle \Rightarrow \int_{1}^{+\infty} fg$
 		\item Если $\displaystyle \int_{1}^{+\infty} g$ расходится, то 
 		$\displaystyle \left(\int_{1}^{+\infty} fg \text{ сходится } \Leftrightarrow \int_{1}^{1+T} f = 0 \right)$
-	\end{enumerate}
+	\end{MyList}
 \end{Rem}
 
 \begin{proof}
@@ -1465,24 +1465,26 @@
 \Subsubsection{Площадь}
 \begin{Def} 
 	$||x||, x \in \R^n$ -- длина вектора. \\
-	$\displaystyle ||A-B|| = \sqrt{\sum_{i=1}^{n} (A_i - B_i)^2}$
+	$$\displaystyle ||A-B|| = \sqrt{\sum_{i=1}^{n} (A_i - B_i)^2}$$
 \end{Def} 
 
 \begin{Def} 
 	Движение -- отображение $U: \R^n \to \R^n$, сохраняющее расстояния.\\
-	$||A-B|| = ||U(A) - U(B)|| \ \ \ \forall A, B \in \R^n$ 
+	$$||A-B|| = ||U(A) - U(B)|| \ \ \ \forall A, B \in \R^n$$
 \end{Def} 
 
 \begin{Def} 
 	Площадь -- функционал $S: {P} \to [0; +\infty),$ где $\{P\}$ -- множество квадрируемых фигур из $\R^2$
 \end{Def} 
 
-Свойства площади: 
-\begin{enumerate}
-	\item Аддитивность: $P_1, P_2$ -- квадрируемы и $P_1 \bigcap P_2 = \varnothing$. Тогда
-	$P_1 \bigcup P_2$ -- квадрируемая и \\$S(P_1 \bigcup P_2) = S(P_1) + S(P_2)$
-	\item Нормированность на прямоугольниках: площадь прямоугольника со сторонами $a$ и $b$ равна $ab$
-	\item Инвариантность относительно движений: $S(U(P)) = S(P)$
-\end{enumerate}
+\begin{Thm}[Свойства площади]
+	\begin{MyList}
+		\item Аддитивность: $P_1, P_2$ -- квадрируемы и $P_1 \bigcap P_2 = \varnothing$. Тогда
+		$P_1 \bigcup P_2$ -- квадрируемая и \\$S(P_1 \bigcup P_2) = S(P_1) + S(P_2)$
+		\item Нормированность на прямоугольниках: площадь прямоугольника со сторонами $a$ и $b$ равна $ab$
+		\item Инвариантность относительно движений: $S(U(P)) = S(P)$
+	\end{MyList}
+\end{Thm}
+
 
 \end{document}
