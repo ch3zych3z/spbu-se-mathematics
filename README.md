@@ -11,3 +11,4 @@
 - [Алгебра](https://github.com/ch3zych3z/spbu-se-mathematics/blob/algebra/conspects/algebra/term-2/conspect.pdf)
 - [Дискретная математика](https://github.com/ch3zych3z/spbu-se-mathematics/blob/discrete-mathematics/conspects/discrete-mathematics/term-2/conspect.pdf)
 - [Геометрия](https://github.com/ch3zych3z/spbu-se-mathematics/blob/geometry/conspects/geometry/term-2/conspect.pdf)
+- [Основы программирования](https://github.com/ch3zych3z/spbu-se-mathematics/blob/programming-basics/conspects/programming-basics/term-2/programming.md)
