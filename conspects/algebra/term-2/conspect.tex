@@ -576,4 +576,302 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 	$$\Rightarrow A' = C^{-1} A C$$ 
 \end{Thm}
 
+\gdef\AuthorName{Ксения Кузьмина}
+
+\begin{Lm}
+	$U \subset V, a \in End \, V\\
+	U -$ а-инвариантно $\Leftrightarrow$ $\exists$ базис $V: A = 
+	\left(\begin{array}{cc}
+		B & C\\
+		0 & D
+		\end{array}\right), B = \dim U \times \dim U$
+\end{Lm}
+
+\begin{proof}
+	$U$ -- а-инвариантно. Выберем базис $U$: $e_1, ... , e_k$ и дополним его до базиса $V$ матрицы $a$
+	$ae_i = b_{1i}e_1+\dots+b_{ki}e_k \Leftrightarrow \left(\begin{array}{cc}
+		b_{1i} & \cdot\\
+		b_{ki} & \cdot\\
+		0 & \cdot \\
+		0 & \cdot
+	\end{array}
+	\right)$
+\end{proof}
+
+\begin{Lm}
+	$U, W \subset V, a \in End \, V\\
+	V = U \oplus W, U, W$ -- а-инвариантны $\Leftrightarrow \exists$ базис $A = \left(\begin{array}{cc}
+		B & 0\\
+		0 & C
+	\end{array}\right)\\
+	B = \dim U \times \dim U, C = \dim W \times \dim W$
+\end{Lm}
+
+\begin{proof}
+	$V$ = $U \oplus V$, выберем $U: e_1, ..., e_k, W: e_{k+1}, ..., e_n\\
+	a(e_i) \in U, i = 1, ..., k, a(e_j) \in W, j = k+1, ..., n \Leftrightarrow A = \left(\begin{array}{cc}
+		B & 0\\
+		0 & C
+	\end{array}\right)$
+\end{proof}
+
+\begin{Example}
+	\begin{enumerate}
+		\item $V = M(2, \R) \ \ a: X \to X^T, X \in M(2, \R)$\\
+		$E_{11} = \left(\begin{array}{cc}
+			1 & 0\\
+			0 & 0
+		\end{array}\right), \ \ 
+		E_{12} = \left(\begin{array}{cc}
+			0 & 1\\
+			0 & 0
+		\end{array}\right), \ \  
+		E_{21} = \left(\begin{array}{cc}
+			0 & 0\\
+			1 & 0
+		\end{array}\right), \ \ 
+		E_{22} = \left(\begin{array}{cc}
+			0 & 0\\
+			0 & 1
+		\end{array}\right)\\\\
+		a(E_{11}) = E_{11}, \ \ a(E_{12}) = E_{21}, \ \ a(E_{21}) = E_{12} \ \ a(E_{22}) = E_{22}\\\\
+		A = \left(\begin{array}{cccc}
+			1 & 0 & 0 & 0\\
+			0 & 0 & 1 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0 & 0 & 1
+		\end{array}\right) \ \ \ \ \  <E_{11}> \oplus <E_{12}, E_{21}> \oplus <E_{22}> \ = V$ инвариантны
+		\item $V = K[x]_3 \ \ \ a: \frac{d}{dx} (f \to f') \ \ \ 1, x, x^2, x^3\\
+		\left(\begin{array}{cccc}
+			0 & 1 & 0 & 0\\
+			0 & 0 & 2 & 0\\
+			0 & 0 & 0 & 3\\
+			0 & 0 & 0 & 1
+		\end{array}\right) \ \ \ \frac{d}{dx} : <1, x, x^2> \to <1, x> \subset <1, x, x^2>$
+	\end{enumerate}
+\end{Example}
+
+\Subsection{Собственные векторы и числа}
+\begin{Def} 
+	Собственным вектором оператора a называется $\forall$ ненулевой вектор одномерного инвариантного подпространства.
+\end{Def} 
+
+\begin{Def} 
+	x - собственный вектор, $ax = \lambda x$, тогда $\lambda$ = собственное число, ассоциированное вектору $x$\\
+	$a \to A, x \to X \ \ \ AX = \lambda X \Rightarrow (A - \lambda E)X = 0$
+\end{Def} 
+
+\begin{Def} 
+	Характеристическим многочленом оператора a (матрицы A) назыается $\chi_a(t) = \det (A-tE)$
+\end{Def} 
+
+\begin{Thm}[О собственных числах]
+	Все собственные числа оператора a и только они являются корнями характеристического многочлена. 
+\end{Thm}
+
+\begin{proof}
+	$AX = \lambda X \Leftrightarrow (A - \lambda E)X = 0$ -- имеет ненулевое решение $\Leftrightarrow 
+	\det (A- \lambda E)X = 0 \Leftrightarrow$ все собственные числа корни $\chi_a(t)$
+\end{proof}
+
+\begin{Lm}[Независимость собственных чисел от выбора базиса]
+	Характеристические многочлены оператора a в разных базисах совпадают. 
+\end{Lm}
+
+\begin{proof}
+	$a(e_i) \to A \ \ \ (e_i') \to A' \ \ \ C $ -- матрица перехода от $(e_i)$ к $(e_i')\\
+	A' = C^{-1}AC \ \ \chi_a(t) = \det (A' - tE) = \det(C^{-1}AC) = \det (C^{-1}AC - t \cdot C^{-1}C) =
+	\det(C^{-1} (A-tE)C) = \det C^{-1} \cdot \det(A - tE) \cdot \det C = \det(A-tE) = \chi_a(t)e_i$
+\end{proof}
+
+\begin{Thm}[Линейная независимость собственных векторов]
+	Собственные векторы, соответствующие различным собственным числам, линейно независимы. 
+\end{Thm} 
+
+\begin{proof}
+	$n = 1$ -- очевидно.
+	Пусть доказали при $n-1$. Индукционный переход: $n-1 \to n: V_1, V_2, ..., V_n$ -- собственные векторы\\
+	$aV_i = \lambda_i V_i, \ \ \ \lambda_1, ..., \lambda_n$ -- различны\\
+	Пусть $V_1, V_2, ..., V_n$ -- линейно зависимы. Тогда $\alpha_1 V_1 + \alpha_2 V_2 + ... + \alpha_n V_n = 0, \alpha_i \in K \Rightarrow$
+	под действием a: $\alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n = 0$\\
+	Будем считать, что $\lambda_1 \neq 0 \Rightarrow \alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n - \lambda_1(\alpha_1 V_1 + ... + \alpha_n V_n) =
+	\alpha_2(\lambda_2 - \lambda-1)V_2 + ... + \alpha_n(\lambda_n - \lambda_1)V_n = 0 \Rightarrow$ по предположению индукции $\alpha_2 = ... = \alpha_n = 0$ 
+\end{proof}
+
+\begin{Def} 
+	Оператор a называется диагонализируемым, если существует базис такой, что $A = \left(\begin{array}{cccc}
+		\lambda_1 & 0 & 0 & 0\\
+		0 & \lambda_2 & 0 & 0\\
+		0 & 0 & \ddots & 0\\
+		0 & 0 & 0 & \lambda_n
+	\end{array}
+	\right)$
+\end{Def} 
+
+\begin{Thm}[Критерий диагонализируемости] 
+	Если $\chi_a(t)$ имеет $n$ различных корней $(n = \dim V)$ над рассматриваемым полем, то оператор a -- диагонализируем. 
+\end{Thm} 
+
+\begin{proof}
+	В качестве базиса берём собственные векторы. 
+\end{proof}
+
+\begin{Example}
+	Оператор поворота $A = \left(\begin{array}{cc}
+		\cos \varphi & - \sin \varphi\\
+		\sin \varphi & \cos \varphi
+	\end{array}\right)$ -- недиагонализируем над $\R$
+\end{Example}
+
+\begin{Lm}
+	Над полем $\C$ любой оператор имеет одномерное инвариантное подпространство.
+\end{Lm}
+
+\begin{Def} 
+	Кратность $\lambda$ как кратность корня $\chi_a (t) = 0$ называется алгебраической кратностью собственного числа. 
+\end{Def} 
+
+\begin{Def}
+	$\lambda$ -- собственное число, $V^{\lambda} = \{x \in V: ax = \lambda x\}$\\
+	$\dim V^{\lambda}$ -- геометрическая кратность собственного числа $\lambda$
+\end{Def}
+
+\begin{Example}
+	$A = \left(\begin{array}{cc}
+		\lambda & 0\\
+		0 & \lambda\\
+	\end{array}
+	\right) \ \ \chi_a(t) = \left|\begin{array}{cc}
+		\lambda - t & 0\\
+		0 & \lambda -t
+	\end{array}\right| = (A-tE) = (\lambda - t)^2 \Rightarrow \lambda$ собственное число алгебраической кратности 2.\\
+	$(A - \lambda E)X = 0$\\
+	$\left( \left(\begin{array}{cc}
+		\lambda & 0\\
+		0 & \lambda
+	\end{array}\right) - \lambda \left(\begin{array}{cc}
+		1 & 0\\
+		0 & 1
+	\end{array}\right)\right) \left( \begin{array}{c}
+		X_1\\
+		X_2
+	\end{array}\right) = \left( \begin{array}{c}
+		0\\
+		0
+	\end{array} \right)\\
+	\dim V^{\lambda} = 2$ -- геометрическая кратность
+\end{Example}
+
+\begin{Example}
+	$A = \left(\begin{array}{cc}
+		\lambda & 1\\
+		0 & \lambda
+	\end{array} \right)$
+	
+	$\chi_a(t) = \left|\begin{array}{cc}
+	\lambda - t & 1\\
+	0 & \lambda - t
+	\end{array} \right| = (\lambda - t)^2 \Rightarrow$ алгебраическая кратность $\lambda$ = 2
+
+	$\left( \left(\begin{array}{cc}
+		\lambda & 1
+		\\
+		0 & \lambda
+	\end{array}\right) - \lambda \left(\begin{array}{cc}
+		1 & 0\\
+		0 & 1
+	\end{array}\right)\right) \left( \begin{array}{c}
+		X_1\\
+		X_2
+	\end{array}\right) = \left( \begin{array}{c}
+		0\\
+		0
+	\end{array} \right)$\\
+
+	$\left(\begin{array}{cc}
+		0 & 1\\
+		0 & 0
+	\end{array}\right)
+	\left(\begin{array}{c}
+		X_1\\
+		X_2
+	\end{array}\right)
+	\left(\begin{array}{c}
+		0\\
+		0
+	\end{array}\right) \ \ \ V^{\lambda} = <\left(\begin{array}{c}
+		1\\
+		0
+	\end{array}\right)> \\ \dim V^{\lambda} = 1$ -- геометрическая кратность
+\end{Example}
+
+\begin{Lm}
+	Геометрическая кратность собственного числа $\lambda \leqslant$ алгебраической кратности
+\end{Lm}
+
+\begin{proof}
+	$V^{\lambda}$ -- инвариантно относительно a, $V^{\lambda} = \{x: ax = \lambda x\}$\\
+	По лемме: $a \to \left(\begin{array}{cc}
+		B & C\\
+		0 & D
+	\end{array}\right) \ \ \ B - m \times m, \dim V^{\lambda} = m\\
+	a \big|_{V^{\lambda}} = \chi_a \big|_V^{\lambda} = (t - \lambda)^m\\
+	\chi_a = \det \left( \left(\begin{array}{cc}
+		B & C\\
+		0 & d
+	\end{array}\right) - tE \right) = (t - \lambda)^m p(t) \Rightarrow$ алгебраическая кратность $\lambda \geqslant m$ 
+\end{proof}
+
+\begin{Thm}[Критерий диагонализируемости] 
+	$a \in End \, V$ -- диагонализируема $\Leftrightarrow$ 1. Все собственные числа $\in K$ 2. $\forall$ собственных чисел $\lambda$ алгебраическая кратность = геометрическая кратность 
+\end{Thm} 
+
+\Subsection{Жорданова нормальная форма}
+\begin{Def} 
+	Жордановой клеткой порядка m соответствующей собственному числу $\lambda$ называется\\
+	$J_m(\lambda) = \left( \begin{array}{cccc}
+		\lambda & 1 & \cdots & 0\\
+		\vdots & \lambda &  & \vdots\\
+		0 & & \ddots &  1\\
+		0 & \dots & & \lambda
+	\end{array} \right)$
+\end{Def} 
+
+\begin{Example}
+	\begin{enumerate}
+		\item $\left(\begin{array}{cc}
+			\lambda & 1\\
+			0 & \lambda
+		\end{array}\right)$
+		\item $\left(\begin{array}{ccc}
+			\lambda & 1 & 0\\
+			0 & \lambda & 1\\
+			0 & 0 & \lambda
+		\end{array}\right)$
+	\end{enumerate}
+\end{Example}
+
+\begin{Def} 
+	ЖНФ оператора $a \in End V$ называется $$\left(\begin{array}{cccc}
+		J_{k_1}()\lambda_1) &  &  & \\
+		 & J_{k_2}()\lambda_2) &  &\\
+		 & & \ddots &\\
+		 & & & J_{k_n}()\lambda_n)
+	\end{array}\right)$$
+\end{Def} 
+
+\begin{Def} 
+	Базис, в котором оператор a имеет ЖНФ называется жордановом
+\end{Def} 
+
+\begin{Thm}[ЖНФ] 
+	\begin{enumerate}
+		\item Над алгебраическим замкнутым полем $\forall a \in End V$ имеет ЖНФ
+		\item ЖНФ определена с точностью до перестановки клеток
+	\end{enumerate}
+\end{Thm} 
+
+\begin{Thm} 
+	$a \in End V$ имеет ЖНФ над произвольным полем $\Leftrightarrow$ характеристический многочлен раскладывается на линейные множители
+\end{Thm} 
 \end{document}
