@@ -11,7 +11,7 @@
 \usepackage{amsthm,amsmath,amssymb}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{xcolor}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{array}
 \usepackage{epigraph}
 \usepackage{multicol}
@@ -26,6 +26,8 @@
 \usepackage{MnSymbol}
 \usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing}
 \usepackage{pgfplots}
+\usepackage{import}
+\usepackage{float}
 
 \usepackage{ifthen}
 \usepackage{mathtools}
@@ -205,23 +207,110 @@
 }
 \makeatother
 
+% theorems
+\makeatother
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+
+
+\theoremstyle{definition}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+    }
+]{thmgreenbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+    }
+]{thmbluebox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue
+    }
+]{thmblueline}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!5,
+    }
+]{thmredbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!1,
+    },
+    qed=\qedsymbol
+]{thmproofbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+    },
+]{thmexplanationbox}
+
+\declaretheorem[style=thmgreenbox, name=Определение]{Def}
+\declaretheorem[style=thmbluebox, numbered=no, name=Пример]{Example}
+\declaretheorem[style=thmredbox, name=Утверждение]{Prop}
+\declaretheorem[style=thmredbox, name=Теорема]{Thm}
+\declaretheorem[style=thmredbox, name=Лемма]{Lm}
+\declaretheorem[style=thmredbox, numbered=no, name=Следствие]{Cons}
+
+\declaretheorem[style=thmproofbox, name=Доказательство]{replacementproof}
+\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+
+
+\declaretheorem[style=thmexplanationbox, name=Доказательство]{tmpexplanation}
+\newenvironment{explanation}[1][]{\vspace{-10pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+
+\declaretheorem[style=thmblueline, numbered=no, name=Замечание]{Rem}
+\declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
+
+\newtheorem*{notation}{Notation}
+\newtheorem*{Ex}{Упражнение}
+
 % Определяем основные секции: \begin{Lm}, \begin{Thm}, \begin{Def}, \begin{Rem}
-\renewcommand{\qedsymbol}{$\blacksquare$}
-\theoremstyle{definition} % жирный заголовок, плоский текст
-\newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
-\newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
-\newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
-\newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
-\newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
-\theoremstyle{plain} % жирный заголовок, курсивный текст
-\newtheorem{Def}[Thm]{Def} % Нумерация такая же, как и у теорем
-\theoremstyle{remark} % курсивный заголовок, плоский текст
-\newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
-\newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
-\newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
-\newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
-\newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
-\newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+% \renewcommand{\qedsymbol}{$\blacksquare$}
+% \theoremstyle{definition} % жирный заголовок, плоский текст
+% \newtheorem{Thm}{\underline{Теорема}}[subsection] % нумерация будет "<номер subsection>.<номер теоремы>"
+% \newtheorem{Lm}[Thm]{\underline{Lm}} % Нумерация такая же, как и у теорем
+% \newtheorem{Ex}[Thm]{Упражнение} % Нумерация такая же, как и у теорем
+% \newtheorem{Example}[Thm]{Пример} % Нумерация такая же, как и у теорем
+% \newtheorem{Code}[Thm]{Код} % Нумерация такая же, как и у теорем
+% \theoremstyle{plain} % жирный заголовок, курсивный текст
+% \newtheorem{Def}[Thm]{Def} % Нумерация такая же, как и у теорем
+% \theoremstyle{remark} % курсивный заголовок, плоский текст
+% \newtheorem{Cons}[Thm]{Следствие} % Нумерация такая же, как и у теорем
+% \newtheorem{Conj}[Thm]{Гипотеза} % Нумерация такая же, как и у теорем
+% \newtheorem{Prop}[Thm]{Утверждение} % Нумерация такая же, как и у теорем
+% \newtheorem{Rem}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+% \newtheorem{Remark}[Thm]{Замечание} % Нумерация такая же, как и у теорем
+% \newtheorem{Algo}[Thm]{Алгоритм} % Нумерация такая же, как и у теорем
+
 
 % Определяем ЗАГОЛОВКИ
 \def\SectionName{unknown}
