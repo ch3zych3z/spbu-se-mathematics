@@ -53,6 +53,6 @@
   \begin{picture}(1,0.92)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{img/conic_sectoin.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{img/conic_section.pdf}}%
   \end{picture}%
 \endgroup%
