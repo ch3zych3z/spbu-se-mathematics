@@ -602,7 +602,7 @@
 
 	\begin{proof}
 		$f\in R[a,b] \Rightarrow f in \R[a,c], f \in R[c,b], \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
-		последовательности оснащенных дроблений $[a,c]$ и $[c,b]$  (равномерных, т.е. $\widetilde{\lambda} = \frac{c-a}{n}, \overline{\overline{\lambda}}$)\\
+		последовательности оснащенных дроблений $[a,c]$ и $[c,b]$  (равномерных, т.е. $\overline{\lambda} = \frac{c-a}{n}, \overline{\overline{\lambda}}$)\\
 		$\tau^{(n)} = \overline{\tau}^{(n)} \cup \overline{\overline{\tau}}^{(n)} -$ дробление $[a,b]$\\
 		$\xi^{(n)} = \overline{\xi}^{(n)} \cup \overline{\overline{\xi}}^{(n)} -$ оснащение $\tau^{(n)}\\
 		\sigma = \overline{\sigma} + \overline{\overline{\sigma}}$ при $n \to \infty$\\
@@ -1483,8 +1483,226 @@
 		$P_1 \bigcup P_2$ -- квадрируемая и \\$S(P_1 \bigcup P_2) = S(P_1) + S(P_2)$
 		\item Нормированность на прямоугольниках: площадь прямоугольника со сторонами $a$ и $b$ равна $ab$
 		\item Инвариантность относительно движений: $S(U(P)) = S(P)$
-	\end{MyList}
+		\item Монотонность: $P, P_2$ -- квадрируемые, $P_1 \subset P$, тогда $S(P_1) \leqslant S(P)$
+		\begin{proof}
+			$P = P_1 \cup (P \backslash P_1), \ P_1 \cap (P \backslash P_1) = \varnothing$. Тогда по аддитивности
+			площади: $S(P) = S(P_1) + S(P \backslash P_1) \geqslant S(P_1)$
+		\end{proof}
+		\item Если $P$ содержится в некотором отрезке, то $S(p) = 0$
+		\begin{proof}
+			$P$ можно поместить в прямоугольник сколь угодно малой площади. 
+		\end{proof}
+		\item Усиленная аддитивность: $P_1$ и $P_2$ пересекаются по множеству нулевой площади. Тогда
+		$S(P_1 \cup P_2) = S(P_1) + S(P_2)$
+		\begin{proof}
+			Возьмем $P = P_1 \cap P_2 \Rightarrow S(P_1) = S(P) + S(P_1 \backslash P) = S(P_1 \backslash P)\\
+			S(P_1 \cup P_2) = S(P_1 \backslash P)  +S(P_2) = S(P_1) + S(P_2)$
+		\end{proof}
+ 	\end{MyList}
 \end{Thm}
 
+\Subsubsection{Объём}
+\begin{Def} 
+	Объём -- функционал $V: \{T\} \to [0; +\infty)$, где $\{T\}$ -- класс кубируемых тел
+\end{Def} 
 
+\begin{Thm}[Свойства объёма] 
+	\begin{enumerate}
+		\item Аддитивность: $T_1, T_2$ -- кубируемые, $T_1 \cap T_2 = \varnothing$, тогда $T_1 \cup T_2$ --
+		кубируемое, $V(T_1 \cup T_2) = V(T_1) + V(T_2)$
+		\item Нормированность на прямоугольных параллелепипедах. Объём параллелепипеда:\\ 
+		$a \times b \times c = abc$
+		\item  Инвариантность относительно движения: $V(U(T)) = V(T)$
+		\item Монотонность: $T_1, T$ -- кубируемые, $T_1 \subset T$, тогда $V(T_1) \leqslant V(T)$
+		\item Если тело T содержится в некотором прямоугольнике, то его объём равен нулю.
+		\item Усиленная аддитивность. $T_1, T_2$ -- кубируемые, $T_1 \cap T_2$ нулевого объёма, тогда\\
+		$V(T_1 \cup T_2) = V(T_1) + V(T_2)$
+	\end{enumerate}
+\end{Thm} 
+
+\begin{Def} 
+	$P \subset \R^2, h \geqslant 0$. Множество $Q = P \times [0;h]$ называется прямым цилиндром с
+	основанием $P$ и высотой $h$. 
+\end{Def} 
+
+\begin{Def} 
+	$T \subset \R^3, x \in \R\\ T(x) = \{(y, z) \in \R^2: (x, y, z) \in T\}$ -- сечение
+\end{Def} 
+
+\Subsubsection{Длина пути}
+\begin{Def} 
+	$\gamma: [a; b] \to R^m, \gamma - \text{ непрерывное отображение }\\
+	\gamma_i, \ \ i = 1, ..., m$ -- $i$-тая координатная функция.\\
+	Если все $\gamma_i$ непрерывны, то отображение $\gamma$ непрерывно. 
+\end{Def} 
+
+\begin{Def} 
+	Путь в $R^m$ -- $\gamma = (\gamma_1, \gamma_2, ..., \gamma_m): [a,b] \to R^m$\\
+	$\gamma(a)$ -- начало пути\\
+	$\gamma(b)$ -- конец пути\\
+	$\gamma* = \gamma([a,b])$ -- носитель пути. В каком-то смысле можно считать, что это изображение пути.
+\end{Def} 
+
+\begin{Example}
+	Полуокружность:\\
+	$\gamma^1(t) = (t, \sqrt{1-t^2}), t \in [-1, 1]$, пробегаем дугу слева направо.\\
+	$\gamma^2(t) = (- \cos t, \sin t), t \in [0, \pi]$\\
+	$\gamma^3(t) = (\cos t, \sin t), t \in [0,\pi]$\\
+	$\gamma^4(t) = (\cos t, |\sin t|), t \in [-\pi, \pi]$. пробежали дугу туда и обратно.\\
+	Все четыре отображения разные, но носитель пути у всех одинаковый. 
+\end{Example}
+
+\begin{Def} 
+	$\gamma(a) = \gamma(b)$ -- замкнутый путь
+\end{Def} 
+
+\begin{Def} 
+	Если $\gamma(t_1) = \gamma(t_2)$ только при $t_1 = t_2$ или $t_1, t_2 \in \{a; b\},$ то путь 
+	несамопересекающийся (простой)
+\end{Def} 
+
+\begin{Def} 
+	Если $\gamma_i \in C^r[a;b], i = 1, ..., m$, то путь $\gamma$ гладкости $r$, $r \in \N \cup \{\infty\}$
+\end{Def} 
+
+\begin{Def} 
+	Если $\gamma^-(t) = \gamma(a+b-t)$ -- противоположный путь.
+\end{Def} 
+
+\begin{Ex}
+	Посмотреть на кривые Пеано. 
+\end{Ex}
+
+\begin{Def} 
+	$\gamma: [a; b] \to \R^m$, $\widetilde{\gamma}: [\alpha; \beta] \to \R^m$ -- эквивалентные,
+	если существует строго возрастающая функция и $[a;b] \overset{\text{на}}{\to} [\alpha; \beta]:
+	\gamma = \widetilde{\gamma} \circ u$.\\ 
+	Это отношение эквивалентности:
+	\begin{enumerate}
+		\item $\gamma \sim \gamma, \ \ u = id [a;b]$
+		\item $\gamma \sim \widetilde{\gamma} \Leftrightarrow \gamma \sim \widetilde{\gamma} \ \ \ u^{-1}$ -- обратное отображение
+		\item $\gamma_1 \sim \gamma_2, \gamma_2 \sim \gamma_3 \Rightarrow \gamma_1 \sim \gamma_3 \ \ \ u_1 \circ u_2$
+	\end{enumerate}
+\end{Def} 
+
+\begin{Def} 
+	Класс эквивалентных путей -- кривая\\
+	Каждый представитель класса -- параметризация кривой\\
+	Кривая называется r-гладкой, если у неё найдется гладкая параметризация
+\end{Def} 
+
+\Subsubsection{Длина кривой}
+\begin{Def} 
+	$\gamma \in C([a;b] \to \R^m) -$ путь в $R^m$
+	\begin{enumerate}
+		\item Длина кривой, соединяющей точки $A$ и $B$ не меньше $||AB||$
+		\item Нужна аддитивность: $a < c < b$, $\gamma^1 = \gamma \big|_{[a;c]},
+		\gamma^2=\gamma \big|_{[c;b]} \Rightarrow S_{\gamma} = S_{\gamma^1} + S_{\gamma^2}$
+	\end{enumerate}
+\end{Def} 
+
+\begin{Example}
+	$\tau = \{t_0, t_1, t_2, ..., t_n \}$ -- дробление $[a, b]\\
+	l_{\tau}$ -- вписанная ломаная. 
+\end{Example}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.4\columnwidth}
+	\input{img/path_length.pdf_tex}
+\end{figure*}
+
+\begin{Def} 
+	$\gamma$ -- путь в $\R^m$. Длиной пути $\gamma$ называется $S_{\gamma} = \underset{\tau}{\sup} \, l_{\tau}$ 
+\end{Def} 
+
+\begin{Def} 
+	Путь с $S_{\gamma} < + \infty$ -- спрямляемый. 
+\end{Def} 
+
+\begin{Lm}
+	Длины эквивалентных путей равны.	
+\end{Lm}
+\begin{proof}
+	$\gamma \sim \widetilde{\gamma} \circ u, \ \ u: [a;b] \overset{\text{на}}{\to}{[\alpha; \beta]}$ строго возрастает\\
+	$\tau = \{t_k\}^n_{k=1}$ -- дробление $[a;b]$\\
+	$\widetilde{t}_k = u(t_k), \widetilde{\tau} = \{\widetilde{t}_k\}$ -- дробление $[\alpha, \beta]$\\
+	$\displaystyle l_{\tau} = \sum_{k=0}^{n-1} \underbrace{||\gamma(t_{k+1}) - \gamma(t_k)||}_{\text{{ длина отрезка }}} = 
+	\sum_{k=0}^{n-1} || \widetilde{\gamma} (\widetilde{t}_{k+1}) - \widetilde{t}_k|| = l_{\widetilde{\tau}}$\\
+	$l_{\tau} = l_{\widetilde{\tau}} \leqslant S_{\widetilde{\gamma}} \Rightarrow S_{\gamma} \leqslant S_{\widetilde{\gamma}}$\\
+	Поменяем: $\gamma$ и $\widetilde{\gamma}$ местами $\Rightarrow S_{\widetilde{\gamma}} \leqslant S_{\gamma}$
+\end{proof}
+
+\begin{Rem}
+	Противоположные пути имеют одинаковую длину. 
+\end{Rem}
+
+\begin{Lm}[Аддитивность длины пути]
+	$\gamma: [a;b] \to \R, a < c < b$\\
+	$\gamma^1 = \gamma \big|_{[a;c]}, \gamma^2 = \gamma \big|_{[c;b]}$\\
+	$S_{\gamma} = S_{\gamma^1} + S_{\gamma^2}$
+\end{Lm}
+
+\begin{proof}
+	Обозначим $S_1 = S_{\gamma^1}, S_2 = S_{\gamma^2}$. Возьмём дробления $\tau_1$ и $\tau_2$ отрезков $[a, c]$ и $[c, b]$; тогда $\tau = \tau_1 \cup \tau_2$ -- дробление $[a, b]$. Потроим по $\tau_1$ и $\tau_2$ ломаные, вписанные в $\gamma^1$ и $\gamma^2$, и обозачим через $l_1$ и $l_2$ их длины.
+    Тогда $l_1 + l_2  = l_{\tau} \leqslant s_{\gamma}$. Последовательно переходя в левой части к супремуму по всевозможным дроблениям $\tau_1$ и $\tau_2$, получаем $$s_1 + l_2 \leqslant s_{\gamma},$$ $$ s_1 + s_2 \leqslant s_{\gamma}.$$
+    Докажем противоположное неравенство $$s_{\gamma} \leqslant s_1 + s_2.$$
+    Возьмём дробление $\tau = \{ t_k \}^n_{k = 0}$ отрезка $[a, b]$ и докажем, что $l_{\tau} \leqslant s_1 + s_2$; отсюда и будет следовать требуемое. Если $c \in \tau$, то $\tau = \tau_1 \cup \tau_2$, где $\tau_1$ и $\tau_2$ -- дробления $[a, c]$ и $[c, b]$. Поэтому $$l_{\tau} = l_1 + l_2 \leqslant s_1 + s_2.$$
+    Если $c \notin \tau$, то добавим $c$ в число точек дробления, то есть положим $\tau^* = \tau \cup \{ c \}$. Пусть $c \in (t_{\nu}, t_{\nu + 1})$. По неравенству треугольника        
+    $$ l_{\tau} = \sum_{k = 0}^{\nu - 1} |\gamma (t_{k + 1}) - \gamma (t_k) | + |\gamma (t_{\nu + 1}) - \gamma(t_{\nu}) | + \sum_{k = \nu + 1}^{n - 1}|\gamma (t_{k+1}) - \gamma (t_k) | \leqslant $$
+    $$ \leqslant \sum_{k = 0}^{\nu = 1} |\gamma (t_{k+1}) -\gamma (t_k)| + |\gamma(c) - \gamma(t_{\nu})| + |\gamma(t_{\nu + 1}) - \gamma(c)| + \sum_{k = \nu + 1}^{n - 1}|\gamma (t_{k + 1}) - \gamma(t_k)| = l_{\tau^*}$$
+    По доказанному $$l_{\tau} \leqslant l_{\tau^*} \leqslant s_1 + s_2$$
+\end{proof}
+
+\begin{Def} 
+	Длина кривой -- длина какой-то из её параметризаций
+\end{Def} 
+
+\begin{Example}
+	Пример ограниченной, но неспрямляемой кривой: кривая Коха.
+	Длины:
+	\begin{enumerate}
+		\item $\displaystyle n = 1: \ \frac{1}{3} \cdot 4$\\
+		\item $\displaystyle n = 2: \ \left(\frac{4}{3}\right)^2$
+		\item $\displaystyle n = 3: \ \left(\frac{4}{3}\right)^3$
+	\end{enumerate}
+\end{Example}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.4\columnwidth}
+	\input{img/Koch_curve.pdf_tex}
+  \end{figure*}
+
+\Subsubsection{Приложения интеграла Римана}
+
+\begin{Def} 
+	$f: [a;b] \to \R$\\ $Q_f\{(x, y) \in \R^2: x\in [a;b], y \in [0; f(x)]\}$ -- подграфик\\
+	Если $f \in C[a;b]$, то $Q_f$ называют криволинейной трапеция\\
+\end{Def} 
+
+\begin{Thm} 
+	Пусть $f \in R[a;b].$ Тогда $Q_f$ квадрируема 
+\end{Thm} 
+
+\begin{proof}
+	Без доказательства
+\end{proof}
+
+\begin{Rem}
+	Суммы Дарбу $s_{\tau}, S_{\tau}\\
+	\forall \tau \ \ \ s_{\tau} \leqslant S(Q_f) \leqslant S_{\tau}$\\
+	Вспомним, что $\underset{\tau}{\sup} S_{\tau} = \underset{\tau}{\inf} S_{\tau}$\\
+	$\Rightarrow S(Q_f) = \displaystyle \int_{a}^{b} f dx$
+\end{Rem}
+
+\begin{Rem}
+	$\displaystyle S(Q_f) = - \int_{a}^{b} f$
+\end{Rem}
+
+\begin{Example}
+	Площадь эллипса: $\displaystyle E = \{(x, y): \frac{x^2}{a^2} + \frac{y^2}{b^2} \leqslant 1\}, a, b > 0$\\
+	$\displaystyle y = b \sqrt{1 - \frac{x^2}{a^2}}, x\in [0;a]$\\
+	$\displaystyle S_E = 4 \int_{0}^{a} b	\sqrt{1 - \frac{x^2}{a^2}} dx = 4b \int_{0}^{\frac{\pi}{2}} a \cos^2 t dt = 4ba \cdot \frac{\pi}{4} = \pi ba$
+\end{Example}
 \end{document}
