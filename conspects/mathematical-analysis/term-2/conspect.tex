@@ -198,7 +198,7 @@
 	Любая рациональная функция имеет элементарную первообразную.
 \end{Prop}
 
-Рассмотрим простешие дроби:
+Рассмотрим простейшие дроби:
 
 \begin{MyList}
 	\item $\frac{a}{(x + p)^n}, n \in \N, a, p \in \R$ 
@@ -767,8 +767,8 @@
 \end{Cons}
 
 \begin{Def} 
-	$\displaystyle \Psi(x) = \int_{x}^{a} f$ (Условия на f  и a прежние) -- интеграл с переменным нижним пределом.\\
-	$\Rightarrow \Psi'(x) = - f(x)$ (Если f непрерывна).
+	$\displaystyle \psi(x) = \int_{x}^{a} f$ (Условия на f  и a прежние) -- интеграл с переменным нижним пределом.\\
+	$\Rightarrow \psi'(x) = - f(x)$ (Если f непрерывна).
 \end{Def} 
 
 \begin{Thm}[Формула Ньютона-Лейбница] 
@@ -994,7 +994,7 @@
 \end{Ex}
 
 \begin{Rem}
-	Строкое неравенство, если $f$ строго выпукла и $\PHI \not\equiv \const$. 
+	Строгое неравенство, если $f$ строго выпукла и $\PHI \not\equiv \const$. 
 \end{Rem}
 
 \begin{Thm}[Неравенство Гельдера]
@@ -1159,7 +1159,7 @@
 	\item \textbf{Интегрирование по частям в несобственном интеграле.} Пусть $f, g$ дифференцируемы на $[a, b), f', g' \in R_{loc}[a, b)$.
 	Тогда
 	\[\int_a^b fg' = \left.fg\right|_a^b - \int_a^b f'g\]
-	Если два из этих трез пределов конечны, то третий предел также существует и конечен.
+	Если два из этих трех пределов конечны, то третий предел также существует и конечен.
 
 	\begin{proof}
 		Устремим $t$ к $b$ слева в равенстве
@@ -1174,14 +1174,14 @@
 
 	\begin{proof}
 		Обозначим
-		\[\Phi(t) = \int_\alpha^t (f \circ \PHI) \PHI', \quad \Psi(y) = \int_{\PHI(\alpha)}^y f\]
+		\[\Phi(t) = \int_\alpha^t (f \circ \PHI) \PHI', \quad \psi(y) = \int_{\PHI(\alpha)}^y f\]
 		По формуле замены переменной в собственном интеграле 
-		\[\Phi(t) = \Psi(\PHI(t))\]
+		\[\Phi(t) = \psi(\PHI(t))\]
 
 		\begin{MyList}
 			\item Пусть $\exists \int_{\PHI(\alpha)}^{\PHI(\beta)} f = I \in \overline{R}$. Докажем, что $\exists \int_\alpha^\beta f(\PHI)\PHI' = I$, т.е.
 			$\Phi(t) \xrightarrow[t \to \beta-]{} I$. Возьмем $\{t_n\} : t_n \to \beta, t_n < \beta$. 
-			Тогда $\PHI(t_n) \to \PHI(b-), \PHI(t_n) \in [A, B)$. Поэтому $\Phi(t_n) = \Psi(\PHI(t_n)) \to I$. В силу произвольности выбора $\{t_n\}$, $\Phi(t) \to I$ при $t \to \beta-$.
+			Тогда $\PHI(t_n) \to \PHI(b-), \PHI(t_n) \in [A, B)$. Поэтому $\Phi(t_n) = \psi(\PHI(t_n)) \to I$. В силу произвольности выбора $\{t_n\}$, $\Phi(t) \to I$ при $t \to \beta-$.
 			
 			\item Пусть существует интеграл $\int_\alpha^\beta (f \circ \PHI) \PHI' = J \in \overline{R}$. 
 			Докажем, что интеграл $\int_{\PHI(\alpha)}^{\PHI(\beta-)} f$ существует, и тогда по пункту 1 будет следовать, что он равен $J$. 
@@ -1190,7 +1190,7 @@
 			Тогда $\exists \gamma_n \in [\alpha, \beta) : \PHI(\gamma_n) = y_n$ (по теореме Больцано-Коши).
 
 			Докажем, что $\gamma_n \to \beta$. Пусть $\beta' \in [\alpha, \beta)$. Т.к. $\max_{[\alpha, \beta']} \PHI < \beta$, а
-			$\PHI(\gamma_n) \to B$, то, начиная с некоторого номера, $\gamma_n \in (\beta', \beta)$. Поэтому $\gamma_n \to \beta$, откуда $\Psi(y_n) = \Phi(\gamma_n) \to J$.     
+			$\PHI(\gamma_n) \to B$, то, начиная с некоторого номера, $\gamma_n \in (\beta', \beta)$. Поэтому $\gamma_n \to \beta$, откуда $\psi(y_n) = \Phi(\gamma_n) \to J$.     
 		\end{MyList}
 	\end{proof}
 
@@ -1378,7 +1378,7 @@
 
 	\item $g$ ограничена и монотонна $\Rightarrow \alpha = \lim_{x \to b-} g(x)$\\
 	Функция $g - \alpha$ монотонна, $\xrightarrow[x \to b-]{} 0 \Rightarrow 
-	\int_{a}^{b} f(g - \alpha)$ сходится по признаку Дирихле. Поэтому интегра $\int_a^b f(g - \alpha)$ сходится, а интеграл $\int_a^b fg$ сходится как сумма двух сходящихся: 
+	\int_{a}^{b} f(g - \alpha)$ сходится по признаку Дирихле. Поэтому интеграл $\int_a^b f(g - \alpha)$ сходится, а интеграл $\int_a^b fg$ сходится как сумма двух сходящихся: 
 	$$\displaystyle \int_{a}^{b} fg = \int_{a}^{b} f(g-\alpha) + \int_{a}^{b} f \cdot \alpha$$
 	\end{MyList}
 \end{proof}
@@ -1644,7 +1644,7 @@
 \end{Lm}
 
 \begin{proof}
-	Обозначим $S_1 = S_{\gamma^1}, S_2 = S_{\gamma^2}$. Возьмём дробления $\tau_1$ и $\tau_2$ отрезков $[a, c]$ и $[c, b]$; тогда $\tau = \tau_1 \cup \tau_2$ -- дробление $[a, b]$. Потроим по $\tau_1$ и $\tau_2$ ломаные, вписанные в $\gamma^1$ и $\gamma^2$, и обозачим через $l_1$ и $l_2$ их длины.
+	Обозначим $S_1 = S_{\gamma^1}, S_2 = S_{\gamma^2}$. Возьмём дробления $\tau_1$ и $\tau_2$ отрезков $[a, c]$ и $[c, b]$; тогда $\tau = \tau_1 \cup \tau_2$ -- дробление $[a, b]$. Построим по $\tau_1$ и $\tau_2$ ломаные, вписанные в $\gamma^1$ и $\gamma^2$, и обозачим через $l_1$ и $l_2$ их длины.
     Тогда $l_1 + l_2  = l_{\tau} \leqslant s_{\gamma}$. Последовательно переходя в левой части к супремуму по всевозможным дроблениям $\tau_1$ и $\tau_2$, получаем $$s_1 + l_2 \leqslant s_{\gamma},$$ $$ s_1 + s_2 \leqslant s_{\gamma}.$$
     Докажем противоположное неравенство $$s_{\gamma} \leqslant s_1 + s_2.$$
     Возьмём дробление $\tau = \{ t_k \}^n_{k = 0}$ отрезка $[a, b]$ и докажем, что $l_{\tau} \leqslant s_1 + s_2$; отсюда и будет следовать требуемое. Если $c \in \tau$, то $\tau = \tau_1 \cup \tau_2$, где $\tau_1$ и $\tau_2$ -- дробления $[a, c]$ и $[c, b]$. Поэтому $$l_{\tau} = l_1 + l_2 \leqslant s_1 + s_2.$$
@@ -1703,6 +1703,445 @@
 \begin{Example}
 	Площадь эллипса: $\displaystyle E = \{(x, y): \frac{x^2}{a^2} + \frac{y^2}{b^2} \leqslant 1\}, a, b > 0$\\
 	$\displaystyle y = b \sqrt{1 - \frac{x^2}{a^2}}, x\in [0;a]$\\
-	$\displaystyle S_E = 4 \int_{0}^{a} b	\sqrt{1 - \frac{x^2}{a^2}} dx = 4b \int_{0}^{\frac{\pi}{2}} a \cos^2 t dt = 4ba \cdot \frac{\pi}{4} = \pi ba$
+	$\displaystyle S_E = 4 \int_{0}^{a} b	\sqrt{1 - \frac{x^2}{a^2}} dx = 4b \int_{0}^{\frac{\pi}{2}} a \cos^2 t \,dt = 4ba \cdot \frac{\pi}{4} = \pi ba$
 \end{Example}
+
+\def\AuthorName{Илья Дудников}
+
+\Subsection{Полярные координаты}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{.15\columnwidth}
+	\input{img/polar_cs.pdf_tex}
+\end{figure*}
+
+Чтобы была взаимная однозначность, можно считать, что $\PHI \in [0, 2\pi]$.
+Можно обобщать на $r \in \R$, а не только $\R_+$.
+
+\begin{figure}[h]
+	\centering
+
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\def\svgwidth{.7\columnwidth}
+		\input{img/polar_circle.pdf_tex}
+		\caption{$r(\PHI) = 1$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\def\svgwidth{.7\columnwidth}
+		\input{img/polar_example_2.pdf_tex}
+		\caption{$r(\PHI) = \PHI$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\def\svgwidth{.7\columnwidth}
+		\input{img/polar_example_3.pdf_tex}
+		\caption{$r(\PHI) = \cos \PHI$}
+	\end{subfigure}
+	\caption{Примеры функций в полярных координатах}
+\end{figure}
+
+\Subsubsection{Вычисление площади в полярных координатах}
+
+$r(\PHI) : [\PHI_1, \PHI_2] \to \R, \tau = \{\psi_k\}$ -- разбиение $[\PHI_1, \PHI_2]$.
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.35\columnwidth}
+	\input{img/curvilinear_sector.pdf_tex}
+\end{figure}
+
+Площадь сектора равна $\frac{1}{2} r^2 \PHI$. Обозначим
+
+\begin{align*}
+	&s_\tau = \frac{1}{2} \sum_{k=0}^{n - 1} \Delta \psi_k \cdot \min_{\PHI \in [\psi_k, \psi_{k + 1}]} r^2(\PHI) \\
+	&S_\tau = \frac{1}{2} \sum_{k=0}^{n - 1} \Delta \psi_k \cdot \max_{\PHI \in [\psi_k, \psi_{k + 1}]} r^2(\PHI)
+\end{align*}
+
+Тогда
+
+\[s_\tau \leqslant S(Q) \leqslant S_\tau\]
+Если $r^2(\PHI) \in R[\PHI_1, \PHI_2]$, то $\sup_\tau s_\tau = \inf_\tau S_\tau = S(Q)$.
+Значит, искомая площадь равна:
+\[S = \frac{1}{2}\int_{\PHI_1}^{\PHI_2} r^2(\PHI) \,d\PHI\]
+
+\begin{Example}
+	Найдем площадь $S$ правого лепестка \textbf{лемнискаты Бернулли} 	
+	\[r = a\sqrt{2\cos 2\PHI}, \qquad \PHI \in \left[-\frac{\pi}{4}, \frac{\pi}{4}\right], \quad a > 0\]
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/bernoulli_lemniscate.pdf_tex}
+	\end{figure}
+	\[S = \frac{1}{2}\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}} a^2 \cdot 2\cos 2\PHI \,d\PHI = \left. a^2 \frac{\sin 2\PHI}{2}\right|_{-\frac{\pi}{4}}^{\frac{\pi}{4}} = a^2\]
+\end{Example}
+
+\begin{Ex}
+	Посчитать площадь правого лепестка лемниската Бернулли.
+\end{Ex}
+
+\begin{Rem}
+	Можно было приближать не секторами, а треугольниками. 
+	
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/curvilinear_sector_with_triangles.pdf_tex}
+	\end{figure}
+
+	\[\frac{1}{2} \min_{\PHI \in [\psi_k, \psi_{k + 1}]} r^2(\PHI) \sin \Delta \psi_k\]
+	В данном случае, нельзя перейти к эквивалентным. Тогда
+	\[\alpha - \frac{\alpha^3}{3!} \leqslant \sin \alpha \leqslant \alpha\]
+\end{Rem}
+
+\Subsubsection{Вычисление объемов}
+
+$T$ -- кубируемое.
+
+\begin{MyItemize}
+	\item Существует отрезок $[a, b]$ такой, что $T(x) = \varnothing \ \forall x \notin [a, b]$
+	\item $\forall x \in [a, b] \ T(x)$ -- квадрируемая фигура.  
+\end{MyItemize}
+
+$\tau = \{x_k\}$ -- разбиение $[a, b]$. Возьмем цилиндры с $h = \Delta x_k$, основаниями $\displaystyle \min_{x \in [x_k, x_{k + 1}]} S(x)$ и $\displaystyle \max_{x \in [x_k, x_{k + 1}]} S(x)$. Тогда
+\[V = \int_a^b S(x) \,dx\]
+
+\begin{Example}
+	Найдем объем $V$ эллипсоида
+	\[D = \left\{(x, y, z), \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} \leqslant 1\right\}, \qquad a, b, c > 0\]
+	Если $x \notin [-a, a]$, то $D(x) = \varnothing$. Если $x = \pm a$, то $D(x) = \{(0, 0)\}$.
+	Если $x \in (-a, a)$, то
+	\[D(x) = \left\{(x, y) \in \R^2 : \frac{y^2}{b^2} + \frac{z^2}{c^2} \leqslant 1 - \frac{x^2}{a^2}\right\}\] 
+	есть эллипс с полуосями $b\sqrt{1 - \frac{x^2}{a^2}}$ и $c\sqrt{1 - \frac{x^2}{a^2}}$.
+	Площадь эллипса вычисляется по формуле: $S(x) = \pi bc \left(1 - \frac{x^2}{a^2}\right)$. Отсюда
+	\[V = \int_{-a}^a \pi bc \left(1 - \frac{x^2}{a^2}\right)\,dx = 2\pi bc \left[x - \frac{x^3}{3a^2}\right]_{x = 0}^a = \frac{4}{3} \pi abc\] 
+\end{Example}
+
+\begin{Rem}
+	Пусть $f : [a, b] \to [0, +\infty), T_f$ -- тело, получающееся вращением подграфика функции $f$ вокруг оси $OX$.
+	Тело $T_f$ задается равенством
+	\[T_f = \left\{(x, y, z) \in \R^3 : x \in [a, b], y^2 + z^2 \leqslant f^2(x)\right\}\] 
+\end{Rem}
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.35\columnwidth}
+	\input{img/rotating_solid.pdf_tex}
+\end{figure}
+
+\begin{Rem}
+	Пусть $f \in C[a, b], f \geqslant 0$. Для тела вращения $T_f$ при каждом $x \in [a, b]$ сечение есть круг радиуса $f(x)$,
+	поэтому $S(x) = \pi f^2(x)$. Значит
+	\[V(T_f) = \pi \int_a^b f^2\]  
+\end{Rem}
+
+\begin{Example}
+	Найдем объем $V_T$ тора -- тела, образованного вращением круга $\left\{(x, y) : x^2 + (y - R)^2 \leqslant r^2\right\} \quad (0 < r < R)$ вокруг оси $OX$.
+	
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/thor.pdf_tex}
+	\end{figure}
+	
+	Тор представляется в виде разности тел вращения подграфиков функций, графики которых -- верхняя и нижняя полуокружности, то есть функции
+	\[f_1(x) = R + \sqrt{r^2 - x^2}, \quad f_2(x) = R - \sqrt{r^2 - x^2}, \qquad x \in [-r, r]\]
+	Поэтому
+	\begin{align*}
+		V_T &= \pi \int_{-r}^r f_1^2 - \pi \int_{-r}^r f_2^2 = \\
+		&= \pi \int_{-r}^r \left(\left(R + \sqrt{r^2 - x^2}\right)^2 - \left(R - \sqrt{r^2 - x^2}\right)^2\right)\,dx =\\
+		&= 4\pi R \int_{-r}^r \sqrt{r^2 - x^2}\,dx = 2\pi^2 Rr^2
+	\end{align*}
+\end{Example}
+
+\begin{Rem}
+	Вокруг $OY$ вращаем $y = f(x)$ 
+	\[V = \int_a^b 2\pi x f(x) \,dx\]	
+\end{Rem}
+
+\Subsubsection{Длина кривой}
+
+Если $\gamma = (\gamma_1, ..., \gamma_m)$ -- путь в $\R^m$, $\gamma_i \in C^1[a, b], \gamma' = (\gamma_1', \gamma_2', ..., \gamma_m')$.
+По определению евклидовой длины
+\[||\gamma'|| = \sqrt{\sum_{i = 1}^m \gamma_i'^2}\]
+
+\begin{Thm}[Длина гладкого пути]
+	Пусть $\gamma : [a, b] \to \R^m$ -- гладкий путь. Тогда $\gamma$ спрямляем и
+	\[s_\gamma = \int_a^b ||\gamma'||\] 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Пусть $\Delta = [\alpha, \beta] \subset [a, b]$. Пусть дробление $\eta = \{u_k\}_{k = 0}^n$ отрезка $\Delta$. 
+		Тогда
+		\[l_\eta = \sum_{k=0}^{n - 1} ||\gamma(u_{k + 1}) - \gamma(u_k)|| = \sum_{k=0}^{n - 1} \sqrt{\sum_{i=1}^{m} \left(\gamma_i(u_{k + 1}) - \gamma_i(u_k)\right)^2}\]  
+
+		По формуле Лагранжа при каждых $i$ и $k$ найдется такая точка $c_{ik} \in (u_k, u_{k + 1})$, что
+		\[\gamma_i (u_{k + 1}) - \gamma_i (u_k) = \gamma_i' (c_{ik}) \Delta u_k\]
+		Поэтому
+		\[l_\eta = \sum_{k=0}^{n - 1} \sqrt{\sum_{i=1}^{m} \gamma_i'^2 (c_{ik})} \cdot \Delta u_k\]
+		Обозначим 
+		\[M_\Delta^{(i)} = \max_{t \in \Delta} |\gamma_i'(t)|, \qquad m_\Delta^{(i)} = \min_{t \in \Delta} |\gamma_i'^2 (t)|\]
+		\[M_\Delta = \sqrt{\sum_{i=1}^{m} \left(M_\Delta^{(i)}\right)^2}, \qquad m_\Delta = \sqrt{\sum_{i=1}^{m} \left(m_\Delta^{(i)}\right)^2}\]
+		Тогда
+		\[m_\Delta (\beta - \alpha) \leqslant l_\eta \leqslant M_\Delta (\beta - \alpha)\]
+		Переходя к супремуму по всем дроблениям, мы получим
+		\[m_\Delta (\beta - \alpha) \leqslant s_{\gamma |_\Delta} \leqslant M_\Delta (\beta - \alpha)\]
+		В частности, при $\Delta = [a, b]$, отсюда следует, что путь $\gamma$ спрямляем.
+
+		\item Возьмем дробление $\tau = \{t_k\}_{k = 0}^n$ отрезка $[a, b]$ и обозначим
+		\[m_k = m_{[t_k, t_{k + 1}]}, \qquad M_k = M_{[t_k, t_{k + 1}]}\]
+		По доказанному
+		\[m_k \Delta t_k \leqslant s_{\gamma |_{[t_k, t_{k + 1}]}} \leqslant M_k \Delta t_k\]
+		Кроме того, при всех $t \in [t_k, t_{k + 1}]$
+		\[m_k \leqslant ||\gamma'(t)|| \leqslant M_k\]	
+		и поэтому
+		\[m_k \Delta t_k \leqslant \int_{t_k}^{t_{k + 1}} ||\gamma'|| \leqslant M_k \Delta t_k\]
+		Складывая неравенства и пользуясь аддитивностью длины пути и интеграла, получаем:
+		\[\sum_{k=0}^{n - 1} m_k \Delta t_k \leqslant s_\gamma \leqslant \sum_{k=0}^{n - 1} M_k \Delta t_k\]
+		\[\sum_{k=0}^{n - 1} m_k \Delta t_k \leqslant \int_a^b ||\gamma'|| \leqslant \sum_{k=0}^{n - 1} \leqslant \sum_{k=0}^{n - 1} M_k \Delta t_k\]
+		Докажем, что для всех дроблений между левой и правой суммами лежит лишь одно число.
+		Суммы в левой и правой части не обязаны быть интегральными для $||\gamma'||$, поэтому оценим разность между ними непосредственно.
+		Если $M_\Delta + m_\Delta \neq 0$, то 
+		\begin{align*}
+			M_\Delta - m_\Delta &= \frac{M_\Delta^2 - m_\Delta^2}{M_\Delta + m_\Delta} = \frac{\sum_{i = 1}^m \left(\left(M_\Delta^{(i)}\right)^2 - \left(m_\Delta^{(i)}\right)^2\right)}{M_\Delta + m_\Delta} = \\
+			&= \sum_{i=1}^{m} \left(M_\Delta^{(i)} - m_\Delta^{(i)}\right) \cdot \frac{M_\Delta^{(i)} + m_\Delta^{(i)}}{M_\Delta + m_\Delta} \leqslant \sum_{i=1}^{m} \left(M_\Delta^{(i)} - m_\Delta^{(i)}\right) \\
+		\end{align*}
+		Если же $M_\Delta = m_\Delta = 0$, то доказанное неравенство очевидно.
+
+		Возьмем $\varepsilon > 0$. По теореме Кантора все функции $|\gamma_i'|$ равномерно непрерывны на $[a, b]$. Поэтому для каждого $i = 1, ..., m$ найдется такое $\delta_i > 0$, что
+		\[x, y \in [a, b], |x - y| < \delta_i \SO \left||\gamma_i'(x)| - |\gamma_i'(y)|\right| < \frac{\varepsilon}{m(b - a)}\]
+		Положим $\delta = \displaystyle \min_{1 \leqslant i \leqslant m} \delta_i$.
+		Для любого разбиения с рангом меньше, чем $\delta$ $|M_k - m_k| < \frac{\varepsilon}{b - a}$. Поэтому
+		\[\left|s_\gamma - \int_a^b ||\gamma'||\right| \leqslant \sum_{k=0}^{n - 1} M_k \Delta t_k - \sum_{k=0}^{n - 1} m_k \Delta t_k < \frac{\varepsilon}{b - a} \sum_{k=0}^{n - 1} \Delta t_k = \varepsilon\]
+		Так как $\varepsilon$ произвольно, то $s_\gamma = \int_a^b ||\gamma'||$.
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	По аддитивности эта теорема распространяется на кусочно-гладкие пути.
+\end{Rem}
+
+\begin{Rem}
+	Запишем частный случай теоремы 1 при $m = 2$.
+	Пусть $\gamma = (x(t), y(t)) \in C^{1} \left([a, b] \to \R^2\right)$  
+	\[s_\gamma = \int_a^b \sqrt{(x'(t))^2 + (y'(t))^2}\]
+\end{Rem}
+
+\begin{Cons}
+	$y = f(x) \in C^1[a, b]$. Тогда график спрямляем и
+	\[S_{\Gamma_f} = \int_a^b \sqrt{1 + (f'(x))^2} \,dx\]
+	График $f$ -- это путь
+	\[\Gamma_f (t) = (t, f(t)), \quad t \in [a, b]\]	 
+\end{Cons}
+
+\begin{Example}
+	Длина дуги эллипса.
+	\[\begin{cases}
+		x(t) = a \cos t \\
+		y(t) = b \sin t
+	\end{cases}, \qquad t \in [0, \beta]\]
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.25\columnwidth}
+		\input{img/ellipse.pdf_tex}
+	\end{figure}
+	\begin{align*}
+		s &= \int_0^\beta \sqrt{a^2 \sin^2 t + b^2 \cos^2 t}\,dt \\
+		&= \int_0^\beta \sqrt{b^2 - (b^2 - a^2) \sin^2 t}\,dt = b \int_0^\beta \sqrt{1 - \varepsilon^2 \sin^2 t}\,dt
+	\end{align*}
+	Величина $\varepsilon = \frac{\sqrt{b^2 - a^2}}{b}$ называется \textbf{эксцентриситетом} эллипса.
+	Интеграл
+	\[E(\varepsilon, \beta) = \int_0^\beta \sqrt{1 - \varepsilon^2 \sin^2 t} \,dt\] 
+	называется \textbf{эллиптическим интегралом второго рода}. 
+\end{Example}
+
+\begin{Rem}
+	Эллиптическим интегралом первого рода называется интеграл
+	\[K(\varepsilon, \beta) \int_0^\beta = \frac{1}{\sqrt{1 - \varepsilon^2 \sin^2 t}} \,dt\]
+\end{Rem}
+
+\Subsection{Функции ограниченной вариации}
+
+\begin{Def}
+	Величина
+	\[\mathop{V}_a^b f = \sup_\tau \sum_{k=0}^{n - 1} |f(x_{k + 1}) - f(x_k)|\]
+	называется полной вариацией $f$ на $[a, b]$. 
+
+	Если $\mathop{V}_a^b f < +\infty$, то $f$ называется функцией \textbf{ограниченной вариации} на отрезке $[a, b]$.
+	Множество всех функций ограниченной вариации на $[a, b]$ обозначается $V[a, b]$. 
+\end{Def}
+
+\begin{Thm}[Свойства]
+	\begin{MyList}
+		\item Вариация аддитивна: если $f : [a, b] \to \R, a < c < b$, то
+		\[\mathop{V}_a^b = \mathop{V}_a^c + \mathop{V}_c^b\]
+
+		\item Если $f$ является кусочно-гладкой на $[a, b]$, то
+		\[\mathop{V}_a^b f = \int_a^b |f'|\]
+
+		\item Вариация монотонна: если $f : [a, b] \to \R, [\alpha, \beta] \subset [a, b]$, то
+		\[\mathop{V}_\alpha^\beta = \mathop{V}_a^b f\]
+
+		Вариацию можно определить и для функция, заданных на промежутке произвольного типа.
+		Если $f : \langle a, b\rangle \to \R$, то
+		\[\mathop{V}_a^b f = \sup_{[\alpha, \beta] \subset \langle a, b\rangle} \mathop{V}_\alpha^\beta f\]
+
+		\item Пусть $\gamma = (\gamma_1, ..., \gamma_m) : [a, b] \to \R^m$. Тогда $\gamma$ спрямляем в том и только том случае, когда $\gamma_i \in V[a, b]$ при всех $i = 1, ..., m$.
+		\item Если $f$ монотонна на $[a, b]$, то $f \in V[a, b]$ 
+		\[\mathop{V}_a^b f = |f(b) - f(a)|\]
+		\item Если $f \in V[a, b]$, то $f$ ограничена на $[a, b]$.
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	Докажем свойства 3, 4, 5 и 6.
+	
+	3. По аддитивности 
+	\[\mathop{V}_a^b f = \mathop{V}_a^\alpha + \mathop{V}_\alpha^\beta + \mathop{V}_\beta^b \geqslant \mathop{V}_\alpha^\beta f\] 
+
+	4. Доказательство следует из двусторонней оценки
+	\[|\gamma_i(t_{k + 1}) - \gamma_i (t_k)| \leqslant ||\gamma(t_{k + 1}) - \gamma(t_k)|| \leqslant \sum_{j = 1}^m |\gamma_i (t_{k + 1}) - \gamma_j (t_k)|\]
+
+	5. Для любого дробления
+	\[\sum_{k = 0}^{n - 1} |f(x_{k + 1}) - f(x_k)| = \left|\sum_{k = 0}^{n - 1} \left(f(x_{k + 1}) - f(x_k)\right)\right| = |f(b) - f(a)|\]
+
+	6. При всех $x \in [a, b]$
+	\[|f(x)| \leqslant |f(a)| + |f(x) - f(a)| + |f(b) - f(x)| \leqslant |f(a)| + \mathop{V}_a^b f\]
+\end{proof}
+
+\begin{Thm}[Арифметические действия над функциями ограниченной вариации] \label{thm:32}
+	Пусть $f, g \in V[a, b]$. Тогда
+	\begin{MyList}
+		\item $f + g \in V[a, b]$ 
+		\item $fg \in V[a, b]$ 
+		\item $\alpha f \in V[a, b] \ (\alpha \in \R)$
+		\item $|f| \in V[a, b]$ 
+		\item если $\displaystyle \inf_{x \in [a, b]} |g(x)| > 0$, то $\frac{f}{g} \in V[a, b]$  
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	Обозначим $\Delta_k f = f(x_{k + 1}) - f(x_k)$
+	
+	\begin{MyList}
+		\item Складывая по всем $k$ неравенства
+		\[|\Delta_k(f + g)| \leqslant |\Delta_k f| + |\Delta_k g|\]
+		получим
+		\[\sum_{k = 0}^{n - 1} |\Delta_k (f + g)| \leqslant \sum_{k = 0}^{n - 1} |\Delta_k f| + \sum_{k = 0}^{n - 1} |\Delta_k g| \leqslant \mathop{V}_a^b + \mathop{V}_a^b g\]
+		Переходя в левой части к супремуму по всем дроблениям, получаем, что 
+		\[\mathop{V}_a^b (f + g) \leqslant \mathop{V}_a^b f + \mathop{V}_a^b g\]
+
+		\item По свойству 6 функции $f$ и $g$ ограничены; пусть $|f|$ ограничена числом $K$, а $|g|$ -- числом $L$.
+		Тогда
+		\[|\Delta_k (fg)| \leqslant L |\Delta_k f| + K|\Delta_k g|\]
+		Складывая эти неравенства и переходя к супремуму, получим
+		\[\mathop{V}_a^b fg \leqslant L \mathop{V}_a^b f + K\mathop{V}_a^b g\]
+
+		\item Утверждение для $\alpha f$ следует из 2, если взять в качестве $g$ функцию, тождественно равную $\alpha$.
+		\item Аналогично, из неравенств
+		\[\left|\Delta_k |f|\right| \leqslant |\Delta_k f|\]
+		сложив и перейдя к супремуму, вытекает, что
+		\[\mathop{V}_a^b |f| \leqslant \mathop{V}_a^b f\]	
+
+		\item Достаточно доказать, что $\frac{1}{g} \in V[a, b]$, а потом воспользоваться утверждением 2. Пусть $m = \displaystyle{\inf_{x \in [a, b]} |g(x)|}$.
+		Тогда 
+		\[\left| \Delta_k \frac{1}{g}\right| = \left| \frac{\Delta_k g}{g(x_k) g(x_{k + 1})}\right| \leqslant \frac{|\Delta_k g|}{m^2}\]
+		откуда
+		\[\mathop{V}_a^b \frac{1}{g} \leqslant \frac{1}{m^2} \mathop{V}_a^b g\]	
+	\end{MyList}
+\end{proof}
+
+\begin{Thm}[Характеристика функций ограниченной вариации] \label{thm:33}
+	Пусть $f : [a, b] \to \R$. Тогда $f \in V[a, b]$ в том и только том случае,
+	когда $f$ представляется в виде разности двух возрастающих на $[a, b]$ функций.
+\end{Thm}
+
+\begin{proof}
+	Достаточность очевидна из свойства 5 и предыдущей теоремы.
+	Докажем необходимость. Пусть
+	\[g(x) = \mathop{V}_a^x f, \quad x \in [a, b]; \qquad h = g - f\]
+	Если $a \leqslant x_1 < x_2 \leqslant b$, то по аддитивности
+	\begin{align*}
+		g(x_2) - g(x_1) &= \mathop{V}_{x_1}^{x_2} f \geqslant 0, \\
+		h(x_2) - h(x_1) &= \mathop{V}_{x_1}^{x_2} f - \left(f(x_2) - f(x_1)\right) \geqslant 0
+	\end{align*}
+	то есть функции $g$ и $h$ возрастают.
+\end{proof}
+
+\begin{Cons}
+	$V[a, b] \subset R[a, b]$ 
+\end{Cons}
+
+\begin{proof}
+	Действительно, монотонная функция интегрируема и разность интегрируемых функций интегрируема.
+\end{proof}
+
+\begin{Cons}
+	Функция ограниченной вариации не может иметь разрывов второго рода.
+\end{Cons}
+
+\begin{proof}
+	Это следует из теоремы \ref{thm:33} и из того, что монотонная на отрезке функция не может иметь разрывов второго рода. 
+\end{proof}
+
+\begin{Cons}
+	Ни один из классов $V[a, b]$ и $C[a, b]$ не содержится в другом.
+\end{Cons}
+
+\begin{proof}
+	Так как существуют разрывные монотонные функции, то $V[a, b] \not\subset C[a, b]$
+	
+	Приведем пример непрерывной функции, вариация которой бесконечна. Пусть
+	\[f(x) = \begin{cases}
+		x \cos \frac{\pi}{x}, \quad & x \in (0, 1], \\
+		0, \quad & x = 0
+	\end{cases}\]
+	Тогда $f \in C[0, 1]$. Обозначим $x_k = \frac{1}{k} \ (k \in \N)$. При этом
+	\[f(x_k) = \frac{(-1)^k}{k}, \qquad |f(x_k) - f(x_{k + 1})| = \frac{1}{k} + \frac{1}{k + 1}\]
+	Возьмем $n \in \N$ и рассмотрим дробление: $0 < x_n < ... < x_1 = 1$ (для удобства точки дробления замурованы в порядке убывания).
+	Сумма из определения вариации равна
+	\[\sum_{k = 1}^{n - 1} |f(x_{k + 1}) - f(x_k)| + |f(x_n) - f(0)| = -1 + 2 \sum_{k = 1}^n \frac{1}{k}\]
+	Докажем, что последовательность \textbf{гармонических} сумм 
+	\[H_n = \sum_{k=1}^{n} \frac{1}{k}\]
+	не ограничена сверху. При $m \in \N$ оценим сумму с номером $2^m$ снизу.
+	Для этого сгруппируем слагаемые, а затем оценим сумму в каждой группе как количество слагаемых, умноженное на самое малое слагаемое:
+	\begin{align*}
+		H_{2^m} &= 1 + \frac{1}{2} + \left(\frac{1}{3} + \frac{1}{4}\right) + \left(\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}\right) + ... + \left(\frac{1}{2^{m - 1} + 1} + ... + \frac{1}{2^m}\right) \geqslant \\
+		&\geqslant 1 + \frac{1}{2} + 2 \cdot \frac{1}{4} + 4 \cdot \frac{1}{8} + ... + 2^{m - 1} \cdot \frac{1}{2^m} = 1 + \frac{m}{2}
+	\end{align*}  
+	Поэтому $f \notin V[0, 1]$ 
+\end{proof}
+
+\Section{Ряды}{}{Илья Дудников}
+
+\begin{Def}
+	Рядами называется сумма
+	\[\sum_{k=1}^{\infty} a_k = a_1 + a_2 + ...\]
+	где $\{a_k\}$ -- последовательность из $\R$ (из $\C$)   
+\end{Def}
+
+\begin{Def}
+	Частичной суммой называется величина
+	\[S_n = \sum_{k=1}^{n} a_k\]
+\end{Def}
+
+\begin{Def}
+	$\sum_{k=1}^{\infty} a_k$ сходится $\EQ \exists $ конечный $\lim_{n \to \infty} S_n$    
+\end{Def}
+
+\begin{Prop}
+	$\forall \{S_n\}$ является последовательностью частичных сумм какого-то ряда. 
+\end{Prop}
+
+\begin{proof}
+	$a_1 = S_1, a_k = S_k - S_{k - 1}$
+\end{proof}
+
 \end{document}
