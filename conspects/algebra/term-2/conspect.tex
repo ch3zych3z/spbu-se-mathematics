@@ -468,7 +468,7 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 
 \begin{Def}
 	Линейным оператором называется линейное отображение $a: V \to V$, т.е. $a \in \Hom(V, V)$. \\
-	Обозначается $End V = \Hom(V, V)$.
+	Обозначается $\End V = \Hom(V, V)$.
 \end{Def}
 
 \begin{Def}
@@ -481,7 +481,7 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 
 \begin{Example}
 	\begin{MyList}
-		\item Нулевой оператор. $0 \in End V. \ \ 0(x) = 0$. $0 \to 
+		\item Нулевой оператор. $0 \in \End V. \ \ 0(x) = 0$. $0 \to 
 			\left(\begin{array}{cccc}
 			0 & \cdots & 0 \\ 
 			\vdots & \ddots & \vdots \\
@@ -572,14 +572,14 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 \end{proof}
 
 \begin{Thm}[Изменение матрицы линейного оператора при переходе к другому базису]
-	$V$ -- векторное пространство, $\dim V = n, a \in End V$, фиксируем базисы $(e_i), (e_i'), \ A$ -- матрица оператора в базисе $(e_i), \ A'$ -- в базисе $(e_i')$, C -- матрица перехода от $(e_i) \text{ к } (e_i')$.
+	$V$ -- векторное пространство, $\dim V = n, a \in \End V$, фиксируем базисы $(e_i), (e_i'), \ A$ -- матрица оператора в базисе $(e_i), \ A'$ -- в базисе $(e_i')$, C -- матрица перехода от $(e_i) \text{ к } (e_i')$.
 	$$\Rightarrow A' = C^{-1} A C$$ 
 \end{Thm}
 
 \gdef\AuthorName{Ксения Кузьмина}
 
 \begin{Lm}
-	$U \subset V, a \in End \, V\\
+	$U \subset V, a \in \End \, V\\
 	U -$ а-инвариантно $\Leftrightarrow$ $\exists$ базис $V: A = 
 	\left(\begin{array}{cc}
 		B & C\\
@@ -599,7 +599,7 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 \end{proof}
 
 \begin{Lm}
-	$U, W \subset V, a \in End \, V\\
+	$U, W \subset V, a \in \End \, V\\
 	V = U \oplus W, U, W$ -- а-инвариантны $\Leftrightarrow \exists$ базис $A = \left(\begin{array}{cc}
 		B & 0\\
 		0 & C
@@ -823,7 +823,7 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 \end{proof}
 
 \begin{Thm}[Критерий диагонализируемости] 
-	$a \in End \, V$ -- диагонализируема $\Leftrightarrow$ 1. Все собственные числа $\in K$ 2. $\forall$ собственных чисел $\lambda$ алгебраическая кратность = геометрическая кратность 
+	$a \in \End \, V$ -- диагонализируема $\Leftrightarrow$ 1. Все собственные числа $\in K$ 2. $\forall$ собственных чисел $\lambda$ алгебраическая кратность = геометрическая кратность 
 \end{Thm} 
 
 \Subsection{Жорданова нормальная форма}
@@ -852,7 +852,7 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 \end{Example}
 
 \begin{Def} 
-	ЖНФ оператора $a \in End V$ называется $$\left(\begin{array}{cccc}
+	ЖНФ оператора $a \in \End V$ называется $$\left(\begin{array}{cccc}
 		J_{k_1}()\lambda_1) &  &  & \\
 		 & J_{k_2}()\lambda_2) &  &\\
 		 & & \ddots &\\
@@ -866,12 +866,173 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 
 \begin{Thm}[ЖНФ] 
 	\begin{enumerate}
-		\item Над алгебраическим замкнутым полем $\forall a \in End V$ имеет ЖНФ
+		\item Над алгебраическим замкнутым полем $\forall a \in \End V$ имеет ЖНФ
 		\item ЖНФ определена с точностью до перестановки клеток
 	\end{enumerate}
 \end{Thm} 
 
 \begin{Thm} 
-	$a \in End V$ имеет ЖНФ над произвольным полем $\Leftrightarrow$ характеристический многочлен раскладывается на линейные множители
+	$a \in \End V$ имеет ЖНФ над произвольным полем $\Leftrightarrow$ характеристический многочлен раскладывается на линейные множители
 \end{Thm} 
+
+\Subsection{Теорема Гамильтона-Кэли}	
+
+\begin{Def} 
+	$f(x) = a_nx^n+...+a_1x+a_0 \in K[x]$\\
+	$A -- m\times m$\\
+	$f(A) = a_nA^N+...+a_iA+a_0E$, $E -- m \times m$ -- многочлен от матрицы
+\end{Def} 
+
+\begin{Def} 
+	$a \in \End V\\
+	f(a) = a_n \cdot a^n + ... + a_1 \cdot a + a_0 \cdot \id$ -- многочлен от оператора
+\end{Def} 
+
+\begin{Thm}[Гамильтона-Кэли] 
+	$\chi_a(A)=0$, $a \in \End V$, $a \to A \in M(m, K)$
+\end{Thm} 
+
+\begin{proof}
+	$\chi_a(t) = \det (tE-A)\\
+	B = tE-A, \widetilde{B} = (B_{ij})^T$ -- взаимная матрица\\
+	$\widetilde{B} = \left(
+		\begin{array}{ccc}	
+		c_{11}^{m-1} t^{m-1} + ... + c_{11}^0 & ... \\
+		c_{12}^{m-1}t^{m-1} + ... + c_{12}^0 & ...
+	\end{array}\right) = t^{m-1}B_{m-1} + t^{m-2} B_{m-2} + ... + B_0\\
+	\widetilde{B} \cdot B = \det (tE - A) \cdot E\\
+	(t^{m-1}B_{m-1} + ... + B_0) \cdot (tE - A) = (a_m t^m + ... + a_0) \cdot E$\\
+	Приравняем коэффициенты, домножим:
+	$t^m: B_m-1 = a_m E \ \ | \cdot A^m\\
+	t^{m-1}: B_{m-2} - B_{m-1} A = a_{m-1} E \ \ |\cdot A^{m-1}\\
+	...\\
+	t: B_0 - B_1A = a_1 E \ \ |\cdot A\\
+	1: -B_0A = a_0E \ \ |\cdot E\\$
+	Вычтем строки: $\Rightarrow 0 = \chi_a(A)$
+\end{proof}
+
+\Subsection{Билинейные формы}
+\begin{Def} 
+	$f: V \times V \to K$ линейное по каждому аргументу называется билинейным отображением, то есть выполняется\\
+	\begin{enumerate}
+		\item $f(\alpha x + \beta y, z) = \alpha f(x,z) + \beta f(y,z)$
+		\item $f(x, \alpha y + \beta z) = \alpha f(x, y) + \beta f(x, z)$
+	\end{enumerate}
+
+	$(e_i)_{i=1}^n$ -- базис $V$, $x = \sum_{i=1}^{n} x_ie_i, y = \sum_{j=1}^{n} y_je_j\\
+	f(x, y) = f(\sum_{i} x_ie_i, \sum_{j} y_je_j) = \sum_{i, j = 1}^{n} x_i, y_j f(e_i, e_j) $
+\end{Def} 
+
+\begin{Def} 
+	$B = (b_{ij}), b_{ij} = f(e_i, e_j), 1 \leqslant i, j, \leqslant n$\\
+	B -- матрица билинейной формы $f$
+	$X = \left(
+		\begin{array}{c}	
+		x_1\\
+		\vdots\\
+		x_n
+	\end{array}\right), Y = \left(
+	\begin{array}{ccc}	
+		y_1\\
+		\vdots\\
+		y_n
+	\end{array}\right) \Rightarrow f(x, y) = X^T B Y$
+\end{Def} 
+
+\begin{Example}
+	\begin{enumerate}
+		\item Скалярное произведение $(x, y) = x_1y_1 + ... + x_ny_n = (x_1, ..., x_n) \left(
+			\begin{array}{ccc}	
+				1 & &\\
+				& \ddots &\\
+				& & 1
+			\end{array}\right) \left(
+				\begin{array}{ccc}	
+					y_1\\
+					\vdots\\
+					y_n
+				\end{array}\right)$
+		\item $f, g \in C[a,b], (f, g) = \int_{a}^{b} f(x)g(x)dx$
+	\end{enumerate}	
+\end{Example}
+
+\begin{Def} 
+	Билинейные формы f
+	\begin{enumerate}
+		\item Симметрические: $f(x,y) = f(y,x) \forall x, y \in V \ \ B = B^T$ (симметрическая матрица)
+		\item Кососимметрические: $f(x, y) = -f (y,x) \forall x, y \in V \ \ -B = B^T$ (кососимметрическая матрица)
+	\end{enumerate}
+\end{Def} 
+
+\Subsubsection{Замена базиса}
+
+\begin{Thm}[Преобразование матрицы билинейной формы при изменении базиса] 
+	$f: V \times V \to K$ в базисе $(e_i): B$, в базисе $(e_i'): B'$\\
+	Тогда $B' = C^TBC$
+\end{Thm}  
+
+\begin{proof}
+	$x \to X$ в базисе $(e_i), X'$ в базисе $(e_i') X = C X',\\
+	y \to Y$ в $(e_i)$, $Y'$ в $(e_i') \ \ Y = CY'$\\
+	$f(x,y) = X^T B Y = (CX')^T B (CY') = X'^TC^TBCY' = X'^TB'Y' \Rightarrow B' = C^TBC$
+\end{proof}
+
+\Subsection{Квадратичные формы}
+\begin{Def} 
+	Квадратичной формой $Q: V \to K$, ассоциированной с некоторой симметрической билинейной формой $f: V \times V \to K$, называется $q(x)=f(x,x)$\\
+	Матрица квадратичной формы $A \ \ \ (A = A^T)$ \ \ \ $q(x) = X^TAX, X = \left(
+		\begin{array}{ccc}	
+			x_1\\
+			\vdots\\
+			x_n
+		\end{array}\right)\\
+		q(x) = (x_1, ..., x_n)\left(
+			\begin{array}{ccc}	
+				a_{11} & & \\
+				& \ddots & \\
+				& &a_nn
+			\end{array}\right)\left(
+			\begin{array}{ccc}	
+				y_1\\
+				\vdots\\
+				y_n
+			\end{array}\right) = \displaystyle \sum_{i,h = 1}^{n} a_{ij}x_iy_j$ -- однородный многочлен 2 степени от $n$ переменных\\
+			$a_{ij} = a_{ji} \ \ \ a_{ij}x_ix_j+a_{ji}x_ix_j = 2a_{ij}x_ix_j\\
+			\displaystyle q(x) = \sum_{i=1}^{n} a_{ii} x_i^2 + 2 \sum_{1 \leqslant u < j \leqslant n} a_{ij} x_ix_j$
+\end{Def} 
+
+\begin{Def} 
+	Каноническим видом квадратичной формы называется $\sum_{i=1}^{n} \lambda_i x^2_i $
+\end{Def} 
+
+\begin{Def} 
+	Базис, в котором квадратичная форма имеет канонический вид, называется каноническим.
+\end{Def} 
+
+\begin{Rem}
+	Замена переменной $\leftrightarrow$ переход к другому базису
+\end{Rem}
+
+\begin{Thm}[Преобразование Лагранжа] 
+	$V$ -- векторное пространство над полем $K, \\ char K \neq 2 \Rightarrow
+	\forall q: V \to K$ может быть приведена к каноническому виду $(\exists$ базис: $q$ имеет канонический вид$)$
+\end{Thm} 
+
+\begin{proof}
+	$q(x) = \sum_{i=1}^{n} a_{ii}x^2_i + 2 \sum_{i<j}^{a_ij} x_i x_j$\\
+	$q = 0$ -- доказывать нечего, будем считать $q \neq 0$. 
+	\begin{enumerate}
+		\item Пусть $a_{11} = 0, \exists i > 1: a_{ii} \neq 0 \Rightarrow$ сделаем замену $y_i = x_1, x_i = y_1 \Rightarrow a_11 y_1^2 + ... $, где $a_{11} \neq 0$
+		\item $a_{ii} = 0 \forall i = 1, ..., n \Rightarrow \exists a_{ij} \neq 0, i < j \Rightarrow x_i = y_i+y_j, x_j = y_i - y_j$\\
+		$a_{ij} x_i x_j \to a_{ij}(y_i+y_j)(y_i-y_j) = a_{ij} \cdot y_i^2 - a_{ij} y^2_j \Rightarrow$ по п.1 можно считать, что $a_{11} \neq 0$
+		\item Индукция\\
+		База: $n=1 \ \ q(x) = a_{11} x_1^2$\\
+		Индукционный переход: $n-1 \to n, a_{11} \neq 0$ в силу пункта один\\
+		$\displaystyle q(x) = a_{11}\left(x_1^2 + \frac{2a_{12}}{a_{11}} x_1x_2 + \frac{2a_{13}}{a_11} x_1x_3 +... + \frac{2a_{1n}}{a_{11}} x_1x_n\right) + \varphi(x_2, ..., x_n) = 
+		a_{11}\left(x_1^2 + \frac{2a_{12}}{a_{11}} x_1x_2 + ... + \frac{2a_{1n}}{a_{11}} x_1x_n\right) + a_{11}(\left( \frac{a_{12}}{a_{11}} x_2\right)^2  + ... + ...) -
+		(...) + \varphi (x_2, ..., x_n) = a_{11}\left(x_1 + \frac{a_{12}}{a_{11}} x_2 + ... + \frac{a_{1n}}{a_{11}} x_n\right)^2 - \psi (x_2, ..., x_n) = 
+		a_{11} y^2_1 + b_{22}z_1^2 + ... + b_{nn}z_n^2$
+	\end{enumerate}
+\end{proof}
+
 \end{document}
