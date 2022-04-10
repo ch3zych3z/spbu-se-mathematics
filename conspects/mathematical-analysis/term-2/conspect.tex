@@ -591,17 +591,17 @@
 \Subsection{Свойства интеграла Римана}
 \begin{enumerate}
 	\item $\displaystyle \int_{b}^{a} f = - \int_{a}^{b} f$ 
-	\item $\displaystyle \int_{a}^{b} f = 0 \ (\forall f \text{ на вырожденном отрезке } f \in R [a,a])$
+	\item $\displaystyle \int_{a}^{a} f = 0 \ (\forall f \text{ на вырожденном отрезке } f \in R [a,a])$
 \end{enumerate}
 
 Свойства:
 
 \begin{itemize}
 	\item Аддитивность интеграла по отрезку:\\ $a, b, c \in \R, \ f \in R [\min\{a, b, c\}, \max \{a, b, c\}]$
-	\[\int_{a}^{b} f = \int_{a}^{c} + \int_{c}^{b} f\]
+	\[\int_{a}^{b} f = \int_{a}^{c} f + \int_{c}^{b} f\]
 
 	\begin{proof}
-		$f\in R[a,b] \Rightarrow f in \R[a,c], f \in R[c,b], \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
+		$f\in R[a,b] \Rightarrow f \in \R[a,c], f \in R[c,b], \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
 		последовательности оснащенных дроблений $[a,c]$ и $[c,b]$  (равномерных, т.е. $\overline{\lambda} = \frac{c-a}{n}, \overline{\overline{\lambda}}$)\\
 		$\tau^{(n)} = \overline{\tau}^{(n)} \cup \overline{\overline{\tau}}^{(n)} -$ дробление $[a,b]$\\
 		$\xi^{(n)} = \overline{\xi}^{(n)} \cup \overline{\overline{\xi}}^{(n)} -$ оснащение $\tau^{(n)}\\
@@ -669,7 +669,7 @@
 	\[\displaystyle \Big| \int_{a}^{b} f \Big| \leqslant \Big|\int_{a}^{b} |f|\Big| \]
 \end{itemize}
 
-\Subsection{Интегральные теоремы о средних}
+\Subsection{Свойства интеграла, интегральные теоремы о средних, формулы Тейлора и Валлиса}
 
 \begin{Thm} 
 	$f, g \in R[a,b], g \geqslant 0 \text{ на } [a,b], m \leqslant f \leqslant M. \text{ Тогда } \exists \mu \in [m, M]: \displaystyle \int_{a}^{b} fg = \mu \int_{a}^{b} g$
@@ -932,7 +932,7 @@
 	$I_m =
 	\begin{cases}
 		\frac{(m-1)!!}{m!!} \cdot \frac{\pi}{2}, m - \text{ четно}\\
-		I_m = \frac{(m-1)!!}{m!!} \cdot 1, m - \text { нечётно}
+		\frac{(m-1)!!}{m!!} \cdot 1, m - \text { нечётно}
 	\end{cases}$ 
 \end{Lm}
 
@@ -946,7 +946,7 @@
 \end{Thm} 
 
 \begin{proof}
-	$\displaystyle \forall x \in (0; \frac{\pi}{2}) \ \ \ \sin x(0;1)\\
+	$\displaystyle \forall x \in (0; \frac{\pi}{2}) \ \ \ \sin x \in (0;1)\\
 	\forall n \in \N \ \ \ \sin^{2n+1} < \sin^{2n} x < \sin^{2n-1} x \Rightarrow 
 	\int_{0}^{\frac{\pi}{2}} \sin^{2n+1} x \,dx < \int_{0}^{\frac{\pi}{2}} 
 	\sin^{2n} x \,dx < \int_{0}^{\frac{\pi}{2}} \sin ^{2n-1} x \,dx$\\
@@ -992,6 +992,15 @@
 \begin{Ex}
 	Доказать.
 \end{Ex}
+
+\begin{proof}
+	Обозначим $c = \int_{a}^{b} \lambda \varphi, \ \ \ E = \{x \in [a,b]: \lambda (x) > 0\},\\
+	m = \underset{E}{\inf} \PHI, \ \ \ M = \underset{E}{\sup} \PHI$ (m и M конечны по теореме Вейерштрасса)\\
+	Если m = M, то есть $\varphi$ постоянна на $E$, то $c = m$ и обе части неравенства равны $f(m)$.\\
+	Пусть $m < M$. Тогда $c \in (m, M)$ и, следовательно, $c \in (A, B)$. Функция $f$ имеет в точке $c$ опорную прямую;
+	пусть она задается уравнением $y = \alpha x + \beta$. По определению опорной прямой $f(c) = \alpha c + \beta$ и $f(t) \geqslant \alpha t + \beta$ при всех $t \in \langle A, B \rangle$. Поэтому
+	$$f(c) = \alpha c + \beta = \alpha \int_{a}^{b} \lambda \varphi + \beta \int_{a}^{b} \lambda = \int_{a}^{b} \lambda \cdot (\alpha \varphi + \beta) \leqslant \int_{a}^{b} \lambda \cdot (f \circ \varphi)$$
+\end{proof}
 
 \begin{Rem}
 	Строгое неравенство, если $f$ строго выпукла и $\PHI \not\equiv \const$. 
@@ -1061,7 +1070,7 @@
 \begin{Def}
 	Пусть $-\infty < a < b \leqslant +\infty, f \in R_{loc}[a, b]$. Тогда
 	$\int_a^{\to b}f$ -- несобственный интеграл. 
-	\[\lim_{t \to b-} \int_a^t f = \int_a^{\to b}\]
+	\[\lim_{t \to b-} \int_a^t f = \int_a^{\to b} f \]
 	если предел существует в $\overline{\R}$. 
 \end{Def}
 
@@ -1081,9 +1090,9 @@
 \end{Thm}
 
 \begin{proof}
-	$\Phi (t) = \int_a^t f$. $\int_a^b$ сходится $\EQ \exists$ конечный $\lim_{t \to b-} \Phi (t)$.
+	$\Phi (t) = \int_a^t f$. $\int_a^b а$ сходится $\EQ \exists$ конечный $\lim_{t \to b-} \Phi (t)$.
 	Согласно критерию Больцано-Коши существования предела функции
-	\[\exists \varepsilon > 0 \ \exists \Delta \in (a, b) : \forall t_1, t_2 \in (\Delta, b) \ |\Phi(t_2) - \Phi(t_1)| < \varepsilon\]
+	\[\forall \varepsilon > 0 \ \exists \Delta \in (a, b) : \forall t_1, t_2 \in (\Delta, b) \ |\Phi(t_2) - \Phi(t_1)| < \varepsilon\]
 	и по аддитивности интеграла $\Phi(t_2) - \Phi(t_1) = \int_{t_1}^{t_2} f$.
 \end{proof}
 
@@ -1119,8 +1128,8 @@
 Будем считать, что $f$ локально интегрируема на рассматриваемых промежутках.
 
 \begin{MyList}
-	\item \textbf{Аддитивность по промежутку.}  Если $\int_a^b f$ сходится, то $\forall c \in (a, b)$ интеграл $\int_c^b$ тоже сходится и
-	\[\int_a^b = \int_a^c f + \int_c^b f\]	
+	\item \textbf{Аддитивность по промежутку.}  Если $\int_a^b f$ сходится, то $\forall c \in (a, b)$ интеграл $\int_c^b f$ тоже сходится и
+	\[\int_a^b f = \int_a^c f + \int_c^b f\]	
 	В обратную сторону, если при $c \in (a, b)$ интеграл $\int_c^b f$ сходится, то сходится и интеграл $\int_a^b f$.
 	\begin{proof}
 		$\forall t \in (a, b) \ \int_a^t f = \int_a^c f + \int_c^t f$ -- по аддитивности определенного интеграла.
@@ -1129,7 +1138,7 @@
 
 	\item Если $\int_a^b f$ сходится, то $\underbrace{\int_t^b f \xrightarrow[t \to b-]{} 0}_{\text{остаток интеграла}}$.
 	\begin{proof}
-		\[\int_t^b f = \int_a^b f - \int_a^t \xrightarrow[t \to b-]{}\int_a^b f - \int_a^b f = 0\]
+		\[\int_t^b f = \int_a^b f - \int_a^t f \xrightarrow[t \to b-]{}\int_a^b f - \int_a^b f = 0\]
 	\end{proof}
 
 	\item \textbf{Линейность несобственного интеграла.}  Если интегралы $\int_a^b f, \int_a^b g$ сходятся, $\alpha, \beta \in \R$, то интеграл $\int_a^b(\alpha f + \beta g)$ сходится и
@@ -1168,7 +1177,7 @@
 
 	\item \textbf{Замена переменной в несобственном интеграле.} 
 	Пусть $\PHI : [\alpha, \beta) \to [A, B)$ -- дифференцируема на $[\alpha, \beta)$, $\PHI' \in R_{loc}[\alpha, \beta)$, существует 
-	$\PHI(\beta -) \in \overline{R}, f \in C[A, B)$. Тогда
+	$\PHI(\beta -) \in \overline{\R}, f \in C[A, B)$. Тогда
 	\[\int_\alpha^\beta (f \circ \PHI)\PHI' = \int_{\PHI(\alpha)}^{\PHI(\beta-)} f\]
 	Опять же, если существует один из интегралов, то существует и другой.    
 
@@ -1179,7 +1188,7 @@
 		\[\Phi(t) = \psi(\PHI(t))\]
 
 		\begin{MyList}
-			\item Пусть $\exists \int_{\PHI(\alpha)}^{\PHI(\beta)} f = I \in \overline{R}$. Докажем, что $\exists \int_\alpha^\beta f(\PHI)\PHI' = I$, т.е.
+			\item Пусть $\exists \int_{\PHI(\alpha)}^{\PHI(\beta)} f = I \in \overline{\R}$. Докажем, что $\exists \int_\alpha^\beta f(\PHI)\PHI' = I$, т.е.
 			$\Phi(t) \xrightarrow[t \to \beta-]{} I$. Возьмем $\{t_n\} : t_n \to \beta, t_n < \beta$. 
 			Тогда $\PHI(t_n) \to \PHI(b-), \PHI(t_n) \in [A, B)$. Поэтому $\Phi(t_n) = \psi(\PHI(t_n)) \to I$. В силу произвольности выбора $\{t_n\}$, $\Phi(t) \to I$ при $t \to \beta-$.
 			
@@ -1221,7 +1230,7 @@
 \end{Lm}
 
 \begin{proof}
-	$F(t)$ возрастает на $[a, b)$ $\left(t_1, t_2 \ F(t_2) - F(t_1) = \int_{t_1}^{t_2} f \geqslant 0\right)$.
+	$F(t)$ возрастает на $[a, b)$ $\underset{t_1 < t_2} {\left( F(t_2) - F(t_1) = \int_{t_1}^{t_2} f \geqslant 0\right)}$.\\
 	$\displaystyle{\exists \lim_{t \to b-} F(t) \in \R \EQ F}$ возрастает и $F$ ограничена сверху. 
 \end{proof}
 
