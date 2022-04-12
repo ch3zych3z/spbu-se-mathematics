@@ -989,10 +989,6 @@
 	\[f\left( \int_a^b \lambda \PHI\right) \leqslant \int_a^b \lambda \cdot f(\PHI)\]
 \end{Thm}
 
-\begin{Ex}
-	Доказать.
-\end{Ex}
-
 \begin{proof}
 	Обозначим $c = \int_{a}^{b} \lambda \varphi, \ \ \ E = \{x \in [a,b]: \lambda (x) > 0\},\\
 	m = \underset{E}{\inf} \PHI, \ \ \ M = \underset{E}{\sup} \PHI$ (m и M конечны по теореме Вейерштрасса)\\
@@ -2152,5 +2148,310 @@ $\tau = \{x_k\}$ -- разбиение $[a, b]$. Возьмем цилиндры
 \begin{proof}
 	$a_1 = S_1, a_k = S_k - S_{k - 1}$
 \end{proof}
+
+\begin{Example}
+	$\sum_{k = 1}^\infty 0 = 0 + 0 + ... = 0$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} 1 = 1 + 1 + ... = +\infty$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} (-1)^k = -1 + 1 - 1 + 1 - ..., \quad S_n = \begin{cases}
+		-1, &n \text{ нечетно} \\
+		0, &n \text{ четно}
+	\end{cases}$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} a^k = a + a^2 + a^3 + ...$, сходится при $|a| < 1$
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{n} z^k = \frac{1 - z^{n + 1}}{1 - z}, z \in \C$, сходится при $|z| < 1$. 
+\end{Example}
+
+\begin{Ex}
+	Что будет, если $|z| = 1$?
+\end{Ex}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k(k + 1)} = 1$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} \frac{1}{k!} = e$, $\sum_{k=0}^{\infty} \frac{a^k}{k!} = e^a$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} \frac{(-1)^k}{(2k)!}\alpha^{2k} = \cos \alpha$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k} = 1 + \frac{1}{2} + \frac{1}{3} + ... = \infty$ 
+\end{Example}
+
+\begin{Rem}
+	$H_m = \sum_{k=1}^{m} \frac{1}{k}$ -- гармонические суммы. 
+\end{Rem}
+
+\begin{Property}
+	Если $\sum_{k=1}^{\infty} a_k$ сходится, то $\forall m \in \N \ \sum_{k=m}^{\infty} a_k$ тоже сходится.
+		Верно и что если $\exists m \in \N \ \sum_{k=m}^{\infty} a_k$ сходится, то и $\sum_{k=1}^{\infty} a_k$ сходится.
+\end{Property}
+
+\begin{proof}
+	$\sum_{k=1}^{n} a_k = \sum_{k=1}^{m - 1} a_k + \sum_{k=m}^{n} a_k$. Перейдем к пределу по $n \to \infty$. 
+\end{proof}
+
+\begin{Property}
+	Если $\sum_{k=1}^{\infty} a_k$ сходится, то $\sum_{k=m}^{\infty} a_k \xrightarrow[m \to \infty]{} 0$  
+\end{Property}
+
+\begin{proof}
+	$\sum_{k=m}^{\infty} a_k = \sum_{k=1}^{\infty} a_k - \sum_{k=1}^{m - 1} a_k \xrightarrow[m \to \infty]{}0$ 
+\end{proof}
+
+\begin{Property}[Линейность суммирования]
+	Пусть $\sum_{k=1}^{\infty} a_k, \sum_{k=1}^{\infty} b_k$ -- сходятся, то $\sum_{k=1}^{\infty} (\alpha a_k + \beta b_k)$ сходится.  
+		$\alpha, \beta \in \R$ или $\C$ и $\sum_{k=1}^{\infty} (\alpha a_k + \beta b_k) = \alpha \sum_{k=1}^{\infty} a_k + \beta \sum_{k=1}^{\infty} b_k$ 
+\end{Property}
+
+\begin{Rem}
+	Если $\sum_{k=1}^{\infty} a_k$ расходится, $\sum_{k=1}^{\infty} b_k$ сходится, то $\sum_{i=0}^{\infty} (a_k + b_k)$ расходится   
+\end{Rem}
+
+\begin{proof}
+	$a_k = (a_k + b_k) - b_k$ 
+\end{proof}
+
+\begin{Property}
+	$z_k = x_k + y_k, x_k, y_k \in \R$. $\sum_{k=1}^{\infty} z_k$ сходится $\EQ \sum_{k=1}^{\infty} x_k$ и $\sum_{k=1}^{\infty} y_k$ сходится.    
+\end{Property}
+
+\begin{Property}[Монотонность]
+	$a_k, b_k \in \R, \sum_{k=1}^{\infty} a_k$ и $\sum_{k=1}^{\infty} b_k$ из $\overline{\R}$ и $a_k \leqslant b_k \ \forall k \in \N$. Тогда 
+	\[\sum_{k=1}^{\infty} a_k \leqslant \sum_{k=1}^{\infty} b_k\]    
+\end{Property}
+
+\begin{Thm}[Критерий Больцано-Коши]
+	Пусть есть ряд $\sum_{k=1}^{\infty} a_k$. \\
+	$\sum_{k=1}^{\infty} a_k$ сходится $\EQ \forall \varepsilon > 0 \ \exists N : \forall n > N \ \forall p \in \N \ \left|\sum_{k=n + 1}^{n + p}a_k\right| < \varepsilon$  
+\end{Thm} 
+
+\begin{proof}
+	$S_n = \sum_{k=1}^{n} a_k$ сходится, т.е.
+	\[\forall \varepsilon > 0 \ \exists N : \forall m, n > N \ |S_m - S_n| < \varepsilon\]
+	Возьмем $m = n + p$. 
+\end{proof}
+
+\begin{Rem}
+	Необходимое условие сходимости ряда следует отсюда.
+\end{Rem}
+
+\Subsection{Группировка слагаемых}
+
+Пусть $\sum_{k=1}^{\infty} a_k, \{n_j\}_{j = 1}^\infty$ -- подпоследовательность натуральных чисел, $n_0 = 0$
+
+\[A_j = \sum_{k=n_j + 1}^{n_{j + 1}} a_k, \quad j \in \N\]
+$\sum_{j=0}^{\infty} A_j$ -- получен из $\sum_{k=1}^{\infty} a_k$ при помощи группировки.
+
+\begin{Thm}[Группировка членов ряда]
+	\begin{MyList}
+		\item Если $\sum_{k=1}^{\infty} a_k = S \ \left(S \in \overline{R} \cup \{\infty\} \text{ или } S \in \C \cup \{\infty\}\right)$.
+		Тогда
+		\[\sum_{j=1}^{A_j} = S\]
+		\item $\sum_{j=1}^{\infty} A_j = S$, и $a_n \to 0$ и $\exists L \in \N : $ в каждом $A_j$ не более чем $L$ штук $a_k$.
+		Тогда \[\sum_{i=0}^{\infty} a_k = S\]
+
+		\item $a_k \in \R, \sum_{j=1}^{\infty} A_j = S \in \overline{R}$ и все $a_k$ из одной группы одного знака. Тогда
+		\[\sum_{k=1}^{\infty} a_k = S\]
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item $S_n = \sum_{k=1}^{n} a_k, T_m = \sum_{j=1}^{m} A_j$. $T_m$ -- подпоследовательность $S_n \ \left(T_m = S_{n_{m + 1}}\right)$
+		\item По определению сходимости ряда:
+		\[\forall \varepsilon > 0 \ \exists N : \forall m > N \ |S_{n_m} - S| < \frac{\varepsilon}{2}\]
+		А также 
+		\[\exists K : \forall k > K \ |a_k| < \frac{\varepsilon}{2L}\]
+		Возьмем $M = \max \{K, n_{N + 1}\}$ и $n_m \leqslant n < n_{m + 1}$ 
+		Тогда
+		\begin{align*}
+			|S_n - S| &\leqslant |S_n - S_{n_m}| + |S_{n_m} - S| = \left|\sum_{k=n_m + 1}^{n} a_k\right| + |S_{n_m} - S| \leqslant \\
+			&\leqslant \sum_{k=n_m + 1}^{n} |a_k| + |S_{n_m} - S| < \frac{\varepsilon}{2L} \cdot L + \frac{\varepsilon}{2} = \varepsilon
+		\end{align*}
+
+		\item Возьмем $\varepsilon > 0 \ \exists M : \forall m > M \ |S_{n_m} - S| < \varepsilon$. Пусть $N = n_{m + 1}$. Возьмем $n_m \leqslant n < n_{m + 1}$.
+		Если $a_{n_m + 1}, a_{n_m + 2}, ..., a_{n_{m + 1}} \geqslant 0$.
+		Тогда 
+		\[S_{n_m} \leqslant S_n \leqslant S_{n_{m + 1}}\]
+		Если $a_{n_m + 1}, a_{n_m + 2}, ..., a_{n_{m + 1}} \leqslant 0$, то знаки в другую сторону.
+		\[|S_n - S| \leqslant \max \left\{ |S_{n_m} - S|, |S_{n_{m + 1}} - S|\right\}\]
+	\end{MyList}
+\end{proof}
+
+\Subsection{Ряды с неотрицательными слагаемыми}
+
+\begin{Lm}
+	Если $a_k \geqslant 0 \ \forall k \in \N$, то
+	\[\sum_{k=1}^{\infty} a_k \text{ сходится } \EQ S_n \text{ ограничена сверху}\] 
+\end{Lm}
+
+\begin{proof}
+	$S_n$ неубывает, поэтому $S_n$ сходится $\EQ S_n$ ограничена сверху 
+\end{proof}
+
+\begin{Rem}
+	Если $a_k \geqslant 0 \ \forall k \in \N$, то 
+	\[\exists \lim S_n = S \in \overline{R} \qquad (S = \sup S_n)\]
+	Достаточно ограниченности сверху подпоследовательности $S_n$.
+\end{Rem}
+
+\begin{Thm}[Признак сравнения]
+	$a_k, b_k \geqslant 0, a_k = O(b_k)$ при $k \to \infty$. Тогда
+	\begin{MyList}
+		\item Если $\sum_{k=1}^{\infty} b_k$ сходится, то $\sum_{k=1}^{\infty} a_k$ сходится
+		\item Если $\sum_{k=1}^{\infty} a_k$ расходится, то $\sum_{k=1}^{\infty} b_k$ расходится.    
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	$\exists N \in \N, A > 0 : a_K \leqslant A b_k$. Тогда
+	\[\sum_{k=N}^{\infty} a_k \leqslant A \sum_{k=N}^{\infty} b_k < +\infty\] 
+\end{proof}
+
+\begin{Cons}[Признак сравнения в предельной форме]
+	$a_k \geqslant, b_k > 0$ и $\exists \lim_{k \to \infty} \frac{a_k}{b_k} = l \in [0, +\infty]$
+	\begin{MyList}
+		\item Если $l \in [0, +\infty)$ и $\sum_{k=1}^{\infty} b_k$ сходится, то $\sum_{k=1}^{\infty} a_k$ сходится.
+		\item Если $l \in (0, +\infty]$ и $\sum_{k=1}^{\infty} a_k$ сходится, то $\sum_{k=1}^{\infty} b_k$ сходится.
+		\item Если $l \in (0, +\infty)$, то $\sum_{k=1}^{\infty} a_k$ и $\sum_{k=1}^{\infty} b_k$ сходятся или расходятся одновременно.        
+	\end{MyList} 
+\end{Cons}
+
+\begin{proof}
+	\begin{MyList}
+		\item $\left\{ \frac{a_k}{b_k}\right\}$ ограничена + теорема.
+		\item Если $l > 0$, то $a_k > 0$ с некоторого места, поэтому поменяем ролями $a_k$ и $b_k$.
+		\item Следует из 1 и 2.  
+	\end{MyList}
+\end{proof}
+
+\begin{Cons}
+	$a_k \thicksim b_k, k \to \infty$, то $\sum_{k=1}^{\infty} a_k$ и $\sum_{k=1}^{\infty} b_k$ сходятся или расходятся одновременно.   
+\end{Cons}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha}$. При $\alpha < 1$ расходится, т.к. $\frac{1}{k^\alpha} \geqslant \frac{1}{k}$.
+	С другой стороны, при $\alpha \geqslant 2$ сходится, т.к. $\frac{1}{k^\alpha} \leqslant \frac{1}{k^2} \thicksim \frac{1}{k(k + 1)}$.
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{k^5}{5^k}$ сходится, т.к.
+	\[\lim_{k \to \infty} \frac{ \frac{k^5}{5^k}}{\frac{1}{k^2}} = \lim_{k \to \infty} \frac{k^7}{5^k} = 0\] 
+\end{Example}
+
+\begin{Rem}
+	$\sum_{k=1}^{\infty} a_k \thicksim \sum_{k=1}^{\infty} b_k$ -- плохая запись!!! 
+\end{Rem}
+
+\begin{Thm}[Радикальный признак Коши]
+	$a_k \geqslant 0, \exists \overline{\lim}_{k \to \infty} \sqrt[k]{a_k} = K$. Тогда
+	\begin{MyList}
+		\item Если $K > 1$ то $\sum_{k=1}^{\infty} a_k$ расходится.
+		\item Если $K < 1$, то $\sum_{k=1}^{\infty} a_k$ сходится  
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Т.к. $K > 1$, то бесконечно много $\sqrt[k]{a_k} > 1 \SO a_k > 1 \SO a_k \not\to 0$.
+		\item Возьмем $\varepsilon = \frac{1 - k}{2} > 0$. Начиная с некоторого номера все $\sqrt[n]{a_n} < K + \varepsilon = \frac{1 + K}{2} \in (0, 1) \SO a_n \leqslant \left( \frac{1 + K}{2}\right)^n $ и $\sum_{n=1}^{\infty} \left( \frac{1 + K}{2}\right)^n$ сходится (геометрическая прогрессия).  
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	Если $k = 1$, то бывает и сходимость, и расходимость. Например,
+	\[\sum_{n=1}^{\infty} \frac{1}{n} \text{ расходится}, \quad \lim_{n \to \infty} \sqrt[n]{\frac{1}{n}} = 1\]
+	С другой стороны
+	\[\sum_{n=1}^{\infty} \frac{1}{n^2} \text{ сходится}, \quad \lim_{n \to \infty} \sqrt[n]{\frac{1}{n}} = 1\]
+\end{Rem}
+
+\begin{Thm}[Признак Даламбера]
+	$a_k > 0$ и $\exists \lim_{n \to \infty} \frac{a_{n + 1}}{a_n} = D$. Тогда
+	\begin{MyList}
+		\item Если $D > 1$, то $\sum_{k=1}^{\infty} a_k$ расходится
+		\item Если $D < 1$, то $\sum_{k=1}^{\infty} a_k$ сходится
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item С некоторого номера $ \frac{a_{n + 1}}{a_n} > 1$, т.е. $a_{n + 1} > a_n > a_N \ \forall n > N$.
+		Тогда $a_n \not\to 0$.
+
+		\item Пусть $\varepsilon = \frac{1 - D}{2} > 0$. Начиная с некоторого номера $ \frac{a_{n + 1}}{a_n} < D + \varepsilon = \frac{1 + D}{2} \in (0, 1) \SO a_{n + 1} < \frac{1 + D}{2} \cdot a_n$. Для $m > N$ 
+		\[a_m < \frac{1 + D}{2} \cdot a_{m - 1} < \left( \frac{1 + D}{2}\right)^2 a_{m - 2} < ... < \left( \frac{1 + D}{2}\right)^{m - N} a_N\]
+		Т.е. мы оценили $a_m$ сверху членами геометрической прогрессии.
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	$D = 1$.
+	\[\sum_{n=1}^{\infty} \frac{1}{n} \text{ расходится}, \quad \frac{a_{n + 1}}{a_n} = \frac{n}{n + 1} \to 1\]
+	С другой стороны
+	\[\sum_{n=1}^{\infty} \frac{1}{n^2} \text{ сходится}, \quad \frac{a_{n + 1}}{a_n} = \frac{n^2}{(n + 1)^2} \to 1\] 
+\end{Rem}
+
+\begin{Rem}
+	Эти два признака можно сформулировать и без использования пределов.
+\end{Rem}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{a^k}{k!}, a > 0$. Используя признак Даламбера
+	\[ \frac{a^{k + 1}}{(k + 1)!} \cdot \frac{k!}{a^k} = \frac{a}{k + 1} \to 0\] 
+	По признаку Коши
+	\[\sqrt[k]{ \frac{a^k}{k!}} = \frac{a}{\sqrt[k]{k!}} \to 0\] 
+\end{Example}
+
+\begin{Rem}
+	$a_n > 0$. Если $\exists D = \lim_{n \to \infty} \frac{a_{n + 1}}{a_n} \SO \exists K = \lim_{n \to \infty} \sqrt[n]{a_n} = D$.
+	Обратное неверно!
+\end{Rem}
+
+\begin{Ex}
+	Доказать.
+\end{Ex}
+
+\begin{Thm}
+	$f$ монотонна на $[1, +\infty)$. Тогда
+	$\sum_{k=1}^{\infty} f(k)$ сходится или расходится одновременно с $\int_1^\infty f(x)\,dx$ 
+\end{Thm}
+
+\begin{proof} 
+	Пусть $f$ невозрастает, $f \geqslant 0$.
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/series_and_intergrals.pdf_tex}
+	\end{figure}
+
+	\[f(k + 1) \leqslant \int_{k}^{k + 1} f \leqslant f(k)\]
+	Просуммируем эти неравенства:
+	\[\sum_{k=1}^{n} f(k + 1) \leqslant \int_{1}^{n + 1} f \leqslant \sum_{k=1}^{n} f(k)\]
+	и перейдем к пределу при $n \to \infty$ 
+\end{proof}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha}, \alpha \in (1, 2)$. $\int_{1}^{\infty} \frac{1}{x^\alpha}\,dx$ сходится, поэтому сходится и ряд.  
+\end{Example}
+
+\begin{Ex}
+	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha \ln^\beta k}$. При каких $\alpha$ и $\beta$ сходится? 
+\end{Ex}
 
 \end{document}
