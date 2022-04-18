@@ -2454,4 +2454,148 @@ $\sum_{j=0}^{\infty} A_j$ -- получен из $\sum_{k=1}^{\infty} a_k$ пр�
 	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha \ln^\beta k}$. При каких $\alpha$ и $\beta$ сходится? 
 \end{Ex}
 
+\begin{Rem}
+	Пусть у нас есть убывающая функция и при этом неотрицательная: $f \geqslant 0, f$ убывает на $[1; + \infty)$\\
+	$$A_n = \sum_{k=1}^{n} f(k) - \int_{1}^{n+1} f$$
+	$A_{n+1} - A_n = f(n+1) - \int_{n+1}^{n+2} f \geqslant 0 \Rightarrow A_n$ возрастает\\
+	$0 \leqslant A_n = f(1) + \sum_{k=2}^{n+1} f(k) - f(n+1) - \int_{1}^{n+1} f \leqslant f(1) - f(n+1) \leqslant f(1)$\\
+	$\Rightarrow \exists$ конечный $\displaystyle \lim_{n \to \infty} A_n = c \geqslant 0$\\
+	$\sum_{k=1}^{n} f(k) = \int_{1}^{n+1} f + c + \varepsilon_n, \varepsilon_n \underset{n \to \infty}{\to} 0$\\
+	Если ряд расходится (и интеграл), то
+	$$\sum_{k=1}^{n} f(k) \sim \int_{1}^{n+1} f$$
+\end{Rem}
+
+\begin{Example}
+	$H_n = \sum_{k=1}^{n} \frac{1}{k} = \int_{1}^{n+1} \frac{1}{x}dx + \gamma + \varepsilon_n = 
+	\ln (n+1) + \gamma + \varepsilon_n = \Bigg| ln(n+1) - \ln n = \ln (1 + \frac{1}{n}) \to 0 \Bigg| = \ln n + \gamma + \delta_n \Rightarrow H_n \sim \ln n$\\
+	$\gamma = 0,577215$
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k^{\alpha}}, \alpha \in (0;1)$\\
+	$\sum_{k=1}^{n} \frac{1}{k^{\alpha}} = \int_{1}^{n+1} \frac{1}{x^{\alpha}} dx + c_{\alpha} + \varepsilon_n = 
+	\Bigg| \int_{1}^{n+1} \frac{1}{x^{\alpha}}dx = \frac{(n+1)^{1-\alpha}-1}{1-\alpha} =  \frac{n^{1-\alpha}}{1-\alpha}
+	+ o(1) - \frac{1}{1-\alpha}\Bigg| = \frac{n^{1-\alpha}}{1-\alpha} + d_{\alpha} + \delta_n$\\
+	$\sum_{k=1}^{n} \frac{1}{k^{\alpha}} \sim \frac{n^{1-\alpha}}{1-\alpha}$
+\end{Example}
+
+\begin{Ex}
+	$\sum_{k=1}^{\infty} \frac{1}{k^{\alpha}}, \alpha > 1$
+\end{Ex}
+
+\begin{Rem}
+	$\int_{n+1}^{\infty} f \leqslant \sum_{k=n+1}^{\infty} f(k) \leqslant \int_{n}^{\infty} f$ (Посмотреть на примере 3, как
+	ведет себя "хвостик")
+\end{Rem}
+
+\Subsubsection{Ряды с произвольными членами}	
+\begin{Def} 
+	$\sum_{k=1}^{\infty} a_k$ сходится абсолютно, если $\sum |a_k| сходится$
+\end{Def} 
+
+\begin{Rem}
+	$\sum a_k, \sum b_k$ -- сходится абсолютно. 
+	$\alpha, \beta \in \R (\C)$, то $\sum (\alpha a_k + \beta b_k)$ -- сходится абсолютно\\ 
+\end{Rem}
+
+\begin{proof}
+	$|\alpha a_k + \beta b_k| \leqslant |\alpha||a_k|+|\beta||b_k|$ + признак сравнения
+\end{proof}
+
+\begin{Rem}
+	$\sum_{k=1}^{\infty} z_k, z_k \in \C, z_k = x_k + y_k, x_k, y_k \in \R$\\
+	$\sum_{k=1}^{\infty} z_k$ сходится абсолютно $\Leftrightarrow \sum x_k, \sum y_k$  сходится абсолютно
+\end{Rem}
+
+\begin{proof}
+	$|x_k|, |y_k| \leqslant |z_k| \leqslant |x_k| + |y_k|$ 
+\end{proof}
+
+\begin{Rem}
+	$$\left| \sum_{k=1}^{\infty}  \right|\leqslant \sum_{k=1}^{\infty} |a_k|$$
+\end{Rem}
+
+\begin{cons}
+	Если ряд сходится абсолютно, то он сходится. 
+\end{cons}
+
+\begin{proof}
+	$x_+ = \max\{x,0\}, x = x_+-x_-$\\
+	$x_- = \max \left{ -x, 0\right, |x| = x_+ + x_-, |x| \geqslant x_{\pm} \geqslant 0$\\
+	1. $a_k \in \R\\ 
+	\sum_{k=1}^{\infty} |a_k|$ сходится $\Rightarrow \sum_{k=1}^{\infty} a_{k+}$ и 
+	$\sum_{k=1}^{\infty} a_k$ сходится $\Rightarrow \sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} a_{k+} - 
+	\sum_{k=1}^{\infty} a_k$ сходится 
+	2. $a_k \in \C, a_k = x_k + i y_k$\\
+	$\sum |a_k|$ сходится $\Rightarrow \sum x_k, sum y-k$ абсолютно сходится $\Rightarrow
+	\sum x_k, \sum y_k$ сходится $\Rightarrow \sum a_k$ 
+\end{proof}
+
+\begin{Rem}
+	$\sum a_k$ -- сходится условно, $\sum b_k$ сходится абсолютно $\Rightarrow
+	\sum_{k=1}^{\infty} (a_k + b_k)$ - сходится условно
+\end{Rem}
+
+\begin{Thm}[Радикальный признак Коши абсолютной сходимости] 
+	$K = \overline{lim} \sqrt[n]{|a_n|}$
+	\begin{enumerate}
+		\item $k > 1$, то $\sum a_k$
+		\item $k<1$, то $\sum a_k$ сходится абсолютно 
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	$k>1 \Rightarrow |a_n| \cancel{\to} 0 \Rightarrow a_n \cancel{\to} \Rightarrow \sum a_n$ расходится
+	$k < 1 \Rightarrow \sum |a_k|$ сходится
+\end{proof}
+
+\begin{Thm}[Признак Даламбера абсолютной сходимости]
+	$a_k \neq 0, \mathcal{D} = \lim \frac{|a_{k+1}|}{|a_k|}$ -- существует 
+	\begin{enumerate}
+		\item $\mathcal{D} > 1 \Rightarrow \sum a_k$ расходится
+		\item $\mathcal{D} < 1 \Rightarrow \sum a_k$ сходится абсолютно
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	Аналогично
+\end{proof}
+
+\begin{Lm}[Преобразования Абеля]
+	Договорися, что $\sum_{k=m}^{n} a_k$ при $m > n$\\
+	$\{a_k\}$ и $\{b_k\}$ из $\R (\C)$\\
+	$A_0 \in \R (\C)$\\
+	$A_k = \sum_{j=1}^{k} a_j + A_0$. Тогда
+	$\sum_{k=1}^{\infty} a_k b_k = A_n b_n - A_0 b_1 + \sum_{k=1}^{n-1} A_k (b_k - b_{k+1})$
+\end{Lm}
+
+\begin{proof}
+	$\sum_{k=1}^{n} a_kb_k = \sum_{k=1}^{n} (A_k - A_{k-1}) b_k = \sum_{k=1}^{n} A_kb_k - \sum_{k=1}^{n} A_{k-1} b_k =
+	\sum_{k=1}^{n} A_k b_k - \sum_{k=0}^{n-1} A_k b_{k+1} = A_n b_n - A_0 b_1 + \sum_{k=1}^{n-1} A_k(b_k - b_{k+1})$
+\end{proof}
+
+\begin{Thm}[Признак Дирихле] 
+	$\{a_k\} \in \R (\C), \{b_k\} \in \R$ -- монотонно убывает. 
+	Если $A_n = \sum_{k=1}^{n} a_k$ ограничена, $b_n \to 0$, то $\sum_{k=1}^{\infty} a_kb_k$ сходится 
+\end{Thm} 
+
+\begin{proof}
+	$A_0 = 0$. Применим Преобразование Абеля: $\underset{\to \sum_{k=1}^{infty} a_kb_k}{\sum_{k=1}^{n} a_kb_k} = \underset{\to 0}{A_nb_n}   + \underset{\to 0}{\sum_{k=1}^{n-1} A_k(b_k - b_{k+1})}$
+	Покажем, что $*$ сходится абсолютно.\\
+	$\exists M: \forallk |A_k| \leqslant M$, $b_k - b_{k+1}$ одного знака.\\
+	$\sum_{k=1}^{\infty} |A_k(b_k - b_{k+1})| \leqslant M \sum_{k=1}^{\infty} |b_k - b_{k+1}| = 
+	M |b_1 - \lim_{n \to \infty} b_n| = M(b_1)$
+\end{proof}
+
+\begin{Thm}[Признак Абеля] 
+	$\{a_k\}$ из $\R (\C), \{b_k\}$ из $\R$ -- монотонная
+	Если $\sum a_k$ сходится, последовательность $b_k$ ограничена, то $\sum_{k=1}^{\infty} a_k b_k$ сходится
+\end{Thm} 
+
+\begin{proof}
+	$\exists$ конечный $\lim b_n = \alpha$\\
+	$\{a_k\}$ и $\{b_n - \alpha\}$ -- удовлетворяют предыдущей теореме $\Rightarrow
+	\sum_{k=1}^{\infty} a_k (b_k - \alpha)$ -- сходится\\
+	$\sum_{k=1}^{\infty} a_k b_k = \sum_{k=1}^{\infty} a_k (b_k - \alpha) + \alpha \sum_{k=1}^{\infty} a_k$
+\end{proof}
 \end{document}
