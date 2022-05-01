@@ -2752,4 +2752,277 @@ $\sum_{j=0}^{\infty} A_j$ -- получен из $\sum_{k=1}^{\infty} a_k$ пр�
 	Следовательно, $T_n \to S$. По теореме о группировке членов ряда и ряд (\ref{series:crazy_series}) сходится к $S$. 
 \end{proof}
 
+\gdef\AuthorName{Ксения Кузьмина}
+
+\Subsubsection{Произведение рядов}
+
+\begin{Def} 
+	$\displaystyle \sum_{k=1}^{n} a_k \cdot \sum_{k=1}^{m} b_k = \sum_{k=1}^{n} \sum_{j=1}^{m} a_kb_j$ 
+	-- произведение частичных сумм.  
+\end{Def} 
+
+\begin{Def} 
+	$\displaystyle \sum_{k=1}^{\infty} a_k, \ \sum_{j=1}^{\infty} b_k$\\
+	Возьмем биекцию $\gamma: \N \to \N \times \N$. Такая биекция существует, так как 
+	декартово произведение счетных множеств это тоже счетное множество.\\
+	$\gamma = (\varphi, \psi)$\\
+	Тогда $\displaystyle \sum_{l=1}^{\infty} a_{\varphi(l)}b_{\psi (l)}$ -- произведение рядов
+	$\sum a_k$ и $\sum b_k$
+\end{Def} 
+
+\begin{Thm}[Коши об умножении рядов] 
+	Пусть есть $\sum_{k=1}^{\infty} a_k, \ \sum_{k=1}^{\infty} b_k$ и оба абсолютно сходятся к суммам 
+	$A$ и $B$. Тогда при любой нумерации произведение будет абсолютно сходиться к $A \cdot B$ 
+\end{Thm} 
+
+\begin{proof}
+	Пусть есть $\gamma = (\varphi, \psi): \N \to \N^2$ -- биекция.\\
+	$A^* = \sum_{k=1}^{\infty} |a_k|, \ B^* = \sum_{k=1}^{\infty} |b_k|$\\
+	Возьмем $N \in \N$ и посмотрим на такую частичную сумму $\displaystyle \sum_{l=1}^{N} |a_{\varphi (l)} b_{\psi (l)}|
+	\leqslant \sum_{k=1}^{\max \varphi (l)} |a_k| \cdot \sum_{k=1}^{\max \psi (l)}  |b_k| \leqslant\\
+	\leqslant A^* \cdot B^*$. При каждом $N$ частичная сумма ряда будет ограничена. Тогда ряд $\sum_{l=1}^{\infty} 
+	a_{\varphi (l)} b_{\psi (l)}$ сходится абсолютно. А в абсолютно сходящихся можно менять нумерацию.\\
+	Рассмотрим какую-то нумерацию. Например, "по квадратам".\\
+	$S_{n^2} = \sum_{k,l = 1}^{n} a_k b_k = \sum_{k=1}^{n} a_k \cdot \sum_{k=1}^{n} b_k 
+	\underset{n \to \infty}{\to} A \cdot B$. 
+\end{proof}
+
+\begin{Rem}
+	$\sum_{k=1}^{\infty} a_k, \sum_{k=1}^{\infty} b_k$ -- сходятся к $A$ и $B$, то их произведение 
+	"по квадратам" сходится к $AB$ (даже без абсолютной сходимости). 
+\end{Rem}
+
+\begin{proof}
+	Упражнение. 
+\end{proof}
+
+\begin{Def} 
+	Ряд $\sum_{k=1}^{\infty} c_k$, где $c_k = \sum_{j=1}^{k} a_j b_{k+1-j}$ называется 
+	произведением $\sum a_k$ и $\sum b_k$ по Коши. ("По диагонали")\\
+	Иногда нумеруют с нуля $\sum_{k=0}^{\infty} a_k$ и $\sum_{k=0}^{\infty} b_k$. Тогда запись 
+	будет следующая: $c_k = \sum_{j=0}^{k} a_j b_{k-j}$
+\end{Def} 
+
+\begin{Cons}
+	Если $\sum a_k$ и $\sum b_k$ абсолютно сходятся к $A$ и $B$, то их произведение по Коши 
+	абсолютно сходится по к $AB$	
+\end{Cons}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{\sqrt{k}}$\\
+	"Квадрат по Коши": $c_k = \sum_{j=1}^{k} \frac{(-1)^{j-1}}{\sqrt{j}} \cdot \frac{(-1)^{k-j}}{\sqrt{k+1-j}} =
+	(-1)^{k=1} \sum_{j=1}^{k} \frac{1}{\sqrt{j (k+1-j)}}$\\
+	$|c_k| \geqslant \sum_{j=1}^{k} \frac{1}{\sqrt{k} \cdot \sqrt{k}} = 1 \Rightarrow c_k \cancel{\to} 0$
+\end{Example}
+
+\begin{Rem}
+	Если $\sum a_k$ и $\sum b_k$ сходятся, причем хотя бы один абсолютно, то их произведение по Коши 
+	тоже сходится. 
+\end{Rem}
+
+\begin{Rem}
+	Если $\sum a_k$ и $\sum b_k$ сходится к $A$ и $B$, и их произведение по Коши сходится к C, то 
+	$C = A \cdot B$
+\end{Rem}
+
+\begin{Example}
+	Возьмем два расходящихся ряда.\\
+	$a_k = 
+	\begin{cases}
+		1, k = 0\\
+		2^{k-1}, k \in \N
+	\end{cases}, b_k = 
+	\begin{cases}
+		1, j = 0\\
+		-1, j \in \N 
+	\end{cases}$\\
+	$c_0 = 1, \ c_k = \sum_{l=0}^{k} a_l b_{k-l} = -1 - \sum_{l=1}^{k-1} 2^{l-1} + 2^{k-1} = 0$
+\end{Example}
+
+\Subsection{Функциональные последовательности и ряды}
+
+\begin{Def}[Предел комплексной функции]
+	$f: \C \to \C$\\
+	$\displaystyle \lim_{z \to z_0} f(z) = A$\\
+	$\forall \varepsilon > 0 \exists \delta: \forall z: |z - z_0| < \delta \ |f(z) - A| < \varepsilon$
+\end{Def} 
+
+\begin{Rem}
+	Мы говорим о вещественных функциях, но почти все это можно переносить на функции
+	комплексно-значного аргумента. 
+	$X \in \R (\C)$\\
+	$f: X \to \R (\C)$
+\end{Rem}
+
+\begin{Def} 
+	$X$ -- множество. $f_n, f: X \to \R (\C)$\\
+	$\{f_n(x)\}_{n=1}^{\infty}$ сходится к функции $f$ на множестве $X$ поточечно, если 
+	$\forall x \in X \ \{f_n(x)\}$ сходится к $f(x)$ как числовая последовательность.\\
+	$\forall x \in X \ f_n (x) \underset{n \to \infty}{\to} f(x)$\\
+	Обозначение: $f_n (x) \underset{n \to \infty}{\overset{X}{\to}} f(x)$\\
+	В кванторах: $\forall x \in X \forall \varepsilon > 0 \exists N \in \N: \forall n > N |f_n(x) - f(x)| < \varepsilon$
+\end{Def} 
+
+\begin{Example}
+	$X = [0;1], f_n(x) = x^n$\\
+	$f(x) = \begin{cases}
+		0, x \in [0; 1)\\
+		1, x = 1
+	\end{cases}$\\ 
+	$f_n \overset{X}{\to} f$
+\end{Example}
+
+\begin{Def}
+	$X$ -- множество, $f_n, f: X \to \R (\C),\\
+	\{f_n\}$ сходится к $f$ равномерно на $X$, если 
+	$\forall \varepsilon> 0 \exists N \in \N \forall n > N \forall x \in X |f_n(x) - f(x)| < \varepsilon$\\
+	Обозначение: $f_n \underset{n \to \infty}{\overset{X}{\rightrightarrows}} f$
+\end{Def}
+
+\begin{Rem}
+	Если $f_n$ сходится равномерно, значит сходится поточечно. Наоборот неверно. 
+\end{Rem}
+
+\begin{Rem}
+	Как и для числовых послеодовательностей можно писать $\forall n \geqslant N$ или $|-| \leqslant \varepsilon$
+\end{Rem}
+
+\begin{Example}
+	$f_n(x) \equiv c_n$\\
+	Если $c_n \to c$, то $f_n(x) \rightrightarrows f(x) = c$ на любом множестве. 
+\end{Example}
+
+\begin{Rem}
+	Если $f: X \to \C$, то равномерная сходимость $\{f_n\}$ равносильна одновременной равномерной сходимости
+	$\{Re f_n\}$ и $\{Im f_n\}$
+\end{Rem}
+
+\begin{Def} 
+	$\{f_n\}_{n=1}^{\infty}$ -- функциональная последовательность, $f_n: X \to \R (\C)$\\
+	$\displaystyle \sum_{n=1}^{\infty} f_n(x)$ -- функциональный ряд\\
+	$\sum_{n=1}^{\infty} f_n(x)$  сходится поточечно, если $S_n(x) = \sum_{n=1}^{N} f_n(x)$ сходится 
+	поточечно.\\
+	$E = \{x \in X: \sum_{n=1}^{\infty} f_n(x) \text{ сходится }\}$ -- множество сходимости\\
+	$\displaystyle \sum_{n=1}^{\infty} = S(x) = \lim_{n \to \infty} S_n(x)$\\
+	$\sum_{n=1}^{\infty} f_n(x)$ сходится равномерно, если $S_n(x)$ сходится равномерно.\\
+	Запись равномерной сходимости в кванторах: $\forall \varepsilon > 0 \ \exists N \in \N \ \ \forall n > N
+	 \ \ | \underbrace{\sum_{k=n+1}^{\infty} f_k(x)}_{\text{ остаток ряда }}| < \varepsilon$
+\end{Def} 
+
+\begin{Rem}
+	$f_n \overset{X}{\rightrightarrows} f \Leftrightarrow \underset{x\in X}{\sup} |f_n(x) - f(x)| 
+	\underset{n \to \infty}{\to}  0$
+\end{Rem}
+
+\begin{proof}
+	$\forall x \in X |f_n(x) - f(x)| \leqslant \varepsilon \Leftrightarrow \underset{x\in X}{\sup} 
+	|f_n(x) - f(x)| \leqslant \varepsilon$
+\end{proof}
+
+\begin{Example}
+	$f_n = x^n$ на $[0;1], f(x) = \begin{cases}
+		0, x \in [0;1)\\
+		1, x = 1
+	\end{cases}$\\
+	Посмотрим на $\underset{x\in X}{\sup}  |f_n(x) - f(x)| = \underset{[0;1)}{\sup} |x^n| = 1 
+	\cancel{\to} 0$
+	\begin{Rem}
+		$X_0 \subset X$\\
+		Если $f_n \overset{X}{\rightrightarrows} f$, то $f_n \overset{X_0}{\rightrightarrows} f$\\
+		Если $f_n \cancel{\overset{X_0}{\rightrightarrows}} f$, то $f_n \cancel{\overset{X}{\rightrightarrows}} f$
+	\end{Rem} 
+	$X = [0; \lambda], \lambda < 1$ -- сходится равномерно.\\
+	$\underset{x \in [0;\lambda]}{\sup} |f_n(x) - f(x)| = \underset{x \in [0;\lambda]}{\sup} |x^n| = \lambda^n 
+	\underset{n \to \infty}{\to}  0$ 
+\end{Example}
+
+\begin{Rem}
+	$f_n \overset{X}{\rightrightarrows} f$, $g_n \overset{X}{\rightrightarrows} g$,
+	$\alpha, \beta \in \R (\C)$, тогда $\alpha f_n + \overset{X}{\rightrightarrows} \alpha f + \beta g$ 
+\end{Rem}
+
+\begin{proof}
+	Упражнение. (Неравенство треугольника для sup)
+\end{proof}
+
+\begin{Rem}
+	$f_n \overset{X}{\rightrightarrows} f$ и $g$ ограничена на $X$, тогда 
+	$f_n g \overset{X}{\rightrightarrows} f \cdot g$
+\end{Rem}
+
+\begin{Thm}[Критерий Больцано-Коши] 
+	$X, f_n: X \to \R (\C)$\\
+	$f_n$ равномерно сходится на $X \Leftrightarrow \forall \varepsilon > 0 \exists N:
+	\forall n, m > N \forall x \in X |f_n(x) - f_m(x)| < \varepsilon$
+\end{Thm} 
+
+\begin{Rem}
+	Можно записать $\forall n > N$ и $\forall m |f_n(x) - f_{n+m}(x)| < \varepsilon$
+\end{Rem}
+
+\begin{proof}
+	$\Rightarrow.$ Пусть $f: f_n \overset{X}{\rightrightarrows} f$, тогда 
+	$\forall \varepsilon > 0 \exists N: \forall n > N \forall x \in X: |f_n(x) - f(x)| < \frac{\varepsilon}{2}, 
+	|f_{n+m} - f(x)| < \frac{\varepsilon}{2}$\\
+	$|f_n - f_{n+m}| \leqslant |f_n - f| + |f_{n+m} - f| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon$\\
+	$\Leftarrow. \ \forall \varepsilon > 0 \exists N: \forall n > N$ и $\forall m \in \N \forall x \in X 
+	|f_{n+m}(x) - f_n(x)| < \varepsilon$\\
+	Фиксируем $x_0 \in X$. Получим числовую последовательность (есть критерий Коши) $\Rightarrow 
+	f_n(x) \overset{X}{\to} f(x)$\\
+	$|f_{n+m} (x) - f_n(x)|< \varepsilon$\\ при $m \to \infty \ \ |f(x) - f_n(x)| < \varepsilon$
+\end{proof}
+
+\begin{Thm}[Критерий Больцано-Коши для рядов]
+	$X, f_n: X \to \R (\C)$. Тогда 
+	$\sum_{n=1}^{\infty} f_n$ равномерно сходится на $X \Leftrightarrow \forall \varepsilon > 0 \exists N: \forall n > N
+	\forall p \in \N \underbrace{|S_{n+p} - S_n|}_{\sum_{k=n+1}^{n+p} f_k(x)} < \varepsilon$
+\end{Thm}
+
+\begin{proof}
+	Аналогично. 
+\end{proof}
+
+\begin{Cons}
+	$\sum_{n=1}^{\infty} f_n$ сходится равномерно $\Rightarrow f_n \rightrightarrows 0$
+\end{Cons}
+
+\begin{Example}
+	$f_n(x) = \frac{nx}{1 + n^2x^2}, X = \R$\\
+	$f(x) = 0, f_n \overset{\R}{\to} 0$\\
+	Но $f_n(x) \cancel{\overset{\R}{\rightrightarrows}} 0$\\
+	Рассмотрим $[0;1]: \underset{x \in [0;1]}{\sup} |f_n(x) - f(x)| = 
+	\underset{x \in [0;1]}{\sup} \frac{nx}{1+n^2x^2} \geqslant \frac{1}{2} \cancel{\to} 0$\\
+\end{Example}
+
+\begin{Example}
+	$f_n(x) = \frac{n^2}{n^2 + x^2}, x = [-1; 1]$\\
+	$f(x) = 1$
+	$f_n(x) - f(x) = \left| \frac{n^2 - n^2 - x^2}{n^2 + x^2}  \right| = \frac{x^2}{n^2 + x^2} \leqslant
+	\frac{x^2}{n^2} \leqslant \frac{1}{n^2}$\\
+	$\underset{E}{\sup} |f_n - f| \leqslant \frac{1}{n^2} \to 0$\\
+	$f_n(x) \overset{X}{\rightrightarrows} f(x)$
+\end{Example}
+
+\begin{Example}
+	$f_n(x) = x^n - x^{n+1}, x = [0;1)$\\
+	$f(x) = 0$\\
+	$\underset{x \in [0;1)}{\sup} |x^n - x^{n+1}| = f_n (\frac{n}{n+1}) = 
+	\left(\frac{n}{n+1}\right)^n - \left(\frac{n}{n+1}\right)^{n+1} = 
+	\left(\frac{n}{n+1}\right)^n \cdot (1 - \frac{n}{n+1}) \to 0 \Rightarrow f_n \overset{[0;1)}{\rightrightarrows} f$\\ \\
+	$f'_n(x) = nx^{n-1} - (n+1) x^n = nx^{n-1} (1 - x \cdot \frac{n+1}{n}) = 0$ при $\frac{n}{n+1}, 0$.
+	$f_n$ возрастает до $\frac{n}{n+1}$ и убывает дальше. 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} x^k, X = [0;1)$\\
+	$S(x) = \frac{1}{1-x}$ -- поточечно. 
+	$f_n(x) = x^k \overset{X}{\cancel{\rightrightarrows}} 0$/ Не выполнено необходимое условие равномерной 
+	сходимости. 
+\end{Example}
+
+\begin{Thm}[Признак Вейерштрасса]
+	$f_n: X \to \R (\C)$ и $|f_n(x)| \leqslant a_n$ и $\sum_{n=1}^{\infty} a_n$ сходится, тогда
+	$\sum_{n=1}^{\infty} f_n(x)$ сходится равномерно и абсолютно. 
+\end{Thm}
+
 \end{document}
