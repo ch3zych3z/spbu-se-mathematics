@@ -1232,4 +1232,255 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	$q = \lambda_1 x_1^2 + ... + \lambda_n x_n^2, \lambda_i$ -- собственные числа матрицы $A$
 \end{Thm} 
 
+\Section{Элементы теории полей}{}{Илья Дудников}
+
+\begin{Example}
+	Примеры полей: $\Q, \R, \C, \Z_p, K(x)$. 
+\end{Example}
+
+\begin{notation}
+	$\Z_p = \mathbb{F}_p$ -- конечное поле с $p$ элементами. 
+\end{notation}
+
+\begin{Def}
+	Если $K \subset L$, $K, L$ -- поля, то $K$ называется \textit{подполем} поля $L$, а $L$ -- \textit{расширением поля} $K$.
+\end{Def}
+
+\begin{Def}
+	Если в поле $K$ нет подполей, отличных от $K$, то поле называется \textit{простым}.
+\end{Def}
+
+\begin{Thm}[О простых подполях]
+	Любое поле содержит простое подполе, изоморфное либо полю $\Q$, либо $\mathbb{F}_p$.
+\end{Thm}
+
+\begin{proof}
+	Возьмем единицу и будем прибавлять её к самой себе. Если $\Char K = 0$, то таким образом мы сможем получить любое целое число. К тому же, у нас есть противоположные по знаку числа, а значит $\Z \subset K$.
+	Более того, в поле есть также и обратные числа, а значит и $\Q \subset K$.
+	
+	Если же $\Char K = p$, то $\underbrace{1 + ... + 1}_p = 0$. Рассмотрим множество $\{0, 1, ..., p - 1\} = \mathbb{F}_p$. 
+\end{proof}
+
+\begin{Example}
+	$\R(i) = \C$.
+\end{Example}
+
+\Subsection{Факторкольцо}
+
+Пусть $R$ -- ассоциативное коммутативное кольцо с 1, $K$ -- поле.
+
+\begin{Def}
+	Множество $I \subset R$ называется \textit{идеалом} кольца $R$, если 
+	\begin{MyList}
+		\item $I$ -- аддитивная группа кольца $R$
+		\item $\forall r \in R \ \forall a \in I \ ra \in I$
+	\end{MyList} 
+\end{Def}
+
+\begin{Example}
+	$I = \{0\}$.
+\end{Example}
+
+\begin{Example}
+	$R = \Z, I = m\Z$. 
+\end{Example}
+
+\begin{Example}
+	$R = K[x]$. Тогда $I = \{f \in K[x] : f(a) = 0\}$. 
+\end{Example}
+
+\begin{Example}
+	$a_1, ..., a_N \in R$. Тогда $I = \{r_1 a_1 + ... + r_n a_n, r_I \in R, i = 1, ..., n\}$.
+\end{Example}
+
+\begin{Def}
+	$I = \{r_1 a_1 + ... + r_n a_n, r_i \in R\}$ -- идеал, порожденный $a_1, ..., a_n \in R$. 
+\end{Def}
+
+\begin{notation}
+	$I = (a_1, ..., a_n)$ -- идеал, порожденный $a_1, ..., a_n \in R$.
+\end{notation}
+
+\begin{Def}
+	Если идеал $I = (a)$, то он называется \textit{главным}.
+\end{Def}
+
+\begin{Def}
+	Если в области целостности $R$ любой идеал является главным, то $R$ -- кольцо главных идеалов.
+\end{Def}
+
+\begin{Thm}[Кольцо многочленов -- кольцо главных идеалов]
+	У любого $I \neq (0)$ идеала в $K[x] \ \exists !$ нормированный $f \in K[x] : I = (f)$. 
+\end{Thm}
+
+\begin{proof}
+	Выберем среди $f \in I$ многочлен с наименьшей степенью. Пусть
+	\[f = a_n x^n + ..., \quad a_n \neq 0\]
+	Тогда $g = a_n^{-1} f \in I$. 
+	
+	Возьмем произвольный $h \in I$ и поделим его на $g$, т.е. 
+	\[h = gq + r, \quad g, r \in K[x], \deg r < \deg g\] 
+	Тогда $r = h - gq \in I$. Получаем противоречие, а значит $r = 0$ $\SO I = (g)$. 
+	
+	Докажем теперь однозначность.
+	Пусть $I = (g_1), I = (g_2)$. Тогда
+	\[g_1 = c_1 \cdot g_2, \quad c_1 \in R, \qquad g_2 = c_2 \cdot g_1, \quad c_2 \in R\]
+	Поэтому
+	\[g_1 = c_1 \cdot c_2 \cdot g_1 \SO c_1 \cdot c_2 = 1 \SO c_1 = c_2 = 1\]
+\end{proof}
+
+\begin{Example}
+	$\R[x]$. 
+	\begin{MyItemize}
+		\item $(x^2 + 1) = \{f(x) \cdot (x^2 + 1)\}$ 
+		\item $(x - 1) = \{f(x) \cdot (x - 1)\}$ 
+		\item $(x^2 - 5x + 4) = \{f(x) (x^2 - 5x + 4)\}$ 
+	\end{MyItemize}  
+\end{Example}
+
+\begin{Def}[Конструкция факторкольца]
+	$I$ -- идеал, $R$ -- ассоциативное коммутативное кольцо с 1. Рассмотрим 
+	\[R/I = \{r + I, r \in R\}\]
+	Будем говорить, что $r$ и $r'$ сравнимы по $\Mod I$ и писать $r \equiv r' (\Mod I)$, если $r - r' \in I$.  
+
+	Определим сложение и умножение на $R/I$.
+	\begin{MyList}
+		\item $\overline{r} + \overline{s} = \overline{r + s}$, т.е. $(r + I) + (s + I) = r + s + I$
+		\item $\overline{r} \cdot \overline{s} = \overline{rs}$, т.е. $(r + I) \cdot (s + I) = rs + I$.
+	\end{MyList}
+\end{Def}
+
+\begin{Thm}[Корректность определения операций]
+	Операции сложения и умножения в факторкольце определены корректно.
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Самостоятельно
+		\item $r \equiv r' \Mod I, \ s \equiv s' \Mod I$.
+		Тогда 
+		\[\overline{r}' \cdot \overline{s}' = (r' + I) \cdot (s' + I) = r' \cdot s' + I = (r + a) \cdot (s + b) + I = rs + rb +  as + ab + I = rs + I = \overline{r} \cdot \overline{s}\]
+		Третье равенство верно, т.к. $r \equiv r' \Mod I \EQ r = r' + a, a \in I$. Аналогично, $s' = s + b, b \in I$. 
+	\end{MyList} 
+\end{proof}
+
+\begin{Thm}
+	$R/I$ -- кольцо.
+\end{Thm}
+
+\begin{Def}
+	Множество $R/I$ называется \textit{факторкольцом}.
+\end{Def}
+
+\Subsection{Расширение полей}
+
+\begin{Def}
+	Поле $K(\theta_1, ..., \theta_n)$ -- минимальное поле, содержащее само поле $K$ и элементы $\theta_1, ..., \theta_n$. 
+\end{Def}
+
+\begin{Def}[Простое расширение]
+	Если $L = K(\theta), \theta \notin K$, то $L$ -- простое расширение. 
+\end{Def}
+
+\begin{Example}
+	$\R(i)$ 
+\end{Example}
+	
+\begin{Example}
+	$\Q(\sqrt{d}) = \{a + b\sqrt{d}, a, b \in \Q\}$, $d$ -- свободное от квадратов.
+\end{Example}
+
+\begin{Example}
+	$\Q(\sqrt[n]{d}) = \{a_0 + a_1\sqrt[n]{d} + a_2 \sqrt[n]{d^2} + ... + a_{n - 1}\sqrt[n]{d^{n - 1}}, a_i \in \Q, i = 0, ..., n - 1\}$, где $\forall p \ d \not\vdots p^n$, $p$ -- простое.
+\end{Example}
+
+\begin{Example}
+	$\Q(\pi) \simeq \Q(x)$. $\pi$ -- трансцендентный элемент.
+\end{Example}
+
+\begin{Def}
+	Элемент $\theta \in L$ \textit{алгебраичен}  над полем $K$, если $\theta$ -- корень многочлена $f \in K[x]$.
+	Иначе, $\theta$ -- \textit{трансцендентный}  элемент над $K$.
+\end{Def}
+	
+\begin{Def}
+	Пусть $K \subset L$ и $\theta \in L$ -- алгебраичен над $K$. Нормированный многочлен минимальной степени $f \in K[x] : f(\theta) = 0$ называется
+	\textit{минимальным многочленом}. Степень минимального многочлена -- это степень элемента $\theta$ над $K$.  
+\end{Def}
+
+\begin{Thm}[Неприводимость минимального многочлена]
+	Пусть $K \subset L$, $\theta$ -- алгебраичен над $K$, $f$ -- минимальный многочлен $\theta$.
+	Тогда 
+	\begin{MyList}
+		\item $f$ -- неприводим над $K$;
+		\item Если $g \in K[x] : g(\theta) = 0$, то $f | g$. 
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Предположим, что $f$ приводим. Тогда $f = h_1 h_2, \deg h_i \geqslant 1, i = 1, 2$. Тогда
+		\[f(\theta) = 0 \SO h_1 (\theta) h_2 (\theta) = 0 \SO h_i(\theta) = 0\]
+		Но $\deg h_i < \deg f$, а значит мы получили противоречие минимальности $f$. Отсюда, $f$ -- неприводим.
+
+		\item Поделим $g$ на $f$:
+		\[g = f \cdot q + r, \quad \deg r < \deg f\]
+		Тогда
+		\[g(\theta) = f(\theta) \cdot q(\theta) + r(\theta) \SO r(\theta) = 0 \SO r = 0\]
+		Откуда получаем, что $f | g$.
+	\end{MyList}
+\end{proof}
+
+\begin{Def}
+	Пусть $K \subset L$. Рассмотрим $L$ как векторное пространство над полем $K$.
+	Тогда \textit{степенью расширения} $L$ над $K$ называется размерность размерность векторного пространства $L$ над $K$.   
+\end{Def}
+
+\begin{notation}
+	$[L : K] = \dim_K L$ -- степень расширения $L$ над $K$. 
+\end{notation}
+
+\begin{Rem}
+	Расширение называется конечным, если $[L : K] < \infty$. 
+\end{Rem}
+
+\begin{Thm}
+	Любое конечное расширение является алгебраичным.
+\end{Thm}
+
+\begin{proof}
+	Пусть $K \subset L$, $[L : K] = n$. Возьмем произвольный элемент $\theta \in L$ и рассмотрим его степени: $1, \theta, \theta^2, ..., \theta^{n - 1}, \theta^n$. 
+	Этот набор элементов -- линейно зависимый, поэтому существует $a_i \in K$ такие, что 
+	\[a_0 + a_1 \theta + ... + a_n \theta^n = 0\]
+	где не все $a_i$ нулевые. А это и значит, что существует $g \in K[x] : g(\theta) = 0$.  
+\end{proof}
+
+\begin{Thm}
+	Пусть $K \subset L \subset M$. Предположим, что $[L : K], [M : L] < \infty$.
+	Тогда расширение $M$ над $K$ конечно и $[M : K] = [M : L] \cdot [L : K]$.   
+\end{Thm}
+
+\begin{Thm}[Структура простых алгебраичных расширений]
+	Пусть $K \subset K(\theta)$, где $\theta$ -- алгебраичен над $K$, $\theta \notin K$; $f$ -- минимальный многочлен $\theta$, $\deg f = n$.
+	Тогда 
+	\begin{MyList}
+		\item $K(\theta) \simeq K[x] / (f)$;
+		\item $[K(\theta) : K] = n$ и $\{1, \theta, \theta^2, ..., \theta^{n - 1}\}$ -- базис $K(\theta)$ над $K$;
+		\item Если $\alpha \in K(\theta)$ -- алгебраичен над $K$, то степень элемента $\alpha$ делит $n$.  
+	\end{MyList} 
+\end{Thm}
+
+\begin{Example}
+	$\mathbb{F}_2 = \{0, 1\}$. Рассмотрим неприводимый многочлен 2-й степени над $\mathbb{F}_2$:
+	\[f = x^2 + x + 1, \qquad \theta \text{ -- корень}\]
+	$\mathbb{F}_2[x] / (x^2 + x + 1) = \{0, 1, x, x + 1\}$.
+
+	\begin{align*}
+		x \cdot x &\equiv x + 1 (\Mod x^2 + x + 1) \\
+		x (x + 1) &\equiv 1 \\
+		(x + 1)(x + 1) &\equiv x
+	\end{align*}
+
+\end{Example}
+
 \end{document}
