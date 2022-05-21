@@ -1345,11 +1345,13 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 \begin{Thm}[Второй и третий инварианты]
 	Пусть КВП задается уравнением:
-	\[\overline{x}^T A \overline{x} = 0, \quad A = \left(\begin{array}{ccc}
+	\begin{equation} \label{eq:conic_section}
+		\overline{x}^T A \overline{x} = 0, \quad A = \left(\begin{array}{ccc}
 	a_{11} & a_{12} & a_{13} \\ 
 	a_{12} & a_{22} & a_{23} \\ 
 	a_{13} & a_{23} & a_{33}
-	\end{array}\right)\]
+	\end{array}\right)
+	\end{equation}
 	Тогда
 	\[\delta = \left|\begin{array}{cc}
 	a_{11} & a_{12} \\ 
@@ -1360,7 +1362,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 \begin{proof}
 	Выполним диагонализацию КВП, т.е. введем преобразование плоскости:
-	\begin{equation} \label{eq:conic_section}
+	\begin{equation*}
 		\overline{x} = \left(\begin{array}{c}
 		x \\ 
 		y \\ 
@@ -1374,7 +1376,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 		y' \\ 
 		1
 		\end{array}\right)
-	\end{equation}
+	\end{equation*}
 	Также обозначим 
 	\[\mathcal{O} = \left(\begin{array}{cc}
 	\cos \alpha & -\sin \alpha \\ 
@@ -1394,7 +1396,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 	Из такой записи видно, что
 	\begin{align*}
 		\Delta' &= \det \left(\widetilde{\mathcal{O}}^T A \widetilde{O}\right) = \det A = \Delta \\
-		\delta' &= \det \left(\mathcal{O} A_0 \mathcal{O}\right) = \det A_0 = \delta
+		\delta' &= \det \left(\mathcal{O}^T A_0 \mathcal{O}\right) = \det A_0 = \delta
 	\end{align*}
 \end{proof}
 
@@ -1661,4 +1663,678 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 		\item $y^2 = 0$ -- две слившиеся прямые
 	\end{MyList}
 \end{Thm}
+
+\Subsection{Приведение КВП к каноническому уравнению с помощью инвариантов}
+
+Рассмотрим произвольную КВП
+
+\[a_{11} x^2 + 2a_{12}xy + a_{22}y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
+
+\begin{Prop}
+	КВП $\in \R^6 \setminus L^3$, где $L^3$ -- трехмерное пространство. 
+
+	Действительно, КВП задается шестью параметрами, поэтому её можно рассматривать как точку в $\R^3$.
+	Однако мы накладывали на КВП ограничение, а именно $a_{11}^2 + a_{12}^2 + a_{22}^2 \neq 0$, что позволяет нам откинуть ту часть шестимерного пространства, где $a_{11}^2 + a_{12}^2 + a_{22}^2 = 0$, 
+	а это некоторое трехмерное подпространство $\R^6$.
+\end{Prop}
+
+\begin{Def}
+	Будем применять всевозможные ортогональные преобразования. Тогда коэффициенты в уравнении КВП будут меняться, а значит мы зададим какое-то подмножество $\R^6$.
+	Это подмножество называется \textbf{орбитой действия $\mathcal{O}$}.
+\end{Def}
+
+\begin{Rem}
+	Если две точки лежат в одной орбите, то одну можно получить при помощи ортогональных преобразований другой.
+\end{Rem}
+
+Рассмотрим теперь инварианты КВП в наших новых обозначениях
+
+\begin{MyItemize}
+	\item $I_1 = a_{11} + a_{22}$ -- это на самом деле функция от двух переменных $F(a_{11}, a_{22}) = a_{11} + a_{22}$. Тогда уравнение $a_{11} + a_{22} = \const$ задает гиперплоскость, 
+	т.е. пространство на одну размерность меньше, чем объемлющее.
+
+	\item $I_2 = F(a_{11}, a_{22}) = a_{11} a_{22} - a_{12}^2 = \const$ -- это какое-то множество, про которое можно сказать только то, что оно на размерность меньше объемлющего и оно кривое.
+	\item $I_3 = \Delta = \const$ -- однородный многочлен третьей степени от шести переменных.
+\end{MyItemize}
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.35\columnwidth}
+	\input{img/transformation_group.pdf_tex}
+\end{figure}
+
+\begin{Rem}
+	Орбита обязательно лежит в пересечении этих инвариантов, которое почти везде трехмерное.
+\end{Rem}
+
+\begin{Rem}
+	"Почти" везде, поскольку в большинстве случаев нормали к гиперплоскостям неколлинеарны, а тогда пересечение этих гиперплоскостей "убивает" одну размерность.
+	Однако это неверно, если нормали коллинеарны.
+\end{Rem}
+
+\begin{Def}
+	Пусть $f(z_1, ..., z_n)$ -- функция от $n$ переменных. Тогда 
+	\[\overline{\nabla f} = \left( \frac{\partial f}{\partial z_1}, ..., \frac{\partial f}{\partial z_n}\right)\] 
+	т.е. вектор частных производных, называется градиентом $f$.
+\end{Def}
+
+\begin{Prop}
+	$\overline{\nabla f}$ -- нормаль к гиперплоскости.
+\end{Prop}
+
+\begin{Thm}[Приведение КВП к каноническому виду с помощью инвариантов, тип I]
+	Пусть КВП задано уравнением
+	\[a_{11} x^2 + 2a_{12}xy + a_{22}y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
+	и $\delta = a_{11} a_{22} \neq 0$. Тогда это уравнение можно свести к каноническому виду:
+	\[a_{11}' x^2 + a_{22}'y^2 + a_{33}' = 0\]	
+	при помощи инвариантов $I_1, I_2, I_3$.
+\end{Thm}
+
+\begin{proof}
+	С одной стороны, значения инвариантов мы можем посчитать из исходного уравнения. С другой стороны:
+	\[\begin{cases}
+		I_1 = a_{11}' + a_{22}' \\
+		I_2 = a_{11}' a_{22}' \\
+		I_3 = a_{11}' a_{22}' a_{33}'
+	\end{cases}\]
+	Отсюда, $a_{33}' = \frac{I_3}{I_2}$, а $a_{11}'$ и $a_{22}'$ -- корни уравнения
+	\[t^2 - I_1 t + I_2 = 0\]
+	Поэтому $a_{11}$ и $a_{22}$ отсюда легко находятся. 
+\end{proof}
+
+\begin{Rem}
+	Вообще, корни этого уравнения никак не упорядочены, поэтому непонятно, какой из корней мы должны подставить вместо $a_{11}'$, а какой вместо $a_{22}'$.
+	Но это, в сущности, неважно, поскольку всегда можно поменять $x$ и $y$ местами ортогональным преобразованием:
+	\[\overline{x} = \left(\begin{array}{cc}
+	0 & 1 \\ 
+	1 & 0
+	\end{array}\right) \overline{x}'\]
+	Обычно, для определенности, полагают, что $a_{11}' > a_{22}'$.
+\end{Rem}
+
+\begin{Thm}[Приведение КВП к каноническому виду с помощью инвариантов, тип I]
+	Пусть КВП задано уравнением
+	\[a_{11} x^2 + 2a_{12}xy + a_{22}y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
+	где $\delta = a_{11} a_{22} = 0$. Тогда это уравнение можно свести к каноническому виду:
+	\[a_{22}' y^2 + 2 a_{13}' x = 0\]
+	при помощи инвариантов $I_1, I_2, I_3$.
+\end{Thm}
+
+\begin{proof}
+	С одной стороны, значения инвариантов можно посчитать из исходного уравнения КВП. С другой стороны:
+	\[\begin{cases}
+		I_1 = a_{22}' \\
+		I_2 = 0 \\
+		I_3 = -a_{22} a_{13}^2
+	\end{cases}\]
+	Откуда $a_{22} = I_1$ и $a_{13}$ легко находится из последнего уравнения. 
+\end{proof}
+
+\begin{Prop}
+	Набор функций $\{I_1, I_2, I_3\}$ -- полный набор непрерывных инвариантов, т.е.
+	\[\forall I_4 \ \exists \PHI : I_4 = \PHI(I_1, I_2, I_3)\]
+\end{Prop}
+
+\begin{proof}
+	Предположим, что существует еще один инвариант $I_4$, не являющийся функционально зависимым от $I_1, I_2$ и $I_3$.
+	Тогда, поскольку он не функционально зависим, то найдутся две КВП такие, что $I_1 = I_1', I_2 = I_2', I_3 = I_3'$, но $I_4 \neq I_4'$.
+	Но ведь если $I_1 = I_1', I_2 = I_2', I_3 = I_3'$, то эти КВП лежат в одной орбите, а значит их можно привести к одинаковому каноническому виду.
+	Но тогда $I_4 = I_4'$ (?!)
+\end{proof}
+
+\Subsection{Геометрические свойства классических КВП}
+
+Под классическими КВП понимаются эллипс, гипербола и парабола, т.е. случаи, когда $\Delta \neq 0$.
+Как мы помним, классические КВП являются сечениями конуса:
+
+\begin{figure}[H]
+	\centering
+	\def\svgwidth{.3\columnwidth}
+	\input{img/conic_section_1.pdf_tex}
+\end{figure}
+
+Рассмотрим прямой круговой цилиндр радиуса $b$, заданный уравнением
+\[x^2 + y^2 = b^2\] 
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.8\columnwidth}
+	\input{img/cylinder.pdf_tex}
+\end{figure}
+
+\begin{Prop}
+	Если рассечь данный цилиндр плоскостью, не параллельной образующей, то в сечении получится КВП.
+\end{Prop}
+
+\begin{proof}
+	Действительно, после сечения мы получим многочлен второй степени, задающий КВП.
+
+	Можно рассуждать по-другому: спроецируем фигуру, получившуюся в сечении, на горизонтальную плоскость. Эта проекция -- окружность.
+	Чтобы построить эту проекцию, мы применяли только аффинные преобразования, а значит исходная фигура -- эллипс.
+\end{proof}
+
+Обозначим за $\alpha$ угол наклона плоскости, секущей цилиндр, по отношению к горизонтальной оси.
+
+Построим теперь следующую конструкцию: возьмем сферу радиуса $b$ и поместим её внутрь цилиндра. Сфера будет касаться образующих цилиндра по своему экватору.
+Поднимем эту сферу выше нашего сечения и будем опускать её до тех пор, пока она не коснется сечения.
+В силу симметрии, точка касания будет расположена над осью $y$.
+
+Проделаем то же рассуждение, но на этот раз будем поднимать сферу снизу до тех пор, пока она не коснется нашего сечения.
+Точки касания сфер с сечением обозначим $F_1$ и $F_2$. 
+
+\begin{Property}[Фокальное свойство эллипса]
+	Пусть $M$ -- произвольная точка эллипса в сечении. Положим
+	\[r_1 = |\overline{F_1 M}|, \quad r_2 = |\overline{F_2 M}|\]
+	Тогда
+	\[r_1 + r_2 = \const\]
+\end{Property}
+
+\begin{proof}
+	Проведем через точку $M$ образующую цилиндра. Пусть она касается сфер в точках $M_1$ и $M_2$.
+	Тогда $F_1 M = M M_1$, т.к. $F_1 M$ и $M M_1$ -- это касательные к одной сфере. Аналогично, $F_2 M = M M_2$, поэтому
+	$F_1 M + F_2 M = M M_1 + M M_2 = M_1 M_2 = \const$ 
+\end{proof}
+
+\begin{Cons}
+	$r_1 + r_2 = 2a$
+\end{Cons}
+
+\begin{proof}
+	Поскольку мы уже доказали, что $r_1 + r_2 = \const$, достаточно найти эту сумму для какой-то одной точки. 
+	Возьмем точку эллипса, лежащую на горизонтальной оси. 
+	Если $c$ -- расстояние от центра до фокусов, то
+	\[r_1 + r_2 = (a + c) + (a - c) = 2a\]
+\end{proof}
+
+\begin{Property}[Фокальное свойство гиперболы]
+	Пусть $M$ -- произвольная точка гиперболы. Положим
+	\[r_1 = |\overline{F_1 M}|, \quad r_2 = |\overline{F_2 M}|\]
+	Тогда
+	\[r_1 - r_2 = \const\]
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.25\columnwidth}
+		\input{img/focal_property_of_hyperbola.pdf_tex}
+	\end{figure}
+\end{Property}
+
+Вернемся к эллипсу и рассмотрим случай, когда $r_1 = r_2 = \sqrt{c^2 + b^2} = a \EQ c^2 = a^2 - b^2$.
+
+\begin{Def}
+	Величина
+	\[c^2 = a^2 - b^2\]
+	называется \textit{центриситетом}.
+\end{Def}
+
+Дополним нашу конструкцию:
+продолжим плоскость, секущую цилиндр, до пересечения с плоскостью, проходящей через экватор сферы (это пересечение -- директриса эллипса).
+Возьмем точку произвольную $M$ на эллипсе и опустим из нее перпендикуляр. Как мы недавно выяснили, его длина равна расстоянию до фокуса.
+Таким образом, если $d$ -- расстояние от $M$ до директрисы эллипса, то $\sin \alpha = \frac{r_1}{d} = \const$. С другой стороны,
+$\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \frac{\sqrt{a^2 - b^2}}{a} = \frac{c}{a}$, откуда $\frac{c}{a} = \const$ 
+
+\begin{Def}
+	Величина 
+	\[e = \frac{c}{a}\]
+	называется эксцентриситетом.
+\end{Def}
+
+\begin{Property}[Директориальное свойство эллипса]
+	Эллипс -- геометрическое место точек, для которых $\frac{r_1}{d} = e$. 
+\end{Property}
+
+\begin{Rem}[Директориальное свойство]
+	Эллипс, гипербола и парабола -- г.м.т., для которых $\frac{r_1}{d} = e$.
+
+	\begin{figure}[H]
+		\centering
+
+		\begin{subfigure}[b]{.3\textwidth}
+			\centering
+			\def\svgwidth{\columnwidth}
+			\input{img/directore_property_ellipse.pdf_tex}
+			\caption{Эллипс}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{.3\textwidth}
+			\centering
+			\def\svgwidth{.6\columnwidth}
+			\input{img/directore_property_of_parabola.pdf_tex}
+			\caption{Парабола}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{.3\textwidth}
+			\centering
+			\def\svgwidth{.8\columnwidth}
+			\input{img/derictory_property_of_hyperbola.pdf_tex}
+			\caption{Гипербола}
+		\end{subfigure}
+	\end{figure}
+\end{Rem}
+
+\begin{Rem}
+	\begin{MyItemize}
+		\item Если $e < 1$, то кривая -- эллипс
+		\item Если $e = 1$, то кривая -- парабола
+		\item Если $e > 1$, то кривая -- гипербола
+	\end{MyItemize}
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/directore_property.pdf_tex}
+	\end{figure}
+\end{Rem}
+
+\begin{Property}[Оптическое свойство]
+	Отраженный луч из одного фокуса попадает во второй фокус. Геометрически -- фокальные радиусы образуют одинаковые углы с касательной
+\end{Property}
+
+\begin{proof}
+    Зададим функцию $F(x, y) = d_1 + d_2$. Эта функция определена на всей плоскости. Линией уровня этой функции является эллипс $(d_1 + d_2 = const)$.
+    Понятно, что две линии уровня не пересекаются между собой, если у них разные константы, поэтому плоскость распадается на линии уровня (это называется \textit{расслоение плоскости}).
+    Также, если одна константа больше другой, то один эллипс содержится в другом. 
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/ellipse_bundle.pdf_tex}	
+	\end{figure}
+
+    Тогда задача поиска точки касания прямой с эллипсом сводится к поиску $\min F|_l$. 
+
+    Конкретнее, есть прямая и две точки, требуется найти на прямой точку такую, что сумма расстояний до двух исходных точек минимальна.
+	Но это уже простая задача, её можно решить например так: построим точку $F_1'$, симметричную $F_1$ относительно $l$ и проведем прямую через точки $F_1'$ и $F_2$. 
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/optical_property_proof.pdf_tex}	
+	\end{figure}
+
+	Тогда точка пересечения $F_1' F_2$ с прямой $l$ -- это и есть искомая точка касания. 
+\end{proof}
+
+\begin{Rem}
+	У гиперболы оптическое свойство выглядит следующим образом: все лучи выпущенные из одного фокуса рассеиваются будто они вышли из другого фокуса. 
+	У параболы все отраженные лучи уйдут по прямой, он запускает их параллельно. 
+\end{Rem}
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.7\columnwidth}
+	\input{img/optical_property.pdf_tex}	
+\end{figure}
+
+\Subsection{Диаметры КВП}
+
+\begin{Def}
+	Прямая, рна которой лежат середины параллельных хорд, называют \textit{диаметром}.
+\end{Def}
+
+\begin{Rem}
+	Если кривая центральная, то диаметр проходит через центр симметрии.
+\end{Rem}
+
+Рассмотрим систему:
+
+\[\begin{cases}
+	a_{11} x^2 + 2 a_{12} xy + a_{22} y^2 + a_{13} x + 2 a_{23} y + a_{33} = 0 \\
+	y = kx + b
+\end{cases}\]
+
+\begin{figure}
+	\centering
+	\def\svgwidth{.2\columnwidth}
+	\input{img/Conis_section_diameter.pdf_tex}
+\end{figure}
+
+Подставим $y$ в первое уравнение и посчитаем коэффициенты при $x$:
+
+\begin{align*}
+	(x')^2 &: &&a_{11} + 2ka_{12} + a_{22} k^2 \\
+	x'y' &: &&2a_{12} b + 2ka_{22} b + a_{13} + 2a_{23} k \\
+	(y')^2 &: &&a_{22} b^2 + 2a_{23} b + a_{33}
+\end{align*}
+
+\[\EQ \begin{cases}
+	x_0 = - \frac{(a_{12} + k a_{22}) b + (a_{13} + a_{23}k}{a_{11} + 2ka_{12} + k^2 a_{22}} \\
+	y_0 = - \frac{a_{13} k + a_{23} k^2}{a_{11} + 2ka_{12} + k^2a_{22}} - \left( \frac{ka_{12} + k^2 a_{22}}{a_{11} + 2ka_{12} + k^2 a_{22}} - 1\right)b \EQ \begin{cases}
+		x_0 = - \frac{a_{12} + ka22}{a_{11} + 2ka_{12} + k^2a_{22}}b - \frac{a_{13} + a_{23}k}{a_{11} + 2ka_{12} + k^2 a_{22}} \\
+		y_0 = \frac{a_{11} + ka_{12}}{a_{11} + 2ka_{12} + k^2a_{22}}b - \frac{a_{13}k + a_{23} k^2}{a_{11} + 2ka_{12} + k^2 a_{22}}
+	\end{cases}
+\end{cases}\]
+
+\begin{Rem}
+	Если прямая задана параметрически:
+	\[\begin{cases}
+		x = \alpha t + x' \\
+		y = \beta t + y'
+	\end{cases}\]
+	то $(\alpha, \beta)$ -- направляющий вектор этой прямой, а угол её наклона -- $\frac{\beta}{\alpha}$.
+\end{Rem}
+
+\begin{equation}\label{eq:diameter_angle}
+	\SO k' = - \frac{a_{11} + ka_{12}}{a_{12} + ka_{22}}
+\end{equation}
+
+\begin{Def}
+	$k'$ -- направление \textit{сопряженного} диаметра.
+\end{Def}
+
+\begin{Rem}
+	Рассмотрим уравнение 
+	\[a_{11} + 2ka_{12} + k^2 = 0\]
+	где левая часть -- коэффициент при $x^2$. $\frac{D}{4} = a_{12}^2 - a_{11} a_{22} = -\delta$, т.е. 
+	оно имеет решения, когда $-\delta \geqslant 0$.
+
+	Корни этого уравнения называют:
+	\begin{MyItemize}
+		\item Асимптотическими направлениями, если $-\delta > 0$, т.е. если данная КВП -- гипербола.
+		\item Направлением оси симметрии, если $\delta = 0$, т.е. если данная КВП -- парабола.
+		\item Если КВП -- эллипc, то корней у уравнения нет.
+	\end{MyItemize}
+\end{Rem}
+
+\begin{Rem}
+	Посчитаем $k''$:
+	\begin{align*}
+		k'' &=  - \frac{a_{11} + k'a_{12}}{a_{12} + k'a_{22}} = - \frac{a_{11} - \frac{a_{11} + ka_{12}}{a_{12} + k a_{22}} \cdot a_{12}}{a_{12} - \frac{a_{11} + ka_{12}}{a_{12} + ka_{22}}\cdot a_{22}} \\
+		&= - \frac{a_{11} a_{12} + ka_{11} a_{22} - a_{11} a_{12} - ka_{12}^2}{a_{12}^2 + ka_{11} a_{22} - a_{11} a_{22} -ka_{12} a_{22}} = -k \frac{a_{11} a_{22} - a_{12}^2}{a_{12}^2 - a_{11} a_{22} } = k \\
+	\end{align*}
+\end{Rem}
+
+\begin{Rem}
+	Перепишем уравнение (\ref{eq:diameter_angle}) в следующем виде:
+
+	\[k'k a_{22} + a_{12}(k + k') + a_{11} = 0\]	
+
+	\begin{MyItemize}
+		\item Если $k' = k$, то получим асимптотическое уравнение, т.е. у гиперболы асимптоты (а у параболы -- прямые, параллельные оси симметрии) сопряжены сами себе.
+		\item Если $k' = \frac{1}{k}$, то
+		\[-a_{22} + a_{12} \left(k - \frac{1}{k}\right)+ a_{11} = 0 \]
+		Откуда
+		\[a_{12} k^2 + k(a_{11} - a_{22}) - a_{12} = 0\]
+		Корни этого уравнения -- это коэффициенты наклона осей симметрии.
+	\end{MyItemize}
+\end{Rem}
+
+\Subsection{Классификация поверхностей второго порядка}
+
+Поверхность второго порядка однозначно задается уравнением
+
+\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz + a_{14} x + a_{24} y + a_{34} z + a_{44} = 0\]
+
+\begin{Thm}[Диагонализация ПВП]
+	Существует такой выбор осей координат, что ПВП имеет диагональную квадратичную часть
+\end{Thm}
+
+\begin{proof}
+	Возьмем единичную сферу и рассмотрим на ней функцию $f(x, y, z) = a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz$.
+	Она непрерывна, а значит достигает своего минимального и максимального значения. Проведем ось $z$ через точку, в которой $f$ достигает своего максимума.
+
+	Рассмотрим сужение $f|_{x = 0}$ :
+	\[f = a_{22} y^2 + a_{33} z^2 + 2a_{23} yz\]
+	Параметризуем $f$:
+	\[\begin{cases}
+		z = \cos t \\
+		y = \sin t
+	\end{cases} \EQ f(t) = a_{22} \sin^2 t + a_{33} \cos^2 t + 2a_{23} \cos t \sin t\]
+
+	У функции $f(t)$ в точке $t = 0$ экстремум, т.е. $f'(t) = 0$:
+	\[f'(t) = 2a_{22} \cos t \sin t - 2a_{33} \sin t \cos t + 2a_{23} (\cos^2 t - \sin^2 t) = (a_{22} - a_{33})\sin 2t + 2a_{23} \cos 2t\]
+	Отсюда $f'(0) + 2a_{23} = 0 \EQ a_{23} = 0$. Аналогично, $a_{13} = 0$.
+
+	Обнулять $a_{12}$ мы учились в предыдущих вопросах.
+\end{proof}
+
+\begin{Thm}[Классификация ПВП. Тип I]
+	Пусть ПВП задается уравнением
+	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz + a_{14} x + a_{24} y + a_{34} z + a_{44} = 0\]
+	где $a_{11} a_{22} a_{33} \neq 0$. Тогда его можно при помощи ортогональных преобразований свести к одному из следующих уравнений:
+
+	\begin{MyList}
+		\item $\alpha x^2 + \beta y^2 + \gamma z^2 = c$ -- эллипсоид
+		\item $\alpha x^2 + \beta y^2 + \gamma z^2 = -c$ -- мнимый эллипсоид
+		\item $\alpha x^2 + \beta y^2 + \gamma z^2 = 0$ -- мнимый конус
+		\item $\alpha x^2 + \beta y^2 - \gamma z^2 = c$ -- однополостный гиперболоид 
+		\item $\alpha x^2 + \beta y^2 - \gamma z^2 = -c$ -- двуполостный гиперболоид
+		\item $\alpha x^2 + \beta y^2 - \gamma z^2 = 0$ -- конус
+	\end{MyList}
+	где $\alpha, \beta, \gamma, c > 0$.
+\end{Thm}
+
+\begin{proof}
+	Выделим полные квадраты слева, тогда уравнение примет вид:
+	\[\alpha x^2 + \beta y^2 + \gamma z^2 = c\]
+	где $\alpha, \beta, \gamma, c$ -- произвольные. Дальше очев.
+\end{proof}
+
+\begin{Thm}[Классификация ПВП. Тип II]
+	Пусть ПВП задается уравнением
+	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz + a_{14} x + a_{24} y + a_{34} z + a_{44} = 0\]
+	где один из $a_{11}, a_{22}, a_{33}$ нулевой. Тогда его можно при помощи ортогональных преобразований свести к одному из следующих уравнений:
+
+	\begin{MyList}
+		\item $\alpha y^2 + \beta z^2 = \gamma$ -- цилиндр над эллипсом
+		\item $\alpha y^2 + \beta z^2 = - \gamma$ -- мнимый цилиндр над эллипсом
+		\item $\alpha y^2 + \beta z^2 = 0$ -- прямая (мнимые пересекающиеся по прямой плоскости)
+		\item $\alpha y^2 - \beta z^2 = \gamma$ -- цилиндр над гиперболой
+		\item $\alpha y^2 - \beta z^2 = 0$ -- две пересекающиеся плоскости
+		\item $\alpha y^2 + \beta z^2 + \gamma x = 0$ -- параболоид
+		\item $\alpha y^2 - \beta z^2 + \gamma x = 0$ -- гиперболический параболоид
+	\end{MyList}
+	где $\alpha, \beta, \gamma > 0$.
+\end{Thm}
+
+\begin{proof}
+	Для определенности будем считать, что $a_{11} = 0$:
+	\[a_{22} y^2 + a_{33} z^2 + 2a_{14} x + a_{44} = 0\]
+	\begin{MyItemize}
+		\item Если $a_{14} = 0$, то уравнение имеет вид:
+		\[\alpha y^2 + \beta z^2 + \gamma = 0\]
+		где $\alpha, \beta, \gamma$ -- произвольные.
+
+		\item Если $a_{14} \neq 0$, то сделаем замену $x = x' - \frac{a_{44}}{2a_{14}}$. Тогда 
+		\[\alpha y^2 + \beta z^2 + \gamma x' = 0 \]
+		где $\alpha, \beta, \gamma$ -- произвольные.
+
+		Дальше очев :)
+	\end{MyItemize}
+\end{proof}
+
+\begin{Thm}[Классификация ПВП. Тип III]
+	Пусть ПВП задается уравнением
+	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz + a_{14} x + a_{24} y + a_{34} z + a_{44} = 0\]
+	где два из $a_{11}, a_{22}, a_{33}$ нулевые. Тогда его можно при помощи ортогональных преобразований свести к одному из следующих уравнений:
+
+	\begin{MyList}
+		\item $\alpha z^2 = \beta x$ -- цилиндр на параболе
+		\item $\alpha z^2 = \beta$ -- две параллельные плоскости
+		\item $\alpha z^2 = -\beta$ -- пара мнимых параллельных плоскостей
+		\item $\alpha z^2 = 0$ -- плоскость
+	\end{MyList}
+	где $\alpha, \beta > 0$.
+\end{Thm}
+
+\begin{Rem}
+	Понавставляйте картинок про поверхности второго порядка, пожалуйста, а то у меня крыша уже едет от этой геомы :(
+\end{Rem}
+
+\Section{Дифференциальная геометрия кривых}{}{Илья Дудников}
+
+\Subsection{Вектор-функция}
+
+\begin{Def}
+	Пусть отображение $r : I \subset \R \to \mathbb{V}^n$, где $\mathbb{V}$ -- векторное пространство, а $I$ -- промежуток.
+	Тогда $r$ называется \textit{вектор-функцией}.  
+\end{Def}
+
+\begin{Def}
+	Рассмотрим базис $\{\overline{e}_i\}_{i = 1}^n : \overline{r}(t) = \lambda_1 \overline{e}_1 + ... + \lambda_n \overline{e}_n = (\lambda_1, ..., \lambda_n)$.
+	$\lambda_i$ называется \textit{координатными функциями}.
+\end{Def}
+
+\begin{Def}
+	$\overline{r}(t) \in C^\infty (I)$, если $\forall i \ \lambda_i(t) \in C^\infty(I)$. 
+\end{Def}
+
+\begin{Rem}
+	Класс гладкости не зависит от выбора базиса.
+\end{Rem}
+
+\begin{Thm}[Операции с вектор-функцией]
+	\begin{MyList}
+		\item Сложение
+		\[\overline{r}_1(t) + \overline{r}_2(t) = (\lambda_1(t) + \mu_1(t), ..., \lambda_n(t) + \mu_n(t))\]
+
+		\item Умножение на скаляр
+		\[\lambda \overline{r}(t) = (\lambda \lambda_1(t), ..., \lambda \lambda_n(t))\]
+
+		\item Векторное произведение
+		$(\overline{r}_1(t), \overline{r}_2(t)) = (\lambda_1, ..., \lambda_n) G (\mu_1, ..., \mu_n)^T$, где $G = ||(\overline{e}_i, \overline{e}_j)||_{i, j}$ -- матрица Грама.
+		
+		Если $\{\overline{e}_i\}$ -- ортонормированный базис, то
+		\[(\overline{r}_1, \overline{r}_2) = \lambda_1 \mu_1 + ... + \lambda_n \mu_n\]
+
+		\item Если в $\mathbb{V}^3$ есть векторное произведение, а $\{\overline{i}, \overline{j}, \overline{k}\}$ -- его ортонормированный базис, то
+		\[\overline{r}_1(t) \times \overline{r}_2(t) = \left|\begin{array}{ccc}
+		\overline{i} & \overline{j} & \overline{k} \\ 
+		\lambda_1 & \lambda_2 & \lambda_3 \\ 
+		\mu_1 & \mu_2 & \mu_3
+		\end{array}\right|(t)\]
+		
+		\item Смешанное произведение
+		\[(\overline{r}_1, \overline{r}_2, \overline{r}_3)(t) = \left|\begin{array}{ccc}
+		\lambda_1 & \lambda_2 & \lambda_3 \\ 
+		\mu_1 & \mu_2 & \mu_3 \\ 
+		\xi_1 & \xi_2 & \xi_3
+		\end{array}\right|(t)\]
+
+		\item Дифференцирование
+		\[\overline{r}'(t) \stackrel{\Delta}{=}\left(\lambda_1'(t), ..., \lambda_n'(t)\right)\]
+		Здесь $\Delta$ означает "по определению".
+
+		\item Интегрирование
+		\[\int_a^b \overline{r}(t) \,dt \stackrel{\Delta}{=} \left(\int_a^b \lambda_1(t)\,dt, ..., \int_a^b \lambda_n(t)\,dt\right)\]
+	\end{MyList}
+\end{Thm}
+
+\begin{Thm}[Свойства операций над вектор-функцией]
+	\begin{MyList}
+		\item $(\overline{r}_1(t) + \overline{r}_2(t))' = (\lambda_1' + \mu_1', ..., \lambda_n' + \mu_n') = \overline{r}_1' + \overline{r}_2'$
+		\item $\left(\lambda \overline{r}\right)' = \lambda \overline{r}'$ 
+		\item $(\overline{r}_1, \overline{r}_2)' = (\overline{r}_1', \overline{r}_2) + (\overline{r}_1, \overline{r}_2')$
+		\item $(\overline{r}_1 \times \overline{r}_2)' = \overline{r}_1' \times \overline{r}_2 + \overline{r_1} \overline{r}_2$
+		\item $(\overline{r}_1, \overline{r}_2, \overline{r}_3)' = (\overline{r}_1', \overline{r}_2, \overline{r}_3) + (\overline{r}_1, \overline{r}_2', \overline{r}_3) + (\overline{r}_1, \overline{r}_2, \overline{r}_3')$    
+	\end{MyList}
+\end{Thm}
+
+\begin{Prop}
+	$|\overline{r}| = \const \EQ \overline{r}' \perp \overline{r}$
+\end{Prop}
+
+\begin{Rem}[Геометрическая интерпретация вектор-функции]
+	Рассмотрим $\mathcal{A}$ -- аффинное пространство, $\mathbb{V}, \overline{r} : I \to \mathbb{V}$.
+
+	\begin{MyList}
+		\item Годограф. Рассмотрим $(O, \{\overline{e}_i\})$ -- аффинная система координат, $\overline{r}(t)$ -- отклонение от точки $O$.
+		Конец вектора $\overline{r}(t)$ -- точка. Тогда множество этих точек и называется \textit{годографом}.
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics{img/Hodograph.jpg}
+		\end{figure}
+
+		$(\lambda_1(t), \lambda_2(t), ..., \lambda_n(t))$ -- координаты точек годографа.
+		Отображение $\widetilde{r} : I \to \mathcal{A}$ называется \textit{параметризацией}.
+
+		\item Векторное поле вдоль множества. Пусть дано $\mathcal{A}, \varphi : I \to \mathcal{A}$ -- параметризация, $\overline{r} : I \to \mathbb{V}$ -- вектор-функция.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics{img/vector_field.jpg}
+		\end{figure}
+	\end{MyList}
+\end{Rem}
+
+\Subsection{Параметризованные гладкие кривые}
+
+\begin{Def}[Гомеоморфизм]
+	\textit{Гомеоморфизм} -- биективное непрерывное в обе стороны отображение.
+\end{Def}
+
+\begin{Def}[Регулярная гладкая параметризация]
+	Пусть $\varphi : I \to \R^n$ -- параметризация кривой. Тогда будем называть её \textit{регулярной гладкой параметризацией}, если
+	\begin{MyList}
+		\item $\varphi \in C^\infty (I)$ 
+		\item $\varphi \neq 0 \ \forall t$ -- регулярность
+		\item $\varphi$ -- гомеоморфизм на образ.  
+	\end{MyList}
+\end{Def}
+
+\begin{Def}[Элементарная гладкая кривая]
+	Множество называется \textit{элементарной гладкой кривой}, если существует её регулярная параметризация.
+\end{Def}
+
+\begin{Def}[Гладкая кривая]
+	\textit{Гладкая кривая} -- такое множество, что любая точка обладает $\varepsilon$-окрестностью такой, что это множество в этой $\varepsilon$-окрестности является элементарной гладкой кривой.
+\end{Def}
+
+\Subsection{Касательные к кривой}
+
+\begin{Thm}
+	Пусть $\varphi : I \to \R^n$ -- элементарная гладкая кривая, $\varphi(t) = (f_1(t), ..., f_n(t))$.
+	Тогда
+
+	\[\varphi'(t) = \lim_{\Delta \to 0} \frac{\varphi(t + \Delta) - \varphi(t)}{\Delta}\]
+\end{Thm}
+
+\begin{proof}
+	Действительно, поскольку
+	\[f_i'(t) = \lim_{\Delta \to 0} \frac{f_i(t + \Delta) - f_i(t)}{\Delta}\]
+	то 
+	\[\varphi'(t) = \lim_{\Delta \to 0} \left( \frac{f_1(t + \Delta) - f_1(t)}{\Delta}, ..., \frac{f_n(t + \Delta) - f_n(t)}{\Delta}\right)\]
+	Тогда по линейности
+	\[\varphi'(t) = \lim_{\Delta \to 0} \frac{1}{\Delta} \left(f_1(t + \Delta) - f_1(t), ..., f_n(t + \Delta) - f_n(t)\right) = \lim_{\Delta \to 0} \frac{\varphi(t + \Delta) - \varphi(t)}{\Delta}\]
+\end{proof}
+
+\begin{Def}[Касательная к кривой]
+	Прямая, содержащая $\varphi'$ называется \textit{касательной}. Касательная является пределом секущих.
+\end{Def}
+
+\begin{Def}[Угол между кривыми]
+	Угол между пересекающимися гладкими кривыми -- это угол между их касательными.
+\end{Def}
+
+\Subsection{Длина кривой}
+
+\begin{figure}[H]
+	\centering
+	\def\svgwidth{.5\columnwidth}
+	\input{img/curve_length.pdf_tex}
+\end{figure}
+
+\begin{Thm}[Длина дуги]
+	Пусть $\varphi : I \to \R^n$. Тогда длина дуги $\varphi(t)$ на $[a, b]$ выражается по формуле
+	\[l = \int_{a}^{b} |\varphi'(t)|\,dt\]
+\end{Thm}
+
+\begin{proof}
+	Разобьем отрезок $[a, b]$ на $N$ равных частей $\varphi(t_i)$, $t_0 = a, t_N = b$.
+	Рассмотрим $|\varphi(t_{i + 1}) - \varphi(t_i)|$: это длина хорды кривой, заданной разностью векторов $\varphi(t_{i + 1})$ и $\varphi(t_i)$.
+	Рассмотрим длину ломаной, составленной из этих хорд:
+	\[S_N = \sum_{i=0}^{N - 1} |\varphi(t_{i + 1}) - \varphi(t_i)|\]
+	Если существует $\lim_{N \to \infty} S_N = S$, то $S$ называется \textit{длиной дуги}. Итак, посчитаем предел
+	\[\lim_{N \to \infty} S_N = \lim_{N \to \infty} \sum_{i=0}^{N - 1} \left| \frac{\varphi(t_{i + 1}) - \varphi(t_i)}{t_{i + 1} - t_i}\right| \cdot (t_{i + 1} - t_i) = \lim_{\Delta \to 0} \sum\left| \frac{\varphi(t_{i + 1}) - \varphi(t_i)}{\Delta}\right| \Delta\]
+	Поверим, что 
+	\[\left|\frac{\varphi(t_{i + 1}) - \varphi(t_i)}{\Delta}\right| \cong |\varphi'(\widetilde{t}_i)|\]
+	Тогда исходный предел равен
+	\[\lim_{\Delta \to 0} \sum |\varphi'(t_i)|\Delta = \int_{t_0}^{t_N} |\varphi'(t)|\,dt\]  
+\end{proof}
+
+\begin{Def}
+	Дуги, имеющие длину, называются спрямляемыми.
+\end{Def}
+
 \end{document}
