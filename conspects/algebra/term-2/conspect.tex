@@ -164,7 +164,7 @@
 		$A = (A^1, ..., A^n)$, $A^1, ..., A^r$ -- ЛНЗ столбцы $\SO $
 		\[
 		\begin{cases}
-			A_{r + 1} = \beta_{r + 1 \ 1}A^1 + ... + \beta_{r + 1 \ n} A^{r} \\
+			A^{r + 1} = \beta_{r + 1 \ 1}A^1 + ... + \beta_{r + 1 \ n} A^{r} \\
 			\cdots \\
 			A^n = \beta_{n \ 1}A^1 + ... + \beta_{n \ r}A^r
 		\end{cases}
@@ -194,7 +194,7 @@
 		0 \\ 
 		\vdots \\ 
 		-1 \\ 
-		\end{pmatrix}$ -- решения. \\
+		\end{pmatrix}$ -- решения. Они ЛНЗ. \\
 		Пусть $Z = \begin{pmatrix}
 		x_1^* \\ 
 		\vdots \\ 
@@ -209,7 +209,9 @@
 		0 \\ 
 		\vdots \\
 		0
-		\end{pmatrix}$ -- решение~$\{y_1 A_1 + ... + y_r A_r = 0\}$. Но $A_1, ..., A_r$ -- ЛНЗ $\SO Y = \begin{pmatrix}
+		\end{pmatrix}$ -- решение~\\
+		Получили следующую систему линейных уравнений: $\{y_1 A_1 + ... + y_r A_r = 0$.\\ 
+		Но $A_1, ..., A_r$ -- ЛНЗ $\SO Y = \begin{pmatrix}
 		0 \\ 
 		\vdots \\ 
 		0
@@ -447,12 +449,12 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 	\begin{MyList}
 		\item Соответствие матриц.
 		\item $(\alpha f  + \beta g) (e_i) = \alpha f (e_i) + \beta g (e_i) \in \alpha A + \beta B$.
-		\item $ V \to n, W \to l, U \to m, A \to l \times n, B \to m\times l\\ g \circ f (e_i) = g (\sum_{k=1}^l a_{ki}e_k) = \sum_{k=1}^n a_{ki} g(e_k') = \sum_{k=1}^l a_{ki} \sum_{j =1}^m b_{jk} e_j'' = \sum_{j = 1}^m \sum_{k = 1}^l b_{jk} a_{ki} e_j''$, где $b_{jk} a_{ki} \to BA$.
+		\item $ V \to n, W \to l, U \to m, A \to l \times n, B \to m\times l\\ g \circ f (e_i) = g (\sum_{k=1}^l a_{ki}e_k') = \sum_{k=1}^n a_{ki} g(e_k') = \sum_{k=1}^l a_{ki} \sum_{j =1}^m b_{jk} e_j'' = \sum_{j = 1}^m \sum_{k = 1}^l b_{jk} a_{ki} e_j''$, где $b_{jk} a_{ki} \to BA$.
 	\end{MyList}
 \end{proof}
 
 \begin{Thm}
-	$f: V \to W, \ \dim V, \dim W < \inf$ 
+	$f: V \to W, \ \dim V, \dim W < \infty$ 
 	$$ \Rightarrow \dim \ker f + \dim \Image f = \dim V$$
 \end{Thm}
 
@@ -472,11 +474,11 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 \end{Def}
 
 \begin{Def}
-	Тождественным отображением называется отображение  
+	Тождественным отображением называется отображение $\id: x \to x$ (любой вектор переходит сам в себя)
 \end{Def}
 
 \begin{Def}
-
+	Если $a$ линейный оператор, то $b$ -- обратный линейный оператор к $a$, если $b \circ a = a \circ b = \id$
 \end{Def}
 
 \begin{Example}
@@ -577,6 +579,25 @@ $x \in V, x = x_1 e_1 + ... + x_n e_n, x_i \in K, f(x) = x_1 f(e_1) + ... + x_n 
 \end{Thm}
 
 \gdef\AuthorName{Ксения Кузьмина}
+
+\begin{Def} 
+	Матрицы $A, B \in M(n, K)$ называются подобными, если $\exists C \in M(n, K): A = C^{-1} B C, A \sim B$ 
+\end{Def} 
+
+\begin{Thm} 
+	Отношение подобия матриц -- отношение эквивалентности. 
+\end{Thm} 
+
+\begin{proof}
+	Самостоятельно. 
+\end{proof}
+
+\Subsection{Инвариантные подпрастранства}
+
+\begin{Def}
+	Подпространство $U$ пространства $V$ называется инвариантным (неизменным) под действием оператора $a$, если 
+	$\forall x \in I, \ ax \in U$
+\end{Def}
 
 \begin{Lm}
 	$U \subset V, a \in \End \, V\\
