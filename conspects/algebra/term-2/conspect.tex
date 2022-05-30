@@ -609,8 +609,12 @@
 \gdef\AuthorName{Ксения Кузьмина}
 
 \begin{Def} 
-	Матрицы $A, B \in M(n, K)$ называются подобными, если $\exists C \in M(n, K): A = C^{-1} B C, A \sim B$ 
+	Матрицы $A, B \in M(n, K)$ называются подобными, если $\exists C \in M(n, K): A = C^{-1} B C$. 
 \end{Def} 
+
+\begin{notation}
+	$ A \sim B$.
+\end{notation}
 
 \begin{Thm} 
 	Отношение подобия матриц -- отношение эквивалентности. 
@@ -620,48 +624,56 @@
 	Самостоятельно. 
 \end{proof}
 
-\Subsection{Инвариантные подпрастранства}
+\Subsection{Инвариантные подпространства}
 
 \begin{Def}
 	Подпространство $U$ пространства $V$ называется инвариантным (неизменным) под действием оператора $a$, если 
-	$\forall x \in I, \ ax \in U$
+	$\forall x \in U, \ ax \in U$
 \end{Def}
 
 \begin{Lm}
-	$U \subset V, a \in \End \, V\\
-	U -$ а-инвариантно $\Leftrightarrow$ $\exists$ базис $V: A = 
+	Пусть $U \subset V, \ a \in \End \, V$.
+	Тогда $U$ -- $a$-инвариантно $\Leftrightarrow$ существует базис $V$: 
+	$$A = 
 	\left(\begin{array}{cc}
 		B & C\\
 		0 & D
-		\end{array}\right), B = \dim U \times \dim U$
+		\end{array}\right), \quad B = \dim U \times \dim U$$
 \end{Lm}
 
 \begin{proof}
-	$U$ -- а-инвариантно. Выберем базис $U$: $e_1, ... , e_k$ и дополним его до базиса $V$ матрицы $a$
-	$ae_i = b_{1i}e_1+\dots+b_{ki}e_k \Leftrightarrow \left(\begin{array}{cc}
+	Пусть $U$ -- $a$-инвариантно. Выберем базис $U$: $e_1, ... , e_k$ и дополним его до базиса $V$. 
+	Рассмотрим действие оператора $a$ на $e_i$. Поскольку $U$ -- $a$-инвариантно, то разложение $a(e_i)$ по базису выглядит следующим образом:
+	\[a(e_i) = b_{1i}e_1+\dots+b_{ki}e_k\]
+	А значит матрица оператора принимает вид:
+	\[A = \left(\begin{array}{cc}
 		b_{1i} & \cdot\\
 		b_{ki} & \cdot\\
 		0 & \cdot \\
 		0 & \cdot
 	\end{array}
-	\right)$
+	\right)\]
+
+	В обратную сторону: если есть такая матрица $A$, то при действии оператора $a$ на первых $k$ базисных векторах мы получим разложение лишь по первым $k$ базисным векторам, а значит $U$ -- $a$-инвариантно.
+
 \end{proof}
 
 \begin{Lm}
-	$U, W \subset V, a \in \End \, V\\
-	V = U \oplus W, U, W$ -- а-инвариантны $\Leftrightarrow \exists$ базис $A = \left(\begin{array}{cc}
+	Пусть $U, W \subset V, \ a \in \End V, \ V = U \oplus W.$ Тогда $U, W$ -- $a$-инвариантны $\Leftrightarrow$ существует базис $V$:
+	\[A = \left(\begin{array}{cc}
 		B & 0\\
 		0 & C
-	\end{array}\right)\\
-	B = \dim U \times \dim U, C = \dim W \times \dim W$
+	\end{array}\right)\]
+	где $B = \dim U \times \dim U, \ C = \dim W \times \dim W$
 \end{Lm}
 
 \begin{proof}
-	$V$ = $U \oplus V$, выберем $U: e_1, ..., e_k, W: e_{k+1}, ..., e_n\\
-	a(e_i) \in U, i = 1, ..., k, a(e_j) \in W, j = k+1, ..., n \Leftrightarrow A = \left(\begin{array}{cc}
+	Выберем базис $U: e_1, ..., e_k$ и базис $W: e_{k+1}, ..., e_n$. Тогда
+	\[
+	a(e_i) \in U, \ i = 1, ..., k, \quad a(e_j) \in W, \ j = k+1, ..., n \Leftrightarrow A = \left(\begin{array}{cc}
 		B & 0\\
 		0 & C
-	\end{array}\right)$
+	\end{array}\right)\]
 \end{proof}
 
 \begin{Example}
@@ -689,48 +701,53 @@
 			0 & 0 & 1 & 0\\
 			0 & 1 & 0 & 0\\
 			0 & 0 & 0 & 1
-		\end{array}\right) \ \ \ \ \  <E_{11}> \oplus <E_{12}, E_{21}> \oplus <E_{22}> \ = V$ инвариантны
+		\end{array}\right) \ \ \ \ \  \langle E_{11}\rangle \oplus \langle E_{12}, E_{21}\rangle \oplus \langle E_{22}\rangle \ = V$ инвариантны
 		\item $V = K[x]_3 \ \ \ a: \frac{d}{dx} (f \to f') \ \ \ 1, x, x^2, x^3\\
 		\left(\begin{array}{cccc}
 			0 & 1 & 0 & 0\\
 			0 & 0 & 2 & 0\\
 			0 & 0 & 0 & 3\\
 			0 & 0 & 0 & 1
-		\end{array}\right) \ \ \ \frac{d}{dx} : <1, x, x^2> \to <1, x> \subset <1, x, x^2>$
+		\end{array}\right) \ \ \ \frac{d}{dx} : \langle 1, x, x^2\rangle \to \langle 1, x\rangle  \subset \langle 1, x, x^2\rangle$
 	\end{enumerate}
 \end{Example}
 
 \Subsection{Собственные векторы и числа}
-\begin{Def} 
-	Собственным вектором оператора a называется $\forall$ ненулевой вектор одномерного инвариантного подпространства.
+\begin{Def}[Собственный вектор]
+	Собственным вектором оператора $a$ называется любой ненулевой вектор одномерного инвариантного подпространства.
 \end{Def} 
 
-\begin{Def} 
-	x - собственный вектор, $ax = \lambda x$, тогда $\lambda$ = собственное число, ассоциированное вектору $x$\\
-	$a \to A, x \to X \ \ \ AX = \lambda X \Rightarrow (A - \lambda E)X = 0$
+\begin{Def}[Собственное число]
+	Пусть $x$ - собственный вектор, $a(x) = \lambda x$, тогда $\lambda$ -- собственное число, ассоциированное вектору $x$.
 \end{Def} 
 
-\begin{Def} 
-	Характеристическим многочленом оператора a (матрицы A) назыается $\chi_a(t) = \det (A-tE)$
+\begin{Def}[Характеристический многочлен]
+	Если оператору $a$ соответствует матрица $A$, а собственному вектору $x$ -- столбец $X$, то
+	\[AX = \lambda X \EQ (A - \lambda E)X = 0\]
+	\textit{Характеристическим многочленом}  оператора $a$ (матрицы $A$) называется
+	\[\chi_a(t) = \det (A-tE)\]
 \end{Def} 
 
 \begin{Thm}[О собственных числах]
-	Все собственные числа оператора a и только они являются корнями характеристического многочлена. 
+	Все собственные числа оператора $a$ и только они являются корнями характеристического многочлена. 
 \end{Thm}
 
 \begin{proof}
 	$AX = \lambda X \Leftrightarrow (A - \lambda E)X = 0$ -- имеет ненулевое решение $\Leftrightarrow 
-	\det (A- \lambda E)X = 0 \Leftrightarrow$ все собственные числа корни $\chi_a(t)$
+	\det(A-\lambda E) = 0 \Leftrightarrow$ все собственные числа -- корни $\chi_a(t)$.
 \end{proof}
 
 \begin{Lm}[Независимость собственных чисел от выбора базиса]
-	Характеристические многочлены оператора a в разных базисах совпадают. 
+	Характеристические многочлены оператора $a$ в разных базисах совпадают. 
 \end{Lm}
 
 \begin{proof}
-	$a(e_i) \to A \ \ \ (e_i') \to A' \ \ \ C $ -- матрица перехода от $(e_i)$ к $(e_i')\\
-	A' = C^{-1}AC \ \ \chi_a(t) = \det (A' - tE) = \det(C^{-1}AC) = \det (C^{-1}AC - t \cdot C^{-1}C) =
-	\det(C^{-1} (A-tE)C) = \det C^{-1} \cdot \det(A - tE) \cdot \det C = \det(A-tE) = \chi_a(t)e_i$
+	Пусть $a(e_i) \to A$,  $a(e_i') \to A'$,  $C$ -- матрица перехода от $(e_i)$ к $(e_i')$. 
+	Как мы знаем, $A' = C^{-1}AC$, поэтому 
+	\begin{align*}
+		\chi_a(t) &= \det (A' - tE) = \det (C^{-1}AC - t \cdot C^{-1}C) = \det(C^{-1} (A-tE)C) = \\
+		&= \det C^{-1} \cdot \det(A - tE) \cdot \det C = \det(A-tE)
+	\end{align*}
 \end{proof}
 
 \begin{Thm}[Линейная независимость собственных векторов]
@@ -738,27 +755,27 @@
 \end{Thm} 
 
 \begin{proof}
-	$n = 1$ -- очевидно.
-	Пусть доказали при $n-1$. Индукционный переход: $n-1 \to n: V_1, V_2, ..., V_n$ -- собственные векторы\\
-	$aV_i = \lambda_i V_i, \ \ \ \lambda_1, ..., \lambda_n$ -- различны\\
-	Пусть $V_1, V_2, ..., V_n$ -- линейно зависимы. Тогда $\alpha_1 V_1 + \alpha_2 V_2 + ... + \alpha_n V_n = 0, \alpha_i \in K \Rightarrow$
-	под действием a: $\alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n = 0$\\
+	Докажем по индукции: для $n = 1$ очевидно.
+
+	Предположим, что верно при $n-1$. Индукционный переход: $n-1 \to n:$ пусть $V_1, V_2, ..., V_n$ -- собственные векторы, $aV_i = \lambda_i V_i, \ \lambda_1, ..., \lambda_n$ -- различны.
+	Если $V_1, V_2, ..., V_n$ -- линейно зависимы, то $\alpha_1 V_1 + \alpha_2 V_2 + ... + \alpha_n V_n = 0, \alpha_i \in K \Rightarrow$
+	под действием $a$: $\alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n = 0$\\
 	Будем считать, что $\lambda_1 \neq 0 \Rightarrow \alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n - \lambda_1(\alpha_1 V_1 + ... + \alpha_n V_n) =
-	\alpha_2(\lambda_2 - \lambda-1)V_2 + ... + \alpha_n(\lambda_n - \lambda_1)V_n = 0 \Rightarrow$ по предположению индукции $\alpha_2 = ... = \alpha_n = 0$ 
+	\alpha_2(\lambda_2 - \lambda_1)V_2 + ... + \alpha_n(\lambda_n - \lambda_1)V_n = 0 \Rightarrow$ по предположению индукции $\alpha_2 = ... = \alpha_n = 0$ 
 \end{proof}
 
 \begin{Def} 
-	Оператор a называется диагонализируемым, если существует базис такой, что $A = \left(\begin{array}{cccc}
+	Оператор $a$ называется диагонализируемым, если существует базис такой, что $$A = \left(\begin{array}{cccc}
 		\lambda_1 & 0 & 0 & 0\\
 		0 & \lambda_2 & 0 & 0\\
 		0 & 0 & \ddots & 0\\
 		0 & 0 & 0 & \lambda_n
 	\end{array}
-	\right)$
+	\right)$$
 \end{Def} 
 
 \begin{Thm}[Критерий диагонализируемости] 
-	Если $\chi_a(t)$ имеет $n$ различных корней $(n = \dim V)$ над рассматриваемым полем, то оператор a -- диагонализируем. 
+	Если $\chi_a(t)$ имеет $n$ различных корней $(n = \dim V)$ над рассматриваемым полем, то оператор $a$ -- диагонализируем. 
 \end{Thm} 
 
 \begin{proof}
@@ -776,13 +793,13 @@
 	Над полем $\C$ любой оператор имеет одномерное инвариантное подпространство.
 \end{Lm}
 
-\begin{Def} 
-	Кратность $\lambda$ как кратность корня $\chi_a (t) = 0$ называется алгебраической кратностью собственного числа. 
+\begin{Def}[Алгебраическая кратность собственного числа] 
+	Кратность $\lambda$ как кратность корня $\chi_a (t) = 0$ называется \textit{алгебраической кратностью}  собственного числа. 
 \end{Def} 
 
-\begin{Def}
-	$\lambda$ -- собственное число, $V^{\lambda} = \{x \in V: ax = \lambda x\}$\\
-	$\dim V^{\lambda}$ -- геометрическая кратность собственного числа $\lambda$
+\begin{Def}[Геометрическая кратность собственного числа]
+	Пусть $\lambda$ -- собственное число, $V^{\lambda} = \{x \in V: ax = \lambda x\}$.
+	Тогда $\dim V^{\lambda}$ называется \textit{геометрической кратностью}  собственного числа $\lambda$.
 \end{Def}
 
 \begin{Example}
@@ -848,42 +865,53 @@
 	\left(\begin{array}{c}
 		0\\
 		0
-	\end{array}\right) \ \ \ V^{\lambda} = <\left(\begin{array}{c}
+	\end{array}\right) \ \ \ V^{\lambda} = \left\langle\left(\begin{array}{c}
 		1\\
 		0
-	\end{array}\right)> \\ \dim V^{\lambda} = 1$ -- геометрическая кратность
+	\end{array}\right)\right\rangle\\ \dim V^{\lambda} = 1$ -- геометрическая кратность
 \end{Example}
 
 \begin{Lm}
-	Геометрическая кратность собственного числа $\lambda \leqslant$ алгебраической кратности
+	Геометрическая кратность собственного числа $\lambda$ не превосходит алгебраической кратности
 \end{Lm}
 
 \begin{proof}
-	$V^{\lambda}$ -- инвариантно относительно a, $V^{\lambda} = \{x: ax = \lambda x\}$\\
-	По лемме: $a \to \left(\begin{array}{cc}
+	$V^{\lambda}$ -- инвариантно относительно $a$, $V^{\lambda} = \{x: ax = \lambda x\}$\\
+	По лемме:
+	$$a \to \left(\begin{array}{cc}
 		B & C\\
 		0 & D
-	\end{array}\right) \ \ \ B - m \times m, \dim V^{\lambda} = m\\
-	a \big|_{V^{\lambda}} = \chi_a \big|_V^{\lambda} = (t - \lambda)^m\\
-	\chi_a = \det \left( \left(\begin{array}{cc}
+	\end{array}\right) \quad B - m \times m, \ \dim V^{\lambda} = m$$
+
+	Рассмотрим сужение $a \big|_{V^{\lambda}}$. Тогда характеристический многочлен этого сужения имеет вид:
+	\[\chi_{a \big|_{V^{\lambda}}} = (t - \lambda)^m\]
+	Построим теперь характеристический многочлен оператора $a$:
+	\[\chi_a = \det \left( \left(\begin{array}{cc}
 		B & C\\
-		0 & d
-	\end{array}\right) - tE \right) = (t - \lambda)^m p(t) \Rightarrow$ алгебраическая кратность $\lambda \geqslant m$ 
+		0 & D
+	\end{array}\right) - tE \right) = (t - \lambda)^m p(t)\] 
+	Отсюда получаем, что алгебраическая кратность $\lambda \geqslant m$.
 \end{proof}
 
 \begin{Thm}[Критерий диагонализируемости] 
-	$a \in \End \, V$ -- диагонализируема $\Leftrightarrow$ 1. Все собственные числа $\in K$ 2. $\forall$ собственных чисел $\lambda$ алгебраическая кратность = геометрическая кратность 
+	$a \in \End V$ -- диагонализируем тогда и только тогда, когда 
+	
+	\begin{MyList}
+		\item Все собственные числа из $K$;
+		\item $\forall$ собственных чисел $\lambda$ алгебраическая кратность равна геометрической кратности.
+	\end{MyList}
 \end{Thm} 
 
 \Subsection{Жорданова нормальная форма}
-\begin{Def} 
-	Жордановой клеткой порядка m соответствующей собственному числу $\lambda$ называется\\
-	$J_m(\lambda) = \left( \begin{array}{cccc}
+
+\begin{Def}[Жорданова клетка]
+	\textit{Жордановой клеткой}  порядка $m$, соответствующей собственному числу $\lambda$ называется
+	\[J_m(\lambda) = \left( \begin{array}{cccc}
 		\lambda & 1 & \cdots & 0\\
 		\vdots & \lambda &  & \vdots\\
 		0 & & \ddots &  1\\
 		0 & \dots & & \lambda
-	\end{array} \right)$
+	\end{array} \right)\]
 \end{Def} 
 
 \begin{Example}
@@ -900,17 +928,18 @@
 	\end{enumerate}
 \end{Example}
 
-\begin{Def} 
-	ЖНФ оператора $a \in \End V$ называется $$\left(\begin{array}{cccc}
-		J_{k_1}()\lambda_1) &  &  & \\
-		 & J_{k_2}()\lambda_2) &  &\\
+\begin{Def}[Жорданова нормальная форма]
+	\textit{Жордановой нормальной формой}  оператора $a \in \End V$ называется 
+	\[\left(\begin{array}{cccc}
+		J_{k_1}(\lambda_1) &  &  & \\
+		 & J_{k_2}(\lambda_2) &  &\\
 		 & & \ddots &\\
-		 & & & J_{k_n}()\lambda_n)
-	\end{array}\right)$$
+		 & & & J_{k_n}(\lambda_n)
+	\end{array}\right)\]
 \end{Def} 
 
-\begin{Def} 
-	Базис, в котором оператор a имеет ЖНФ называется жордановом
+\begin{Def}[Жорданов базис]
+	Базис, в котором оператор $a$ имеет ЖНФ называется \textit{жордановом}. 
 \end{Def} 
 
 \begin{Thm}[ЖНФ] 
@@ -921,72 +950,86 @@
 \end{Thm} 
 
 \begin{Thm} 
-	$a \in \End V$ имеет ЖНФ над произвольным полем $\Leftrightarrow$ характеристический многочлен раскладывается на линейные множители
+	$a \in \End V$ имеет ЖНФ над произвольным полем $\Leftrightarrow$ характеристический многочлен раскладывается на линейные множители.
 \end{Thm} 
 
 \Subsection{Теорема Гамильтона-Кэли}	
 
 \begin{Def} 
-	$f(x) = a_nx^n+...+a_1x+a_0 \in K[x]$\\
-	$A -- m\times m$\\
-	$f(A) = a_nA^N+...+a_iA+a_0E$, $E -- m \times m$ -- многочлен от матрицы
+	Пусть $f(x) = a_nx^n+...+a_1x+a_0 \in K[x]$, $A$ -- $m \times m$. Тогда
+	\[f(A) = a_n A^N + ... + a_i A + a_0 E, \quad E \in M(m, K)\] 
+	есть многочлен $f$ от матрицы $A$.
 \end{Def} 
 
 \begin{Def} 
-	$a \in \End V\\
-	f(a) = a_n \cdot a^n + ... + a_1 \cdot a + a_0 \cdot \id$ -- многочлен от оператора
+	Пусть $a \in \End V$. Тогда
+	\[f(a) = a_n \cdot a^n + ... + a_1 \cdot a + a_0 \cdot \id\] 
+	есть многочлен от оператора.
 \end{Def} 
 
 \begin{Thm}[Гамильтона-Кэли] 
-	$\chi_a(A)=0$, $a \in \End V$, $a \to A \in M(m, K)$
+	Пусть $a \in \End V, \ a \to A \in M(m, K)$. Тогда $\chi_a(A) = 0$. 
 \end{Thm} 
 
 \begin{proof}
-	$\chi_a(t) = \det (tE-A)\\
-	B = tE-A, \widetilde{B} = (B_{ij})^T$ -- взаимная матрица\\
-	$\widetilde{B} = \left(
-		\begin{array}{ccc}	
-		c_{11}^{m-1} t^{m-1} + ... + c_{11}^0 & ... \\
-		c_{12}^{m-1}t^{m-1} + ... + c_{12}^0 & ...
-	\end{array}\right) = t^{m-1}B_{m-1} + t^{m-2} B_{m-2} + ... + B_0\\
-	\widetilde{B} \cdot B = \det (tE - A) \cdot E\\
-	(t^{m-1}B_{m-1} + ... + B_0) \cdot (tE - A) = (a_m t^m + ... + a_0) \cdot E$\\
-	Приравняем коэффициенты, домножим:
-	$t^m: B_m-1 = a_m E \ \ | \cdot A^m\\
-	t^{m-1}: B_{m-2} - B_{m-1} A = a_{m-1} E \ \ |\cdot A^{m-1}\\
-	...\\
-	t: B_0 - B_1A = a_1 E \ \ |\cdot A\\
-	1: -B_0A = a_0E \ \ |\cdot E\\$
-	Вычтем строки: $\Rightarrow 0 = \chi_a(A)$
+	По определению, $\chi_a(t) = \det (tE-A) = t^m + c_{m - 1}t^{m - 1} + ... + c_1 t + c_0$. Положим $B = tE-A$, тогда $\widetilde{B} = (B_{ij})^T$ -- взаимная матрица.
+	Тогда
+	\[B \cdot \widetilde{B} = \det(tE - A) \cdot E = \chi_a \cdot E\]
+	Элементы матрицы $\widetilde{B}$ -- многочлены от переменной $t$, причем их степени не превосходят $m - 1$.
+	Действительно, каждый элемент $B$ это, с точностью до знака, определитель матрицы порядка $m - 1$, составленной из многочленов степени $\leqslant 1$, причем в каждой строке не больше одного не-константного многочлена.
+	Тогда можно представить $\widetilde{B}$ в виде 
+	\[\widetilde{B} = B_0 + tB_1 + ... + t^{m - 1}B_{m - 1}, \quad B_i \in M(n, F)\] 
+
+	Тогда формула выше может быть переписана следующим образом:
+	\begin{align*}
+		\chi_a \cdot E &= (tE - A) \cdot B = (tE - A) \cdot (B_0 + tB_1 + ... + t^{m - 1}B_{m - 1}) = \\
+		&= t^m B_{m - 1} + t^{m - 1}(B_{m - 2} - AB_{m - 1}) + ... + t(B_0 - AB_1) - AB_0
+	\end{align*}
+
+	С другой стороны,
+	\[\chi_a \cdot E = t^m E + t^{m - 1}c_{m - 1}E + ... + tc_1 E + c_0 E\]
+	Сравнивая слагаемые при соответствующих степенях, получаем следующее:
+	\[B_{m - 1} = E, \qquad B_{i - 1} - AB_i = c_i E, \ i = 1, ..., m - 1, \qquad -AB_0 = c_0 E\]
+	Умножим слева равенство, отвечающее за $t^i$, на $A^i$, и сложим все полученные:
+	\[A^m B_{m - 1} + A^{m - 1}(B_{m - 2} - AB_{m - 1}) + ... + A(B_0 - AB_1) - AB_0 = A^m  + c_{m - 1}A^{m - 1} + ... + c_1A + c_0 E\]
+	Все слагаемые в левой части сокращаются, а в правой части стоит $\chi_a(A)$.  
 \end{proof}
 
 \Subsection{Билинейные формы}
 \begin{Def} 
-	$f: V \times V \to K$ линейное по каждому аргументу называется билинейным отображением, то есть выполняется\\
+	$f: V \times V \to K$ линейное по каждому аргументу называется билинейным отображением, то есть выполняется
 	\begin{enumerate}
 		\item $f(\alpha x + \beta y, z) = \alpha f(x,z) + \beta f(y,z)$
 		\item $f(x, \alpha y + \beta z) = \alpha f(x, y) + \beta f(x, z)$
 	\end{enumerate}
-
-	$(e_i)_{i=1}^n$ -- базис $V$, $x = \sum_{i=1}^{n} x_ie_i, y = \sum_{j=1}^{n} y_je_j\\
-	f(x, y) = f(\sum_{i} x_ie_i, \sum_{j} y_je_j) = \sum_{i, j = 1}^{n} x_i, y_j f(e_i, e_j) $
 \end{Def} 
 
+\begin{Rem}
+	Пусть 	$(e_i)_{i=1}^n$ -- базис $V$, $x = \sum_{i=1}^{n} x_ie_i, \ y = \sum_{j=1}^{n} y_je_j$. 
+	Тогда 
+	\[f(x, y) = f\left(\sum_{i = 1}^n x_ie_i, \sum_{j = 1}^n y_je_j\right) = \sum_{i, j = 1}^{n} x_i y_j f(e_i, e_j)\]
+\end{Rem}
+
 \begin{Def} 
-	$B = (b_{ij}), b_{ij} = f(e_i, e_j), 1 \leqslant i, j, \leqslant n$\\
-	B -- матрица билинейной формы $f$
+	Пусть $B = (b_{ij}), \ b_{ij} = f(e_i, e_j), \ 1 \leqslant i, j, \leqslant n$.
+	Тогда матрица $B$ называется \textit{матрицей билинейной формы}  $f$
+\end{Def} 
+
+\begin{Rem}
+	Пусть $B$ -- матрица билинейной формы $f$, 
 	$X = \left(
 		\begin{array}{c}	
 		x_1\\
 		\vdots\\
 		x_n
-	\end{array}\right), Y = \left(
+	\end{array}\right)$, $Y = \left(
 	\begin{array}{ccc}	
 		y_1\\
 		\vdots\\
 		y_n
-	\end{array}\right) \Rightarrow f(x, y) = X^T B Y$
-\end{Def} 
+	\end{array}\right)$. Тогда билинейную форму $f$ можно записать в матричном виде:
+	\[f(x, y) = X^T B Y\]
+\end{Rem}
 
 \begin{Example}
 	\begin{enumerate}
@@ -1006,56 +1049,66 @@
 \end{Example}
 
 \begin{Def} 
-	Билинейные формы f
+	Билинейная форма $f$ называется
 	\begin{enumerate}
-		\item Симметрические: $f(x,y) = f(y,x) \forall x, y \in V \ \ B = B^T$ (симметрическая матрица)
-		\item Кососимметрические: $f(x, y) = -f (y,x) \forall x, y \in V \ \ -B = B^T$ (кососимметрическая матрица)
+		\item Симметрической, если $f(x,y) = f(y,x) \forall x, y \in V \quad B = B^T$ (симметрическая матрица)
+		\item Кососимметрической, если $f(x, y) = -f (y,x) \forall x, y \in V \quad -B = B^T$ (кососимметрическая матрица)
 	\end{enumerate}
 \end{Def} 
 
 \Subsubsection{Замена базиса}
 
 \begin{Thm}[Преобразование матрицы билинейной формы при изменении базиса] 
-	$f: V \times V \to K$ в базисе $(e_i): B$, в базисе $(e_i'): B'$\\
-	Тогда $B' = C^TBC$
+	Пусть $f: V \times V \to K$ -- билинейная форма и в базисе $(e_i)$ ей соответствует матрица $B$, а в базисе $(e_i')$ -- матрица  $B'$.
+	Тогда
+	\[B' = C^TBC\]
+	где $C$ -- матрица перехода от $(e_i)$ к $(e_i')$.
 \end{Thm}  
 
 \begin{proof}
-	$x \to X$ в базисе $(e_i), X'$ в базисе $(e_i') X = C X',\\
-	y \to Y$ в $(e_i)$, $Y'$ в $(e_i') \ \ Y = CY'$\\
-	$f(x,y) = X^T B Y = (CX')^T B (CY') = X'^TC^TBCY' = X'^TB'Y' \Rightarrow B' = C^TBC$
+	Пусть $x \to X, \ y \to Y$ в базисе $(e_i)$, $X', \ Y'$ в базисе $(e_i')$ соответственно.
+	Тогда $X = CX'$ и $Y = CY'$, поэтому
+	\[f(x,y) = X^T B Y = (CX')^T B (CY') = X'^TC^TBCY' = X'^TB'Y'\]
+	Откуда и получаем искомое равенство.
 \end{proof}
 
 \Subsection{Квадратичные формы}
-\begin{Def} 
-	Квадратичной формой $Q: V \to K$, ассоциированной с некоторой симметрической билинейной формой $f: V \times V \to K$, называется $q(x)=f(x,x)$\\
-	Матрица квадратичной формы $A \ \ \ (A = A^T)$ \ \ \ $q(x) = X^TAX, X = \left(
+
+\begin{Def}[Квадратичная форма]
+	\textit{Квадратичной формой}  $Q: V \to K$, ассоциированной с некоторой симметрической билинейной формой $f: V \times V \to K$, называется $q(x)=f(x,x)$.
+\end{Def} 
+
+\begin{Def}[Матрица квадратичной формы]
+	Матрицу квадратичной формы можно записать так: $q(x) = X^TAX$, где $X = \left(
+	\begin{array}{ccc}	
+		x_1\\
+		\vdots\\
+		x_n
+	\end{array}\right)$
+	\[
+	q(x) = (x_1, ..., x_n)\left(
 		\begin{array}{ccc}	
-			x_1\\
+			a_{11} & & \\
+			& \ddots & \\
+			& &a_nn
+		\end{array}\right)\left(
+		\begin{array}{ccc}	
+			y_1\\
 			\vdots\\
-			x_n
-		\end{array}\right)\\
-		q(x) = (x_1, ..., x_n)\left(
-			\begin{array}{ccc}	
-				a_{11} & & \\
-				& \ddots & \\
-				& &a_nn
-			\end{array}\right)\left(
-			\begin{array}{ccc}	
-				y_1\\
-				\vdots\\
-				y_n
-			\end{array}\right) = \displaystyle \sum_{i,h = 1}^{n} a_{ij}x_iy_j$ -- однородный многочлен 2 степени от $n$ переменных\\
-			$a_{ij} = a_{ji} \ \ \ a_{ij}x_ix_j+a_{ji}x_ix_j = 2a_{ij}x_ix_j\\
-			\displaystyle q(x) = \sum_{i=1}^{n} a_{ii} x_i^2 + 2 \sum_{1 \leqslant u < j \leqslant n} a_{ij} x_ix_j$
+			y_n
+		\end{array}\right) = \sum_{i,h = 1}^{n} a_{ij}x_iy_j\]
+		Но последняя сумма -- это однородный многочлен 2 степени от $n$ переменных.
+		Поскольку матрица симметрическая, т.е. $a_{ij} = a_{ji}$, то $a_{ij}x_ix_j+a_{ji}x_ix_j = 2a_{ij}x_ix_j$, поэтому квадратичную форму 
+		можно также записать в следующем виде:
+		\[q(x) = \sum_{i=1}^{n} a_{ii} x_i^2 + 2 \sum_{1 \leqslant u < j \leqslant n} a_{ij} x_ix_j\]
+\end{Def}
+
+\begin{Def}[Канонический вид к.ф.]
+	\textit{Каноническим видом}  квадратичной формы называется $\displaystyle \sum_{i=1}^{n} \lambda_i x^2_i $
 \end{Def} 
 
-\begin{Def} 
-	Каноническим видом квадратичной формы называется $\displaystyle \sum_{i=1}^{n} \lambda_i x^2_i $
-\end{Def} 
-
-\begin{Def} 
-	Базис, в котором квадратичная форма имеет канонический вид, называется каноническим.
+\begin{Def}[Канонический базис]
+	Базис, в котором квадратичная форма имеет канонический вид, называется \textit{каноническим}.
 \end{Def} 
 
 \begin{Rem}
@@ -1063,61 +1116,70 @@
 \end{Rem}
 
 \begin{Thm}[Преобразование Лагранжа] 
-	$V$ -- векторное пространство над полем $K, \\ char K \neq 2 \Rightarrow
-	\forall q: V \to K$ может быть приведена к каноническому виду $(\exists$ базис: $q$ имеет канонический вид$)$
+	Пусть $V$ -- векторное пространство над полем $K$, $\Char K \neq 2$. 
+	Тогда любая квадратичная форма $q : V \to K$ может быть приведена к каноническому виду (т.е. существует базис, в котором $q$ имеет канонический вид$)$
 \end{Thm} 
 
 \begin{proof}
-	$q(x) = \sum_{i=1}^{n} a_{ii}x^2_i + 2 \sum_{i<j}^{a_ij} x_i x_j$\\
-	$q = 0$ -- доказывать нечего, будем считать $q \neq 0$. 
-	\begin{enumerate}
-		\item Пусть $a_{11} = 0, \exists i > 1: a_{ii} \neq 0 \Rightarrow$ сделаем замену $y_i = x_1, x_i = y_1 \Rightarrow a_11 y_1^2 + ... $, где $a_{11} \neq 0$
-		\item $a_{ii} = 0 \forall i = 1, ..., n \Rightarrow \exists a_{ij} \neq 0, i < j \Rightarrow x_i = y_i+y_j, x_j = y_i - y_j$\\
-		$a_{ij} x_i x_j \to a_{ij}(y_i+y_j)(y_i-y_j) = a_{ij} \cdot y_i^2 - a_{ij} y^2_j \Rightarrow$ по п.1 можно считать, что $a_{11} \neq 0$
-		\item Индукция\\
-		База: $n=1 \ \ q(x) = a_{11} x_1^2$\\
-		Индукционный переход: $n-1 \to n, a_{11} \neq 0$ в силу пункта один\\
-		$\displaystyle q(x) = a_{11}\left(x_1^2 + \frac{2a_{12}}{a_{11}} x_1x_2 + \frac{2a_{13}}{a_11} x_1x_3 +... + \frac{2a_{1n}}{a_{11}} x_1x_n\right) + \varphi(x_2, ..., x_n) = 
-		a_{11}\left(x_1^2 + \frac{2a_{12}}{a_{11}} x_1x_2 + ... + \frac{2a_{1n}}{a_{11}} x_1x_n\right) + a_{11}(\left( \frac{a_{12}}{a_{11}} x_2\right)^2  + ... + ...) -
-		(...) + \varphi (x_2, ..., x_n) = a_{11}\left(x_1 + \frac{a_{12}}{a_{11}} x_2 + ... + \frac{a_{1n}}{a_{11}} x_n\right)^2 - \psi (x_2, ..., x_n) = 
-		a_{11} y^2_1 + b_{22}z_1^2 + ... + b_{nn}z_n^2$
-	\end{enumerate}
+	Пусть $q(x) = \sum_{i=1}^{n} a_{ii}x^2_i + 2 \sum_{i<j}^{a_ij} x_i x_j$\\
+	Если $q = 0$, то доказывать нечего, поэтому будем считать, что $q \neq 0$. 
+	\begin{MyList}
+		\item Пусть $a_{11} = 0, \exists i > 1: a_{ii} \neq 0 \Rightarrow$ сделаем замену $y_i = x_1, \ x_i = y_1 \Rightarrow a_{11} y_1^2 + ... $, где $a_{11} \neq 0$;
+		\item $a_{ii} = 0 \ \forall i = 1, ..., n \Rightarrow \exists a_{ij} \neq 0, i < j \Rightarrow x_i = y_i+y_j, x_j = y_i - y_j$. 
+		Тогда $a_{ij} x_i x_j$ примет вид $a_{ij}(y_i+y_j)(y_i-y_j) = a_{ij} \cdot y_i^2 - a_{ij} y^2_j \Rightarrow$ по п.1 можно считать, что $a_{11} \neq 0$;
+		\item Докажем по индукции.
+		База: $n=1 : q(x) = a_{11} x_1^2$.
+
+		Индукционный переход: $n-1 \to n, \ a_{11} \neq 0$ в силу первого пункта. Тогда
+		\begin{align*}
+			q(x) &= a_{11}\left(x_1^2 + \frac{2a_{12}}{a_{11}} x_1x_2 + \frac{2a_{13}}{a_{11}} x_1x_3 +... + \frac{2a_{1n}}{a_{11}} x_1x_n\right) + \varphi(x_2, ..., x_n) = \\
+			&= a_{11}\left(x_1^2 + \frac{2a_{12}}{a_{11}} x_1x_2 + ... + \frac{2a_{1n}}{a_{11}} x_1x_n\right) + a_{11}\left(\left( \frac{a_{12}}{a_{11}} x_2\right)^2  + ... + ...\right) - (...) + \varphi (x_2, ..., x_n) = \\
+			&= a_{11}\left(x_1 + \frac{a_{12}}{a_{11}} x_2 + ... + \frac{a_{1n}}{a_{11}} x_n\right)^2 - \psi (x_2, ..., x_n) = \\
+			&= a_{11} y^2_1 + b_{22}z_1^2 + ... + b_{nn}z_n^2
+		\end{align*}
+	\end{MyList}
 \end{proof}
 
 \Subsubsection{Квадратичная форма над $\R$}
 
-$\lambda_1 x_1^2 + ... + \lambda_nx_n^2$\\
-Если находимся над полем $\C$, тогда $y_i = \sqrt{\lambda_i}x_i \Rightarrow y_1^2+...+y_r^2, r$ -- ранг формы, $r \leqslant n$\\
-Над $\R$ ситуация иная. $\lambda_i > 0 \ \ y_i = \sqrt{\lambda_i}x_i, \ \ \lambda_j < 0 \ \ y_i = \sqrt{-\lambda_j}x_j \Rightarrow\\
-y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$ 
-
-\begin{Def} 
-	Говорят, что квадратичная форма приведена к нормальному виду, если она представляет собой сумму чистых квадратов $(y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r)$. 
+\begin{Def}[Нормальный вид к.ф.]
+	Говорят, что квадратичная форма приведена к \textit{нормальному}  виду, если она представляет собой сумму чистых квадратов $(y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r)$. 
 \end{Def} 
 
-\begin{Def} 
-	Ранг квадратичной формы равен рангу соответствующей матрицы.\\
+\begin{Rem}
+	Пусть мы хотим привести форму вида
+	\[\lambda_1 x_1^2 + ... + \lambda_nx_n^2\]
+	к нормальному виду.
+	Если находимся над полем $\C$, тогда $y_i = \sqrt{\lambda_i}x_i \Rightarrow y_1^2+...+y_r^2, r$ -- ранг формы, $r \leqslant n$\\
+	Над $\R$ ситуация иная. $\lambda_i > 0 \ \ y_i = \sqrt{\lambda_i}x_i, \ \ \lambda_j < 0 \ \ y_i = \sqrt{-\lambda_j}x_j \Rightarrow$
+	\[y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r\]
+\end{Rem}
+
+\begin{Def}[Ранг к.ф.]
+	\textit{Ранг} квадратичной формы равен рангу соответствующей матрицы: 
 	$\rank q = \rank A$
 \end{Def} 
 
 \begin{Thm}[Закон инерции квадратичных форм] 
-	$q: V \to \R$ -- квадратичная форма.\\ $\dim V = n, \rank q = r$\\
-	Параметры $s$ и $r - s$ при приведении квадратичной формы к нормальному виду не зависят от базиса. 
+	Пусть $q: V \to \R$ -- квадратичная форма, $\dim V = n, \ \rank q = r$.
+	Тогда параметры $s$ и $r - s$ при приведении квадратичной формы к нормальному виду не зависят от базиса. 
 \end{Thm} 
 
 \begin{proof}
-	$A$ -- матрица квадратичной формы в базисе $(e_i) \Rightarrow C^TAC$ -- матрица квадратичной формы в базисе $(e_i')$, где $C$ -- матрица перехода от $e_i$ к $(e_i'), \det C \neq 0$
+	Пусть $A$ -- матрица квадратичной формы в базисе $(e_i) \Rightarrow C^TAC$ -- матрица квадратичной формы в базисе $(e_i')$, где $C$ -- матрица перехода от $e_i$ к $(e_i'), \ \det C \neq 0$.
 	Несложно показать, что количество линейно независимых строк одинаково у $A$ и $C^TAC$. $\rank A = \rank C^TAC = r$ (было доказано)\\
-	Предположим, что в базисе $(e_i)$ квадратичная форма имеет следующий вид: $q = x_1^2 + ... + x_s^2 - x^2_{s+1} - ... - x^2_r$\\
-	А в базисе $(e_i'): q = x_q^2 + ... + x^2_t - x^2_{t+1} - ... - x^2_r$\\
+	Предположим, что в базисе $(e_i)$ квадратичная форма имеет следующий вид: 
+	\[q = x_1^2 + ... + x_s^2 - x^2_{s+1} - ... - x^2_r\]
+	А в базисе $(e_i')$: 
+	\[q = x_q^2 + ... + x^2_t - x^2_{t+1} - ... - x^2_r\]
 	Предположим, что $t<s$
-	Рассмотрим два подпространства пространства $V: U_1 = <e_1, ..., e_s> \ \ U_2 = <e'_{t+1}, ..., e_n'>$\\
-	Рассмотрим размерность подпространства $U_1 + U_2:\\ \dim (U_1 + U_2) \leqslant n$\\
-	С другой стороны $\dim (U_1 + U_2) = \dim U_1 + \dim U_2 - \dim (U_1 \cap U_2) = s + n- t - \dim (U_1 \cap U_2) \Rightarrow \dim (U_1 \cap U_2) \geqslant
-	s + n - t - n = s - t > 0 \Rightarrow x \in U_1 \cap U_2, \ \ q(x) > 0, x \in U_1; \ \ q(x) < 0, x \in U_2 \Rightarrow$ противоречие
+	Рассмотрим два подпространства пространства $V: U_1 = \langle e_1, ..., e_s\rangle$ и $U_2 = \langle e'_{t+1}, ..., e_n'\rangle$.
+	Рассмотрим размерность подпространства $U_1 + U_2$. С одной стороны, $\dim (U_1 + U_2) \leqslant n$. С другой, 
+	\[\dim (U_1 + U_2) = \dim U_1 + \dim U_2 - \dim (U_1 \cap U_2) = s + n - t - \dim (U_1 \cap U_2)\] 
+	Поэтому $\dim (U_1 \cap U_2) \geqslant s + n - t - n = s - t > 0$, т.е. существует ненулевой вектор $x \in U_1 \cap U_2$. Тогда $q(x) > 0$, т.к. $x \in U_1$ Но в то же время $q(x) < 0$, поскольку $x \in U_2 \Rightarrow$ противоречие.
 \end{proof}
 
-\begin{Def} 
+\begin{Def}[Индексы инерции]
 	Предположим, что квадратичная форма приведена. Тогда числа $s$ и $r-s$ называются индексами инерции или положительным и отрицательным индексами инерции. 
 	А пары чисел $(s, r-s)$ -- сигнатура квадратичной формы. 
 \end{Def} 
@@ -1126,9 +1188,8 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	Квадратичные формы нужны, чтобы исследовать экстремумы функций. $f(x) - f(x_0) = \sum f'_{x_i} \Delta x_i + \sum f''_{x_ix_j} \Delta x_i \Delta x_j + ...$ 
 \end{Rem}
 
-\begin{Def} 
-	Всё рассматриваем над $\R$\\
-	$q: V \to \R$ называется 
+\begin{Def}
+	Всё рассматриваем над $\R$. Квадратичная форма $q: V \to \R$ называется 
 	\begin{enumerate}
 		\item Положительно определенной, если $q(x) > 0 \ \forall x \neq 0, x \in V$
 		\item Отрицательно определенной, если $q(x) < 0 \ \forall x \neq 0$
@@ -1151,29 +1212,31 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 
 \Subsubsection{Теорема Якоби}
 
-\begin{Def} 
-	$A = \left(
+\begin{Def}[Главные миноры]
+	Пусть $A = \left(
 		\begin{array}{cccc}
 			a_{11} & ... &  a_{1n}\\
 			\vdots & \ddots & \vdots\\
-			a_{n1} & ... & a_{\nu}
+			a_{n1} & ... & a_{nn}
 		\end{array}
 	\right)$
 
-	$\Delta_1 = a_{11}, \Delta_2 = \left| \begin{array}{cc}
+	Тогда 
+	\[\Delta_0 = 1, \ \Delta_1 = a_{11}, \ \Delta_2 = \left| \begin{array}{cc}
 		a_{11} & a_{12}\\
 		a_{21} & a_{22}
-	\end{array} \right|, ..., \Delta N = \left| \begin{array}{ccc}
+	\end{array} \right|, ..., \ \Delta_n = \left| \begin{array}{ccc}
 		a_{11} & ... & a_{1n}\\
 		\vdots & \ddots & \vdots\\
 		a_{n1} & ... & a_{nn}
-	\end{array} \right| -$ Главные миноры\\
-	$\Delta_0 = 1$
+	\end{array} \right|\]
+	называются \textit{главными минорами}. 
 \end{Def} 
 
 \begin{Def} 
-	$char K \neq 2\\
-	f(x,y) = \frac{1}{2} (q(x+y) - q(x) - q(y))$ называется билинейной формой, полученной поляризацией квадратичной формы $q$
+	Пусть $\Char K \neq 2$. Тогда
+	\[f(x,y) = \frac{1}{2} (q(x+y) - q(x) - q(y))\] 
+	называется билинейной формой, полученной поляризацией квадратичной формы $q$.
 \end{Def} 
 
 \begin{Ex}
@@ -1190,43 +1253,41 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Def}
 
 \begin{Thm} 
-	Матрица $A$ (Над $\R$) -- положительно определенная $\Leftrightarrow \exists$ невырожденная $C: A = C^T \cdot C$
+	Матрица $A$ (Над $\R$) -- положительно определенная $\Leftrightarrow \exists$ невырожденная $C:$ 
+	\[A = C^T \cdot C\]
 \end{Thm} 
 
 \begin{proof}
-	A -- положительно определена $\Leftrightarrow$ соответствующая ей билинейная форма $f(x,y)$ положительно определена,  $q(x)$ -- положительно определена.
-	$\Leftrightarrow \exists$ базис: матрица квадратичной формы $q$ -- E $(x^2_1 + ... + x^2_n) \Leftrightarrow \exists$ матрица перехода $C: E = C^TAC \Leftrightarrow A = (C^T)^{-1} \cdot C^{-1}$ 
+	$A$ -- положительно определена $\Leftrightarrow$ соответствующая ей билинейная форма $f(x,y)$ положительно определена,  $q(x)$ -- положительно определена
+	$\Leftrightarrow \exists$ базис: матрица квадратичной формы $q$ -- $E$ (т.е. квадратичная форма имеет вид $x^2_1 + ... + x^2_n$) $\Leftrightarrow \exists$ матрица перехода $C: E = C^TAC \Leftrightarrow A = (C^T)^{-1} \cdot C^{-1}$ 
 \end{proof}
 
 \begin{Thm}[Якоби, критерий положительной определенности] 
-	Теорема верна для любого поля, но в основном мы находимся над $\R$\\
-	$q: V \to K, char K \neq 2, q \to A, \Delta_i \neq 0, i = 1, ..., n  \Rightarrow \exists$ базис $(e_i'): q(x) = \frac{\Delta_0}{\Delta_1} x_1^2 + \frac{\Delta_1}{\Delta_2} x_2^2 + ... + \frac{\Delta_{n-1}}{\Delta_n} x^2_n$\\
+	Теорема верна для любого поля, но в основном мы находимся над $\R$.
+	Пусть $q: V \to K, \ \Char K \neq 2, \ q \to A, \ \Delta_i \neq 0, \ i = 1, ..., n  \Rightarrow \exists$ базис $(e_i'):$
+	\[q(x) = \frac{\Delta_0}{\Delta_1} x_1^2 + \frac{\Delta_1}{\Delta_2} x_2^2 + ... + \frac{\Delta_{n-1}}{\Delta_n} x^2_n\]
 \end{Thm} 
 
 \begin{proof}
-	По индукции.\\
-	$n=1 q(x) = a_{11} x^2_1 = \frac{1}{a_{11}} (a_{11}x_1)^2$\\
-	Индукционный переход: $n-1 \to n$\\
-	$(e_i), i = 1, ..., n$ -- исходный произвольный базис $U = <e_1, ..., e_{n-1}> \subset V$\\
-	$\overline{q} = q \big|_U, \overline{A}$ -- матрица $A$, в которой вычеркнули последнюю строчку и столбец.\\
+	Докажем по индукции. $n=1$
+	\[q(x) = a_{11} x^2_1 = \frac{1}{a_{11}} (a_{11}x_1)^2\]
+	Индукционный переход: $n-1 \to n$.
+	Пусть $(e_i), \ i = 1, ..., n$ -- исходный произвольный базис $U = \langle e_1, ..., e_{n-1}\rangle \subset V$, 
+	$\overline{q} = q \big|_U, \ \overline{A}$ -- матрица $A$, в которой вычеркнули последнюю строчку и столбец.
 	Для $\overline{q}$ утверждение верно. 
-	Заметим, что $\overline{\Delta_1} = \Delta_1, ..., \overline{\Delta_{n-1}} = \Delta_{n-1} (\overline{\Delta_i})$ -- главные миноры для $\overline{A} \Rightarrow
-	\exists (e_i'), i = 1, ..., n-1: \overline{q} = \frac{\Delta_0}{\Delta_1} x_1'^2 + ... + \frac{\Delta_{n-2}}{\Delta_{n-1}} x_{n-1}'^2$\\
-	Возвращаемся в пространство $V$, ищем вектор x $\{ f(x, e_i') = 0, i = 1,..,n-1$ -- система линейных уравнений, n-1 уравнение, n неизвестных.
-	$\rank$ СЛУ < n $\Rightarrow \exists$ нетривиальное решение $\Rightarrow \exists \widetilde{e_n}$ -- решение СЛУ. 
-	На данный момент имеем, что $q$ почти нужна к нужному виду, но последний коэффициент неизвестный. 
+	Заметим, что $\overline{\Delta}_1 = \Delta_1, ..., \overline{\Delta}_{n-1} = \Delta_{n-1} (\overline{\Delta}_i)$ -- главные миноры для $\overline{A} \Rightarrow
+	\exists (e_i'), \ i = 1, ..., n-1:$
+	\[\overline{q} = \frac{\Delta_0}{\Delta_1} x_1'^2 + ... + \frac{\Delta_{n-2}}{\Delta_{n-1}} x_{n-1}'^2\]
+	Возвращаемся в пространство $V$, ищем вектор $x$. $\{ f(x, e_i') = 0, \ i = 1,..,n-1$ -- система линейных уравнений, $n-1$ уравнение, $n$ неизвестных,
+	$\rank$ СЛУ $< n$ $\Rightarrow \exists$ нетривиальное решение $\Rightarrow \exists \widetilde{e}_n$ -- решение СЛУ. 
+	На данный момент имеем, что $q$ почти приведена к нужному виду, но последний коэффициент неизвестный: 
 	$q = \frac{\Delta_0}{\Delta_1} x_1'^2 + ... + \frac{\Delta_{n-2}}{\Delta_{n-1}} x_{n-1}'^2 + ? x_n'^2$\\
-	$e_n' = \lambda \widetilde{e_n} \ \ \lambda$ выберем: $C$ -- матрица перехода от $(e_i))\\
-	K(e_i', \widetilde{e_n}) \ \ \det C$ -- линейно зависит от $\lambda\\ 
-	\begin{cases}
-		e_1 = ...\\
-		...\\
-		\lambda \widetilde{e_n} = \lambda ... \lambda	
-	\end{cases}\\
-	\lambda: \det C = \frac{1}{\det A} = \frac{1}{\Delta_n}$\\
-	В базисе $(e_i'), i = 1, ..., n \ \ A'$ -- матрица квадратичной формы $q$ -- диагональная\\
-	$\frac{f(e_n', e_n')}{\Delta_{n-1}} = \frac{\Delta_0}{\Delta_1} \cdot \frac{\Delta_1}{\Delta_2} \cdot ... \cdot \frac{\Delta_{n-1}}{\Delta_{n-1}} \cdot f(e_n', e_n') = 
-	\det A' = \det (C^TAC) = (\det C)^2 \cdot \det A = \frac{1}{\Delta^2_n} \cdot \Delta_n = \frac{1}{\Delta_n} \Rightarrow f(e_n', e_n') = \frac{\Delta_n-1}{\Delta_n} $
+	Возьмем $e_n' = \lambda \widetilde{e_n}$, а $\lambda$ выберем так: пусть $C$ -- матрица перехода от $(e_i)$  
+	к $(e_i', \widetilde{e}_n)$. Заметим, что $\det C$ -- линейно зависит от $\lambda$.
+	Положим $\lambda: \det C = \frac{1}{\det A} = \frac{1}{\Delta_n}$\\
+	Тогда в базисе $(e_i'), \ i = 1, ..., n'$ -- матрица квадратичной формы $q$ -- диагональная. Покажем, что квадратичная форма в этом базисе имеет требуемый вид. Действительно,
+	\[\frac{f(e_n', e_n')}{\Delta_{n-1}} = \frac{\Delta_0}{\Delta_1} \cdot \frac{\Delta_1}{\Delta_2} \cdot ... \cdot \frac{\Delta_{n-1}}{\Delta_{n-1}} \cdot f(e_n', e_n') = 
+	\det A' = \det (C^TAC) = (\det C)^2 \cdot \det A = \frac{1}{\Delta^2_n} \cdot \Delta_n = \frac{1}{\Delta_n}\]
 \end{proof}
 
 \begin{Cons}
@@ -1235,17 +1296,17 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Cons}
 
 \begin{Thm}[Критерий Сильвестра] 
-	$q: V \to \R$\\
+	Пусть $q: V \to \R$ -- квадратичная форма. Тогда
 	$q$ -- положительно  определена $\Leftrightarrow \Delta_i > 0, i = 1,...,n$
 \end{Thm} 
 
 \begin{proof}
-	$\Leftarrow.$ Очевидно.\\
-	$\Rightarrow$. По индукции.\\
-	$n=1 \ q = a_{11}x^2_1, a_{11} > 0$\\
-	Индукционный переход: $n-1 \to n \ \ U = <e_1, ..., e_{n-1}>$\\
-	$\overline{q} = q \big|_U$ -- положительно определена $\Rightarrow \Delta_i > 0, i = 1, ..., n-1$\\
-	$q$ -- положительно определена $\Rightarrow A$ --положительно определена $\Rightarrow A = C^TC \Rightarrow \Delta_n = \det A = (det C)^2 > 0$ 
+	$\Leftarrow.$ Очевидно.
+
+	$\Rightarrow$. По индукции. $n=1: q = a_{11}x^2_1, a_{11} > 0$.
+
+	Индукционный переход: $n-1 \to n$. $U = \langle e_1, ..., e_{n-1}\rangle$. $\overline{q} = q \big|_U$ -- положительно определена $\Rightarrow \Delta_i > 0, \ i = 1, ..., n-1$.
+	Т.к. $q$ -- положительно определена, то и $A$ положительно определена $\Rightarrow A = C^TC \Rightarrow \Delta_n = \det A = (\det C)^2 > 0$ 
 \end{proof}
 
 \Subsubsection{Ортогональные преобразования}
@@ -1254,13 +1315,13 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Def} 
 
 \begin{Def} 
-	Матрица $C$ называется ортогональной, если она обладает следующим свойством $C^TC=E \Leftrightarrow \sum_{k=1}^{n} c_{ik} c_{jk} = \begin{cases}
+	Матрица $C$ называется ортогональной, если она обладает следующим свойством $$C^TC=E \Leftrightarrow \sum_{k=1}^{n} c_{ik} c_{jk} = \begin{cases}
 		1, i = j\\
 		0, i \neq j
 	\end{cases} \Leftrightarrow \sum_{k=1}^{n} c_{ki}c_{kj} = \begin{cases}
 		1, i = j\\
 		0, i \neq j
-	\end{cases}$
+	\end{cases}$$
 \end{Def} 
 
 \begin{Example}
@@ -1277,8 +1338,9 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Example}
 
 \begin{Thm} 
-	$\forall q: V \to \R \ \exists$ ортогональное преобразование $C:$\\
-	$q = \lambda_1 x_1^2 + ... + \lambda_n x_n^2, \lambda_i$ -- собственные числа матрицы $A$
+	Пусть $\forall q: V \to \R$ -- квадратичная форма. Тогда существует ортогональное преобразование $C:$
+	$$q = \lambda_1 x_1^2 + ... + \lambda_n x_n^2$$ 
+	где, $\lambda_i$ -- собственные числа матрицы $A$.
 \end{Thm} 
 
 \Section{Элементы теории полей}{}{Илья Дудников}
@@ -1318,7 +1380,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 
 Пусть $R$ -- ассоциативное коммутативное кольцо с 1, $K$ -- поле.
 
-\begin{Def}
+\begin{Def}[Идеал]
 	Множество $I \subset R$ называется \textit{идеалом} кольца $R$, если 
 	\begin{MyList}
 		\item $I$ -- аддитивная группа кольца $R$
@@ -1339,23 +1401,23 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Example}
 
 \begin{Example}
-	$a_1, ..., a_N \in R$. Тогда $I = \{r_1 a_1 + ... + r_n a_n, r_I \in R, i = 1, ..., n\}$.
+	$a_1, ..., a_n \in R$. Тогда $I = \{r_1 a_1 + ... + r_n a_n, \ r_i \in R, \ i = 1, ..., n\}$.
 \end{Example}
 
 \begin{Def}
-	$I = \{r_1 a_1 + ... + r_n a_n, r_i \in R\}$ -- идеал, порожденный $a_1, ..., a_n \in R$. 
+	$I = \{r_1 a_1 + ... + r_n a_n, \ r_i \in R\}$ -- идеал, порожденный $a_1, ..., a_n \in R$. 
 \end{Def}
 
 \begin{notation}
 	$I = (a_1, ..., a_n)$ -- идеал, порожденный $a_1, ..., a_n \in R$.
 \end{notation}
 
-\begin{Def}
+\begin{Def}[Главный идеал]
 	Если идеал $I = (a)$, то он называется \textit{главным}.
 \end{Def}
 
-\begin{Def}
-	Если в области целостности $R$ любой идеал является главным, то $R$ -- кольцо главных идеалов.
+\begin{Def}[Кольцо главных идеалов]
+	Если в области целостности $R$ любой идеал является главным, то $R$ -- \textit{кольцо главных идеалов}.
 \end{Def}
 
 \begin{Thm}[Кольцо многочленов -- кольцо главных идеалов]
@@ -1368,7 +1430,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	Тогда $g = a_n^{-1} f \in I$. 
 	
 	Возьмем произвольный $h \in I$ и поделим его на $g$, т.е. 
-	\[h = gq + r, \quad g, r \in K[x], \deg r < \deg g\] 
+	\[h = gq + r, \quad g, r \in K[x], \ \deg r < \deg g\] 
 	Тогда $r = h - gq \in I$. Получаем противоречие, а значит $r = 0$ $\SO I = (g)$. 
 	
 	Докажем теперь однозначность.
@@ -1406,10 +1468,10 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \begin{proof}
 	\begin{MyList}
 		\item Самостоятельно
-		\item $r \equiv r' \Mod I, \ s \equiv s' \Mod I$.
+		\item $r \equiv r' \ \Mod I, \ s \equiv s' \ \Mod I$.
 		Тогда 
 		\[\overline{r}' \cdot \overline{s}' = (r' + I) \cdot (s' + I) = r' \cdot s' + I = (r + a) \cdot (s + b) + I = rs + rb +  as + ab + I = rs + I = \overline{r} \cdot \overline{s}\]
-		Третье равенство верно, т.к. $r \equiv r' \Mod I \EQ r = r' + a, a \in I$. Аналогично, $s' = s + b, b \in I$. 
+		Третье равенство верно, т.к. $r \equiv r' \ \Mod I \EQ r = r' + a, \ a \in I$. Аналогично, $s' = s + b, \ b \in I$. 
 	\end{MyList} 
 \end{proof}
 
@@ -1417,7 +1479,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	$R/I$ -- кольцо.
 \end{Thm}
 
-\begin{Def}
+\begin{Def}[Факторкольцо]
 	Множество $R/I$ называется \textit{факторкольцом}.
 \end{Def}
 
@@ -1428,7 +1490,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Def}
 
 \begin{Def}[Простое расширение]
-	Если $L = K(\theta), \theta \notin K$, то $L$ -- простое расширение. 
+	Если $L = K(\theta), \ \theta \notin K$, то $L$ -- простое расширение. 
 \end{Def}
 
 \begin{Example}
@@ -1468,9 +1530,9 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 
 \begin{proof}
 	\begin{MyList}
-		\item Предположим, что $f$ приводим. Тогда $f = h_1 h_2, \deg h_i \geqslant 1, i = 1, 2$. Тогда
-		\[f(\theta) = 0 \SO h_1 (\theta) h_2 (\theta) = 0 \SO h_i(\theta) = 0\]
-		Но $\deg h_i < \deg f$, а значит мы получили противоречие минимальности $f$. Отсюда, $f$ -- неприводим.
+		\item Предположим, что $f$ приводим. Тогда $f = h_1 h_2, \ \deg h_i \geqslant 1, \ i = 1, 2$. Тогда
+		\[f(\theta) = 0 \SO h_1 (\theta) \cdot h_2 (\theta) = 0 \SO h_i(\theta) = 0\]
+		Но $\deg h_i < \deg f$, а значит мы получили противоречие минимальности $f$. Поэтому $f$ -- неприводим.
 
 		\item Поделим $g$ на $f$:
 		\[g = f \cdot q + r, \quad \deg r < \deg f\]
@@ -1480,7 +1542,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	\end{MyList}
 \end{proof}
 
-\begin{Def}
+\begin{Def}[Степень расширения]
 	Пусть $K \subset L$. Рассмотрим $L$ как векторное пространство над полем $K$.
 	Тогда \textit{степенью расширения} $L$ над $K$ называется размерность размерность векторного пространства $L$ над $K$.   
 \end{Def}
@@ -1523,9 +1585,8 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	$\mathbb{F}_2 = \{0, 1\}$. Рассмотрим неприводимый многочлен 2-й степени над $\mathbb{F}_2$:
 	\[f = x^2 + x + 1, \qquad \theta \text{ -- корень}\]
 	$\mathbb{F}_2[x] / (x^2 + x + 1) = \{0, 1, x, x + 1\}$.
-
 	\begin{align*}
-		x \cdot x &\equiv x + 1 (\Mod x^2 + x + 1) \\
+		x \cdot x &\equiv x + 1 \ (\Mod x^2 + x + 1) \\
 		x (x + 1) &\equiv 1 \\
 		(x + 1)(x + 1) &\equiv x
 	\end{align*}
@@ -1538,7 +1599,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 
 \begin{proof}
 	$K[x]/(f) = \{g + (f)\}, \overline{1} = 1 + (f)$ -- здесь выполняются все аксиомы поля, кроме одного.
-	Докажем, что $\forall \overline{g} \ \exists \overline{g}^{-1}$. Рассмотрим $g \notin (f)$. Тогда $\overline{g} \neq 0$. Если $g$ делит $f$, тогда $g \in (f)$, но это не так.
+	Докажем, что $\forall \overline{g} \ \exists (\overline{g})^{-1}$. Рассмотрим $g \notin (f)$. Тогда $\overline{g} \neq 0$. Если $g$ делит $f$, тогда $g \in (f)$, но это не так.
 	Поэтому $(g, f) = 1 \SO \exists u, v \in K[x]$. Тогда
 	\[u \cdot g + v \cdot f = 1 \SO ug \equiv 1 (\Mod f)\]
 	Отсюда $\overline{u} \cdot \overline{g} = 1 \SO K[x] / (f)$ -- поле.
@@ -1569,7 +1630,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 	Поскольку $\forall a \in G$ -- конечная группа, $a^{|G|} = 1$, то $a^{q - 1} = 1$.  
 \end{proof}
 
-\begin{Lm}(Бином двоечника)
+\begin{Lm}[Бином двоечника]
 	Пусть $K$ -- конечное поле, $|K| = q$. Тогда $(a + b)^q = a^q + b^q$ и $(a - b)^q = a^q - b^q$.  
 \end{Lm}
 
@@ -1608,7 +1669,7 @@ y^2_1 + ... + y^2_s - y^2_{s+1} - ... - y^2_r$
 \end{Lm}
 
 \begin{proof}
-	У многочлена $x^q - x$ нет корней $\leqslant q$. Любой элемент поля $K$ по лемме является корнем $x^q - x$.
+	У многочлена $x^q - x$ корней $\leqslant q$. Любой элемент поля $K$ по лемме является корнем $x^q - x$.
 	$K$ -- наименьшее поле, т.к. $|K| = q$.  
 \end{proof}
 
