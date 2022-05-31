@@ -760,7 +760,7 @@
 	Предположим, что верно при $n-1$. Индукционный переход: $n-1 \to n:$ пусть $V_1, V_2, ..., V_n$ -- собственные векторы, $aV_i = \lambda_i V_i, \ \lambda_1, ..., \lambda_n$ -- различны.
 	Если $V_1, V_2, ..., V_n$ -- линейно зависимы, то $\alpha_1 V_1 + \alpha_2 V_2 + ... + \alpha_n V_n = 0, \alpha_i \in K \Rightarrow$
 	под действием $a$: $\alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n = 0$\\
-	Будем считать, что $\lambda_1 \neq 0 \Rightarrow \alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n - \lambda_1(\alpha_1 V_1 + ... + \alpha_n V_n) =
+	Будем считать, что $\alpha_1 \neq 0 \Rightarrow \alpha_1 \lambda_1 V_1 + \alpha_2 \lambda_2 V_2 + ... + \alpha_n \lambda_n V_n - \lambda_1(\alpha_1 V_1 + ... + \alpha_n V_n) =
 	\alpha_2(\lambda_2 - \lambda_1)V_2 + ... + \alpha_n(\lambda_n - \lambda_1)V_n = 0 \Rightarrow$ по предположению индукции $\alpha_2 = ... = \alpha_n = 0$ 
 \end{proof}
 
@@ -978,20 +978,20 @@
 	Элементы матрицы $\widetilde{B}$ -- многочлены от переменной $t$, причем их степени не превосходят $m - 1$.
 	Действительно, каждый элемент $B$ это, с точностью до знака, определитель матрицы порядка $m - 1$, составленной из многочленов степени $\leqslant 1$, причем в каждой строке не больше одного не-константного многочлена.
 	Тогда можно представить $\widetilde{B}$ в виде 
-	\[\widetilde{B} = B_0 + tB_1 + ... + t^{m - 1}B_{m - 1}, \quad B_i \in M(n, F)\] 
+	\[\widetilde{B} = \widetilde{B}_0 + t\widetilde{B}_1 + ... + t^{m - 1}\widetilde{B}_{m - 1}, \quad \widetilde{B}_i \in M(n, F)\] 
 
 	Тогда формула выше может быть переписана следующим образом:
 	\begin{align*}
-		\chi_a \cdot E &= (tE - A) \cdot B = (tE - A) \cdot (B_0 + tB_1 + ... + t^{m - 1}B_{m - 1}) = \\
-		&= t^m B_{m - 1} + t^{m - 1}(B_{m - 2} - AB_{m - 1}) + ... + t(B_0 - AB_1) - AB_0
+		\chi_a \cdot E &= B \cdot \widetilde{B} = (tE - A) \cdot (\widetilde{B}_0 + t\widetilde{B}_1 + ... + t^{m - 1}\widetilde{B}_{m - 1}) = \\
+		&= t^m \widetilde{B}_{m - 1} + t^{m - 1}(\widetilde{B}_{m - 2} - A\widetilde{B}_{m - 1}) + ... + t(\widetilde{B}_0 - A\widetilde{B}_1) - A\widetilde{B}_0
 	\end{align*}
 
 	С другой стороны,
 	\[\chi_a \cdot E = t^m E + t^{m - 1}c_{m - 1}E + ... + tc_1 E + c_0 E\]
 	Сравнивая слагаемые при соответствующих степенях, получаем следующее:
-	\[B_{m - 1} = E, \qquad B_{i - 1} - AB_i = c_i E, \ i = 1, ..., m - 1, \qquad -AB_0 = c_0 E\]
+	\[\widetilde{B}_{m - 1} = E, \qquad \widetilde{B}_{i - 1} - A\widetilde{B}_i = c_i E, \ i = 1, ..., m - 1, \qquad -A\widetilde{B}_0 = c_0 E\]
 	Умножим слева равенство, отвечающее за $t^i$, на $A^i$, и сложим все полученные:
-	\[A^m B_{m - 1} + A^{m - 1}(B_{m - 2} - AB_{m - 1}) + ... + A(B_0 - AB_1) - AB_0 = A^m  + c_{m - 1}A^{m - 1} + ... + c_1A + c_0 E\]
+	\[A^m \widetilde{B}_{m - 1} + A^{m - 1}(\widetilde{B}_{m - 2} - A\widetilde{B}_{m - 1}) + ... + A(\widetilde{B}_0 - A\widetilde{B}_1) - A\widetilde{B}_0 = A^m  + c_{m - 1}A^{m - 1} + ... + c_1A + c_0 E\]
 	Все слагаемые в левой части сокращаются, а в правой части стоит $\chi_a(A)$.  
 \end{proof}
 
@@ -1086,17 +1086,19 @@
 		x_n
 	\end{array}\right)$
 	\[
-	q(x) = (x_1, ..., x_n)\left(
+	q(x) = \left(\begin{array}{ccc}
+	x_1 & \cdots & x_n
+	\end{array}\right) \left(
 		\begin{array}{ccc}	
 			a_{11} & & \\
 			& \ddots & \\
-			& &a_nn
+			& &a_{nn}
 		\end{array}\right)\left(
 		\begin{array}{ccc}	
-			y_1\\
+			x_1\\
 			\vdots\\
-			y_n
-		\end{array}\right) = \sum_{i,h = 1}^{n} a_{ij}x_iy_j\]
+			x_n
+		\end{array}\right) = \sum_{i,h = 1}^{n} a_{ij}x_ix_j\]
 		Но последняя сумма -- это однородный многочлен 2 степени от $n$ переменных.
 		Поскольку матрица симметрическая, т.е. $a_{ij} = a_{ji}$, то $a_{ij}x_ix_j+a_{ji}x_ix_j = 2a_{ij}x_ix_j$, поэтому квадратичную форму 
 		можно также записать в следующем виде:
@@ -1262,7 +1264,7 @@
 	$\Leftrightarrow \exists$ базис: матрица квадратичной формы $q$ -- $E$ (т.е. квадратичная форма имеет вид $x^2_1 + ... + x^2_n$) $\Leftrightarrow \exists$ матрица перехода $C: E = C^TAC \Leftrightarrow A = (C^T)^{-1} \cdot C^{-1}$ 
 \end{proof}
 
-\begin{Thm}[Якоби, критерий положительной определенности] 
+\begin{Thm}[Якоби] 
 	Теорема верна для любого поля, но в основном мы находимся над $\R$.
 	Пусть $q: V \to K, \ \Char K \neq 2, \ q \to A, \ \Delta_i \neq 0, \ i = 1, ..., n  \Rightarrow \exists$ базис $(e_i'):$
 	\[q(x) = \frac{\Delta_0}{\Delta_1} x_1^2 + \frac{\Delta_1}{\Delta_2} x_2^2 + ... + \frac{\Delta_{n-1}}{\Delta_n} x^2_n\]
@@ -1295,7 +1297,7 @@
 	Тогда отрицательный индекс инерации $q$ равен числу перемен знака в последовательности $\Delta_0, \Delta_1, ..., \Delta_n$ 
 \end{Cons}
 
-\begin{Thm}[Критерий Сильвестра] 
+\begin{Thm}[Критерий Сильвестра положительной определенности] 
 	Пусть $q: V \to \R$ -- квадратичная форма. Тогда
 	$q$ -- положительно  определена $\Leftrightarrow \Delta_i > 0, i = 1,...,n$
 \end{Thm} 
