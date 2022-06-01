@@ -1546,7 +1546,7 @@
 
 \begin{Def}[Степень расширения]
 	Пусть $K \subset L$. Рассмотрим $L$ как векторное пространство над полем $K$.
-	Тогда \textit{степенью расширения} $L$ над $K$ называется размерность размерность векторного пространства $L$ над $K$.   
+	Тогда \textit{степенью расширения} $L$ над $K$ называется размерность векторного пространства $L$ над $K$.   
 \end{Def}
 
 \begin{notation}
@@ -1556,6 +1556,10 @@
 \begin{Rem}
 	Расширение называется конечным, если $[L : K] < \infty$. 
 \end{Rem}
+
+\begin{Def}
+	Расширение $L$ над полем $K$ называется \textit{алгебраичным}, если любой $\theta \in L$ алгебраичен над $K$.
+\end{Def}
 
 \begin{Thm}
 	Любое конечное расширение является алгебраичным.
@@ -1757,14 +1761,14 @@
 	Пусть $|K^*| = q - 1 = r$. Разложим $r$ на простые множители: $r = p_1^{\alpha_1} \cdot ... \cdot p_k^{\alpha_k}$.
 	$\forall i, 1 \leqslant i \leqslant k$ рассмотрим $x^{r / p_i} - 1$. Он имеет $\frac{r}{p_i} < r$ корней. Значит $\exists a_i, 1 \leqslant i \leqslant k : a_i^{r / p_i} \neq 1, \ a_i \in K^*$.
 	$\forall i, 1 \leqslant i \leqslant k$ обозначим $b_i = a_i^{r / p_i^{\alpha_i}}$.
-	Докажем, что $\Ord (b_i) = p_i^{\alpha_i}$. Пусть $\Ord (b_i) = p_i^{\beta_i}$. Так как $b_i^{p_i^{\alpha_i}} = 1$, то $\Ord(b_i) \ | \ p_i^{\alpha_i}$. 
+	Докажем, что $\Ord (b_i) = p_i^{\alpha_i}$. Так как $b_i^{p_i^{\alpha_i}} = 1$, то $\Ord(b_i) \ | \ p_i^{\alpha_i} \SO \Ord(b_i) = p_i^{\beta_i}$, где $\beta_i \leqslant \alpha_i$. 
 	Но $b_i^{p_i^{\alpha_i - 1}} = a_i^{r / p_i} \neq 1 \SO \beta_i < \alpha_i$ -- не может быть.
 	
 	Теперь положим $b = b_1 \cdot ... \cdot b_k$ и докажем, что $\langle b\rangle = K^*$, т.е. что $\Ord(b) = r$. 
 	Пусть $\Ord(b) \neq r \SO \Ord(b) \ | \ \frac{r}{p_i}$. Не умаляя общности, можно считать, что $i = 1$.
 	То есть 
-	\[b^{r / p_1} = b_1^{r / p_1} \cdot b_2^{r / p_1} \cdot ... \cdot b_k^{r / p_1} = b_1^{r / p_1} = \left(b_1^{r / p_1}\right)^{(\text{какие-то множители})} = 1\]
-	но это невозможно, т.к. $b_1^{p_1^{\alpha_1}} = 1$. 
+	\[b^{r / p_1} = b_1^{r / p_1} \cdot b_2^{r / p_1} \cdot ... \cdot b_k^{r / p_1} = b_1^{r / p_1} = \left(b_1^{r / p_1}\right) = 1\]
+	Значит $\Ord(b_1) \ | \ \frac{r}{p_1}$, но это невозможно, т.к. $\Ord(b_1) = p^{\alpha_1}$. 
 \end{proof}
 
 \end{document}
