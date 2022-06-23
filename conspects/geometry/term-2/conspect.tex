@@ -2091,7 +2091,7 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 
 	\begin{MyItemize}
 		\item Если $k' = k$, то получим асимптотическое уравнение, т.е. у гиперболы асимптоты (а у параболы -- прямые, параллельные оси симметрии) сопряжены сами себе.
-		\item Если $k' = \frac{1}{k}$, то
+		\item Если $k' = -\frac{1}{k}$, то
 		\[-a_{22} + a_{12} \left(k - \frac{1}{k}\right)+ a_{11} = 0 \]
 		Откуда
 		\[a_{12} k^2 + k(a_{11} - a_{22}) - a_{12} = 0\]
@@ -2150,6 +2150,12 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 	где $\alpha, \beta, \gamma, c$ -- произвольные. Дальше очев.
 \end{proof}
 
+\begin{figure}[H]
+	\centering
+	\def\svgwidth{\columnwidth}
+	\input{img/sos_first_type.pdf_tex}
+\end{figure}
+
 \begin{Thm}[Классификация ПВП. Тип II]
 	Пусть ПВП задается уравнением
 	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz + a_{14} x + a_{24} y + a_{34} z + a_{44} = 0\]
@@ -2183,6 +2189,12 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 	\end{MyItemize}
 \end{proof}
 
+\begin{figure}[H]
+	\centering
+	\def\svgwidth{.7\columnwidth}
+	\input{img/sos_second_type.pdf_tex}
+\end{figure}
+
 \begin{Thm}[Классификация ПВП. Тип III]
 	Пусть ПВП задается уравнением
 	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} xz + a_{33} z^2 + 2a_{23} yz + a_{14} x + a_{24} y + a_{34} z + a_{44} = 0\]
@@ -2197,9 +2209,11 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 	где $\alpha, \beta > 0$.
 \end{Thm}
 
-\begin{Rem}
-	Понавставляйте картинок про поверхности второго порядка, пожалуйста, а то у меня крыша уже едет от этой геомы :(
-\end{Rem}
+\begin{figure}[H]
+	\centering
+	\def\svgwidth{\columnwidth}
+	\input{img/sos_third_type.pdf_tex}
+\end{figure}
 
 \Section{Дифференциальная геометрия кривых}{}{Илья Дудников}
 
@@ -2231,7 +2245,7 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 		\item Умножение на скаляр
 		\[\lambda \overline{r}(t) = (\lambda \lambda_1(t), ..., \lambda \lambda_n(t))\]
 
-		\item Векторное произведение
+		\item Скалярное произведение
 		$(\overline{r}_1(t), \overline{r}_2(t)) = (\lambda_1, ..., \lambda_n) G (\mu_1, ..., \mu_n)^T$, где $G = ||(\overline{e}_i, \overline{e}_j)||_{i, j}$ -- матрица Грама.
 		
 		Если $\{\overline{e}_i\}$ -- ортонормированный базис, то
@@ -2308,7 +2322,7 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 	Пусть $\varphi : I \to \R^n$ -- параметризация кривой. Тогда будем называть её \textit{регулярной гладкой параметризацией}, если
 	\begin{MyList}
 		\item $\varphi \in C^\infty (I)$ 
-		\item $\varphi \neq 0 \ \forall t$ -- регулярность
+		\item $\varphi' \neq 0 \ \forall t$ -- регулярность
 		\item $\varphi$ -- гомеоморфизм на образ.  
 	\end{MyList}
 \end{Def}
