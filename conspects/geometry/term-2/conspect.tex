@@ -23,10 +23,11 @@
 		\input{img/as_line.pdf_tex}
 	\end{figure*}
 
+
 	\begin{Def}
 		АСК на плоскости называется биекция $\pi \longleftrightarrow \R^2$. 
 
-		Она определяется выбором точки $O$ и векторов $\overline{e}_1, \overline{e}_2 \neq \overline{e}, \overline{e}_1 \not\parallel \overline{e}_2$. 
+		Она определяется выбором точки $O$ и векторов $\overline{e}_1, \overline{e}_2 \neq \overline{e}_1, \overline{e}_1 \not\parallel \overline{e}_2$. 
 		АСК = $\{O, \{\overline{e}_1, \overline{e}_2\}\}$.
 	\end{Def}
 
@@ -47,7 +48,7 @@
 
 	\begin{Def}
 		Упорядоченная тройка векторов $(\overline{u}, \overline{v}, \overline{w})$ называется \textbf{правой} , 
-		если из конца вектор $\overline{w}$ поворот то $\overline{u}$ к $\overline{v}$ по наименьшему углу выглядит происходящим против часовой стрелки,
+		если из конца вектора $\overline{w}$ поворот то $\overline{u}$ к $\overline{v}$ по наименьшему углу выглядит происходящим против часовой стрелки,
 		и \textbf{левой} -- в противном случае. 
 	\end{Def}
 
@@ -84,14 +85,17 @@
 	\end{Def}
 
 	\begin{Def}
-		Сферическая система координат — трёхмерная система координат, в которой каждая точка пространства определяется тремя числами, где r — расстояние до начала координат, а $\theta$ и $\varphi$ — зенитный и азимутальный углы соответственно.
+		Сферическая система координат — трёхмерная система координат, в которой каждая точка пространства определяется тремя числами $r, \theta, \varphi$ , где $r$ — расстояние до начала координат, а $\theta$ и $\varphi$ — зенитный и азимутальный углы соответственно.
 	\end{Def}
+
+	% по-хорошему, сюда нужно добавить рисуночек
 
 	\Subsubsection{Параметризации}
 
-	Построим декартову систему координат. Теперь возьмем какую-то новую систему координат $x', y', z'$.
+	\index{Параметризация!множества систем координат}
+	Построим декартову систему координат. Теперь возьмем какую-то новую декартову систему координат $x', y', z'$.
 	Проведем через $x', y'$ плоскость. Если $z'$ не совпадает с $z$, то эта плоскость пересекает плоскость $(x, y)$ по какой-то прямой.
-	Отсчитает от вектора $x$ до этой прямой угол $\PHI$. Угол между $z$ и $z'$ обозначим за $\psi$.
+	Отсчитаем от вектора $x$ до этой прямой угол $\PHI$. Угол между $z$ и $z'$ обозначим за $\psi$.
 	Теперь, мы можем эту прямую поворачивать вокруг оси $z'$ на угол $\delta$, пока она не совпадет с $x'$.
 	
 	\begin{figure*}[h]
@@ -101,11 +105,17 @@
 	\end{figure*}
 
 	Таким образом, мы совместили исходную систему координат с новой СК. То есть
-	мы построили соответствие между ( $\psi, \PHI, \delta$ ).
-	
+	мы построили соответствие между $(\psi, \PHI, \delta)$ и системой координат.
+	Иначе говоря, мы \textit{запараметризовали} множество систем координат. 
+
+	\begin{Rem}
+		Углы $\psi, \varphi, \delta$ называются \textit{углами Эйлера}. 
+	\end{Rem}
+
 	\Subsection{Понятие вектора}
 
 	Пусть $E$ -- евклидово пространство.
+	\index{Вектор!закрепленный}
 	\begin{Def}
 		Закрепленный вектор -- упорядоченная пара точек в евклидовом пространстве.
 		Обозначение: $\overrightarrow{AB}$, модуль $|\overrightarrow{AB}|$ -- расстояние между точками $A$ и $B$.
@@ -148,12 +158,33 @@
 
 	\begin{Def}
 		Сложение векторов: $V \times V \to V$.
-		$[\overrightarrow{OO''}] = \overline{a} + \overline{b}$ 
+		\begin{figure}[H]
+			\centering
+			\input{img/vector_addition.pdf_tex}
+		\end{figure}
+		$[\overrightarrow{OO''}] \stackrel{\Delta}{=} \overline{a} + \overline{b}$ 
 	\end{Def}
+
+	\begin{Rem}
+		Здесь $[\overrightarrow{OO''}]$ -- класс вектора $\overrightarrow{OO''}$, $\Delta$ означает "по определению". 	   
+	\end{Rem}
 
 	\begin{Def}
 		Пусть $\overline{a} \in V, \lambda \in \R$. Умножение на число: $\R \times V \to V$.
 	\end{Def}
+
+	\begin{Thm}[Корректность определения]
+		Определение сложения векторов определено корректно.
+	\end{Thm}
+
+	\begin{proof}
+		Отложим $\overline{a} + \overline{b}$ от точки $C$, отличной от $O$. Покажем, что $[\overline{CC''}] = [\overline{OO''}]$.
+		\begin{figure}[H]
+			\centering
+			\input{img/vector_addition_correctness.pdf_tex}
+		\end{figure}
+		Действительно, $\overline{OO'} || \overline{CC'}, OO' = CC', \ \overline{O'O''} || \overline{C'C''}, O'O'' = C'C''$, поэтому $\triangle OO'O'' = \triangle CC'C''$, а значит $\overline{OO''} || \overline{CC''}, OO'' = CC''$. Также заметим, что $OO''$ и $CC''$ являются сторонами параллелограмма, поэтому они сонаправлены.     
+	\end{proof}
 	
 	$(V, +, \cdot)$. Свойства:
 	\begin{MyList}
@@ -190,7 +221,7 @@
 		\item $\{\overline{a} \neq \overline{0}\}$ -- ЛНЗ.
 		\item $\{\overline{0}\}$ -- ЛЗ.
 		\item $\{\overline{a_1}, ..., \overline{a}_n, \overline{0}\}$ -- ЛЗ.
-		\item Пусть $\{\overline{a}_i\}$ -- ЛЗ. Тогда $\{\overline{a}_i, \overline{a}_j\}_{i = 1, j = 1}^{n, m}$ -- ЛЗ.
+		\item Пусть $\{\overline{a}_i\}$ -- ЛЗ. Тогда $\{\overline{a}_i, \overline{b}_j\}_{i = 1, j = 1}^{n, m}$ -- ЛЗ.
 	\end{MyList}
 
 	\begin{Def}
@@ -288,8 +319,9 @@
 	  В силу коммутативности скалярного произведения $G^T = G$.
 	  
 	  \begin{Thm}[Критерий Сильвестра]
+		Если
 		 \[\forall k = 1,..., n \ \ \det(G_k) > 0\]
-		 где $G_n$ -- миноры главной диагонали.
+		 где $G_n$ -- миноры главной диагонали, то $G$ -- положительно определенная матрица. 
 	  \end{Thm}
   
 	  \begin{Prop}
@@ -299,10 +331,10 @@
 	  \begin{Def}
 		  Если базис обладает свойством:
 		  $(e_i, e_j) = \begin{cases}
-		  1, i \neq j\\
+		  0, i \neq j\\
 		  1, i = j
 	  \end{cases} \Rightarrow G = E$,
-	  тогда он называется ортонормированным базисом (ОРБ).
+	  тогда он называется ортонормированным базисом (ОНБ).
 	  \end{Def} 
   
 	  \begin{Thm}[Теорема Грама-Шмидта]
@@ -336,12 +368,12 @@
 		  \input{img/right-oriented.pdf_tex}
 	  \end{figure*}
 	  \begin{Def}
-		  Пусть $\overline{v} = (x_1, x_2, x_3), \overline{w} = (y_1, y_2, y_3)$. Тогда \textbf{векторное произедение} \\
-		  $\overline{v} \times \overline{w} = \left|\begin{array}{cccc}
+		  Пусть $\overline{v} = (x_1, x_2, x_3), \overline{w} = (y_1, y_2, y_3)$. Тогда \textbf{векторное произведение}
+		  $$\overline{v} \times \overline{w} = \left|\begin{array}{cccc}
 			  \overline{i} & \overline{j} & \overline{k} \\ 
 			  x_1 & x_2 & x_3 \\ 
 			  y_1 & y_2 & y_3
-			  \end{array}\right| = \overline{i}(x_2 y_3 - x_3y_2) - \overline{j}(x_3 y_1 - x_1 y_3) + \overline{k}(x_1 y_2 - x_2 y_1)$.
+			  \end{array}\right| = \overline{i}(x_2 y_3 - x_3y_2) - \overline{j}(x_3 y_1 - x_1 y_3) + \overline{k}(x_1 y_2 - x_2 y_1)$$
 	  \end{Def}
 	  
 	  Свойства:
@@ -376,29 +408,36 @@
   
 		  \item $\overline{v} \times \overline{w} \perp \overline{v}, \overline{w}\\
 		  (\overline{v}, \overline{v} \times \overline{w}) = 
-			  (\left|\begin{array}{cccc}
+			\left(\left|\begin{array}{cccc}
 			  \overline{i} & \overline{j} & \overline{k} \\ 
 			  x_1 & x_2 & x_3 \\ 
 			  y_1 & y_2 & y_3
-			  \end{array}\right|, \overline{v}) = 
+			  \end{array}\right|, \overline{v}\right) = 
 			  \left|\begin{array}{cccc}
 				  x_1 &  x_2 & x_3 \\ 
 				  x_1 &  x_2 & x_3 \\ 
 				  y_1 & y_2 & y_3
 				  \end{array}\right| = 0$.
-		  \item $\overline{v} \times \overline{w} = 0 \Leftrightarrow \overline{v} \parallel \overline{w} \\
-		  (\overline{v}, \overline{w}, \overline{v} \times \overline{w}) =
+		  \item Рассмотрим ориентацию тройки $(\overline{v}, \overline{w}, \overline{v} \times \overline{w})$
+		  \begin{align*}
+			(\overline{v}, \overline{w}, \overline{v} \times \overline{w}) &=
 		  \left|\begin{array}{cccc}
 			  x_1 & x_2 & x_3 \\ 
 			  y_1 & y_2 & y_3 \\ 
 			  (x_2 y_3 - x_3 y_2) & (x_3 y_1 - x_1 y_3) & (x_1 y_2 - x_2 y_1)
-			  \end{array}\right| = (x_2 y_3 - x_3 y_2)^2 + (x_3 y_1 - x_1 y_3)^2 + (x_1 y_2 - x_2 y_1)^2 \geqslant 0 \Rightarrow (\overline{v}, \overline{w}, \overline{v} \times \overline{w}) = 0 \Leftrightarrow \frac{x_2}{y_2} = \frac{x_3}{y_3}, \frac{x_3}{y_3} = \frac{x_1}{y_1}, \frac{x_1}{y_1} = \frac{x_2}{y_2} \Rightarrow \frac{x_1}{y_1} = \frac{x_2}{y_2} = \frac{x_3}{y_3}$.
-		  \item $\overline{v} \nparallel \overline{w}  \Rightarrow (\overline{v}, \overline{w}, \overline{v} \times \overline{w})$ -- правая.
+			  \end{array}\right| = \\
+			  &= (x_2 y_3 - x_3 y_2)^2 + (x_3 y_1 - x_1 y_3)^2 + (x_1 y_2 - x_2 y_1)^2 \geqslant 0
+		  \end{align*}
+
+		  Если $(\overline{v}, \overline{w}, \overline{v} \times \overline{w}) = 0$, то $\frac{x^2}{y_2} = \frac{x_3}{y_3}, \ \frac{x_3}{y_3} = \frac{x_1}{y_1}, \ \frac{x_1}{y_1} = \frac{x_2}{y_2} \SO \frac{x_1}{y_1} = \frac{x_2}{y_2} = \frac{x_3}{y_3} \SO \overline{v} \parallel \overline{w}$.
+		  Заметим также, что $(\overline{v}, \overline{w}, \overline{v} \times \overline{w}) = 0 \EQ \overline{v} \times \overline{w} = 0$, поэтому $\overline{v} \times \overline{w} = 0 \EQ \overline{v} \parallel \overline{w}$.
+		  
+		  \item Если же $(\overline{v}, \overline{w}, \overline{v} \times \overline{w}) > 0$, то тройка $(\overline{v}, \overline{w}, \overline{v} \times \overline{w})$ ориентирована так же, как исходная тройка $(\overline{i}, \overline{j}, \overline{k})$.   
 		  \item $\overline{i} \times \overline{j} = \overline{k}$. Получим таблицу умножения: $i \to j, j \to k, k \to i$.
 		  \item $(\overline{a} \times \overline{b})^2 = (x_2 y_3 - y_2 x_3)^2 + (...)^2 + (...)^2 \\
 		  \overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2 = (x_1^2 + x_2^2 + x_3^2)(y_1^2 + y_2^2 + y_3^2) - (x_1y_1 +x_2y_2 +x_3y_3)^2 \\
 		  (\overline{a} \times \overline{b})^2 = \overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2$ -- упражнение.\\
-		  $\overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2 = S^2 = |\overline{a}|^2 |\overline{b}|^2 \sin^2\alpha = |\overline{a}|^2 \overline{b}|^2 (1 - \cos^2 \alpha) = |\overline{a}|^2 |\overline{b}|^2 - (\overline{a}, \overline{b})^2$, т.к. $\cos^2 \alpha = \frac{(a, b)^2}{|a|^2|b|^2}$.\\
+		  $\overline{a}^2 \overline{b}^2 - (\overline{a}, \overline{b})^2 = S^2 = |\overline{a}|^2 |\overline{b}|^2 \sin^2\alpha = |\overline{a}|^2 |\overline{b}|^2 (1 - \cos^2 \alpha) = |\overline{a}|^2 |\overline{b}|^2 - (\overline{a}, \overline{b})^2$, т.к. $\cos^2 \alpha = \frac{(a, b)^2}{|a|^2|b|^2}$.\\
 	  \begin{figure*}[h]
 		  \centering
 		  \def\svgwidth{0.3\columnwidth}
@@ -491,9 +530,9 @@
 			  Знак меняется в зависимости от чётности перестановки в силу свойств определителя.
 		\item Геометрический смысл для трёх некомпланарных.
 
-			Если $\overline{a}$ сходит туда же, куда и $\overline{b} \times \overline{c}$, то $(\overline{a}, \overline{b}, \overline{c})$ -- правая тройка. Если $\overline{a}$ "смотрит" в другую плоскость, то тройка -- левая.
+			Если $\overline{a}$ "смотрит" туда же, куда и $\overline{b} \times \overline{c}$, то $(\overline{a}, \overline{b}, \overline{c})$ -- правая тройка. Если $\overline{a}$ "смотрит" в другую плоскость, то тройка -- левая.
 
-			$\overline{b} \times \overline{c} = S$, тогда $(\overline{a}, \overline{b} \times \overline{c}) = S \underbrace{|\overline{a}| \cos \alpha}_{h} = S\cdot h$.
+			$|\overline{b} \times \overline{c}| = S$, тогда $(\overline{a}, \overline{b} \times \overline{c}) = S \underbrace{|\overline{a}| \cos \alpha}_{h} = S\cdot h$.
 			Таким образом, $(\overline{a}, \overline{b}, \overline{c}) = S\cdot h = V_{\text{пар}}$. 
 
 			Вывод: смешанное произведение равно $\pm V$ параллелепипеда (знак зависит от ориентации).
@@ -515,7 +554,7 @@
 		
 	\begin{proof}
 		И справа, и слева знака равенства линейные выражения. Представим, что есть функция с операцией из трёх аргументов $f(\overline{a}, \overline{b}, \overline{c})$, где каждый из векторов может быть расписан по базису, т.е. $f(\overline{a}, \overline{b}, \overline{c}) = f(a_1 \overline{i} + a_2 \overline{j} +a_3 \overline{k}, b_1 \overline{i} + b_2 \overline{j} + b_3 \overline{k}, c_1 \overline{i} + c_2 \overline{j} + c_3 \overline{k})
-		= a_1 b_1 c_1 f(\overline{i}, \overline{i}, \overline{i}) + a_1 b_1 c_2 f(\overline{i}, \overline{i}, \overline{j}) + ... + a_3 b_3 c_3 f(\overline{i}, \overline{j}, \overline{k})$, в силу линейности мы вынесли числа за скобки и получили все возможные наборы базисных элементов. В качестве первого, второго и третьего аргумента может быть один из трёх векторов: $\overline{i}, \overline{j}, \overline{k}$, т.е. 27 базисных наборов, в данном выражении 27 слагаемых. 
+		= a_1 b_1 c_1 f(\overline{i}, \overline{i}, \overline{i}) + a_1 b_1 c_2 f(\overline{i}, \overline{i}, \overline{j}) + ... + a_3 b_3 c_3 f(\overline{k}, \overline{k}, \overline{k})$, в силу линейности мы вынесли числа за скобки и получили все возможные наборы базисных элементов. В качестве первого, второго и третьего аргумента может быть один из трёх векторов: $\overline{i}, \overline{j}, \overline{k}$, т.е. 27 базисных наборов, в данном выражении 27 слагаемых. 
 
 		Чтобы вычислить значение трилинейной функции на каком-то наборе векторов, достаточно знать координаты этих векторов и значения отображения функции 27 базисных наборов.
 		Тогда для доказательства выражения достаточно проверить, совпадают ли две трилинейные функции на 27 базисных наборах, значит, они совпадают везде.\\
@@ -603,10 +642,10 @@
 		$$Ax + By + C = 0$$ -- общее уравнение прямой на плоскости. \\
 		$(-B, A)$ -- направляющий вектор.\\
 		$(-\frac{C}{A}, 0)$ -- точка.\\
-		$(-B, A)$ -- перпендикуляр к прямой (вектор нормали). 
+		$(A, B)$ -- перпендикуляр к прямой (вектор нормали). 
 	\end{Def}
 
-	$B \neq 0$, тогда $y = -\frac{A}{B} - \frac{C}{B}$, введём обозначения.
+	$B \neq 0$, тогда $y = -\frac{A}{B}x - \frac{C}{B}$, введём обозначения.
 	\begin{Def}
 		$$y = kx + b$$ -- уравнение прямой с угловым коэффициентом, где $k = \tg \alpha$.
 	\end{Def}
@@ -617,7 +656,7 @@
 		$$(\overline{n}, \overline{r} - \overline{r}_0) = 0$$ -- векторное уравнение прямой на плоскости.
 	\end{Def}
 
-	Раскроем скобки: $(\overline{n}, \overline{r}) - (\overline{n} - \overline{n}_0) = 0 \Rightarrow (\overline{n}, \overline{r}) = (\overline{n}, \overline{r}_0)$, обозначим $(\overline{n}, \overline{r}_0) = \alpha$, поскольку векторы $\overline{n}$ и $\overline{r}_0$ зафиксированы.
+	Раскроем скобки: $(\overline{n}, \overline{r}) - (\overline{n}, \overline{r}_0) = 0 \Rightarrow (\overline{n}, \overline{r}) = (\overline{n}, \overline{r}_0)$, обозначим $(\overline{n}, \overline{r}_0) = \alpha$, поскольку векторы $\overline{n}$ и $\overline{r}_0$ зафиксированы.
 
 	\begin{Def}
 		$$(\overline{n}, \overline{r}) = \alpha$$ -- векторное уравнение прямой на плоскости, где $\overline{n}$ -- перпендикуляр к исходной прямой.
@@ -826,7 +865,7 @@
 		\input{img/geometric_equation.pdf_tex}
 	\end{figure*}
 
-	Чтоб решение у этого выражения существовало, необходимо задать, что $\overline{b} \perp \overline{a}$, 
+	Чтобы решение у этого выражения существовало, необходимо задать, что $\overline{b} \perp \overline{a}$, 
 	значит, вектор $\overline{r}$ лежит в плоскости, перпендикулярной к $\overline{b}$. Разделим эту плоскость на две полуплоскости по отношению к $\overline{a}$, 
 	вектор $\overline{r}$ должен лежать так, чтобы (по правилу буравчика) от вектора $\overline{a}$ давать вектор $\overline{b}$. 
 	Каков геометрический смысл векторного произведения? $|\overline{a} \times \overline{r}| = S_{\text{пар}}$, кроме того, $S = |\overline{b}|$. 
@@ -1014,7 +1053,7 @@
  \end{Prop}
 
  \begin{proof}
-	 "Устное". Что произойдёт, если заметить переменные $x, y$ на линейные выражения? Слева будет сумма линейных выражений в квадрате, что есть многочлены второй степени, в совокупности вся сумма -- многочлен, у которого степень не увеличится.
+	 "Устное". Что произойдёт, если заменить переменные $x, y$ на линейные выражения? Слева будет сумма линейных выражений в квадрате, что есть многочлены второй степени, в совокупности вся сумма -- многочлен, у которого степень не увеличится.
 	КВП как многочлен опять перейдёт в многочлен степени не выше двух.
 
 	А может ли эта степень уменьшиться? Если степень уменьшилась до единицы, то КВП, вообще говоря, перестала быть КВП. Если это преобразование было невырожденным, то есть определитель матрицы коэффициентов был не нуль, то у такого преобразование есть обратное.
@@ -1265,8 +1304,8 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 \begin{Def}
 	\[\begin{cases}
-		x' = \cos \alpha x - \sin \alpha y + a_1 \\
-		y' = \sin \alpha x + \cos \alpha y + a_2
+		x' = x \cos \alpha - y \sin \alpha + a_1 \\
+		y' = x \sin \alpha + y \cos \alpha + a_2
 	\end{cases}\]
 	В данном случае
 	\[A = \left(\begin{array}{cc}
@@ -1288,12 +1327,12 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 	Совокупность
 	\begin{align*}
 		\mathcal{O^+} &: \begin{cases}
-			x' = \cos \alpha x - \sin \alpha y + a_1 \\
-			y' = \sin \alpha x + \cos \alpha y + a_2
+			x' = x \cos \alpha - y \sin \alpha + a_1 \\
+			y' = x \sin \alpha + y \cos \alpha + a_2
 		\end{cases} \\
 		\mathcal{O^-} &: \begin{cases}
-			x' = \cos \alpha x - \sin \alpha y + a_1 \\
-			y' = -\sin \alpha x - \cos \alpha y + a_2
+			x' = x \cos \alpha - y \sin \alpha + a_1 \\
+			y' = -x \sin \alpha - y \cos \alpha + a_2
 		\end{cases}
 	\end{align*}
 	называется группой ортогональных преобразований (или группой движений плоскости).
@@ -1334,8 +1373,9 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 	\end{align*}
 	Таким образом:
 	\[a_{12}' = (a_{22} - a_{11}) \cos \alpha \sin \alpha + a_{12} (\cos^2 \alpha - \sin^2 \alpha) = \frac{a_{22} - a_{11}}{2}\sin 2\alpha + a_{12} \cos 2 \alpha\]
-	Откуда
-	\[\ctg 2\alpha = \frac{a_{11} - a_{22}}{2a_{12}} \SO \exists \alpha : a_{12}' = 0\]
+	Когда $a_{12}$ будет равно нулю?
+	\[\frac{a_{22} - a_{11}}{2}\sin 2\alpha + a_{12} \cos 2 \alpha = 0 \EQ \ctg 2\alpha = \frac{a_{11} - a_{22}}{2a_{12}}\] 
+	Всегда существует $\alpha : a_{12}' = 0$, поэтому теорема доказана.  
 \end{proof}
 
 \begin{Def}
@@ -1387,11 +1427,11 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 	0 & 1
 	\end{array}\right)\]
 	Тогда уравнение (\ref{eq:conic_section}) принимает вид:
-	\[\overline{x}'^T \left(\widetilde{\mathcal{O}}^T A \widetilde{\mathcal{O}}\right) \overline{x}' = \left(\begin{array}{c|c}
+	\[\overline{x}'^T \left(\widetilde{\mathcal{O}}^T A \widetilde{\mathcal{O}}\right) \overline{x}' = \overline{x}'^T \left(\begin{array}{c|c}
 	\mathcal{O}^T A_0 \mathcal{O} & 0 \\
 	\hline
 	0 & 1
-	\end{array}\right) = 0\]
+	\end{array}\right) \overline{x}' = 0\]
 	где $A_0$ -- матрица старших коэффициентов.
 	Из такой записи видно, что
 	\begin{align*}
@@ -1514,7 +1554,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 \begin{Thm}[Классификация кривых второго порядка, тип I]
 	Пусть КВП задается уравнением
-	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} + 2a_{23} + a_{33} = 0\]
+	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
 	где $\delta = a_{11} a_{22} \neq 0$. Тогда его можно при помощи ортогональных преобразований свести к одному из следующих уравнений:
 	\begin{MyList}
 		\item $\alpha x^2 + \beta y^2 = \gamma, \gamma > 0$ -- эллипс
@@ -1542,7 +1582,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 	\end{cases}\]
 	Получим, что
 	\[a_{11} x'^2 + a_{22} y'^2 + a_{33}' = 0\]
-	Матрица этого уравнение имеет вид:
+	Матрица этого уравнения имеет вид:
 	\[A = \left(\begin{array}{ccc}
 	a_{11} & 0 & 0 \\ 
 	0 & a_{22} & 0 \\ 
@@ -1551,11 +1591,11 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 	Если $\delta > 0$, т.е. $a_{11}$ и $a_{22}$ одного знака, то нам нужно рассмотреть три случая:
 	\begin{MyList}
-		\item $a_{33}'$ другого знака
+		\item $a_{33}'$ другого знака.
 		Не уменьшая общности, будем считать, что $a_{ii} > 0$. Применим следующее преобразование плоскости:
 		\[\begin{cases}
 			x' = x'' \\
-			y' = \sqrt{a_{11}} y
+			y' = \sqrt{a_{11}} y''
 		\end{cases}\]
 		т.е. сжатие или растяжение вдоль оси $OY$.
 		Тогда уравнение принимает вид
@@ -1606,7 +1646,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 \begin{Thm}[Классификация КВП, тип II]
 	Пусть КВП задается уравнением
-	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} + 2a_{23} + a_{33} = 0\]
+	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
 	где $\delta = a_{11} a_{22} = 0$. Тогда его можно при помощи ортогональных преобразований свести к одному из следующих уравнений:
 	\begin{MyList}
 		\item $y^2 = 2px, p > 0$ -- парабола.
@@ -1649,7 +1689,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 \begin{Thm}[Аффинная классификация кривых второго порядка]
 	Пусть КВП задается уравнением
-	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13} + 2a_{23} + a_{33} = 0\]
+	\[a_{11} x^2 + 2a_{12} xy + a_{22} y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
 	Тогда, посредством аффинных преобразований, его можно свести к одному из следующих:
 	\begin{MyList}
 		\item $x^2 + y^2 = 1$ -- эллипс
@@ -1673,7 +1713,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 \begin{Prop}
 	КВП $\in \R^6 \setminus L^3$, где $L^3$ -- трехмерное пространство. 
 
-	Действительно, КВП задается шестью параметрами, поэтому её можно рассматривать как точку в $\R^3$.
+	Действительно, КВП задается шестью параметрами, поэтому её можно рассматривать как точку в $\R^6$.
 	Однако мы накладывали на КВП ограничение, а именно $a_{11}^2 + a_{12}^2 + a_{22}^2 \neq 0$, что позволяет нам откинуть ту часть шестимерного пространства, где $a_{11}^2 + a_{12}^2 + a_{22}^2 = 0$, 
 	а это некоторое трехмерное подпространство $\R^6$.
 \end{Prop}
@@ -1752,7 +1792,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 	Обычно, для определенности, полагают, что $a_{11}' > a_{22}'$.
 \end{Rem}
 
-\begin{Thm}[Приведение КВП к каноническому виду с помощью инвариантов, тип I]
+\begin{Thm}[Приведение КВП к каноническому виду с помощью инвариантов, тип II]
 	Пусть КВП задано уравнением
 	\[a_{11} x^2 + 2a_{12}xy + a_{22}y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0\]
 	где $\delta = a_{11} a_{22} = 0$. Тогда это уравнение можно свести к каноническому виду:
@@ -1869,7 +1909,7 @@ $$F(x_0, y_0) = \frac{\Delta}{\delta}, \delta \neq 0 $$
 
 Дополним нашу конструкцию:
 продолжим плоскость, секущую цилиндр, до пересечения с плоскостью, проходящей через экватор сферы (это пересечение -- директриса эллипса).
-Возьмем точку произвольную $M$ на эллипсе и опустим из нее перпендикуляр. Как мы недавно выяснили, его длина равна расстоянию до фокуса.
+Возьмем произвольную точку $M$ на эллипсе и опустим из нее перпендикуляр. Как мы недавно выяснили, его длина равна расстоянию до фокуса.
 Таким образом, если $d$ -- расстояние от $M$ до директрисы эллипса, то $\sin \alpha = \frac{r_1}{d} = \const$. С другой стороны,
 $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \frac{\sqrt{a^2 - b^2}}{a} = \frac{c}{a}$, откуда $\frac{c}{a} = \const$ 
 
@@ -1969,7 +2009,7 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 \Subsection{Диаметры КВП}
 
 \begin{Def}
-	Прямая, рна которой лежат середины параллельных хорд, называют \textit{диаметром}.
+	Прямая, на которой лежат середины параллельных хорд, называют \textit{диаметром}.
 \end{Def}
 
 \begin{Rem}
@@ -1992,18 +2032,18 @@ $\sin \alpha = \sqrt{1 - \frac{b^2}{a^2}} = \sqrt{ \frac{a^2 - b^2}{a^2}} = \fra
 Подставим $y$ в первое уравнение и посчитаем коэффициенты при $x$:
 
 \begin{align*}
-	(x')^2 &: &&a_{11} + 2ka_{12} + a_{22} k^2 \\
-	x'y' &: &&2a_{12} b + 2ka_{22} b + a_{13} + 2a_{23} k \\
-	(y')^2 &: &&a_{22} b^2 + 2a_{23} b + a_{33}
+	x^2 &: &&a_{11} + 2ka_{12} + a_{22} k^2 \\
+	x^1 &: &&2a_{12} b + 2ka_{22} b + a_{13} + 2a_{23} k \\
+	x^0 &: &&a_{22} b^2 + 2a_{23} b + a_{33}
 \end{align*}
 
 \[\EQ \begin{cases}
-	x_0 = - \frac{(a_{12} + k a_{22}) b + (a_{13} + a_{23}k}{a_{11} + 2ka_{12} + k^2 a_{22}} \\
-	y_0 = - \frac{a_{13} k + a_{23} k^2}{a_{11} + 2ka_{12} + k^2a_{22}} - \left( \frac{ka_{12} + k^2 a_{22}}{a_{11} + 2ka_{12} + k^2 a_{22}} - 1\right)b \EQ \begin{cases}
-		x_0 = - \frac{a_{12} + ka22}{a_{11} + 2ka_{12} + k^2a_{22}}b - \frac{a_{13} + a_{23}k}{a_{11} + 2ka_{12} + k^2 a_{22}} \\
+	x_0 = - \frac{(a_{12} + k a_{22}) b + (a_{13} + a_{23}k)}{a_{11} + 2ka_{12} + k^2 a_{22}} \\
+	y_0 = - \frac{a_{13} k + a_{23} k^2}{a_{11} + 2ka_{12} + k^2a_{22}} - \left( \frac{ka_{12} + k^2 a_{22}}{a_{11} + 2ka_{12} + k^2 a_{22}} - 1\right)b
+\end{cases} \EQ \begin{cases}
+		x_0 = - \frac{a_{12} + ka_{22}}{a_{11} + 2ka_{12} + k^2a_{22}}b - \frac{a_{13} + a_{23}k}{a_{11} + 2ka_{12} + k^2 a_{22}} \\
 		y_0 = \frac{a_{11} + ka_{12}}{a_{11} + 2ka_{12} + k^2a_{22}}b - \frac{a_{13}k + a_{23} k^2}{a_{11} + 2ka_{12} + k^2 a_{22}}
-	\end{cases}
-\end{cases}\]
+	\end{cases}\]
 
 \begin{Rem}
 	Если прямая задана параметрически:
