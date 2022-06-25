@@ -252,6 +252,44 @@
 		$\{\overline{a}_\alpha\}_{\alpha \in \Lambda}$ -- полный, если $\forall \overline{v} \in V \ \exists \{\alpha_i\}_{i = 1}^n, \{\lambda_i\}_{i = 1}^n \ \overline{v} = \lambda_1 \overline{a}_{\alpha_1} + ... + \lambda_n \overline{a}_{\alpha_n}$.
 	\end{Def}
 
+	\begin{Thm}
+		Если в наборе есть вектор, который представляется как линейная комбинация других векторов этого набора, то такой набор ЛЗ.
+	\end{Thm}
+
+	\begin{proof}
+		Рассмотрим $\{\overline{e}_1, \overline{e}_2, ..., \overline{v}\}$. Пусть 
+		\[\overline{v} = \lambda_1 \overline{e_1} + \lambda_2 \overline{e}_2 + ...\]
+		Тогда 
+		\[-1 \cdot \overline{v} + \lambda_1 \overline{e_1} + \lambda_2 \overline{e}_2 + ... = 0\] 
+		является нетривиальной линейной комбинацией $\SO$ набор ЛЗ. 
+	\end{proof}
+
+	\begin{Thm}
+		Если в полный набор добавить какое-то количество векторов, то этот набор останется полным.
+	\end{Thm}
+
+	\begin{proof}
+		Пусть $\{\overline{a}_\alpha\}_{\alpha \in \Lambda}$ -- полный набор. Тогда $\forall \overline{v} \in V \ \exists \{\alpha_i\}_{i = 1}^n, \{\lambda_i\}_{i = 1}^n \ \overline{v} = \lambda_1 \overline{a}_{\alpha_1} + ... + \lambda_n \overline{a}_{\alpha_n}$.
+		Добавим в этот набор векторы $\overline{v}_1, \overline{v}_2, ...$ из $V$. Но тогда 
+		\[\forall \overline{v} \in V \ \exists \{\alpha_i\}_{i = 1}^n, \{\lambda_i\}_{i = 1}^n \ \overline{v} = \lambda_1 \overline{a}_{\alpha_1} + ... + \lambda_n \overline{a}_{\alpha_n} + 0 \cdot \overline{v}_1 + 0 \cdot \overline{v}_2 + ...\]  
+	\end{proof}
+
+	\begin{Thm}
+		Любое конечноемерное пространство обладает базисом.
+	\end{Thm}
+
+	\begin{proof}
+		Пусть $\{\overline{e}_1, ..., \overline{e}_n\}$ -- полный ЛЗ набор. Т.к. он ЛЗ, то существует нетривиальная линейная комбинация такая, что
+		\[\lambda_1 \overline{e}_1 + ... + \lambda_n \overline{e}_n\]
+		где не все $\lambda_i = 0$. Не умаляя общности, будем считать, что $\lambda_1 \neq 0$. Тогда 
+		\[\overline{e}_1 = -\frac{1}{\lambda_1} \cdot \sum_{i = 2}^n \lambda_i \overline{e}_i\]
+
+		Тогда $\forall \overline{v} \in V$
+		\[\overline{v} = \mu_1 \overline{e}_1 + ... + \mu_n \overline{e}_n = -\frac{1}{\lambda_1}\cdot \sum_{i = 2}^n \lambda_i \overline{e}_i + \mu_2 \overline{e}_2 + ... + \mu_n \overline{e}_n\]  
+		то есть набор $\{\overline{e}_2, ..., \overline{e}_n\}$ -- полный. 
+		Если $\{\overline{e}_2, ..., \overline{e}_n\}$ ЛНЗ, то теорема доказана, иначе будем проделывать описанную выше операцию до тех пор, пока набор не станет ЛНЗ. 
+	\end{proof}
+
 	\begin{Def}
 		$\{\overline{a}_\alpha\}_{\alpha \in \Lambda}$ -- базис $V$, если он полный и ЛНЗ.
 	\end{Def}
@@ -259,6 +297,20 @@
 	\begin{Def}
 		Размерность $V$ ( $\dim V$ ) -- мощность базиса.
 	\end{Def}
+
+	\begin{Thm}
+		Определение размерности корректно, т.е. все базисы $V$ имеют одинаковую мощность. 
+	\end{Thm}
+
+	\begin{proof}
+		Пусть $\{\overline{a}_1, ..., \overline{a}_n\}$ и $\{\overline{b}_1, ..., \overline{b}_m\}$ -- базисы $V$.
+		Поскольку первый набор ЛНЗ, а второй полный, то
+		\[\begin{cases}
+			\overline{a}_1 = \lambda_{11} \overline{b}_1 + ... + \lambda_{1m} \overline{b}_m \\
+			\vdots \\
+			\overline{a}_n = \lambda_{n1} \overline{b}_1 + ... + \lambda_{nm} \overline{b}_m
+		\end{cases}\]
+	\end{proof}
 
 	\begin{Def}
 		Векторное пространство $V$ называется конечномерным, если $\exists$ конечный полный набор.
