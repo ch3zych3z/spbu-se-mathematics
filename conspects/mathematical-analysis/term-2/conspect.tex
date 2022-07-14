@@ -1,0 +1,3935 @@
+\input{preamble.tex}
+
+\begin{document}
+
+\Header
+
+\BeginConspect
+
+\Section{Интегральное исчисление}{}{Илья Дудников}
+
+\Subsection{Неопределенный интеграл}
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, F : \langle A, B\rangle \to \R$ называется первообразной функцией $f$, если $F$ дифференцируема на $\langle A, B\rangle, F'(x) = f(x) \ \forall x \in \langle A, B\rangle$.
+\end{Def}
+
+\begin{Thm}
+    Пусть $f, F, G : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Тогда
+    $G$ -- первообразная $f \EQ \exists c \in \R : F(x) + c = G(x)$.
+\end{Thm}
+
+\begin{proof}
+	$\SO$.  
+    Пусть $H(x) = F(x) - G(x)$. Тогда
+	\[H'(x) = F'(x) - G'(x) = f(x) - f(x) = 0 \EQ H'(x) = 0 \SO H(x) \equiv \const\]
+    $\Leftarrow$. $(F(x) + c)' = (G(x))' \EQ f(x) = F'(x) = G'(x) \SO G$ -- первообразная.  
+\end{proof}
+
+\begin{Def}
+    $f : \langle A, B\rangle \to \R, F$ -- первообразная $f$. Множество функций 
+    $\{F(x) + c, c \in \R\}$ называется неопределенным интегралом $f$.
+    \[\int f(x) \,  = F(x) + c, c \in \R \] 
+\end{Def}
+
+Далее, $f : \langle A, B\rangle \to \R$. 
+
+\begin{MyList}
+	\item Дифференцирование
+	\[\left(\int f(x) \,dx\right)' = f(x), x \in \langle A, B\rangle\]
+
+	\item Арифметические действия: 
+	\[\int f(x) \,dx + \int g(x) \,dx = \left\{F(x) + G(x) + c, c \in \R\right\}\]
+	\[\int f(x) \,dx + H(x) = \left\{F(x) + H(x) + c, c \in \R\right\}\]
+	\[\lambda \int f(x) \,dx = \left\{\lambda F(x) + c, c \in \R\right\}, \lambda \neq 0, \lambda \in \R\]
+\end{MyList}
+
+\begin{Prop}
+	Если функция $f$ непрерывна на $\langle A, B\rangle$, то у неё есть первообразная на~$\langle A, B\rangle$.
+\end{Prop}
+
+\begin{Ex}
+	$f(x) = \begin{cases}
+		1, x \geqslant 0 \\
+		-1, x < 0
+	\end{cases}$. Есть ли первообразная у этой функции?
+\end{Ex}
+
+\begin{Def}
+	$E \subset \R, f : E \to \R$. Если $F$ дифференцируема на $E$ и $F'(x) = f(x)$ на $E$, то $F$ -- первообразная $f$ на множестве $E$.
+\end{Def}
+
+Таблица неопределенных интегралов
+
+\begin{multicols}{2}
+	\begin{MyList}
+		\item $\int a \,dx = ax + c, a \in \R$ 
+		\item $\int x^a \,dx = \frac{x^{a + 1}}{a + 1} + c, a \neq -1$ 
+		\item $\int \frac{1}{x}\,dx = \ln |x| + c$ 
+		\item $\int e^x \,dx = e^x + c$ 
+		\item $\int a^x \,dx = \frac{a^x}{\ln a} + c, a > 0, a \neq 1$ 
+		\item $\int \sin x \,dx = -\cos x + c$
+		\item $\int \cos x \,dx = \sin x + c$ 
+		\item $\int \frac{1}{\cos^2 x}\,dx = \tg x + c$ 
+		\item $\int \frac{1}{\sin^2 x}\,dx = -\ctg x + c$ 
+		\item $\int \frac{\,dx}{x^2 + a^2} = \frac{1}{a} \arctg \frac{x}{a} + c, a \neq 0$
+		\item $\int \frac{\,dx}{\sqrt{a^2 - x^2}} = \arcsin \frac{x}{a} + c, a > 0$
+		\item $\int \frac{\,dx}{x^2 - a^2} = \frac{1}{2a}\ln \left| \frac{x - a}{x + a}\right| + c, a \neq 0$ 
+		\item $\int \frac{\,dx}{\sqrt{x^2 + a}} = \ln \left| x + \sqrt{x^2 + a}\right| + c, a \in \R$   
+	\end{MyList}	
+\end{multicols}
+
+\begin{proof}
+	Дифференцирование
+\end{proof}
+
+\begin{Example}
+	$\int \frac{\sin x}{x} \,dx$ -- неберущийся интеграл.
+	$\Si(x)$ -- интегральный синус (одна из первообразных, закрепленная при $x \to 0+$ ).
+	\[(\Si(x))' = \frac{\sin x}{x}\]
+\end{Example}
+
+\begin{Thm}[Линейность неопределенного интеграла]
+	$f, g : \langle A, B\rangle \to \R$, имеют первообразные на $\langle A, B\rangle$.
+	Тогда $\forall \alpha, \beta \in \R : \alpha, \beta \neq 0$
+	\[\int (\alpha f(x) + \beta g(x))\,dx = \alpha \int f(x) \,dx + \beta \int g(x) \,dx\] 
+\end{Thm}
+
+\begin{proof}
+	Пусть $F$ и $G$ -- первообразные $f$ и $g$ на $\langle A, B\rangle$.
+	Правая часть равенства: $\left\{\alpha F(x) + \beta G(x) + c, c \in \R\right\}$.
+	\[\left(\alpha F(x) + \beta G(x) + c\right)' = \alpha F'(x) + \beta G'(x) = \alpha f(x) + \beta g(x)\]
+\end{proof}
+
+\begin{Thm}[Замена переменной]
+	$f : \langle A, B\rangle \to \R, F$ -- первообразная $f$ на $\langle A, B\rangle$, $\PHI : \langle C, D\rangle \to \langle A, B\rangle$ -- дифференцируемая функция.
+	Тогда 
+	\[\int f(\PHI(x))\PHI'(x) \,dx = F(\PHI(x)) + c\]
+\end{Thm}
+
+\begin{proof}
+	\[\left(F(\PHI(x)) + c\right)' = F'(\PHI(x)) \cdot \PHI'(x) = f(\PHI(x)) \cdot \PHI'(x)\]
+\end{proof}
+
+\begin{Rem}
+	$\PHI'(x) \,dx = d \PHI(x)$. Пусть $y = \PHI (x)$ 
+	\[\int f(y) dy = F(y) + c = F(\PHI(x)) + c\] 
+\end{Rem}
+
+\begin{Example}
+	$\int \frac{\ln x}{x}\,dx = \int \ln x \cdot \frac{1}{x}\,dx$. Пусть $y = \ln x \SO dy = \frac{1}{x} \,dx$ 
+	\[\SO \int \frac{\ln x}{x}\,dx = \int y \,dy = \frac{y^2}{2} + c = \frac{\ln^2 x}{2} + c\]
+\end{Example}
+
+\begin{Cons}
+	Пусть в условиях теоремы $\PHI$ имеет обратную функцию $\psi : \langle A, B\rangle \to \langle C, D\rangle$. Если $G(x)$ -- первообразная функции $(f \circ \PHI(x)) \cdot \PHI'(x)$, то \[\int f(x) \,dx = G(\psi (x)) + c\]
+\end{Cons}
+
+\begin{proof}
+	Пусть $F$ -- первообразная $f$ на $\langle A, B\rangle$.
+	$F(\PHI(x))$ -- первообразная $f(\PHI(y)) \PHI'(y)$~(по теореме).
+	Рассмотрим $G(x) - F(\PHI(x))$ -- постоянная (т.к. производная равна нулю).
+	$y = \PHI(x) \EQ x = \psi(y)$. Тогда
+	\[G(\psi(y)) - F(y) = \const \SO \int f(y) \,dy = G(\psi(y)) + c \] 
+\end{proof}
+
+\begin{Example}
+	$\int \frac{dx}{1 + \sqrt{x}}$. Пусть $t = \sqrt{x}, t > 0 \EQ t^2 = x \SO dx = dt^2 = 2t \,dt$. Тогда
+	\[\int \frac{dx}{1 + \sqrt{x}} = \int \frac{2t \,dt}{1 + t} = \int \left( \frac{2t + 2}{t + 1} - \frac{2}{t + 1}\right) \,dt = \int \left(2 - \frac{2}{t + 1}\right) \,dt = 2\int \,dt - 2\int \frac{dt}{t + 1} =\] 
+	\[= 2t - \int \frac{d(t + 1)}{t + 1} = 2t - 2\ln |t + 1| + c = 2\sqrt{x} - 2\ln (\sqrt{x} + 1) + c\]
+\end{Example}
+
+\begin{Example}
+	$\int \sin x \cos x \,dx = \int \sin x \,d\sin x = \frac{\sin^2 x }{2} + c$. \\
+	Иначе: $\int \sin x \cos x \,dx = -\int \cos x \,d\cos x = - \frac{\cos^2 x}{2} + c$. \\
+	Иначе: $\int \sin x \cos x \,dx = \frac{1}{2} \int \sin 2x \,dx = \frac{1}{2} \cdot \frac{1}{2} \int \sin 2x \,d(2x) = \frac{-\cos 2x}{4} + c$. \\
+	Мораль сей басни такова: константы разные, а не $ \frac{\sin^2 x}{2} = - \frac{\cos^2 x}{2} = - \frac{\cos 2x}{4}$. 
+\end{Example}
+
+\begin{Thm}[Формула интегрирования по частям]
+	$f, g \in C^1 \langle A, B\rangle$. Тогда 
+	\[\int f(x)g'(x) \,dx = f(x) g(x) - \int f'(x) g(x) \,dx\] 
+\end{Thm}
+
+\begin{proof}
+	$H$ -- первообразная $g \cdot f'$. Тогда 
+	\[(f(x) g(x) - H(x))' = f'(x) g(x) + f(x)g'(x) - H'(x) = f(x)g'(x)\]
+\end{proof}
+
+\begin{Rem}
+	$\int u \,dv = uv - \int v \,du$
+\end{Rem}
+
+\begin{Example}
+	$\int x e^x \,dx$. Пусть $u = x, u' = 1, v' = e^x, v = e^x$
+	\[\int x e^x \,dx = xe^x - \int 1 \cdot e^x \,dx = x e^x - e^x + c\] 
+\end{Example}
+
+\begin{Example}
+	$\int \ln x \,dx$. Пусть $u = \ln x, u' = \frac{1}{x}, v' = 1, v = x$.
+	\[\int \ln x \,dx = x \ln x - \int \frac{1}{x} \cdot x \,dx = x \ln x - x + c\]  
+\end{Example}
+
+\begin{Ex}
+	$\int e^x \cdot \sin x \,dx$
+	Пусть $f = \sin x, g = e^x$. Тогда
+	\[\int f \, dg = fg - \int g \, df \EQ \int e^x \sin x = e^x\sin x - \int e^x \cos x\]
+	Пусть теперь $f = \cos x, g = e^x$. Тогда
+	\[\int f \, dg = fg - \int g \, df \EQ \int e^x \cos x = e^x \cos x + \int e^x \sin x\]
+	Отсюда 
+	\[\int e^x \sin x = e^x\sin x - e^x\cos x - \int e^x \sin x \EQ \int e^x\sin x = \frac{e^x}{2}(\sin x - \cos x)\]
+\end{Ex}
+
+\begin{Example}
+	Пусть $a \in \R, a \neq 0, I_n = \int \frac{dx}{(x^2 + a)^n}, n \in \N$. Выразим интеграл $I_{n + 1}$ через $I_n$ для произвольного натурального $n$.
+	
+	Обозначим $f(x) = \frac{1}{(x^2 + a)^n}$ и $g(x) = x$. Тогда
+	\[df(x) = \left(\frac{1}{(x^2 + a)^n}\right)' \, dx = -\frac{2nx}{(x^2 + a)^{n + 1}} \, dx, dg(x) = dx\]
+	По формуле интегрирования по частям:
+	\begin{align*}
+		I_n &= \frac{x}{(x^2 + a)^n} + 2n \int \frac{x^2}{(x^2 + a)^{n + 1}} \, dx = \frac{x}{(x^2 + a)^n} + 2n \int \frac{x^2 + a - a}{(x^2 + a)^{n + 1}} \, dx \\
+		&= \frac{x}{(x^2 + a)^n} + 2n \int \frac{dx}{(x^2 + a)^n} - 2na \int \frac{dx}{(x^2 + a)^{n + 1}} = \frac{x}{(x^2 + a)^n} + 2n I_n - 2na I_{n + 1} \\
+	\end{align*}
+	Откуда
+	\[2na I_{n + 1} = (2n - 1)I_n + \frac{x}{(x^2 + a)^n}\]
+\end{Example} 
+
+\begin{Prop}
+	Любая рациональная функция имеет элементарную первообразную.
+\end{Prop}
+
+Рассмотрим простейшие дроби:
+
+\begin{MyList}
+	\item $\frac{a}{(x + p)^n}, n \in \N, a, p \in \R$ 
+	\item $ \frac{ax + b}{(x^2 + px + q)^n}$ 
+\end{MyList}
+
+Интегралы от простейших дробей первого рода вычисляются по таблице. Для простейших дробей второго рода используется следующий алгоритм:
+
+\begin{MyList}
+	\item Если $p \neq 0$, то выделим полный квадрат и выполним замену $y = x + \frac{p}{2}$. Если $p = 0$, тогда
+	\[\int \frac{ax + b}{(x^2 + px + q)^n} = a\int \frac{x \,dx}{(x^2 + q)^n} + b \int \frac{dx}{(x^2 + q)^n}\]
+	\item Интеграл $\int \frac{x \, dx}{(x^2 + q)^n}$ можно вычислить с помощью замены $y = x^2 + q$, т.к. $dy = 2x \, dx$.
+	\item Применяя к интегралу $I_n = \int \frac{dx}{(x^2 + q)^n}$ формулу понижения $n - 1$ раз сведем его к интегралу $I_1$, который является табличным.
+\end{MyList}
+
+\begin{Example}[12 и 13 из таблицы]
+	\[\int \frac{dx}{x^2 - 4} = \int \left( \frac{\frac{1}{4}}{x - 2} + \frac{-\frac{1}{4}}{x + 2}\right) \,dx = \frac{1}{4} \left(\ln |x - 2| - \ln |x + 2|\right) + c\]	
+\end{Example}
+
+\begin{Example}
+	$\int \frac{dx}{\sqrt{x^2 + 1}}$. Пусть $x = \sh t, dx = \ch t \,dt $. Тогда
+	\[\int \frac{\ch t \,dt}{\sqrt{1 + \sh^2 t}} = \int \frac{\ch t}{\ch t} \,dt = \int \,dt = t + c\]   
+\end{Example}
+
+\begin{Ex}
+	Найди формулу для $(\sh t)^{-1}$ 
+\end{Ex}
+
+Неберущиеся интегралы:
+
+\begin{multicols}{2}
+	\begin{MyItemize}
+		\item $\int \frac{\sin x}{x} \,dx$ 
+		\item $\int \frac{\cos x}{x} \,dx$ 
+		\item $\int \frac{\,dx}{\ln x}$ 
+		\item $\int \frac{e^x}{x} \,dx$ 
+		\item $\int \sin x^2 \,dx$ 
+		\item $\int \cos x^2 \,dx$ 
+		\item $\int e^{-x^2}\,dx$ 
+	\end{MyItemize}
+\end{multicols}
+
+\Subsection{Определенный интеграл Римана}
+
+\begin{Def}
+	$[a, b], a < b$. Набор точек $\tau = \{x_k\}_{k = 0}^n : x_0 = a < x_1 < x_2 < ... < x_n = b$ -- разбиение (дробление) отрезка $[a, b]$, $\Delta x_k = x_{k + 1} - x_k$ -- длина отрезка $[x_k, x_{k + 1}]$ . 
+	$\lambda = \lambda_\tau  = \max_{k \in [0, n - 1]} \Delta x_k$ -- ранг дробления (мелкость), $\xi = \{\xi_k\}_{k = 0}^{n - 1} : \xi_k \in [x_k, x_{k + 1}]$ -- оснащение дробления $\tau$.
+	Пара $(\tau, \xi)$ называется оснащенным дроблением.  
+\end{Def}
+
+\begin{Def}
+	$f : [a, b] \to \R, \sigma_\tau = \sum_{k = 0}^{n - 1} f(\xi_k) \Delta x_k$ -- суммы Римана (интегральные суммы). 
+\end{Def}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.5\columnwidth}
+	\input{img/riemann_sum.pdf_tex}
+\end{figure*}
+
+\begin{Def}
+	$f : [a, b] \to \R$. Число $I \in \R$ называют пределом интегральных сумм при ранге $\to 0 :$
+	\[I = \lim_{\lambda_\tau \to 0} \sigma_\tau (f, \xi) \quad (I = \lim_{\lambda \to 0} \sigma)\]
+	если $\forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta$
+	\[|\sigma_\tau (f, \xi) - I| < \varepsilon\] 
+\end{Def}
+
+\begin{Rem}
+	Последовательность оснащенных дроблений $\{(\tau^{(i)}, \xi^{(i)})\}_{i = 1}^\infty : \lambda^{(i)} \to 0$.
+	$\forall \{\tau^{(i)}, \xi^{(i)}\} : \lambda^{(i)} \to 0 \ \sigma_{\tau^{(i)}}(f, \xi^{(i)}) \to I$.  
+\end{Rem}
+
+\begin{Def}[Интеграл Римана]
+	$f : [a, b] \to \R$. Если $\exists \lim_{\lambda \to 0} \sigma = I $, то $f$ называется интегрируемой по Риману на $[a, b]$, а число $I$ называется интегралом $f$ по $[a, b]$. \\
+	$R[a, b]$ -- класс функций, интегрируемых по Риману на $[a, b]$.
+	\[\int_a^b f(x)\,dx\]
+\end{Def}
+
+\Subsection{Суммы Дарбу}
+
+\begin{Def}
+	$f : [a, b] \to \R, \tau = \{x_k\}_{k = 0}^n$ -- дробление $[a, b]$.
+	\[M_k = \displaystyle{\sup_{x \in [x_k, x_{k + 1}]}} f(x), m_k = \displaystyle{\inf_{x \in [x_k, x_{k + 1}]}}f(x)\] 
+	Суммы
+	\[S = S_\tau (f) = \displaystyle{\sum_{k = 0}^{n - 1}} M_k \Delta x_k, s = s_\tau (f) = \displaystyle{\sum_{k = 0}^{n - 1}} m_k \Delta x_k\]
+	называются верхними и нижними интегральными суммами.
+\end{Def}
+
+\begin{Rem}
+	Если $f$ -- непрерывна на $[a, b]$, то это две частные суммы из сумм Римана.
+\end{Rem}
+
+\begin{Rem}
+	$f$ ограничена сверху $\EQ$ $S$ ограничена.
+\end{Rem}
+
+Свойства сумм Дарбу:
+
+\begin{MyList}
+	\item $S_\tau (f) = \displaystyle{\sup_\xi \sigma_\tau (f, \xi)}, s_\tau = \displaystyle{\inf_\xi \sigma_\tau (f, \xi)}$ 
+	\begin{proof}
+		$M_k \geqslant f(\xi_k), k = 0, ..., n - 1$. Тогда $M_k \Delta x_k \geqslant f(\xi_k) \Delta x_k \EQ \sum_{k = 0}^{n - 1} M_k \Delta x_k \geqslant \sum_{k = 0}^{n - 1} f(\xi_k) \Delta x_k \SO S_\tau (f) \geqslant \sigma_\tau $, т.е. $S_\tau$ -- верхняя граница. Докажем, что она является точной верхней границей. \\
+		Если $f$ ограничена на $[a, b]$. Фиксируем $\varepsilon > 0$. На каждом кусочке разбиения $\exists \xi_k^* \in [x_k, x_{k + 1}] : f(\xi_k^*) > M_k - \frac{\varepsilon}{b - a}$.
+		Тогда $\sigma^* = \sum_{k = 0}^{n - 1} f(\xi_k^*) \Delta x_k > S - \frac{\varepsilon}{b - a}\sum_{k = 0}^{n - 1} \Delta x_k = S - \varepsilon$. \\
+		Если $f$ не ограничена на $[a, b] \SO$ не ограничена на каком-то кусочке $[x_l, x_{l + 1}]$. 
+		Фиксируем $A > 0$ и выберем $\xi_k^*$ при $k \neq l$ произвольно, а для $\xi_l^*$
+		\[f(\xi_l^*) > \frac{1}{\Delta x_l}\left(A - \displaystyle{\sum_{k \neq l} f(\xi_k^*) \Delta x_k}\right)\]
+
+		Тогда 
+		\[\sigma^* = \displaystyle{\sum_{k = 0}^{n - 1} f(\xi_k^*) \Delta x_k} > A \SO \sup_\xi \sigma = +\infty = S\] 
+	\end{proof}
+
+	\item При добавлении новых точек дробления верхняя сумма не увеличится, а нижняя не уменьшится.
+	\begin{proof}
+		Докажем для верхних сумм при добавлении одной точки.
+		$\tau : \{x_k\}_{k = 0}^{n - 1}$. Добавим точку $c$ в $[x_l, x_{l + 1}] - T$ -- новое дробление. \\
+		\[S_\tau = \sum_{k = 0}^{l - 1} M_k \Delta x_k + M_l \Delta x_l + \sum_{k = l + 1}^{n - 1} M_k \Delta x_k\]
+		\[S_T = \sum_{k = 0}^{l - 1} M_k \Delta x_k + (c - x_l) \cdot M' + (x_{l + 1} - c) M'' + \sum_{k = l + 1}^{n - 1} M_k \Delta x_k\]
+		где $M' = \sup_{x \in [x_l, c]} f, M'' = \sup_{x \in [c, x_{l + 1}]} f$. $M_l \geqslant M', M_l \geqslant M''$, т.к. $[x_l, c] \subset [x_l, x_{l + 1}], [c, x_{l + 1}] \subset [x_l, x_{l + 1}]$.
+
+		Рассмотрим $S_\tau - S_T = M_l \Delta x_l - (c - x_l) M' - (x_{l + 1} - c) M'' \geqslant M_l (x_{l + 1} - x_l - c + x_l - x_{l + 1} + c) = 0$.
+		
+		Добавить больше точек можно по индукции.
+	\end{proof}
+
+	\item Каждая нижняя сумма Дарбу не превосходит каждой верхней.
+	\begin{proof}
+		$\tau_1, \tau_2$ -- разные дробления $[a, b]$. Докажем, что $s_{\tau_1} \leqslant S_{\tau_2}$. Возьмем $\tau = \tau_1 \cup \tau_2$. Тогда $s_{\tau_1} \leqslant s_\tau \leqslant S_\tau \leqslant S_{\tau_2}$ (по свойству 2).
+	\end{proof}
+\end{MyList}
+
+\begin{Prop}
+	$f \in R[a, b] \SO f$ ограничена на $[a, b]$.
+\end{Prop}
+
+\begin{proof}
+	Пусть $f$ не ограничена на $[a, b]$ сверху. Тогда $\forall \tau \SO \sup_\xi \sigma_\tau (f, \xi) = +\infty$. Тогда 
+	$\forall \tau$ и числа $I \ \exists$ оснащение $\xi' : \sigma_\tau (\xi') > I + 1 \SO$ никакое число $I$ не является пределом интегральных сумм.   
+\end{proof}
+
+\begin{Def}
+	$f : [a, b] \to \R$. Возьмем
+	\[I^* = \inf_\tau S_\tau \qquad I_* = \sup_\tau s_\tau\]
+	где $I^*$ -- верхний интеграл Дарбу, $I_*$ -- нижний интеграл Дарбу.
+\end{Def}
+
+\begin{Rem}
+	$I^* \geqslant I_*$.
+\end{Rem}
+
+\begin{Rem}
+	$f$ ограничена сверху $\EQ I^*$ ограничена. 
+\end{Rem}
+
+\Subsection{Критерии интегрируемости функции}
+
+\begin{Thm}[Критерий интегрируемости функции]
+	Пусть $f : [a, b] \to \R$. Тогда $f \in R[a, b] \EQ S_\tau (f) - s_\tau (f) \xrightarrow[\lambda \to 0]{} 0$, т.е.
+	\[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta \ S_\tau(f) - s_\tau(f) < \varepsilon\] 
+\end{Thm}
+
+\begin{proof}
+	$\SO$. Пусть $f \in R[a, b]$. Обозначим $I = \int_a^b f$. Возьмем $\varepsilon > 0$, подберем $\delta > 0 :$
+	\[I - \frac{\varepsilon}{3} < \sigma_\tau (f, \xi) < I + \frac{\varepsilon}{3}\]
+	Переходя к супремуму и инфимуму, получим
+	\[I - \frac{\varepsilon}{3} \leqslant s_\tau \leqslant S_\tau \leqslant I + \frac{\varepsilon}{3}\]
+	откуда $S_\tau - s_\tau \leqslant I + \frac{\varepsilon}{3} - I + \frac{\varepsilon}{3} = \frac{2\varepsilon}{3} < \varepsilon$.
+
+	$\Leftarrow$. Пусть $S_\tau - s_\tau \xrightarrow[\lambda \to 0]{} 0 \SO$ все суммы Дарбу конечны.
+	\[s_\tau \leqslant I_* \leqslant I^* \leqslant S_\tau \SO 0 \leqslant I^* - I_* \leqslant S_\tau - s_\tau\]
+	$\SO I^* = I_*$ (т.к. это числа). Обозначим $I = I^* = I_*$.
+	\[s_\tau \leqslant I \leqslant S_\tau, s_\tau \leqslant \sigma_\tau \leqslant S_\tau \SO |I - \sigma_\tau| \leqslant S_\tau - s_\tau\]
+	$\SO \forall \varepsilon > 0 \ \exists \delta > 0 : \forall \tau : \lambda_\tau < \delta \ |I - \sigma_\tau| < \varepsilon$.   
+\end{proof}
+
+\begin{Rem}
+	Если $f \in R[a, b] \SO s_\tau \leqslant \int_a^b f \leqslant S_\tau$. 
+\end{Rem}
+
+\begin{Cons}
+	$f \in R[a, b] \SO \lim_{\lambda \to 0} S_\tau = \lim_{\lambda \to 0} s_\tau = \int_a^b f$ 
+\end{Cons}
+
+\begin{proof}
+	$0 \leqslant S_\tau - \int_a^b f \leqslant S_\tau - s_\tau$, $0 \leqslant \int_a^b f - s_\tau \leqslant S_\tau - s_\tau$.
+\end{proof}
+
+\begin{Rem}
+	$\lim_{\lambda \to 0} S_\tau = I^*, \lim_{\lambda \to 0} s_\tau = I_*$. 
+\end{Rem}
+
+\begin{Prop}[Критерий Дарбу интегрируемости функции по Риману]
+	$f \in R[a, b] \EQ f$ ограничена на $[a, b]$ и $I_* = I^*$. 
+\end{Prop}
+
+\begin{Prop}[Критерий Римана интегрируемости]
+	$f \in R[a, b] \EQ \forall \varepsilon > 0 \ \exists \tau \ S_\tau(f) - s_\tau (f) < \varepsilon$. 
+\end{Prop}
+
+\begin{Def}
+	$f : D \to \R$. Величина
+	\[\omega (f)_D = \sup_{x, y \in D} (f(x) - f(y))\]
+	называется колебанием $f$ на $D$. Из определений граней функции ясно, что
+	\[\omega (f)_D = \sup_{x \in D} f(x) - \inf_{y \in D} f(y)\]
+
+	Если задано $\tau$ отрезка $[a, b]$, то 
+	\[\omega_k (f) = M_k - m_k\]
+\end{Def}
+
+Тогда теорему можно записать:
+\[f \in R[a, b] \EQ \lim_{\lambda \to 0} \sum_{k = 0}^{n - 1} \omega_k (f) \Delta x_k = 0\]
+
+\begin{Thm}[Интегрируемость непрерывной функции]
+	$f : [a, b] \to \R, f \in C[a, b] \SO f \in R[a, b]$.
+\end{Thm}
+
+\begin{proof}
+	По теореме Кантора $f \in C[a, b] \SO f$ равномерна непрерывна на $[a, b]$.
+	\[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall t', t'' \in [a, b] : |t' - t''| < \delta \ |f(t') - f(t'')| < \frac{\varepsilon}{b - a}\]
+	По теореме Вейерштрасса $f$ достигает наибольшего и наименьшего значения на любом отрезке, содержащемся в $[a, b]$.
+	Поэтому колебание $f$ на всяком отрезке, длина которого меньше $\delta$, будет меньше $\frac{\varepsilon}{b - a}$. Значит, $\forall \tau : \lambda_\tau < \delta$ 
+	\[\sum_{k = 0}^{n - 1} \omega_k(f) \Delta x_k < \sum_{k = 0}^{n - 1} \frac{\varepsilon}{b - a} \Delta x_k\]
+\end{proof}
+
+\begin{Thm}[Интегрируемость монотонной функции]
+	$f$ монотонна на $[a, b] \SO f \in R[a, b]$. 
+\end{Thm}
+
+\begin{proof}
+	Пусть $f$ монотонно возрастает на $[a, b]$. Если $f(a) = f(b) \SO f$ постоянна $\SO f \in C[a, b] \SO f \in R[a, b]$. \\
+	Если $f(a) < f(b)$. $\forall \varepsilon > 0$ возьмем $\delta = \frac{\varepsilon}{f(b) - f(a)}$. Возьмем произвольное $\tau : \lambda_\tau < \delta$ на $[x_k, x_{k + 1}]$. В силу монотонности $f$ верно $\omega_k(f) = f(x_{k + 1}) - f(x_k)$.
+	\[\sum_{k = 0}^{n - 1} \omega_k(f) \Delta_k = \sum_{k = 0}^{n - 1} (f(x_{k + 1}) - f(x_k)) \Delta x_k < \sum_{k = 0}^n (f(x_{k + 1}) - f(x_k)) \cdot \frac{\varepsilon}{f(b) - f(a)} = \varepsilon\]   
+\end{proof}
+
+\begin{Rem}
+	$f \in R[a, b]$. Если изменить значение $f$ в конечном числе точек, то интегрируемость не нарушится и интеграл не изменится.
+\end{Rem}
+
+\begin{proof}
+	$\widetilde{f}$ -- отличается от $f$ в точках $t_1, t_2, ..., t_m$.
+	$|f|$ ограничена на $[a, b] \SO |\widetilde{f}|$ ограничена.
+	$|f| \leqslant A$, возьмем $\widetilde{A} = \max \{A, |\widetilde{f}(t_1)|, |\widetilde{f}(t_2)|, ..., |\widetilde{f}(t_m)|\}$.
+	В интегральных суммах для $f$ и $\widetilde{f}$ отличаются не более $2m$ слагаемых, поэтому
+	\[|\sigma_\tau(f, \xi) - \sigma_\tau(\widetilde{f}, \xi)| \leqslant 2m(A + \widetilde{A}) \lambda_\tau \xrightarrow[\lambda_\tau]{}0\]  
+	Поэтому предел $\sigma_\tau (\widetilde{f}, \xi)$ существует и равен пределу $\sigma_\tau (f, \xi)$.  
+\end{proof}
+
+\begin{Thm}[Интегрируемость функции и её сужения]
+	\begin{MyList}
+		\item $f \in R[a, b], [\alpha, \beta] \subset [a, b] \SO f \in R[\alpha, \beta]$
+		\item Если $a < c < b, f : [a, b] \to \R$ и $f \in R[a, c], f \in R[c, b]$, то $f \in R[a, b]$.   
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Возьмем $\varepsilon > 0$, подберем $\delta > 0$ из критерия интегрируемости на $[a, b]$. \\
+		$\tau_0$ -- дробление $[\alpha, \beta], \lambda_{\tau_0} < \delta$. Добавим точек до дробления $[a, b]$. Получим $\tau (\lambda_\tau < \delta)$.
+		\[S_{\tau_0} - s_{\tau_0} = \sum_{k = l}^{m - 1} \omega_k (f) \Delta x_k \leqslant \sum_{k = 0}^{n - 1} \omega_k (f) \Delta x_k < \varepsilon\]
+
+		\item Пусть $f$ не постоянна, т.е. $\omega(f)_{[a, b]} > 0$.
+		Возьмем $\varepsilon > 0$, подберем $\delta_1, \delta_2 : \forall \tau_1 : \lambda_{\tau_1} < \delta_1, \forall \tau_2 : \lambda_{\tau_2} < \delta_2$
+		\[S_{\tau_1} - s_{\tau_1} < \frac{\varepsilon}{3}, S_{\tau_2} - s_{\tau_2} < \frac{\varepsilon}{3}\]
+		$\delta = \min \{\delta_1, \delta_2, \frac{\varepsilon}{3 \omega}\}$. Пусть $\tau$ -- дробление $[a, b], \lambda_\tau < \delta$.
+		Точка $c \in [x_l, x_{l + 1})$. Обозначим $\tau' = \tau \cup \{c\}, \tau_1 = \tau' \cap [a, c], \tau_2 = \tau' \cap [c, b]$
+		\[S_\tau - s_\tau \leqslant S_{\tau_1} - s_{\tau_1} + S_{\tau_2} - s_{\tau_1} + \omega_l (f) \delta < \varepsilon\]   
+	\end{MyList}
+\end{proof}
+
+\gdef\AuthorName{Ксения Кузьмина}
+
+\begin{Def}
+	Функция $f:[a,b] \to R$ называется кусочно-непрерывной на $[a,b],$ если множество её точек разрыв пусто или конечно (и все разрывы первого рода)
+\end{Def}
+
+\begin{Cons}
+	f -- кусочно-непрерывная на $[a, b] \Rightarrow f \in R[a,b]$
+\end{Cons}
+
+\begin{proof}
+	Возьмём точки $a_1, a_2, ..., a_m$ (может $a_1 = a$ и/или $a_m$ = b). Рассмотрим отрезки $[a_k, a_{k+1}]$. f непрерывна на $(a_k, a_{k+1})$  и $\exists$ 
+	конечные $\displaystyle \lim_{x \to a_k+} f(x)$ и $\displaystyle \lim_{x \to a_{k+1}-} f(x) \Rightarrow f \in R[a_k, a_{k+1}] \Rightarrow$  по теореме о сужении $f \in R[a,b]$
+\end{proof}
+
+\begin{Def} 
+	Множество X называется не более, чем счетным, если оно конечно или счетно. 
+\end{Def} 
+
+\begin{Def} 
+	$E \subset \R$ -- имеет нулевую меру, если для $\forall \varepsilon > 0$ множество E можно заключить в не более, чем счётное объединение интервалов, суммарная длина
+	которых < $\displaystyle  \varepsilon.\\$ \[ \left(\lim_{m \to \infty} \sum_{i=1}^m (b_i-a_i)\right)\]
+\end{Def} 
+
+\begin{Example}
+	Множество из одной точки.
+\end{Example}
+
+\begin{Ex}
+	Чему равна мера $\N$?
+\end{Ex}
+
+\begin{Thm}[Критерий Лебега интегрируемости по Риману] 
+	Пусть $f:[a, b] \to R. \\ f \in R[a,b] \Leftrightarrow f$ ограничена и множество точек разрыва имеет нулевую меру.
+\end{Thm}
+
+\begin{Thm}[Арифметические действия над интегрируемыми функциями] 
+	$f, g \in \R [a,b]$. Тогда
+	\begin{enumerate}
+		\item $f+g \in R[a,b]$
+		\item $f \cdot g \in R[a,b]$
+		\item $\alpha f \in R[a,b], \alpha \in \R$
+		\item $|f| \in R[a,b]$
+		\item Если $\underset{[a,b]}{\inf} |g| > 0,$ то $\displaystyle \frac{f}{g} \in R[a,b]$
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	\begin{enumerate}
+		\item $D \subset [a,b].$ $x, y \in D \\ |(f+g)(x) - (f+g)(y)| = |f(x)+g(y) - f(y) - g(y)| \leqslant |f(x)-f(y)|+|g(x)-g(y)| \leqslant \omega_D(f)+\omega_D(g)\\
+		\omega_D(f+g) \leqslant \omega_D(f)+\omega_D(g)\\ \underset {[x_k, x_{k+1}]}{\omega} (f+g) \leqslant \underset{[x_k, x_{k+1}]}{\omega} (f) + \underset{[x_k, x_{k+1}]}{\omega} (g)\\
+		\omega_k(f+g) \leqslant \omega_k f + \omega_k g$ 
+		\[0 \leqslant \sum_{k=0}^{n-1} \omega_k(f+g) \delta x_k \leqslant \sum_{k=0}^{n-1} \omega_k f \Delta x_k+ \sum_{k=0}^{n-1} \omega_k g \Delta x_k (\to 0, \lambda \to 0)\]\\
+		$\Rightarrow f+g \in R[a,b]$
+		\item $|fg(x) - fg(y)| \leqslant |f(x)g(x)-f(y)g(x)+f(y)g(x)-f(y)g(y)| \leqslant |g(x)||f(x)-f(y)|+ \\ +|f(y)||g(x)-g(y)| \leqslant A|f(x)-f(y)|+ B|g(x)-g(y)| \ \ (\text{т.к. } R[a,b] \Rightarrow \text{ограничена на } [a,b])$
+		\item $g(x) = \alpha$
+		\item $||f(x)|-|f(y)|| \leqslant |f(x) - f(y)| \\ |\omega_k|f|| \leqslant |\omega_k f|$
+		\item $\displaystyle \frac{f}{g} = f \cdot \frac{1}{g}.$ Докажем, что $\displaystyle \frac{1}{g} \in R[a,b]$.\\ $0<m=\underset{[a,b]}{\inf}|g|$ 
+		\[\left|\frac{1}{g(x)} - \frac{1}{g(y)}\right| = \left|\frac{g(x)-g(y)}{g(x)g(y)}\right| \leqslant \frac{g(x)-g(y)}{m^2} \EQ \omega_k \left(\frac{1}{g}\right) \leqslant \frac{\omega_k(g)}{m^2}\]
+	\end{enumerate}
+\end{proof}
+
+\begin{Example}
+	1. $\displaystyle \int_{0}^{1} x^2 \,dx\\ x^2 \in C[a,b] \Rightarrow x^2 \in R[a,b].$\\
+	Рассмотрим какую-нибудь интегральную сумму: $x_k = \frac{k}{n} = \xi_k$\\
+	\[\lim_{n \to \infty} \sum_{k=0}^{n-1}f(\xi_k) \Delta x_k = \lim_{n \to \infty} \sum_{k=0}^{n-1} \left(\frac{k}{n}\right)^2 \cdot \frac{1}{n} = \lim \frac{1}{n^3}  \sum_{k=0}^{n-1} k^2 = \lim \frac{1}{n^3} \cdot \frac{(n-1)n(2n-1)}{6} = \frac{1}{3}\]
+
+	2. $\int_{0}^{1} e^xdx -$ упражнение\\
+
+	3. $f(x) = 
+	\begin{cases}
+		1, x \in \Q \\
+		0, x \notin \Q
+	\end{cases}$, $D \notin R[a,b], a<b$
+
+	\begin{proof}
+		\[\sum_{k=0}^{n-1} \omega_k(D)\Delta x_k = \sum_{k=0}^{n-1} \Delta x_k = b-a \underset{\lambda \to 0}{\nrightarrow} 0\]
+	\end{proof}
+
+	4. $ r(x)
+	\begin{cases}
+		\frac{1}{q} , x = \frac{p}{q} \in \Q \text{, дробь несократима} \\
+		0, x \notin \Q
+	\end{cases}$\\
+	$r(x)$ непрерывна в каждой точке, разрывна в каждой рациональной.\\
+	$r(x) \in R[0,1]$
+
+	\begin{proof}
+		Зафиксируем $\displaystyle \varepsilon > 0, N \in \N: \frac{1}{N}<\frac{\varepsilon}{2}$ Рациональные числа из [0,1] со знаменателем $\leqslant N$, конечное число $= C_N$, множество X.\\
+		Возьмём $\displaystyle \delta = \frac{\varepsilon}{4C_N}$ и дробление $\tau: \lambda_{\tau} < \delta$\\
+		Точки X попадут в не более, чем $2C_N$ отрезков дробления. В отрезках, где нет точек из X наибольшее значение $\displaystyle <\frac{1}{N}$\\
+		$s_{\tau}(r) = 0$
+		\[S_{\tau}(r)=\sum_{k:M_k \geqslant \frac{1}{N}} M_k \Delta x_k \sum_{k:M_k < \frac{1}{N}}M_l \Delta x_k \leqslant \underbrace{1 \cdot 2C_n}_{\frac{\varepsilon}{2}} 
+		\cdot \ \delta + \underbrace{\frac{1}{N}}_{<\frac{\varepsilon}{2}} < \varepsilon\] \\
+		$S_{\tau}(r) - s_{\tau}(r) = S_{\tau}(r) \underset{\lambda_r \to 0}{\to} 0 \Rightarrow r \in R[0,1]$ и $\displaystyle \int_{0}^{1} r(x)\,dx = 0$
+	\end{proof}
+
+	Если $f \in R_D \ g \in R[a, b]$, то $f(g) \in R[a,b]\text{?} \ \ (D -$ множество значений g$)$\\
+	Ответ: нет. Пример: 
+	$f(y) = 
+	\begin{cases}
+		1, y \in [0,1] \\
+		0, y = 0
+	\end{cases}$  и $g(x) = r(x)$ на $[0,1]$\\
+	$f(r(x)) = 
+	\begin{cases}
+		1, x \in \Q \\
+		0, x \notin \Q 
+	\end{cases} = D(x) \notin R[0,1]$
+\end{Example}
+
+\begin{Thm}[Интегрируемость композиции]
+	$\varphi: [\alpha, \beta] \to [a, b], f: [a,b] \to \R,\\ f(\varphi): [\alpha, \beta] \to \R\\
+	\varphi \in R[\alpha, \beta], f \in C[a,b]$. Тогда $f \circ \varphi \in R[\alpha, \beta]$ 
+\end{Thm} 
+
+\begin{proof}
+	Например, из критерия Лебега.
+\end{proof}
+
+\Subsection{Свойства интеграла Римана}
+\begin{enumerate}
+	\item $\displaystyle \int_{b}^{a} f = - \int_{a}^{b} f$ 
+	\item $\displaystyle \int_{a}^{a} f = 0 \ (\forall f \text{ на вырожденном отрезке } f \in R [a,a])$
+\end{enumerate}
+
+Свойства:
+
+\begin{itemize}
+	\item Аддитивность интеграла по отрезку:\\ $a, b, c \in \R, \ f \in R [\min\{a, b, c\}, \max \{a, b, c\}]$
+	\[\int_{a}^{b} f = \int_{a}^{c} f + \int_{c}^{b} f\]
+
+	\begin{proof}
+		$f\in R[a,b] \Rightarrow f \in \R[a,c], f \in R[c,b], \{\overline{\tau}^{(n)}, \overline{\xi}^{(n)}\}^{\infty}_{n=1}$ и $\{\overline{\overline{\tau}}^{(n)}, \overline{\overline{\xi}}^{(n)}\}^{\infty}_{n=1}$ --
+		последовательности оснащенных дроблений $[a,c]$ и $[c,b]$  (равномерных, т.е. $\overline{\lambda} = \frac{c-a}{n}, \overline{\overline{\lambda}}$)\\
+		$\tau^{(n)} = \overline{\tau}^{(n)} \cup \overline{\overline{\tau}}^{(n)} -$ дробление $[a,b]$\\
+		$\xi^{(n)} = \overline{\xi}^{(n)} \cup \overline{\overline{\xi}}^{(n)} -$ оснащение $\tau^{(n)}\\
+		\sigma = \overline{\sigma} + \overline{\overline{\sigma}}$ при $n \to \infty$\\
+		\[\underbrace{\int_{a}^{b} f = \int_{a}^{c} f - \int_{b}^{c} f}_{\text{по доказанному}}  = \int_{a}^{c} f + \int_{c}^{b} f\]
+		\[ \int_{a}^{b} f = \int_{a}^{c} f + \int_{c}^{b} f = \int_{a}^{c} f - \int_{b}^{c} f\]
+		Все остальные случаи -- аналогично.
+	\end{proof}
+
+	\item $f \equiv \alpha$ при $\displaystyle x \in [a,b] \Rightarrow \int_{a}^{b} f = \alpha(b-a)$
+	
+	\begin{proof}
+		\[\sum_{k=0}^{n-1} f(\xi_k) \Delta x_k = \alpha \cdot \sum_{k=0}^{n-1} \Delta x_k = \alpha (b-a)\]
+	\end{proof}
+
+	\item Линейность интеграла: $\alpha, \beta \in \R, f, g \in R[a,b]\\
+	\displaystyle \int_{a}^{b} (\alpha f + \beta g) = \alpha \int_{a}^{b} + \beta \int_{a}^{b} g$
+
+	\begin{proof}
+		$\alpha f + \beta g \in R [a,b]\\
+		\sigma_{\tau}(\alpha f + \beta g) = \sigma_{\tau}(\alpha f) + \sigma_{\tau} (\beta g)$ и переход к пределу.
+	\end{proof}
+
+	\item Монотонность интеграла: $a < b, \ \ f, g \in R[a,b]$ и $f \leqslant g$ на $\displaystyle [a,b] \Rightarrow \int_{a}^{b} f \leqslant \int_{a}^{b} g$
+
+	\begin{proof}
+		$\sigma_{\tau}(f) \leqslant \sigma_{\tau} (g)$
+	\end{proof}
+
+	\begin{Cons}
+		$a<b, f \in R[a,b]$, если $ f \leqslant M \in \R$ на $\displaystyle [a,b], \text{ то } \int_{a}^{b} f \leqslant M(b-a), \\
+		\text{ если } f \geqslant m \text{ на } [a,b] \text{то} \int_{a}^{b} f \geqslant m(b-a)$
+	\end{Cons}
+
+	\begin{Cons}
+		$\displaystyle f \geqslant 0 \Rightarrow \int_{a}^{b} f \geqslant 0$
+	\end{Cons}
+
+	\item $a < b, \underset{f \geqslant 0 \text{ на } [a,b]}{f \in R[a,b]}  \text{ и } \exists c \in [a,b]: f(c)>0$ и $f$ непрерывна в точке C.\\ 
+	Тогда $\displaystyle \int_{a}^{b} f > 0$
+
+	\begin{proof}
+		Пусть $\varepsilon = \frac{f(c)}{2} > 0 \Rightarrow \exists \delta: \forall x \in \underbrace{[c - \delta; c+\delta] \cap [a,b]}_{[\alpha, \beta]}:
+		|f(x) - f(c)| < \varepsilon\\
+		\displaystyle f(x) > f(c) - \varepsilon = \frac{f(c)}{2} \Rightarrow \int_{\alpha}^{\beta} f \geqslant \frac{f(c)}{2}(\beta - \alpha)$
+		\[ \int_{a}^{b} f = \int_{a}^{\alpha} f + \int_{\alpha}^{\beta} f + \int_{\beta}^{b} \geqslant \int_{\alpha}^{\beta} f \geqslant \frac{f(c)}{2} (\beta - \alpha) > 0\]
+	\end{proof}
+
+	\begin{Rem}
+		Таким же образом строгий знак в монотонности интеграла.
+	\end{Rem}
+
+	\begin{Rem}
+		$\displaystyle f \in R[a,b], f > 0 \Rightarrow \int_{a}^{b} f > 0$
+	\end{Rem}
+
+	\item $a < b, f \in R[a,b]$
+	\[\Big|\int_{a}^{b} f \Big| \leqslant \int_{a}^{b} |f| \]
+
+	\begin{proof}
+		$-|f| \leqslant f \leqslant |f|$ 
+	\end{proof}
+
+	Если не знаем, что $a \geqslant b \text{ или } b \geqslant a$
+	\[\displaystyle \Big| \int_{a}^{b} f \Big| \leqslant \Big|\int_{a}^{b} |f|\Big| \]
+\end{itemize}
+
+\Subsection{Свойства интеграла, интегральные теоремы о средних, формулы Тейлора и Валлиса}
+
+\begin{Thm} 
+	$f, g \in R[a,b], g \geqslant 0 \text{ на } [a,b], m \leqslant f \leqslant M. \text{ Тогда } \exists \mu \in [m, M]: \displaystyle \int_{a}^{b} fg = \mu \int_{a}^{b} g$
+\end{Thm} 
+
+\begin{proof}
+	$mg \leqslant fg \leqslant Mg$ на $[a,b]$
+	\[m \int_{a}^{b} g \leqslant \int_{a}^{b} fg \leqslant M \int_{a}^{b} g \]
+	Если $\displaystyle \int_{a}^{b} g = 0,$ то $\exists \mu \in [m, M]: 0 = \mu \cdot 0$\\
+	Если $\displaystyle \int_{a}^{b} g > 0$, то $m \leqslant \frac{\int_{a}^{b}fg}{\int_{a}^{b} g} \leqslant M$\\
+	Возьмём $\displaystyle \mu = \frac{\int_{a}^{b}fg}{\int_{a}^{b} g}$
+\end{proof}
+
+\begin{Rem}
+	Для $g \leqslant 0$ тоже верно.
+\end{Rem}
+
+\begin{Cons}
+	\begin{enumerate}
+		\item $f \in C[a,b], g \in R[a,b], g \geqslant 0 ($ или $g \leqslant 0)$.\\ 
+		Тогда $\displaystyle \exists c \in [a, b]: \int_{a}^{b} f \cdot g = f(c) \cdot \int_{a}^{b} g$ 
+		
+		\begin{proof}
+			По теореме Вейерштрасса: $\exists m = \underset{[a,b]}{\min} f$ и $M = \underset{[a,b]}{\max} f$\\
+			Подберём $\mu \in [m, M]$ по предыдущей теореме. Тогда по теореме Больцано-Вейерштрасса $\exists c \in [a,b]: f(c) = M$
+		\end{proof}
+
+		\item $f \in R[a,b], m, M \in \R: m \leqslant f \leqslant M \text{ на } [a,b]$. Тогда $\displaystyle \exists \mu \in [m, M]: \int_{a}^{b} f = \mu(b-a)$
+		
+		\begin{proof}
+			$g \equiv 1$ в теореме.
+		\end{proof}
+
+		\item $f \in C[a,b]$. Тогда $\displaystyle \exists c \in [a,b]: \int_{a}^{b} f = f(c)(b-a)$
+		
+		\begin{proof}
+			$g \equiv 1$ в следствии 1.
+		\end{proof}
+	\end{enumerate}
+\end{Cons}
+
+\begin{Rem}
+	Теорему и следствия называют ещё теоремами о средних. Почему?
+\end{Rem}
+
+\begin{Def}  
+	$f \in R[a, b], a<b$\\
+	$\displaystyle \frac{1}{b-a} \int_{a}^{b} f$ -- интегральное среднее f на $[a, b]$\\ 
+	Если возьмём равномерное разбиение $[a, b],$ то $\displaystyle \sigma_n =\sum_{k=0}^{n-1} f(\xi_k) \cdot \frac{b-a}{n}$\\
+	То есть $\displaystyle \frac{\sigma_n}{b-a} \to \frac{1}{b-a} \int_{a}^{b} f$, где $\displaystyle \frac{\sigma_n}{b-a}$ -- среднее арифметическое значений функции в точках $\xi_k$ 
+\end{Def}
+
+\begin{Def} 
+	$E \subset \R$ -- невырожденный промежуток (может быть и лучом), $f: E \to \R$, $f$ -- интегрируема на 
+	каждом отрезке, содержащемся в $E$. $a \in E$.\\
+	$\displaystyle \Phi(x) = \int_{a}^{x} f(t)\,dt, x \in E$ -- интеграл с переменным верхним пределом.
+\end{Def} 
+
+\begin{Thm}[Барроу, об интеграле с переменным верхним пределом] 
+	$E \subset \R$ -- невырожденный промежуток, $f: E \to \R$, интегрируема на каждом отрезке из $E$, $a \in E$,
+	$\displaystyle \Phi(x) = \int_{a}^{x} f, x\in E$. Тогда
+	\begin{enumerate}
+		\item $\Phi(x) \in C(E)$
+		\item Если f непрерывна в точке $x_0 \in E$, то $\Phi$ -- дифференцируема в точке $x_0, \ \ \Phi'(x_0) = 
+		f(x_0)$
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	\begin{enumerate}
+		\item Пусть $x_0 \in E, \text{ подберем }\delta > 0 [x_0 - \delta; x_0 + \delta] \cap E = [A,B]\\
+		|f| \text{ на } [A, B]$ ограничена числом M. $\displaystyle \Delta x: x_0 + \Delta x \in [A, B]\\
+		\left|\Phi(x_0 + \Delta x) - \Phi(x_0)\right| = \left|\int_{a}^{x_0 + \Delta x} f - \int_{a}^{x_0} f\right| = 
+		\left|\int_{x_0}^{x_0 + \Delta x} f\right| \leqslant \left|\int_{x_0}^{x_0+\Delta x} |f|\right| \leqslant 
+		|\Delta x| \cdot M \underset{\Delta x \to 0}{\to} 0$
+		\item Проверим, что $ \displaystyle \frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} \xrightarrow[\Delta x \to 0]{} f(x_0)$\\ %!
+		Возьмем $\varepsilon > 0$ и $\delta > 0: \forall t: |t-x_0| < \delta \ |f(t) - f(x_0)| < \varepsilon$ (по
+		непрерывности.)\\ $\displaystyle \left|\frac{\Phi(x_0 + \Delta x) - \Phi(x_0)}{\Delta x} - f(x_0) \right| = \left|\frac{1}{\Delta x} \int_{x_0}^{x_0 + \Delta x} 
+		f(t)\,dt = f(x_0)\right| = \left| \frac{1}{\Delta x} \int_{x_0}^{x_0+\Delta x} (f(t) - f(x_0))\,dt \right| < \\ < \frac{1}{|\Delta x|}
+		\cdot \varepsilon \cdot |\Delta x| = \varepsilon$, $\displaystyle k = \int_{a}^{b} k \cdot \frac{1}{b-a}$
+	\end{enumerate}
+\end{proof}
+
+\begin{Example}
+	$\displaystyle \Phi(x) = \int_{1}^{x} \frac{\sin t}{t} \,dt, x>1$\\
+	$\displaystyle \Phi'(x) = \frac{\sin x}{x} \Rightarrow \Si'(x) = \frac{\sin x}{x}$
+\end{Example}
+
+\begin{Ex}
+	$\int \Si(x)\,dx = ?$
+\end{Ex}
+
+\begin{Cons}
+	Функция, непрерывная на промежутке имеет на нём первообразную. Ей является интеграл с переменным верхним пределом.
+\end{Cons}
+
+\begin{Def} 
+	$\displaystyle \psi(x) = \int_{x}^{a} f$ (Условия на f  и a прежние) -- интеграл с переменным нижним пределом.\\
+	$\Rightarrow \psi'(x) = - f(x)$ (Если f непрерывна).
+\end{Def} 
+
+\begin{Thm}[Формула Ньютона-Лейбница] 
+	$f \in R[a,b], F -$ первообразная $f$ на $[a,b]$. Тогда: $\displaystyle \int_{a}^{b} f = F(b) - F(a)$
+\end{Thm} 
+
+\begin{proof}
+	Для каждого $n \in \N$:\\ %!
+	$\displaystyle F(x_1) - F(x_0) + F(x_2) - F(x_1) + F(x_3) - F(x_2) + ... + F(x_n) - F(x_{n-1}) = 
+	\sum_{k=0}^{n-1} (F(x_{k+1}) - F(x_k)) = F(b) - F(a)$\\
+	По теореме Лагранжа $\displaystyle \exists \xi_{k,n} \in (x_k, x_{k+1})\\ F(x_{k+1}) - F(x_k) = F'(\xi_{k, n})(x_{k+1} - x_k) =
+	f(\xi_{k,n}) \Delta x_k\\
+	\int_{a}^{b} f = \lim_{n \to \infty} \sum_{k=0}^{n-1} f(\xi_{k, n}) \Delta x_k = \lim (F(b) - F(a)) = F(b) - F(a)$
+\end{proof}
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} f = F \Big|^b_a\\
+	\int_{a}^{b} f(x)\,dx = F(x) \Big|^b_{x = a}$ -- двойная подстановка.
+\end{Rem}
+
+\begin{Rem}
+	$G(x) = F(x) + C$ -- тоже первообразная.\\
+	$G(b) - G(a) = F(b) - F(a)$
+\end{Rem}
+
+\begin{Example}
+	$\displaystyle \int_{0}^{1} x^2 \,dx = \left. \frac{x^3}{3} \right|^1_0 = \frac{1}{3}$
+\end{Example}
+
+\begin{Example}
+	$\displaystyle \int_{-1}^{1} \frac{1}{x^2} \,dx = - \left. \frac{1}{x} \right|^1_{-1} = -2$ - чушь!
+	\begin{enumerate}
+		\item $\left(-\frac{1}{x}\right)' = \frac{1}{x^2}$ -- не везде на $[-1,1]$
+		\item $\frac{1}{x^2}$ не интегрируема на $[-1; 1], $ т.к. не ограничена.
+	\end{enumerate}
+\end{Example}
+
+\begin{Rem}
+	Обобщение теоремы.\\
+	$f \in R[a; b], F \in C[a,b], \ F$ -- первообразная f на $[a,b]$ за исключением некоторого конечного числа точек.\\
+	Тогда $\displaystyle \int_{a}^{b} f	= F(b) - F(a)$
+\end{Rem}
+
+\begin{proof} 
+	Пусть $\alpha_0 = a, \alpha_m = b$, $\alpha_1, \alpha_2, ..., \alpha_{m-1}$ -- все точки на $(a,b)$, в которых $F' \neq f$
+	$\displaystyle \int_{a}^{b} f = \sum_{k=0}^{m-1} \int_{\alpha_k}^{\alpha_{k+1}} f = \sum_{k=0}^{m-1} (F(\alpha_{k+1}) - F(\alpha_k)) = F(b) - F(a)$.\\
+	(Рассмотрим $\displaystyle \int_{\alpha_k}^{\alpha_{k+1}} f = \lim_{\varepsilon \to	0+} \int_{\alpha_k+\varepsilon}^{\alpha_{k+1}
+	 - \varepsilon} f =\lim_{\varepsilon \to 0+} (F(\alpha_{k+1} - \varepsilon) - F(\alpha_k + a)) = F(\alpha_{k+1}) - F(\alpha_k)$)
+\end{proof}
+
+\begin{Rem}
+	Без непрерывности $F$ не получится: на $[-1,1]$\\
+	$ F(x) = \sign x = 
+	\begin{cases}
+		1, x>0\\
+		0, x = 0\\
+		-1, x<0	
+	\end{cases}, f(x) = 0$\\
+	$\displaystyle 0 = \int_{-1}^{1} f \neq F \Big|^1_{-1} = 2$
+\end{Rem}
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} F'(x)\,dx = F(b) - F(a)$.\\ F дифференцируема, $F'$ интегрируема. 
+\end{Rem}
+
+\begin{Rem}
+	$F' \in R[a, b]$ -- существенно.\\
+	$F(x) = \begin{cases}
+		x^2 \cdot \sin \frac{1}{x^2}, x \neq 0\\
+		0, x = 0
+	\end{cases}$\\
+
+	$\displaystyle F'(x) = 
+	\begin{cases}
+		2x \sin \frac{1}{x^2} - \frac{2}{x} \cdot \cos \frac{1}{x^2}, x \neq 0 \\
+		0, x = 0
+	\end{cases}$\\ $F'$ не ограничена, а значит не интегрируема.
+\end{Rem}
+
+\begin{Rem}
+	Интегрируемость $\overset{?}{\Leftrightarrow} \exists$ первообразной.\\
+	$\cancel{\Rightarrow} \sign x$ интегрируема на [-1. 1], но первообразной нет.\\
+	$\cancel{\Leftarrow}$ Предыдущее замечание.   
+\end{Rem}
+
+\begin{Thm}[Интегрирование по частям в определенном интеграле.] 
+	$f, g$ -- дифференцируемы на $[a,b]$, $f', g' \in R[a,b]$. Тогда\\
+	$\displaystyle \int_{a}^{b} fg' = fg \Big|_a^b - \int_{a}^{b} f'g$
+\end{Thm} 
+
+\begin{proof}
+	$f, g -$ дифференцируемы $\Rightarrow$ непрерывны $\Rightarrow$ интегрируемы.\\
+	$(f \cdot g)' = f' \cdot g + g' \cdot f \in R[a,b]$\\
+	$\displaystyle \int_{a}^{b} (fg)' = fg \Big|_a^b$\\
+	$\displaystyle \int_a^b (fg)' = \int_{a}^{b} (f'g + g'f)$
+\end{proof}
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} f \,dg = fg \Big|_a^b - \int_{a}^{b} g \,df$\\
+	$dg(x) = g'(x)\,dx$
+\end{Rem}
+
+\begin{Thm}[Замена переменной в определенном интеграле]
+	$\varphi: [\alpha, \beta] \to [A,B],$ дифференцируема на $[\alpha, \beta], \varphi' \in R[\alpha, \beta]$\\
+	$f \in C[A; B].$ Тогда
+	\[\int_{\alpha}^{\beta} f(\varphi) \cdot \varphi' = \int_{\varphi (\alpha)}^{\varphi (\beta)} f\]
+\end{Thm} 
+
+\begin{proof}
+	$f(\varphi) \in C[\alpha, \beta] \Rightarrow f(\varphi) \in R[a,b] \Rightarrow f(\varphi) \cdot \varphi' \in R[a,b]$\\
+	Пусть F - первообразная $f$ на $[A,B] \Rightarrow F(\varphi)$ -- первообразная $f(\varphi) \cdot \varphi'$ на $[\alpha, \beta]$\\
+	$\displaystyle \int_{\alpha}^{\beta} f(\varphi) \cdot \varphi' = F(\varphi) \Big|_{\alpha}^{\beta} = 
+	F(\varphi(\beta)) - F(\varphi(\alpha))\\
+	\int_{\varphi(\alpha)}^{\varphi(\beta)} f = F \Big|^{\varphi(\beta)}_{\varphi(\alpha)} = F(\varphi(\beta))
+	- F(\varphi(\alpha))$
+\end{proof}
+
+\begin{Ex}
+	Пусть $f$ четная функция. Доказать, что $\displaystyle \int_{-a}^{a} = 2 \int_{0}^{a} f$\\
+	Пусть $f$ нечетная функция. Доказать, что $\displaystyle \int_{-a}^{a} f = 0$
+\end{Ex}
+
+\begin{Thm}[Формула Тейлора с остатком в интегральной форме] 
+	$n \in \N_0,\\ f \in C^{n+1} \langle A; B \rangle, a, x \in \langle A; B \rangle .$ Тогда $\displaystyle f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}
+	(x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t)(x-t)^n \,dt$
+\end{Thm} 
+
+\begin{proof}
+	По индукции:\\
+	База: $\displaystyle n=0: f(x) = f(a) + \int_{a}^{x} f'(t) \,dt$ (Формула Ньютона-Лейбница)\\
+	Пусть верно для $n-1$. Докажем для $n$.\\
+	$\displaystyle f(x) = \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} 
+	f^{(n)}(t) (x-t)^{n-1}\,dt$. Проинтегрируем остаток по частям: $\displaystyle u = f^{(n)}(t), u' = f^{(n+1)}(t), 
+	v' = (x-t)^{n-1}, v = \frac{(x-t)^n}{n}$\\
+
+	\begin{align*}
+		&\displaystyle \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{(n-1)!} \int_{a}^{x} f^{(n)}(t) (x-t)^{n-1}\,dt = \\
+		= &\sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!}(x-a)^k 
+		+ \frac{1}{(n-1)!} \left(-f^{(n)}(t) \cdot \left. \frac{(x-t)^n}{n} \right|^x_{t=a} + 
+		\int_{a}^{x} \frac{f^{n+1}(t)(x-t)^n}{n}\,dt\right) = \\
+		= &\sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{1}{n!} \int_{a}^{x} f^{(n+1)}(t) (x-t)^n \,dt
+	\end{align*}
+\end{proof}
+
+\begin{Rem}
+	$\displaystyle \exists c: \in (a,x) \int_{a}^{x} f^{(n+1)} (t) (x-t)^n \,dt = f^{(n+1)}(c) \int_{a}^{x} (x-t)^m \,dt = 
+	f^{(n+1)}(c) \frac{(x-t)^{n+1}}{n+1}$ (Т.е. остаток в форме Лагранжа 
+	следует отсюда)
+\end{Rem}
+
+Последовательность $\{x_n\}: x_i \in \Q, x_n \to \pi$
+
+\begin{Lm}
+	$\displaystyle m \in \N_0\\ \int_{0}^{\frac{\pi}{2}} \sin^m xdx = \int_{0}^{\frac{\pi}{2}} \sin^{m-1}
+	x \cdot \sin x \,dx = - \sin^{m-1} \cdot \cos x \Big|_0^{\frac{\pi}{2}} + (m-1)
+	\int_{0}^{\frac{\pi}{2}} \sin^{m-2} x \cdot \cos^2x \,dx = \\ = (m-1) \int_{0}^{\frac{\pi}{2}} 
+	\sin^{n-2} x (1 - \sin^2 x)\,dx\\
+	I_m = (m-1) \cdot (I_{m-2} - I_m) \Rightarrow I_m = \frac{m-1}{m} I_{m-2}\\
+	I_0 = \int_{0}^{\frac{\pi}{2}} \sin^0 x \,dx = \frac{\pi}{2}\\
+	I_1 = \int_{0}^{\frac{\pi}{2}} \sin x \,dx = - \cos x \Big|^{\frac{\pi}{2}}_0 = 1\\$
+	$I_m =
+	\begin{cases}
+		\frac{(m-1)!!}{m!!} \cdot \frac{\pi}{2}, m - \text{ четно}\\
+		\frac{(m-1)!!}{m!!} \cdot 1, m - \text { нечётно}
+	\end{cases}$ 
+\end{Lm}
+
+\begin{Ex}
+	$f: [-1; 1] \to \R$ - непрерывна. \\Доказать, что $\displaystyle \int_{0}^{\frac{\pi}{2}} f
+	(\sin x) \,dx = \int_{0}^{\frac{\pi}{2}} f(\cos x) \,dx$
+\end{Ex}
+
+\begin{Thm}[Формула Валлиса]
+	$\displaystyle \pi = \lim_{n \to \infty} \frac{1}{n} \Bigg(\frac{(2n)!!}{(2n-1)!!} \Bigg)^2$
+\end{Thm} 
+
+\begin{proof}
+	$\displaystyle \forall x \in (0; \frac{\pi}{2}) \ \ \ \sin x \in (0;1)\\
+	\forall n \in \N \ \ \ \sin^{2n+1} < \sin^{2n} x < \sin^{2n-1} x \Rightarrow 
+	\int_{0}^{\frac{\pi}{2}} \sin^{2n+1} x \,dx < \int_{0}^{\frac{\pi}{2}} 
+	\sin^{2n} x \,dx < \int_{0}^{\frac{\pi}{2}} \sin ^{2n-1} x \,dx$\\
+	$\displaystyle \frac{(2n)!!}{(2n+1)!!}  < \frac{\pi}{2} \cdot \frac{(2n-1)!!}{(2n)!!} < \frac{(2n-2)!!}{(2n-1)!!}\\
+	< \frac{\pi}{2} < \frac{(2n-2)!! \cdot (2n)!!)}{((2n-1)!!)^2}\\
+	\frac{1}{2n+1}\cdot \Bigg(\frac{(2n)!!}{(2n+1)!!} \Bigg)^2 < \frac{\pi}{2} < \frac{1}{2n} \Bigg(\frac{(2n)!!}{(2n-1)!!} \Bigg)^2$
+
+	$\displaystyle x_n = \frac{1}{n} \Bigg(\frac{(2n)!!}{(2n-1)!!}\Bigg)^2 \Rightarrow \pi < x_n < \frac{2n+1}{2n} \pi, \Rightarrow \ x_n \to \pi$
+\end{proof}
+
+\begin{Thm}[Вторая теорема о среднем для интегралов, Бонне] 
+	$f \in C[a,b], \\ g \in C^1[a,b], g$ монотонна на $[a,b].$ Тогда $\exists c \in [a,b]:$
+	\[\int_{a}^{b} fg = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f\]
+\end{Thm} 
+
+\begin{proof}
+	$\displaystyle F(x) = \int_{a}^{x} f, \ \ F' = f, F(a) = 0$
+	\begin{gather*}
+		\int_{a}^{b} fg = Fg \Big|^b_a - \int_{a}^{b} - \int_{a}^{b} Fg' = g(b) \int_{a}^{b} f - \int_{a}^{b} Fg' = \\
+		= g(b) \int_{a}^{b} f - \int_{a}^{c} f \cdot (g(b) - g(a)) = g(a) \int_{a}^{c} f + g(b) \int_{c}^{b} f
+	\end{gather*}
+\end{proof}
+
+\begin{Ex}
+	Оценить $\int_{100\pi}^{200\pi} \frac{\sin x}{x} \,dx$\\
+	\begin{enumerate}
+		\item По первой теореме о среднем.
+		\item По второй теореме о среднем.
+	\end{enumerate}
+	
+\end{Ex}
+
+\Subsection{Интегральные неравенства}
+
+\def\AuthorName{Илья Дудников}
+
+\begin{Thm}[Неравенство Йенсена]
+	$f$ -- выпукла и непрерывна на $\langle A, B\rangle$, $\PHI : [a, b] \to \langle A, B\rangle$ -- непрерывна,
+	$\lambda : [a, b] \to [0, +\infty)$ -- непрерывна, $\int_a^b \lambda = 1$. Тогда
+	\[f\left( \int_a^b \lambda \PHI\right) \leqslant \int_a^b \lambda \cdot f(\PHI)\]
+\end{Thm}
+
+\begin{proof}
+	Обозначим $c = \int_{a}^{b} \lambda \varphi, \ \ \ E = \{x \in [a,b]: \lambda (x) > 0\},\\
+	m = \underset{E}{\inf} \PHI, \ \ \ M = \underset{E}{\sup} \PHI$ (m и M конечны по теореме Вейерштрасса)\\
+	Если m = M, то есть $\varphi$ постоянна на $E$, то $c = m$ и обе части неравенства равны $f(m)$.\\
+	Пусть $m < M$. Тогда $c \in (m, M)$ и, следовательно, $c \in (A, B)$. Функция $f$ имеет в точке $c$ опорную прямую;
+	пусть она задается уравнением $y = \alpha x + \beta$. По определению опорной прямой $f(c) = \alpha c + \beta$ и $f(t) \geqslant \alpha t + \beta$ при всех $t \in \langle A, B \rangle$. Поэтому
+	$$f(c) = \alpha c + \beta = \alpha \int_{a}^{b} \lambda \varphi + \beta \int_{a}^{b} \lambda = \int_{a}^{b} \lambda \cdot (\alpha \varphi + \beta) \leqslant \int_{a}^{b} \lambda \cdot (f \circ \varphi)$$
+\end{proof}
+
+\begin{Rem}
+	Строгое неравенство, если $f$ строго выпукла и $\PHI \not\equiv \const$. 
+\end{Rem}
+
+\begin{Thm}[Неравенство Гельдера]
+	$p, q > 1, \frac{1}{p} + \frac{1}{q} = 1, f, g \in C[a, b]$. Тогда
+	\[\left|\int_a^b fg\right| \leqslant \left(\int_a^b |f|^p\right)^{\frac{1}{p}} \cdot \left(\int_a^b |g|^q\right)^{\frac{1}{q}}\]
+\end{Thm}
+
+\begin{proof}
+	Пусть $x_k = \frac{k(b - a)}{n} + a, \xi_k = x_k$.
+	Обозначим $a_k = f(x_k) (\Delta x_k)^{\frac{1}{p}}, b_k = g(x_k) (\Delta x_k)^{\frac{1}{q}} \SO a_k b_k = f(x_k) g(x_k) \Delta x_k$. Тогда
+	\[\left| \sum_{k=0}^{n - 1} a_k b_k \right| \leqslant \left(\sum_{k=0}^{n - 1} |a_k|^p\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 0}^{n - 1}|b_k|^q\right)^{\frac{1}{q}}\]
+	\[\left| \sum_{k=0}^{n - 1} f(x_k)g(x_k) \Delta x_k \right| \leqslant \left(\sum_{k = 0}^{n - 1} |f(x_k)|^p \Delta x_k\right)^{\frac{1}{p}} \cdot \left(\sum_{k = 0}^{n - 1}|g(x_k)|^q\right)^{\frac{1}{q}}\]
+	Выполним предельный переход:
+	\[\left|\int_a^b fg\right| \leqslant \left(\int_a^b |f|^p\right)\frac{1}{p} \cdot \left(\int_a^b |g|^q\right)\frac{1}{q}\] 	
+\end{proof}
+
+\begin{Cons}[Неравенство Коши-Буняковского]
+	$f, g \in C[a, b] \SO \left|\int_a^b fg\right| \leqslant \sqrt{\int_a^b f^2} \cdot \sqrt{\int_a^b g^2}$ 
+\end{Cons}
+
+\begin{Thm}[Неравенство Минковского]
+	$f, g \in C[a, b], p \geqslant 1$.
+	\[\left(\int_a^b |f + g|^p\right)^{\frac{1}{p}} \leqslant \left(\int_a^b |f|^p\right)^{\frac{1}{p}} + \left(\int_a^b |g|^q\right)^{\frac{1}{q}}\] 
+\end{Thm}
+
+\begin{Def}
+	Пусть $f \in C[a, b]$.
+	\begin{MyList}
+		\item Величина
+		\[\frac{1}{b - a}\int_a^b f\]
+		называется интегральным средним арифметическим функции $f$ на $[a, b]$.
+
+		\item Если $f > 0$, то величина
+		\[\exp \left(\frac{1}{b - a}\int_a^b f\right)\]
+		называется интегральным средним геометрическим функции $f$ на $[a, b]$.
+	\end{MyList}
+\end{Def}
+
+\begin{Rem}
+	Интегральное среднее геометрическое есть пределы при $n \to \infty$ последовательности
+	\[\sqrt[n]{\prod_{k = 0}^{n - 1} f(x_k)} = \exp \left(\frac{1}{n} \sum_{k = 0}^{n - 1} \ln f(x_k)\right) = \exp \left(\frac{1}{b - a} \sum_{k = 0}^{n - 1} \ln f(x_k) \Delta x_k\right)\]
+	при $x_k = a + \frac{k(b - a)}{n}$.  
+\end{Rem}
+
+\begin{Thm}[Об интегральных средних]
+	$f \in C[a, b], f > 0$. Тогда 
+	\[\exp\left(\frac{1}{b - a}\int_a^b \ln f\right) \leqslant \frac{1}{b - a}\int_a^b f\]
+\end{Thm}
+
+\begin{proof}
+	Предельный переход в неравенстве для сумм, либо применить неравенство Йенсена для $\ln x$.
+\end{proof}
+
+\Subsection{Несобственные интегралы}
+
+\begin{Def}
+	$f$ локально интегрируема (по Риману) на промежутке $E$, если она интегрируема на каждом отрезке из $E$.
+\end{Def}
+
+\begin{Rem}
+	Непрерывность влечет локальную интегрируемость.
+\end{Rem}
+
+\begin{Def}
+	Пусть $-\infty < a < b \leqslant +\infty, f \in R_{loc}[a, b]$. Тогда
+	$\int_a^{\to b}f$ -- несобственный интеграл. 
+	\[\lim_{t \to b-} \int_a^t f = \int_a^{\to b} f \]
+	если предел существует в $\overline{\R}$. 
+\end{Def}
+
+\begin{Def}
+	Несобственный интеграл называется сходящимся, если из $\R$. 
+\end{Def}
+
+\begin{Def}
+	Аналогично, для $-\infty \leqslant a < b < +\infty, f \in R_{loc}(a, b]$ 
+	\[\int_{\to a}^b f = \lim_{t \to a+} \int_t^b f\]
+	если предел существует в $\overline{\R}$.  
+\end{Def}
+
+\begin{Thm}[Критерий Больцано-Коши сходимости интегралов]
+	Пусть $-\infty < a < b \leqslant +\infty, f \in R_{loc}[a, b)$. Тогда сходимость интеграла $\int_a^b f$ равносильна условию
+	\[\forall \varepsilon > 0 \ \exists \Delta \in (a, b) : \forall t_1, t_2 \in (\Delta, b) \ \left|\int_{t_1}^{t_2} f\right| < \varepsilon\]	
+\end{Thm}
+
+\begin{proof}
+	$\Phi (t) = \int_a^t f$. $\int_a^b а$ сходится $\EQ \exists$ конечный $\lim_{t \to b-} \Phi (t)$.
+	Согласно критерию Больцано-Коши существования предела функции
+	\[\forall \varepsilon > 0 \ \exists \Delta \in (a, b) : \forall t_1, t_2 \in (\Delta, b) \ |\Phi(t_2) - \Phi(t_1)| < \varepsilon\]
+	и по аддитивности интеграла $\Phi(t_2) - \Phi(t_1) = \int_{t_1}^{t_2} f$.
+\end{proof}
+
+\begin{Rem}
+	Расходимость $\int_a^b f \EQ \exists \varepsilon > 0 \ \forall \Delta \in (a, b) \ \exists t_1, t_2 \in (\Delta, b) \ \left| \int_{t_1}^{t_2} f\right| \geqslant \varepsilon$
+\end{Rem}
+
+\begin{Rem}
+	Запись:
+	\[\int_a^b f = \lim_{t \to b-}\int_a^t f = \lim_{t \to b-} (F(t) - F(a)) = F(b-) - F(a)\]
+\end{Rem}
+
+\begin{Example}
+	$\int_1^{+\infty} \frac{1}{x^{\alpha}} \, dx$
+	\[\int_1^{+\infty} \frac{1}{x^\alpha}\,dx = \begin{cases}
+		\left.\frac{x^{1 - \alpha}}{1 - \alpha}\right|_{1}^{+\infty}, \alpha \neq 1 \\
+		\left.\ln x\right|_1^{+\infty}, \alpha = 1
+	\end{cases} = \begin{cases}
+		\frac{1}{\alpha - 1}, \alpha > 1 \\
+		+\infty, \alpha \leqslant 1
+	\end{cases}\] 
+\end{Example}
+
+\begin{Example}
+	$\int_0^1 \frac{1}{x^\alpha} \,dx = \begin{cases}
+		+\infty, \alpha \geqslant 1 \\
+		\frac{1}{1 - \alpha}, \alpha < 1.
+	\end{cases}$ 
+\end{Example}
+
+\Subsubsection{Свойства несобственного интеграла}
+
+Будем считать, что $f$ локально интегрируема на рассматриваемых промежутках.
+
+\begin{MyList}
+	\item \textbf{Аддитивность по промежутку.}  Если $\int_a^b f$ сходится, то $\forall c \in (a, b)$ интеграл $\int_c^b f$ тоже сходится и
+	\[\int_a^b f = \int_a^c f + \int_c^b f\]	
+	В обратную сторону, если при $c \in (a, b)$ интеграл $\int_c^b f$ сходится, то сходится и интеграл $\int_a^b f$.
+	\begin{proof}
+		$\forall t \in (a, b) \ \int_a^t f = \int_a^c f + \int_c^t f$ -- по аддитивности определенного интеграла.
+		Переидем к пределу при $t \to b-$ предел левой части и правой части существует или не существует одновременно.
+	\end{proof}
+
+	\item Если $\int_a^b f$ сходится, то $\underbrace{\int_t^b f \xrightarrow[t \to b-]{} 0}_{\text{остаток интеграла}}$.
+	\begin{proof}
+		\[\int_t^b f = \int_a^b f - \int_a^t f \xrightarrow[t \to b-]{}\int_a^b f - \int_a^b f = 0\]
+	\end{proof}
+
+	\item \textbf{Линейность несобственного интеграла.}  Если интегралы $\int_a^b f, \int_a^b g$ сходятся, $\alpha, \beta \in \R$, то интеграл $\int_a^b(\alpha f + \beta g)$ сходится и
+	\[\int_a^b (\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g\]
+	\begin{proof}
+		Для доказательства надо перейти к пределу в равенстве для частичных интегралов
+		\[\int_a^t (\alpha f + \beta g) = \alpha \int_a^b f + \beta \int_a^t g\]
+	\end{proof}
+
+	\begin{Rem}
+		Если интеграл $\int_a^b f$ расходится, а интеграл $\int_a^b g$ сходится, то интеграл $\int_a^b(f + g)$ расходится.
+		Действительно, если $f + g$ сходится, то сходится и интеграл от $f = (f + g) - f$ (?!).
+	\end{Rem}
+
+	\item \textbf{Монотонность несобственного интеграла.} Если интегралы $\int_a^b f, \int_a^b g$ существуют в $\overline{R}, f \leqslant g$ на $[a, b)$, то
+	\[\int_a^b f \leqslant \int_a^b g\]
+
+	\begin{proof}
+		Переидем к пределу в неравенстве для частичных пределов
+		\[\int_a^t f \leqslant \int_a^t g\]	
+	\end{proof}
+
+	\begin{Rem}
+		Аналогично, с помощью предельного перехода, на несобственные интегралы переносятся неравенства Йенсена, Гельдера, Минковского.
+	\end{Rem}
+
+	\item \textbf{Интегрирование по частям в несобственном интеграле.} Пусть $f, g$ дифференцируемы на $[a, b), f', g' \in R_{loc}[a, b)$.
+	Тогда
+	\[\int_a^b fg' = \left.fg\right|_a^b - \int_a^b f'g\]
+	Если два из этих трех пределов конечны, то третий предел также существует и конечен.
+
+	\begin{proof}
+		Устремим $t$ к $b$ слева в равенстве
+		\[\int_a^t fg' = \left.fg\right|_a^t - \int_a^t f'g\]
+	\end{proof}
+
+	\item \textbf{Замена переменной в несобственном интеграле.} 
+	Пусть $\PHI : [\alpha, \beta) \to [A, B)$ -- дифференцируема на $[\alpha, \beta)$, $\PHI' \in R_{loc}[\alpha, \beta)$, существует 
+	$\PHI(\beta -) \in \overline{\R}, f \in C[A, B)$. Тогда
+	\[\int_\alpha^\beta (f \circ \PHI)\PHI' = \int_{\PHI(\alpha)}^{\PHI(\beta-)} f\]
+	Опять же, если существует один из интегралов, то существует и другой.    
+
+	\begin{proof}
+		Обозначим
+		\[\Phi(t) = \int_\alpha^t (f \circ \PHI) \PHI', \quad \psi(y) = \int_{\PHI(\alpha)}^y f\]
+		По формуле замены переменной в собственном интеграле 
+		\[\Phi(t) = \psi(\PHI(t))\]
+
+		\begin{MyList}
+			\item Пусть $\exists \int_{\PHI(\alpha)}^{\PHI(\beta)} f = I \in \overline{\R}$. Докажем, что $\exists \int_\alpha^\beta f(\PHI)\PHI' = I$, т.е.
+			$\Phi(t) \xrightarrow[t \to \beta-]{} I$. Возьмем $\{t_n\} : t_n \to \beta, t_n < \beta$. 
+			Тогда $\PHI(t_n) \to \PHI(b-), \PHI(t_n) \in [A, B)$. Поэтому $\Phi(t_n) = \psi(\PHI(t_n)) \to I$. В силу произвольности выбора $\{t_n\}$, $\Phi(t) \to I$ при $t \to \beta-$.
+			
+			\item Пусть существует интеграл $\int_\alpha^\beta (f \circ \PHI) \PHI' = J \in \overline{R}$. 
+			Докажем, что интеграл $\int_{\PHI(\alpha)}^{\PHI(\beta-)} f$ существует, и тогда по пункту 1 будет следовать, что он равен $J$. 
+			Если $\PHI(\beta -) \in [A, B)$, то интеграл собственный. 
+			Пусть $\PHI(\beta-) = B$. Возьмем $\{y_n\}, y_n \in [A, B), y_n \to B$. Не уменьшая общности, можно считать, что $y_n \in [\PHI(\alpha), B)$.
+			Тогда $\exists \gamma_n \in [\alpha, \beta) : \PHI(\gamma_n) = y_n$ (по теореме Больцано-Коши).
+
+			Докажем, что $\gamma_n \to \beta$. Пусть $\beta' \in [\alpha, \beta)$. Т.к. $\max_{[\alpha, \beta']} \PHI < \beta$, а
+			$\PHI(\gamma_n) \to B$, то, начиная с некоторого номера, $\gamma_n \in (\beta', \beta)$. Поэтому $\gamma_n \to \beta$, откуда $\psi(y_n) = \Phi(\gamma_n) \to J$.     
+		\end{MyList}
+	\end{proof}
+
+	\begin{Example}
+		$\int_0^\pi \frac{dx}{2 + \cos x}$. Пусть $t = \tg \frac{x}{2}$. Тогда $x = 2 \arctg t, \cos x \frac{1 - t^2}{1 + t^2}, dx = \frac{2}{1 + t^2}\,dt$. 
+		Если $x = 0$, то $t = 0$. Если $x = \pi$, то $t = +\infty$. Тогда
+		\begin{gather*}
+		\int_0^\pi \frac{dx}{2 + \cos x} = \int_0^{+\infty} \frac{1}{2 + \frac{1 - t^2}{1 + t^2}} \cdot \frac{2}{1 + t^2}\,dt = \int_0^{+\infty} \frac{2dt}{(1 + t^2) \cdot 2 + 1 - t^2} = 2 \int_0^{+\infty} \frac{dt}{t^2 + 3} = \\
+		=  \left.2 \cdot \frac{1}{\sqrt{3}} \arctg{\frac{t}{\sqrt{3}}}\right|_0^{+\infty} = \frac{2}{\sqrt{3}}\left(\frac{\pi}{2} - 0\right) = \frac{\pi}{\sqrt{3}}
+		\end{gather*}
+	\end{Example}
+
+	\begin{Rem}
+		$a < b \in \R$. Пусть $x = b - \frac{1}{t}$.
+		\[\int_a^b f(x) \,dx = \int_{\frac{1}{b - a}}^{+\infty} f\left(b - \frac{1}{t}\right)\cdot \frac{1}{t^2}\,dt\]
+	\end{Rem}
+
+	\begin{Example}
+		\[\int_1^{+\infty} \cos x \,dx = \left.\sin x\right|_1^{+\infty} = \lim_{x \to +\infty} \sin x - \sin 1 \textrm{ -- не существует}\]
+	\end{Example}
+\end{MyList}
+
+
+\Subsubsection{Признаки сходимости несобственных интегралов}
+
+\begin{Lm}
+	$f \in R_{loc} [a, b), f \geqslant 0$. Тогда $\int_a^b f$ сходится $\EQ$ $F(t) = \int_a^t f$ на $[a, b)$ ограничена сверху. 
+\end{Lm}
+
+\begin{proof}
+	$F(t)$ возрастает на $[a, b)$ $\underset{t_1 < t_2} {\left( F(t_2) - F(t_1) = \int_{t_1}^{t_2} f \geqslant 0\right)}$.\\
+	$\displaystyle{\exists \lim_{t \to b-} F(t) \in \R \EQ F}$ возрастает и $F$ ограничена сверху. 
+\end{proof}
+
+\begin{Rem}
+	Если $f \geqslant 0$, то $\int_a^b f \in \overline{R}$.
+\end{Rem}
+
+\begin{Thm}[Признак сравнения]
+	$f, g \in R_{loc} [a, b), f, g \geqslant 0$
+	\[f(x) = O(g(x)) \qquad \textrm{при } x \to b-\]
+	Тогда 
+	\begin{MyList}
+		\item Если $\int_a^b g$ сходится, то $\int_a^b f$ сходится.
+		\item Если $\int_a^b f$ расходится, то $\int_a^b g$ расходится.
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item По определению $O$-большого найдутся такие $\Delta \in (a, b)$ и $K > 0$, что $f(x) \leqslant Kg(x)$ при всех $x \in [\Delta, b)$. Следовательно,
+		\[\int_\Delta^b f \leqslant K \int_\Delta^b g < +\infty\]
+		то есть остаток интеграла $\int_a^b f$ сходится, а тогда и сам интеграл $\int_a^b f$ сходится.
+
+		\item Если бы интеграл $\int_a^b g$ сходился, то по пункту 1 сходился бы и интеграл $\int_a^b f$.
+	\end{MyList} 
+\end{proof}
+
+\def\AuthorName{Ксения Кузьмина}
+
+\begin{Cons}[Признак сравнения в предельной форме]
+	$f, g \in R_{loc}[a;b), f \geqslant 0, g > 0$ и $\displaystyle \exists \lim_{x \to b-} \frac{f(x)}{g(x)} = l \in [0;+\infty]$. Тогда
+	\begin{enumerate}
+		\item Если $l \in [0, + \infty)$ и $\displaystyle \int_{a}^{b} g$ сходится, то $\displaystyle \int_{a}^{b} f$ сходится
+		\item Если $l \in (0, + \infty]$ и $\displaystyle \int_{a}^{b} f$ сходится, то $\displaystyle \int_{a}^{b} g$ сходится
+		\item Если $l \in (0, + \infty)$, то $\displaystyle \int_{a}^{b} f$ и $\displaystyle \int_{a}^{b} g$ сходятся или расходятся одновременно
+	\end{enumerate}
+\end{Cons}
+
+\begin{proof}
+	\begin{enumerate}
+		\item $\displaystyle \frac{f}{g}$ ограничено в $(b - \varepsilon; b) \Rightarrow f(x) = O_b(g(x))$ при $x \to b- \Rightarrow$ по теореме $\displaystyle \int_{a}^{b} f$ сходится
+		\item Т.к. $l>0$, то $f > 0$ в $(b - \varepsilon; b).$ Тогда поменяем $f$ и $g$ местами в п.1
+		\item Следует из пунктов 1 и 2.
+	\end{enumerate}
+\end{proof}
+
+\begin{Cons}
+	Интегралы от неотрицательных эквивалентных функций сходятся или расходятся одновременно.
+\end{Cons}
+
+\begin{Ex}
+	$\displaystyle \int_{5}^{+\infty} \frac{dx}{x^{\alpha}ln^7x} $
+\end{Ex}
+
+\begin{Example}
+	Докажем, что $\displaystyle f \geqslant 0, \int_{a}^{+\infty} f$ сходится $\cancel{\Rightarrow} f(x) \underset{x \to +\infty}{\to} 0$
+\end{Example}
+
+\begin{proof}
+	$\displaystyle E = \bigcup_{k=1}^{+\infty} \left(k - \frac{1}{k^2(k+1)}; k + \frac{1}{k^2(k+1)} \right)$\\
+
+	$f(x) = \begin{cases}
+		0, x \in \R \backslash E\\
+		k, x = k\\
+		\text{линейно и непрерывном соединим точки}, x \in E
+	\end{cases}$.
+
+	$\displaystyle \int_{0}^{+ \infty} f = \lim_{b \to \infty} \int_{a}^{b} f\\
+	\int_{a}^{b} f(x)dx = \sum_{k=1}^{N} \int_{k - \frac{1}{k^2(k+1)}}^{k+ \frac{1}{k^2(k+1)}} f(x) dx =
+	\sum_{k=1}^{N} \frac{1}{2}k \cdot \frac{2}{k^2(k+1)} = \sum_{k=1}^{N} \frac{1}{k(k+1)} = 
+	\sum_{k=1}^{N} \left(\frac{1}{k} - \frac{1}{k+1}\right) =\\= 1 - \frac{1}{N+1} \underset{N \to \infty}{\to}  1$
+\end{proof}
+
+\begin{Rem}
+	Можно построить пример с $\displaystyle g>0$. $\displaystyle g(x) = f(x) + \frac{1}{x^2}$ 
+\end{Rem}
+
+\Subsection{Интегралы от знакопеременных функций}
+\begin{Def}
+	$\displaystyle -\infty < a < b \leqslant + \infty, f \in R_{loc}[a;b)\\
+	\int_{a}^{b} f$ сходится абсолютно, если cходится $\displaystyle \int_{a}^{b} |f|$
+\end{Def}
+
+\begin{Rem}
+	Если $\displaystyle \int_{a}^{b} f$ и $\displaystyle \int_{a}^{b} g$ сходится абсолютно, то $\displaystyle \int_{a}^{b} (\alpha f + \beta g)$
+	сходится абсолютно $\forall \alpha, \beta \in \R$
+\end{Rem}
+
+\begin{proof}
+	$|\alpha f + \beta g| \leqslant |\alpha| \cdot |f| + |\beta| \cdot |g|$ + признак сравнения для неотрицательных функций.
+\end{proof}
+
+\begin{Rem}
+	Если $\displaystyle \int_{a}^{b} f \in \overline{\R},$ то $\displaystyle \left| \int_{a}^{b} f \right| \leqslant \int_{a}^{b}|f|$
+\end{Rem}
+
+\begin{Lm}
+	Если интеграл сходится абсолютно, то он сходится.
+\end{Lm}
+
+\begin{proof}
+	$\displaystyle \int_{a}^{b} |f|$ сходится $\displaystyle \Rightarrow \forall \varepsilon > 0 \exists \Delta \in (a;b) \int_{\Delta}^{b} |f| < \varepsilon$\\
+	Тогда $\displaystyle \left| \int_{\Delta}^{b} f \right| < \int_{\Delta}^{b} |f| < \varepsilon \Rightarrow 
+	\int_{a}^{b} f = \int_{a}^{\Delta} f + \int_{\Delta}^{b} f$ сходится по критерию Больцано-Коши.
+\end{proof}
+
+\begin{Def} 
+	$$x_+= \max\{x,0\} = \begin{cases} x, x \geqslant 0\\ 0, x<0 \end{cases} - \textrm{ положительная часть }x$$
+	$$x_-= \max\{-x,0\} = \begin{cases} 0, x > 0\\ -x, x \leqslant 0 \end{cases} - \textrm{ отрицательная часть } x$$
+	$$x_+ - x_- = x \displaystyle \Rightarrow x_+ = \frac{|x|+x}{2}$$
+	$$x_+ + x_- = |x| \Rightarrow x_- = \frac{|x|-x}{2}$$
+	$0 \leqslant x_{\pm} \leqslant |x|, f_+ = \max \{f;0\}, f_- = \max \{-f;0\}$
+\end{Def} 
+
+\begin{proof}[Второе доказательство леммы]
+	$\displaystyle \int_{a}^{b} |f|$ сходится $\displaystyle \underset{0 \leqslant f_{\pm} \leqslant|f|}{\Rightarrow} \int_{a}^{b} f_+$ и $\displaystyle \int_{a}^{b} f_-$ -- сходятся $\Rightarrow$ \\ 
+	$\displaystyle \underset{f = f_+ - f_-}{\Rightarrow} \int_{a}^{b} f$ сходится 
+\end{proof}
+
+\begin{Rem}
+	Обратное утверждение к лемме неверно:
+	$\displaystyle \int_{a}^{b} f$ сходится $\displaystyle \cancel{\Rightarrow} \int_{a}^{b} |f|$ сходится.
+\end{Rem}
+
+\begin{Def} 
+	Если $\displaystyle \int_{a}^{b} f$ сходится, а $\displaystyle \int_{a}^{b} |f|$ расходится, то 
+	$\displaystyle \int_{a}^{b} f$ называют условно сходящимся.
+\end{Def} 
+
+\begin{Rem}
+	$\displaystyle \int_{a}^{b} f$ сходится абсолютно, $\displaystyle \int_{a}^{b} g$ сходится условно $\displaystyle \Rightarrow \int_{a}^{b} 
+	(f+g)$ сходится условно, т.к. $g = (f+g)-f$.
+\end{Rem}
+
+\begin{Thm}[Признаки Абеля и Дирихле сходимости несобственных интегралов]
+	$f \in C[a;b), g \in C^1[a;b], g$ монотонна.
+
+	\begin{MyList}
+		\item \textbf{Признак Дирихле.}
+		Если функция $F(t) = \int_a^t f$ ограничена, а $g(x) \xrightarrow[x \to b-]{} 0$, то интеграл $\int_a^b fg$ сходится.
+
+		\item \textbf{Признак Абеля.}
+		Если интеграл $\int_a^b f$ сходится, а $g$ ограничена, то интеграл $\int_a^b fg$ сходится.
+	\end{MyList}
+\end{Thm} 
+
+\begin{proof}
+	\begin{MyList}
+	\item Проинтегрируем по частям:
+	$$\displaystyle \int_{a}^{b} fg = \int_{a}^{b} F'g = Fg \Big|_a^b - \int_{a}^{b} Fg'$$
+	Двойная подстановка обнуляется, поэтому сходимость исходного интеграла равносильна сходимости интеграла $\int_a^b Fg'$. Докажем, что $\int_{a}^{b} Fg'$ сходится абсолютно. 
+	\[ \int_{a}^{b} |Fg'| \leqslant \underset{|F| \leqslant K}{K}  \int_{a}^{b} |g'| = K \left|\int_{a}^{b} g'\right| = 
+	K \cdot |g \Big|^b_a| = K|g(a)|\]
+
+	\item $g$ ограничена и монотонна $\Rightarrow \alpha = \lim_{x \to b-} g(x)$\\
+	Функция $g - \alpha$ монотонна, $\xrightarrow[x \to b-]{} 0 \Rightarrow 
+	\int_{a}^{b} f(g - \alpha)$ сходится по признаку Дирихле. Поэтому интеграл $\int_a^b f(g - \alpha)$ сходится, а интеграл $\int_a^b fg$ сходится как сумма двух сходящихся: 
+	$$\displaystyle \int_{a}^{b} fg = \int_{a}^{b} f(g-\alpha) + \int_{a}^{b} f \cdot \alpha$$
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	Можно ослабить условия: $f \in R_{loc}[a;b), g$ монотонна на $[a;b)$
+\end{Rem}
+
+\begin{Def} 
+	v.p. $\displaystyle \int_{a}^{b} f = \lim_{\varepsilon \to 0} \left(\int_{a}^{c-\varepsilon} f + \int_{c+\varepsilon}^{b} f  \right)$ -- главное значение.\\
+\end{Def} 
+
+\begin{Example}
+	\begin{align*}
+		\displaystyle &\int_{-1}^{1} \frac{dx}{x} = 0 \\
+		\displaystyle &\int_{-\infty}^{\infty} x dx = 0 \\
+		\displaystyle &\int_{-\infty}^{\infty} x^2 dx = +\infty
+	\end{align*}
+\end{Example}
+
+\begin{Example}
+	\begin{MyList}
+		\item $\displaystyle \int_{1}^{+\infty} f(x) \cdot \sin x \, dx, f(x) \geqslant 0$.\\
+		\begin{MyItemize}
+			\item Если $\displaystyle \int_{1}^{+\infty} f$ сходится, то $\displaystyle \int_{1}^{+\infty} f(x) \sin x dx$ сходится абсолютно.\\
+			$0 \leqslant |f(x) \cdot \sin x| \leqslant |f(x)| = f(x)$\\
+			\item Если $\displaystyle \int_{1}^{+\infty} f$ расходится\\
+			$\displaystyle l = \lim_{x \to + \infty} f(x)$
+
+			\begin{MyList}
+				\item $l = 0$ и $f$ монотонна, то признак Дирихле и $\displaystyle \int_{1}^{+\infty} f(x) \sin x dx$ -- сходится.\\
+				Но: $\displaystyle \int_{1}^{+\infty} |f(x) \sin x| dx$ не сходится.\\
+				$\displaystyle |\sin x| \geqslant \sin^2 x = \frac{1 - \cos 2x}{2}$\\
+				$\displaystyle \int_{1}^{\infty} f(x) |\sin x| dx \geqslant \underbrace{\int_{1}^{+\infty} \frac{1}{2}f(x)dx}_{\text{расходится}} - 
+				\underbrace{\int_{1}^{+\infty} \frac{1}{2} f(x) \cos 2x dx}_{\text{сходится}}$
+				\item $\displaystyle l > 0 \Rightarrow \int_{1}^{+ \infty} f \sin x dx$ расходится.\\
+				$\displaystyle \int_{a_k}^{b_k} f(x) \cdot \sin x dx \geqslant \frac{1}{2} \int_{a_k}^{b_k}
+				f(x)dx \geqslant \frac{1}{2} \cdot \frac{2 \pi}{3} \cdot \min\{f(a_k), f(b_k)\} 
+				\underset{k \to \infty}{\to} \frac{\pi}{3} \cdot l = \varepsilon > 0$
+			\end{MyList}
+		\end{MyItemize}
+		
+		\item $\displaystyle \int_{1}^{+\infty} \frac{\sin x}{x} dx$ сходится условно.\\
+		$\displaystyle \int_{1}^{+\infty} \frac{\sin x}{x^2} dx$ сходится абсолютно по признаку сравнения.\\ 
+		$\displaystyle \int_{1}^{+\infty} \frac{\sin x}{\sqrt{x}} dx$ сходится условно\\
+		$\displaystyle \int_{1}^{+\infty} \sqrt{x} \sin x dx$ расходится	
+		\item Нельзя пользоваться эквивалентностью в случае знакопеременной функции.\\
+		$\displaystyle \int_{1}^{\infty} \frac{\sin x}{\sqrt{x} - \sin x} dx$ -- расходится\\
+		$\displaystyle f(x) \sim \frac{\sin x}{\sqrt{x}}$ при $\displaystyle x \to \infty$ 
+		$\displaystyle\int_{1}^{\infty} \frac{\sin x}{\sqrt{x}} $ сходится.\\ 
+		Выделим главную часть: $\displaystyle \frac{\sin x}{\sqrt{x}} \left( \frac{1}{1 - \frac{\sin x}{\sqrt{x}}}  \right) = 
+		\frac{\sin x}{\sqrt{x}} (1 + \frac{\sin x}{\sqrt{x}} + \frac{\sin^2 x}{x} + \frac{\sin^3 x}{x\sqrt{x}} + r(x)) =
+		\underset{\text{сх-ся}}{\frac{\sin x}{\sqrt{x}}} + \underset{\text{расходится}}{\frac{\sin^2 x}{x}} +
+		\underset{\text{сх-ся абс-но}}{\frac{\sin^3 x}{x\sqrt{x}}} + \underset{\text{сх-ся абс.}}{\frac{\sin^4 x}{x^2}} + |q(x)|, \ \ \ |q(x)| \leqslant \frac{c}{x^2}$\\
+		$\displaystyle \left(\frac{1}{1-t} = 1 + t + t^2 + t^3 + r(t), t \to 0\right)$
+		\item $\displaystyle \int_{0}^{+\infty} \frac{\sin x}{x^{\alpha}}dx = \int_{0}^{1} + \int_{1}^{+\infty} $\\
+		При $x \to 0 \sin x \sim x$  и $\sin x > 0$ на $(0;1)$\\
+		$\displaystyle \int_{0}^{1} \frac{dx}{x^{\alpha -1}}$
+		\item $\displaystyle \int_{-1}^{1} \frac{dx}{x} = \int_{-1}^{0} \frac{dx}{x} + \int_{0}^{1} \frac{dx}{x}$ расходится.
+		Но сходится в смысле главного значения.
+	\end{MyList}
+\end{Example}
+
+\begin{Rem}
+	$\displaystyle \int_{1}^{+\infty} f \cdot g, f$ -- периодична c периодом $T > 0, g$ -- монотонна $\underset{x \to + \infty}{\to} 0$\\
+	Тогда 
+	\begin{MyList}
+		\item Если $\displaystyle \int_{1}^{+\infty} g$ сходится $\displaystyle \Rightarrow \int_{1}^{+\infty} fg$
+		\item Если $\displaystyle \int_{1}^{+\infty} g$ расходится, то 
+		$\displaystyle \left(\int_{1}^{+\infty} fg \text{ сходится } \Leftrightarrow \int_{1}^{1+T} f = 0 \right)$
+	\end{MyList}
+\end{Rem}
+
+\begin{proof}
+	Упражнение.
+\end{proof}
+
+\begin{Cons}
+	$\displaystyle \int_{1}^{+\infty} \frac{\sin^2 x}{x} dx$ расходится\\
+	$\displaystyle \int_{1}^{+\infty} \frac{\sin^3 x}{x} dx$ сходится
+\end{Cons}
+
+\Subsection{Длина, площадь и  объём}\\
+\Subsubsection{Площадь}
+\begin{Def} 
+	$||x||, x \in \R^n$ -- длина вектора. \\
+	$$\displaystyle ||A-B|| = \sqrt{\sum_{i=1}^{n} (A_i - B_i)^2}$$
+\end{Def} 
+
+\begin{Def} 
+	Движение -- отображение $U: \R^n \to \R^n$, сохраняющее расстояния.\\
+	$$||A-B|| = ||U(A) - U(B)|| \ \ \ \forall A, B \in \R^n$$
+\end{Def} 
+
+\begin{Def} 
+	Площадь -- функционал $S: {P} \to [0; +\infty),$ где $\{P\}$ -- множество квадрируемых фигур из $\R^2$
+\end{Def} 
+
+\begin{Thm}[Свойства площади]
+	\begin{MyList}
+		\item Аддитивность: $P_1, P_2$ -- квадрируемы и $P_1 \bigcap P_2 = \varnothing$. Тогда
+		$P_1 \bigcup P_2$ -- квадрируемая и \\$S(P_1 \bigcup P_2) = S(P_1) + S(P_2)$
+		\item Нормированность на прямоугольниках: площадь прямоугольника со сторонами $a$ и $b$ равна $ab$
+		\item Инвариантность относительно движений: $S(U(P)) = S(P)$
+		\item Монотонность: $P, P_2$ -- квадрируемые, $P_1 \subset P$, тогда $S(P_1) \leqslant S(P)$
+		\begin{proof}
+			$P = P_1 \cup (P \backslash P_1), \ P_1 \cap (P \backslash P_1) = \varnothing$. Тогда по аддитивности
+			площади: $S(P) = S(P_1) + S(P \backslash P_1) \geqslant S(P_1)$
+		\end{proof}
+		\item Если $P$ содержится в некотором отрезке, то $S(p) = 0$
+		\begin{proof}
+			$P$ можно поместить в прямоугольник сколь угодно малой площади. 
+		\end{proof}
+		\item Усиленная аддитивность: $P_1$ и $P_2$ пересекаются по множеству нулевой площади. Тогда
+		$S(P_1 \cup P_2) = S(P_1) + S(P_2)$
+		\begin{proof}
+			Возьмем $P = P_1 \cap P_2 \Rightarrow S(P_1) = S(P) + S(P_1 \backslash P) = S(P_1 \backslash P)\\
+			S(P_1 \cup P_2) = S(P_1 \backslash P)  +S(P_2) = S(P_1) + S(P_2)$
+		\end{proof}
+ 	\end{MyList}
+\end{Thm}
+
+\Subsubsection{Объём}
+\begin{Def} 
+	Объём -- функционал $V: \{T\} \to [0; +\infty)$, где $\{T\}$ -- класс кубируемых тел
+\end{Def} 
+
+\begin{Thm}[Свойства объёма] 
+	\begin{enumerate}
+		\item Аддитивность: $T_1, T_2$ -- кубируемые, $T_1 \cap T_2 = \varnothing$, тогда $T_1 \cup T_2$ --
+		кубируемое, $V(T_1 \cup T_2) = V(T_1) + V(T_2)$
+		\item Нормированность на прямоугольных параллелепипедах. Объём параллелепипеда:\\ 
+		$a \times b \times c = abc$
+		\item  Инвариантность относительно движения: $V(U(T)) = V(T)$
+		\item Монотонность: $T_1, T$ -- кубируемые, $T_1 \subset T$, тогда $V(T_1) \leqslant V(T)$
+		\item Если тело T содержится в некотором прямоугольнике, то его объём равен нулю.
+		\item Усиленная аддитивность. $T_1, T_2$ -- кубируемые, $T_1 \cap T_2$ нулевого объёма, тогда\\
+		$V(T_1 \cup T_2) = V(T_1) + V(T_2)$
+	\end{enumerate}
+\end{Thm} 
+
+\begin{Def} 
+	$P \subset \R^2, h \geqslant 0$. Множество $Q = P \times [0;h]$ называется прямым цилиндром с
+	основанием $P$ и высотой $h$. 
+\end{Def} 
+
+\begin{Def} 
+	$T \subset \R^3, x \in \R\\ T(x) = \{(y, z) \in \R^2: (x, y, z) \in T\}$ -- сечение
+\end{Def} 
+
+\Subsubsection{Длина пути}
+\begin{Def} 
+	$\gamma: [a; b] \to R^m, \gamma - \text{ непрерывное отображение }\\
+	\gamma_i, \ \ i = 1, ..., m$ -- $i$-тая координатная функция.\\
+	Если все $\gamma_i$ непрерывны, то отображение $\gamma$ непрерывно. 
+\end{Def} 
+
+\begin{Def} 
+	Путь в $R^m$ -- $\gamma = (\gamma_1, \gamma_2, ..., \gamma_m): [a,b] \to R^m$\\
+	$\gamma(a)$ -- начало пути\\
+	$\gamma(b)$ -- конец пути\\
+	$\gamma* = \gamma([a,b])$ -- носитель пути. В каком-то смысле можно считать, что это изображение пути.
+\end{Def} 
+
+\begin{Example}
+	Полуокружность:\\
+	$\gamma^1(t) = (t, \sqrt{1-t^2}), t \in [-1, 1]$, пробегаем дугу слева направо.\\
+	$\gamma^2(t) = (- \cos t, \sin t), t \in [0, \pi]$\\
+	$\gamma^3(t) = (\cos t, \sin t), t \in [0,\pi]$\\
+	$\gamma^4(t) = (\cos t, |\sin t|), t \in [-\pi, \pi]$. пробежали дугу туда и обратно.\\
+	Все четыре отображения разные, но носитель пути у всех одинаковый. 
+\end{Example}
+
+\begin{Def} 
+	$\gamma(a) = \gamma(b)$ -- замкнутый путь
+\end{Def} 
+
+\begin{Def} 
+	Если $\gamma(t_1) = \gamma(t_2)$ только при $t_1 = t_2$ или $t_1, t_2 \in \{a; b\},$ то путь 
+	несамопересекающийся (простой)
+\end{Def} 
+
+\begin{Def} 
+	Если $\gamma_i \in C^r[a;b], i = 1, ..., m$, то путь $\gamma$ гладкости $r$, $r \in \N \cup \{\infty\}$
+\end{Def} 
+
+\begin{Def} 
+	Если $\gamma^-(t) = \gamma(a+b-t)$ -- противоположный путь.
+\end{Def} 
+
+\begin{Ex}
+	Посмотреть на кривые Пеано. 
+\end{Ex}
+
+\begin{Def} 
+	$\gamma: [a; b] \to \R^m$, $\widetilde{\gamma}: [\alpha; \beta] \to \R^m$ -- эквивалентные,
+	если существует строго возрастающая функция и $[a;b] \overset{\text{на}}{\to} [\alpha; \beta]:
+	\gamma = \widetilde{\gamma} \circ u$.\\ 
+	Это отношение эквивалентности:
+	\begin{enumerate}
+		\item $\gamma \sim \gamma, \ \ u = id [a;b]$
+		\item $\gamma \sim \widetilde{\gamma} \Leftrightarrow \gamma \sim \widetilde{\gamma} \ \ \ u^{-1}$ -- обратное отображение
+		\item $\gamma_1 \sim \gamma_2, \gamma_2 \sim \gamma_3 \Rightarrow \gamma_1 \sim \gamma_3 \ \ \ u_1 \circ u_2$
+	\end{enumerate}
+\end{Def} 
+
+\begin{Def} 
+	Класс эквивалентных путей -- кривая\\
+	Каждый представитель класса -- параметризация кривой\\
+	Кривая называется r-гладкой, если у неё найдется гладкая параметризация
+\end{Def} 
+
+\Subsubsection{Длина кривой}
+\begin{Def} 
+	$\gamma \in C([a;b] \to \R^m) -$ путь в $R^m$
+	\begin{enumerate}
+		\item Длина кривой, соединяющей точки $A$ и $B$ не меньше $||AB||$
+		\item Нужна аддитивность: $a < c < b$, $\gamma^1 = \gamma \big|_{[a;c]},
+		\gamma^2=\gamma \big|_{[c;b]} \Rightarrow S_{\gamma} = S_{\gamma^1} + S_{\gamma^2}$
+	\end{enumerate}
+\end{Def} 
+
+\begin{Example}
+	$\tau = \{t_0, t_1, t_2, ..., t_n \}$ -- дробление $[a, b]\\
+	l_{\tau}$ -- вписанная ломаная. 
+\end{Example}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.4\columnwidth}
+	\input{img/path_length.pdf_tex}
+\end{figure*}
+
+\begin{Def} 
+	$\gamma$ -- путь в $\R^m$. Длиной пути $\gamma$ называется $S_{\gamma} = \underset{\tau}{\sup} \, l_{\tau}$ 
+\end{Def} 
+
+\begin{Def} 
+	Путь с $S_{\gamma} < + \infty$ -- спрямляемый. 
+\end{Def} 
+
+\begin{Lm}
+	Длины эквивалентных путей равны.	
+\end{Lm}
+\begin{proof}
+	$\gamma \sim \widetilde{\gamma} \circ u, \ \ u: [a;b] \overset{\text{на}}{\to}{[\alpha; \beta]}$ строго возрастает\\
+	$\tau = \{t_k\}^n_{k=1}$ -- дробление $[a;b]$\\
+	$\widetilde{t}_k = u(t_k), \widetilde{\tau} = \{\widetilde{t}_k\}$ -- дробление $[\alpha, \beta]$\\
+	$\displaystyle l_{\tau} = \sum_{k=0}^{n-1} \underbrace{||\gamma(t_{k+1}) - \gamma(t_k)||}_{\text{{ длина отрезка }}} = 
+	\sum_{k=0}^{n-1} || \widetilde{\gamma} (\widetilde{t}_{k+1}) - \widetilde{t}_k|| = l_{\widetilde{\tau}}$\\
+	$l_{\tau} = l_{\widetilde{\tau}} \leqslant S_{\widetilde{\gamma}} \Rightarrow S_{\gamma} \leqslant S_{\widetilde{\gamma}}$\\
+	Поменяем: $\gamma$ и $\widetilde{\gamma}$ местами $\Rightarrow S_{\widetilde{\gamma}} \leqslant S_{\gamma}$
+\end{proof}
+
+\begin{Rem}
+	Противоположные пути имеют одинаковую длину. 
+\end{Rem}
+
+\begin{Lm}[Аддитивность длины пути]
+	$\gamma: [a;b] \to \R, a < c < b$\\
+	$\gamma^1 = \gamma \big|_{[a;c]}, \gamma^2 = \gamma \big|_{[c;b]}$\\
+	$S_{\gamma} = S_{\gamma^1} + S_{\gamma^2}$
+\end{Lm}
+
+\begin{proof}
+	Обозначим $S_1 = S_{\gamma^1}, S_2 = S_{\gamma^2}$. Возьмём дробления $\tau_1$ и $\tau_2$ отрезков $[a, c]$ и $[c, b]$; тогда $\tau = \tau_1 \cup \tau_2$ -- дробление $[a, b]$. Построим по $\tau_1$ и $\tau_2$ ломаные, вписанные в $\gamma^1$ и $\gamma^2$, и обозачим через $l_1$ и $l_2$ их длины.
+    Тогда $l_1 + l_2  = l_{\tau} \leqslant s_{\gamma}$. Последовательно переходя в левой части к супремуму по всевозможным дроблениям $\tau_1$ и $\tau_2$, получаем $$s_1 + l_2 \leqslant s_{\gamma},$$ $$ s_1 + s_2 \leqslant s_{\gamma}.$$
+    Докажем противоположное неравенство $$s_{\gamma} \leqslant s_1 + s_2.$$
+    Возьмём дробление $\tau = \{ t_k \}^n_{k = 0}$ отрезка $[a, b]$ и докажем, что $l_{\tau} \leqslant s_1 + s_2$; отсюда и будет следовать требуемое. Если $c \in \tau$, то $\tau = \tau_1 \cup \tau_2$, где $\tau_1$ и $\tau_2$ -- дробления $[a, c]$ и $[c, b]$. Поэтому $$l_{\tau} = l_1 + l_2 \leqslant s_1 + s_2.$$
+    Если $c \notin \tau$, то добавим $c$ в число точек дробления, то есть положим $\tau^* = \tau \cup \{ c \}$. Пусть $c \in (t_{\nu}, t_{\nu + 1})$. По неравенству треугольника        
+    $$ l_{\tau} = \sum_{k = 0}^{\nu - 1} |\gamma (t_{k + 1}) - \gamma (t_k) | + |\gamma (t_{\nu + 1}) - \gamma(t_{\nu}) | + \sum_{k = \nu + 1}^{n - 1}|\gamma (t_{k+1}) - \gamma (t_k) | \leqslant $$
+    $$ \leqslant \sum_{k = 0}^{\nu = 1} |\gamma (t_{k+1}) -\gamma (t_k)| + |\gamma(c) - \gamma(t_{\nu})| + |\gamma(t_{\nu + 1}) - \gamma(c)| + \sum_{k = \nu + 1}^{n - 1}|\gamma (t_{k + 1}) - \gamma(t_k)| = l_{\tau^*}$$
+    По доказанному $$l_{\tau} \leqslant l_{\tau^*} \leqslant s_1 + s_2$$
+\end{proof}
+
+\begin{Def} 
+	Длина кривой -- длина какой-то из её параметризаций
+\end{Def} 
+
+\begin{Example}
+	Пример ограниченной, но неспрямляемой кривой: кривая Коха.
+	Длины:
+	\begin{enumerate}
+		\item $\displaystyle n = 1: \ \frac{1}{3} \cdot 4$\\
+		\item $\displaystyle n = 2: \ \left(\frac{4}{3}\right)^2$
+		\item $\displaystyle n = 3: \ \left(\frac{4}{3}\right)^3$
+	\end{enumerate}
+\end{Example}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.4\columnwidth}
+	\input{img/Koch_curve.pdf_tex}
+  \end{figure*}
+
+\Subsubsection{Приложения интеграла Римана}
+
+\begin{Def} 
+	$f: [a;b] \to \R$\\ $Q_f\{(x, y) \in \R^2: x\in [a;b], y \in [0; f(x)]\}$ -- подграфик\\
+	Если $f \in C[a;b]$, то $Q_f$ называют криволинейной трапеция\\
+\end{Def} 
+
+\begin{Thm} 
+	Пусть $f \in R[a;b].$ Тогда $Q_f$ квадрируема 
+\end{Thm} 
+
+\begin{proof}
+	Без доказательства
+\end{proof}
+
+\begin{Rem}
+	Суммы Дарбу $s_{\tau}, S_{\tau}\\
+	\forall \tau \ \ \ s_{\tau} \leqslant S(Q_f) \leqslant S_{\tau}$\\
+	Вспомним, что $\underset{\tau}{\sup} S_{\tau} = \underset{\tau}{\inf} S_{\tau}$\\
+	$\Rightarrow S(Q_f) = \displaystyle \int_{a}^{b} f dx$
+\end{Rem}
+
+\begin{Rem}
+	$\displaystyle S(Q_f) = - \int_{a}^{b} f$
+\end{Rem}
+
+\begin{Example}
+	Площадь эллипса: $\displaystyle E = \{(x, y): \frac{x^2}{a^2} + \frac{y^2}{b^2} \leqslant 1\}, a, b > 0$\\
+	$\displaystyle y = b \sqrt{1 - \frac{x^2}{a^2}}, x\in [0;a]$\\
+	$\displaystyle S_E = 4 \int_{0}^{a} b	\sqrt{1 - \frac{x^2}{a^2}} dx = 4b \int_{0}^{\frac{\pi}{2}} a \cos^2 t \,dt = 4ba \cdot \frac{\pi}{4} = \pi ba$
+\end{Example}
+
+\def\AuthorName{Илья Дудников}
+
+\Subsection{Полярные координаты}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{.15\columnwidth}
+	\input{img/polar_cs.pdf_tex}
+\end{figure*}
+
+Чтобы была взаимная однозначность, можно считать, что $\PHI \in [0, 2\pi]$.
+Можно обобщать на $r \in \R$, а не только $\R_+$.
+
+\begin{figure}[h]
+	\centering
+
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\def\svgwidth{.7\columnwidth}
+		\input{img/polar_circle.pdf_tex}
+		\caption{$r(\PHI) = 1$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\def\svgwidth{.7\columnwidth}
+		\input{img/polar_example_2.pdf_tex}
+		\caption{$r(\PHI) = \PHI$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\def\svgwidth{.7\columnwidth}
+		\input{img/polar_example_3.pdf_tex}
+		\caption{$r(\PHI) = \cos \PHI$}
+	\end{subfigure}
+	\caption{Примеры функций в полярных координатах}
+\end{figure}
+
+\Subsubsection{Вычисление площади в полярных координатах}
+
+$r(\PHI) : [\PHI_1, \PHI_2] \to \R, \tau = \{\psi_k\}$ -- разбиение $[\PHI_1, \PHI_2]$.
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.35\columnwidth}
+	\input{img/curvilinear_sector.pdf_tex}
+\end{figure}
+
+Площадь сектора равна $\frac{1}{2} r^2 \PHI$. Обозначим
+
+\begin{align*}
+	&s_\tau = \frac{1}{2} \sum_{k=0}^{n - 1} \Delta \psi_k \cdot \min_{\PHI \in [\psi_k, \psi_{k + 1}]} r^2(\PHI) \\
+	&S_\tau = \frac{1}{2} \sum_{k=0}^{n - 1} \Delta \psi_k \cdot \max_{\PHI \in [\psi_k, \psi_{k + 1}]} r^2(\PHI)
+\end{align*}
+
+Тогда
+
+\[s_\tau \leqslant S(Q) \leqslant S_\tau\]
+Если $r^2(\PHI) \in R[\PHI_1, \PHI_2]$, то $\sup_\tau s_\tau = \inf_\tau S_\tau = S(Q)$.
+Значит, искомая площадь равна:
+\[S = \frac{1}{2}\int_{\PHI_1}^{\PHI_2} r^2(\PHI) \,d\PHI\]
+
+\begin{Example}
+	Найдем площадь $S$ правого лепестка \textbf{лемнискаты Бернулли} 	
+	\[r = a\sqrt{2\cos 2\PHI}, \qquad \PHI \in \left[-\frac{\pi}{4}, \frac{\pi}{4}\right], \quad a > 0\]
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/bernoulli_lemniscate.pdf_tex}
+	\end{figure}
+	\[S = \frac{1}{2}\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}} a^2 \cdot 2\cos 2\PHI \,d\PHI = \left. a^2 \frac{\sin 2\PHI}{2}\right|_{-\frac{\pi}{4}}^{\frac{\pi}{4}} = a^2\]
+\end{Example}
+
+\begin{Ex}
+	Посчитать площадь правого лепестка лемниската Бернулли.
+\end{Ex}
+
+\begin{Rem}
+	Можно было приближать не секторами, а треугольниками. 
+	
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/curvilinear_sector_with_triangles.pdf_tex}
+	\end{figure}
+
+	\[\frac{1}{2} \min_{\PHI \in [\psi_k, \psi_{k + 1}]} r^2(\PHI) \sin \Delta \psi_k\]
+	В данном случае, нельзя перейти к эквивалентным. Тогда
+	\[\alpha - \frac{\alpha^3}{3!} \leqslant \sin \alpha \leqslant \alpha\]
+\end{Rem}
+
+\Subsubsection{Вычисление объемов}
+
+$T$ -- кубируемое.
+
+\begin{MyItemize}
+	\item Существует отрезок $[a, b]$ такой, что $T(x) = \varnothing \ \forall x \notin [a, b]$
+	\item $\forall x \in [a, b] \ T(x)$ -- квадрируемая фигура.  
+\end{MyItemize}
+
+$\tau = \{x_k\}$ -- разбиение $[a, b]$. Возьмем цилиндры с $h = \Delta x_k$, основаниями $\displaystyle \min_{x \in [x_k, x_{k + 1}]} S(x)$ и $\displaystyle \max_{x \in [x_k, x_{k + 1}]} S(x)$. Тогда
+\[V = \int_a^b S(x) \,dx\]
+
+\begin{Example}
+	Найдем объем $V$ эллипсоида
+	\[D = \left\{(x, y, z), \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} \leqslant 1\right\}, \qquad a, b, c > 0\]
+	Если $x \notin [-a, a]$, то $D(x) = \varnothing$. Если $x = \pm a$, то $D(x) = \{(0, 0)\}$.
+	Если $x \in (-a, a)$, то
+	\[D(x) = \left\{(x, y) \in \R^2 : \frac{y^2}{b^2} + \frac{z^2}{c^2} \leqslant 1 - \frac{x^2}{a^2}\right\}\] 
+	есть эллипс с полуосями $b\sqrt{1 - \frac{x^2}{a^2}}$ и $c\sqrt{1 - \frac{x^2}{a^2}}$.
+	Площадь эллипса вычисляется по формуле: $S(x) = \pi bc \left(1 - \frac{x^2}{a^2}\right)$. Отсюда
+	\[V = \int_{-a}^a \pi bc \left(1 - \frac{x^2}{a^2}\right)\,dx = 2\pi bc \left[x - \frac{x^3}{3a^2}\right]_{x = 0}^a = \frac{4}{3} \pi abc\] 
+\end{Example}
+
+\begin{Rem}
+	Пусть $f : [a, b] \to [0, +\infty), T_f$ -- тело, получающееся вращением подграфика функции $f$ вокруг оси $OX$.
+	Тело $T_f$ задается равенством
+	\[T_f = \left\{(x, y, z) \in \R^3 : x \in [a, b], y^2 + z^2 \leqslant f^2(x)\right\}\] 
+\end{Rem}
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{.35\columnwidth}
+	\input{img/rotating_solid.pdf_tex}
+\end{figure}
+
+\begin{Rem}
+	Пусть $f \in C[a, b], f \geqslant 0$. Для тела вращения $T_f$ при каждом $x \in [a, b]$ сечение есть круг радиуса $f(x)$,
+	поэтому $S(x) = \pi f^2(x)$. Значит
+	\[V(T_f) = \pi \int_a^b f^2\]  
+\end{Rem}
+
+\begin{Example}
+	Найдем объем $V_T$ тора -- тела, образованного вращением круга $\left\{(x, y) : x^2 + (y - R)^2 \leqslant r^2\right\} \quad (0 < r < R)$ вокруг оси $OX$.
+	
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/thor.pdf_tex}
+	\end{figure}
+	
+	Тор представляется в виде разности тел вращения подграфиков функций, графики которых -- верхняя и нижняя полуокружности, то есть функции
+	\[f_1(x) = R + \sqrt{r^2 - x^2}, \quad f_2(x) = R - \sqrt{r^2 - x^2}, \qquad x \in [-r, r]\]
+	Поэтому
+	\begin{align*}
+		V_T &= \pi \int_{-r}^r f_1^2 - \pi \int_{-r}^r f_2^2 = \\
+		&= \pi \int_{-r}^r \left(\left(R + \sqrt{r^2 - x^2}\right)^2 - \left(R - \sqrt{r^2 - x^2}\right)^2\right)\,dx =\\
+		&= 4\pi R \int_{-r}^r \sqrt{r^2 - x^2}\,dx = 2\pi^2 Rr^2
+	\end{align*}
+\end{Example}
+
+\begin{Rem}
+	Вокруг $OY$ вращаем $y = f(x)$ 
+	\[V = \int_a^b 2\pi x f(x) \,dx\]	
+\end{Rem}
+
+\Subsubsection{Длина кривой}
+
+Если $\gamma = (\gamma_1, ..., \gamma_m)$ -- путь в $\R^m$, $\gamma_i \in C^1[a, b], \gamma' = (\gamma_1', \gamma_2', ..., \gamma_m')$.
+По определению евклидовой длины
+\[||\gamma'|| = \sqrt{\sum_{i = 1}^m \gamma_i'^2}\]
+
+\begin{Thm}[Длина гладкого пути]
+	Пусть $\gamma : [a, b] \to \R^m$ -- гладкий путь. Тогда $\gamma$ спрямляем и
+	\[s_\gamma = \int_a^b ||\gamma'||\] 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Пусть $\Delta = [\alpha, \beta] \subset [a, b]$. Пусть дробление $\eta = \{u_k\}_{k = 0}^n$ отрезка $\Delta$. 
+		Тогда
+		\[l_\eta = \sum_{k=0}^{n - 1} ||\gamma(u_{k + 1}) - \gamma(u_k)|| = \sum_{k=0}^{n - 1} \sqrt{\sum_{i=1}^{m} \left(\gamma_i(u_{k + 1}) - \gamma_i(u_k)\right)^2}\]  
+
+		По формуле Лагранжа при каждых $i$ и $k$ найдется такая точка $c_{ik} \in (u_k, u_{k + 1})$, что
+		\[\gamma_i (u_{k + 1}) - \gamma_i (u_k) = \gamma_i' (c_{ik}) \Delta u_k\]
+		Поэтому
+		\[l_\eta = \sum_{k=0}^{n - 1} \sqrt{\sum_{i=1}^{m} \gamma_i'^2 (c_{ik})} \cdot \Delta u_k\]
+		Обозначим 
+		\[M_\Delta^{(i)} = \max_{t \in \Delta} |\gamma_i'(t)|, \qquad m_\Delta^{(i)} = \min_{t \in \Delta} |\gamma_i'^2 (t)|\]
+		\[M_\Delta = \sqrt{\sum_{i=1}^{m} \left(M_\Delta^{(i)}\right)^2}, \qquad m_\Delta = \sqrt{\sum_{i=1}^{m} \left(m_\Delta^{(i)}\right)^2}\]
+		Тогда
+		\[m_\Delta (\beta - \alpha) \leqslant l_\eta \leqslant M_\Delta (\beta - \alpha)\]
+		Переходя к супремуму по всем дроблениям, мы получим
+		\[m_\Delta (\beta - \alpha) \leqslant s_{\gamma |_\Delta} \leqslant M_\Delta (\beta - \alpha)\]
+		В частности, при $\Delta = [a, b]$, отсюда следует, что путь $\gamma$ спрямляем.
+
+		\item Возьмем дробление $\tau = \{t_k\}_{k = 0}^n$ отрезка $[a, b]$ и обозначим
+		\[m_k = m_{[t_k, t_{k + 1}]}, \qquad M_k = M_{[t_k, t_{k + 1}]}\]
+		По доказанному
+		\[m_k \Delta t_k \leqslant s_{\gamma |_{[t_k, t_{k + 1}]}} \leqslant M_k \Delta t_k\]
+		Кроме того, при всех $t \in [t_k, t_{k + 1}]$
+		\[m_k \leqslant ||\gamma'(t)|| \leqslant M_k\]	
+		и поэтому
+		\[m_k \Delta t_k \leqslant \int_{t_k}^{t_{k + 1}} ||\gamma'|| \leqslant M_k \Delta t_k\]
+		Складывая неравенства и пользуясь аддитивностью длины пути и интеграла, получаем:
+		\[\sum_{k=0}^{n - 1} m_k \Delta t_k \leqslant s_\gamma \leqslant \sum_{k=0}^{n - 1} M_k \Delta t_k\]
+		\[\sum_{k=0}^{n - 1} m_k \Delta t_k \leqslant \int_a^b ||\gamma'|| \leqslant \sum_{k=0}^{n - 1} \leqslant \sum_{k=0}^{n - 1} M_k \Delta t_k\]
+		Докажем, что для всех дроблений между левой и правой суммами лежит лишь одно число.
+		Суммы в левой и правой части не обязаны быть интегральными для $||\gamma'||$, поэтому оценим разность между ними непосредственно.
+		Если $M_\Delta + m_\Delta \neq 0$, то 
+		\begin{align*}
+			M_\Delta - m_\Delta &= \frac{M_\Delta^2 - m_\Delta^2}{M_\Delta + m_\Delta} = \frac{\sum_{i = 1}^m \left(\left(M_\Delta^{(i)}\right)^2 - \left(m_\Delta^{(i)}\right)^2\right)}{M_\Delta + m_\Delta} = \\
+			&= \sum_{i=1}^{m} \left(M_\Delta^{(i)} - m_\Delta^{(i)}\right) \cdot \frac{M_\Delta^{(i)} + m_\Delta^{(i)}}{M_\Delta + m_\Delta} \leqslant \sum_{i=1}^{m} \left(M_\Delta^{(i)} - m_\Delta^{(i)}\right) \\
+		\end{align*}
+		Если же $M_\Delta = m_\Delta = 0$, то доказанное неравенство очевидно.
+
+		Возьмем $\varepsilon > 0$. По теореме Кантора все функции $|\gamma_i'|$ равномерно непрерывны на $[a, b]$. Поэтому для каждого $i = 1, ..., m$ найдется такое $\delta_i > 0$, что
+		\[x, y \in [a, b], |x - y| < \delta_i \SO \left||\gamma_i'(x)| - |\gamma_i'(y)|\right| < \frac{\varepsilon}{m(b - a)}\]
+		Положим $\delta = \displaystyle \min_{1 \leqslant i \leqslant m} \delta_i$.
+		Для любого разбиения с рангом меньше, чем $\delta$ $|M_k - m_k| < \frac{\varepsilon}{b - a}$. Поэтому
+		\[\left|s_\gamma - \int_a^b ||\gamma'||\right| \leqslant \sum_{k=0}^{n - 1} M_k \Delta t_k - \sum_{k=0}^{n - 1} m_k \Delta t_k < \frac{\varepsilon}{b - a} \sum_{k=0}^{n - 1} \Delta t_k = \varepsilon\]
+		Так как $\varepsilon$ произвольно, то $s_\gamma = \int_a^b ||\gamma'||$.
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	По аддитивности эта теорема распространяется на кусочно-гладкие пути.
+\end{Rem}
+
+\begin{Rem}
+	Запишем частный случай теоремы 1 при $m = 2$.
+	Пусть $\gamma = (x(t), y(t)) \in C^{1} \left([a, b] \to \R^2\right)$  
+	\[s_\gamma = \int_a^b \sqrt{(x'(t))^2 + (y'(t))^2}\]
+\end{Rem}
+
+\begin{Cons}
+	$y = f(x) \in C^1[a, b]$. Тогда график спрямляем и
+	\[S_{\Gamma_f} = \int_a^b \sqrt{1 + (f'(x))^2} \,dx\]
+	График $f$ -- это путь
+	\[\Gamma_f (t) = (t, f(t)), \quad t \in [a, b]\]	 
+\end{Cons}
+
+\begin{Example}
+	Длина дуги эллипса.
+	\[\begin{cases}
+		x(t) = a \cos t \\
+		y(t) = b \sin t
+	\end{cases}, \qquad t \in [0, \beta]\]
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.25\columnwidth}
+		\input{img/ellipse.pdf_tex}
+	\end{figure}
+	\begin{align*}
+		s &= \int_0^\beta \sqrt{a^2 \sin^2 t + b^2 \cos^2 t}\,dt \\
+		&= \int_0^\beta \sqrt{b^2 - (b^2 - a^2) \sin^2 t}\,dt = b \int_0^\beta \sqrt{1 - \varepsilon^2 \sin^2 t}\,dt
+	\end{align*}
+	Величина $\varepsilon = \frac{\sqrt{b^2 - a^2}}{b}$ называется \textbf{эксцентриситетом} эллипса.
+	Интеграл
+	\[E(\varepsilon, \beta) = \int_0^\beta \sqrt{1 - \varepsilon^2 \sin^2 t} \,dt\] 
+	называется \textbf{эллиптическим интегралом второго рода}. 
+\end{Example}
+
+\begin{Rem}
+	Эллиптическим интегралом первого рода называется интеграл
+	\[K(\varepsilon, \beta) \int_0^\beta = \frac{1}{\sqrt{1 - \varepsilon^2 \sin^2 t}} \,dt\]
+\end{Rem}
+
+\Subsection{Функции ограниченной вариации}
+
+\begin{Def}
+	Величина
+	\[\mathop{V}_a^b f = \sup_\tau \sum_{k=0}^{n - 1} |f(x_{k + 1}) - f(x_k)|\]
+	называется полной вариацией $f$ на $[a, b]$. 
+
+	Если $\mathop{V}_a^b f < +\infty$, то $f$ называется функцией \textbf{ограниченной вариации} на отрезке $[a, b]$.
+	Множество всех функций ограниченной вариации на $[a, b]$ обозначается $V[a, b]$. 
+\end{Def}
+
+\begin{Thm}[Свойства]
+	\begin{MyList}
+		\item Вариация аддитивна: если $f : [a, b] \to \R, a < c < b$, то
+		\[\mathop{V}_a^b = \mathop{V}_a^c + \mathop{V}_c^b\]
+
+		\item Если $f$ является кусочно-гладкой на $[a, b]$, то
+		\[\mathop{V}_a^b f = \int_a^b |f'|\]
+
+		\item Вариация монотонна: если $f : [a, b] \to \R, [\alpha, \beta] \subset [a, b]$, то
+		\[\mathop{V}_\alpha^\beta = \mathop{V}_a^b f\]
+
+		Вариацию можно определить и для функция, заданных на промежутке произвольного типа.
+		Если $f : \langle a, b\rangle \to \R$, то
+		\[\mathop{V}_a^b f = \sup_{[\alpha, \beta] \subset \langle a, b\rangle} \mathop{V}_\alpha^\beta f\]
+
+		\item Пусть $\gamma = (\gamma_1, ..., \gamma_m) : [a, b] \to \R^m$. Тогда $\gamma$ спрямляем в том и только том случае, когда $\gamma_i \in V[a, b]$ при всех $i = 1, ..., m$.
+		\item Если $f$ монотонна на $[a, b]$, то $f \in V[a, b]$ 
+		\[\mathop{V}_a^b f = |f(b) - f(a)|\]
+		\item Если $f \in V[a, b]$, то $f$ ограничена на $[a, b]$.
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	Докажем свойства 3, 4, 5 и 6.
+	
+	3. По аддитивности 
+	\[\mathop{V}_a^b f = \mathop{V}_a^\alpha + \mathop{V}_\alpha^\beta + \mathop{V}_\beta^b \geqslant \mathop{V}_\alpha^\beta f\] 
+
+	4. Доказательство следует из двусторонней оценки
+	\[|\gamma_i(t_{k + 1}) - \gamma_i (t_k)| \leqslant ||\gamma(t_{k + 1}) - \gamma(t_k)|| \leqslant \sum_{j = 1}^m |\gamma_i (t_{k + 1}) - \gamma_j (t_k)|\]
+
+	5. Для любого дробления
+	\[\sum_{k = 0}^{n - 1} |f(x_{k + 1}) - f(x_k)| = \left|\sum_{k = 0}^{n - 1} \left(f(x_{k + 1}) - f(x_k)\right)\right| = |f(b) - f(a)|\]
+
+	6. При всех $x \in [a, b]$
+	\[|f(x)| \leqslant |f(a)| + |f(x) - f(a)| + |f(b) - f(x)| \leqslant |f(a)| + \mathop{V}_a^b f\]
+\end{proof}
+
+\begin{Thm}[Арифметические действия над функциями ограниченной вариации] \label{thm:32}
+	Пусть $f, g \in V[a, b]$. Тогда
+	\begin{MyList}
+		\item $f + g \in V[a, b]$ 
+		\item $fg \in V[a, b]$ 
+		\item $\alpha f \in V[a, b] \ (\alpha \in \R)$
+		\item $|f| \in V[a, b]$ 
+		\item если $\displaystyle \inf_{x \in [a, b]} |g(x)| > 0$, то $\frac{f}{g} \in V[a, b]$  
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	Обозначим $\Delta_k f = f(x_{k + 1}) - f(x_k)$
+	
+	\begin{MyList}
+		\item Складывая по всем $k$ неравенства
+		\[|\Delta_k(f + g)| \leqslant |\Delta_k f| + |\Delta_k g|\]
+		получим
+		\[\sum_{k = 0}^{n - 1} |\Delta_k (f + g)| \leqslant \sum_{k = 0}^{n - 1} |\Delta_k f| + \sum_{k = 0}^{n - 1} |\Delta_k g| \leqslant \mathop{V}_a^b + \mathop{V}_a^b g\]
+		Переходя в левой части к супремуму по всем дроблениям, получаем, что 
+		\[\mathop{V}_a^b (f + g) \leqslant \mathop{V}_a^b f + \mathop{V}_a^b g\]
+
+		\item По свойству 6 функции $f$ и $g$ ограничены; пусть $|f|$ ограничена числом $K$, а $|g|$ -- числом $L$.
+		Тогда
+		\[|\Delta_k (fg)| \leqslant L |\Delta_k f| + K|\Delta_k g|\]
+		Складывая эти неравенства и переходя к супремуму, получим
+		\[\mathop{V}_a^b fg \leqslant L \mathop{V}_a^b f + K\mathop{V}_a^b g\]
+
+		\item Утверждение для $\alpha f$ следует из 2, если взять в качестве $g$ функцию, тождественно равную $\alpha$.
+		\item Аналогично, из неравенств
+		\[\left|\Delta_k |f|\right| \leqslant |\Delta_k f|\]
+		сложив и перейдя к супремуму, вытекает, что
+		\[\mathop{V}_a^b |f| \leqslant \mathop{V}_a^b f\]	
+
+		\item Достаточно доказать, что $\frac{1}{g} \in V[a, b]$, а потом воспользоваться утверждением 2. Пусть $m = \displaystyle{\inf_{x \in [a, b]} |g(x)|}$.
+		Тогда 
+		\[\left| \Delta_k \frac{1}{g}\right| = \left| \frac{\Delta_k g}{g(x_k) g(x_{k + 1})}\right| \leqslant \frac{|\Delta_k g|}{m^2}\]
+		откуда
+		\[\mathop{V}_a^b \frac{1}{g} \leqslant \frac{1}{m^2} \mathop{V}_a^b g\]	
+	\end{MyList}
+\end{proof}
+
+\begin{Thm}[Характеристика функций ограниченной вариации] \label{thm:33}
+	Пусть $f : [a, b] \to \R$. Тогда $f \in V[a, b]$ в том и только том случае,
+	когда $f$ представляется в виде разности двух возрастающих на $[a, b]$ функций.
+\end{Thm}
+
+\begin{proof}
+	Достаточность очевидна из свойства 5 и предыдущей теоремы.
+	Докажем необходимость. Пусть
+	\[g(x) = \mathop{V}_a^x f, \quad x \in [a, b]; \qquad h = g - f\]
+	Если $a \leqslant x_1 < x_2 \leqslant b$, то по аддитивности
+	\begin{align*}
+		g(x_2) - g(x_1) &= \mathop{V}_{x_1}^{x_2} f \geqslant 0, \\
+		h(x_2) - h(x_1) &= \mathop{V}_{x_1}^{x_2} f - \left(f(x_2) - f(x_1)\right) \geqslant 0
+	\end{align*}
+	то есть функции $g$ и $h$ возрастают.
+\end{proof}
+
+\begin{Cons}
+	$V[a, b] \subset R[a, b]$ 
+\end{Cons}
+
+\begin{proof}
+	Действительно, монотонная функция интегрируема и разность интегрируемых функций интегрируема.
+\end{proof}
+
+\begin{Cons}
+	Функция ограниченной вариации не может иметь разрывов второго рода.
+\end{Cons}
+
+\begin{proof}
+	Это следует из теоремы \ref{thm:33} и из того, что монотонная на отрезке функция не может иметь разрывов второго рода. 
+\end{proof}
+
+\begin{Cons}
+	Ни один из классов $V[a, b]$ и $C[a, b]$ не содержится в другом.
+\end{Cons}
+
+\begin{proof}
+	Так как существуют разрывные монотонные функции, то $V[a, b] \not\subset C[a, b]$
+	
+	Приведем пример непрерывной функции, вариация которой бесконечна. Пусть
+	\[f(x) = \begin{cases}
+		x \cos \frac{\pi}{x}, \quad & x \in (0, 1], \\
+		0, \quad & x = 0
+	\end{cases}\]
+	Тогда $f \in C[0, 1]$. Обозначим $x_k = \frac{1}{k} \ (k \in \N)$. При этом
+	\[f(x_k) = \frac{(-1)^k}{k}, \qquad |f(x_k) - f(x_{k + 1})| = \frac{1}{k} + \frac{1}{k + 1}\]
+	Возьмем $n \in \N$ и рассмотрим дробление: $0 < x_n < ... < x_1 = 1$ (для удобства точки дробления замурованы в порядке убывания).
+	Сумма из определения вариации равна
+	\[\sum_{k = 1}^{n - 1} |f(x_{k + 1}) - f(x_k)| + |f(x_n) - f(0)| = -1 + 2 \sum_{k = 1}^n \frac{1}{k}\]
+	Докажем, что последовательность \textbf{гармонических} сумм 
+	\[H_n = \sum_{k=1}^{n} \frac{1}{k}\]
+	не ограничена сверху. При $m \in \N$ оценим сумму с номером $2^m$ снизу.
+	Для этого сгруппируем слагаемые, а затем оценим сумму в каждой группе как количество слагаемых, умноженное на самое малое слагаемое:
+	\begin{align*}
+		H_{2^m} &= 1 + \frac{1}{2} + \left(\frac{1}{3} + \frac{1}{4}\right) + \left(\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}\right) + ... + \left(\frac{1}{2^{m - 1} + 1} + ... + \frac{1}{2^m}\right) \geqslant \\
+		&\geqslant 1 + \frac{1}{2} + 2 \cdot \frac{1}{4} + 4 \cdot \frac{1}{8} + ... + 2^{m - 1} \cdot \frac{1}{2^m} = 1 + \frac{m}{2}
+	\end{align*}  
+	Поэтому $f \notin V[0, 1]$ 
+\end{proof}
+
+\Section{Ряды}{}{Илья Дудников}
+
+\begin{Def}
+	Рядами называется сумма
+	\[\sum_{k=1}^{\infty} a_k = a_1 + a_2 + ...\]
+	где $\{a_k\}$ -- последовательность из $\R$ (из $\C$)   
+\end{Def}
+
+\begin{Def}
+	Частичной суммой называется величина
+	\[S_n = \sum_{k=1}^{n} a_k\]
+\end{Def}
+
+\begin{Def}
+	$\sum_{k=1}^{\infty} a_k$ сходится $\EQ \exists $ конечный $\lim_{n \to \infty} S_n$    
+\end{Def}
+
+\begin{Prop}
+	$\forall \{S_n\}$ является последовательностью частичных сумм какого-то ряда. 
+\end{Prop}
+
+\begin{proof}
+	$a_1 = S_1, a_k = S_k - S_{k - 1}$
+\end{proof}
+
+\begin{Example}
+	$\sum_{k = 1}^\infty 0 = 0 + 0 + ... = 0$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} 1 = 1 + 1 + ... = +\infty$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} (-1)^k = -1 + 1 - 1 + 1 - ..., \quad S_n = \begin{cases}
+		-1, &n \text{ нечетно} \\
+		0, &n \text{ четно}
+	\end{cases}$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} a^k = a + a^2 + a^3 + ...$, сходится при $|a| < 1$
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{n} z^k = \frac{1 - z^{n + 1}}{1 - z}, z \in \C$, сходится при $|z| < 1$. 
+\end{Example}
+
+\begin{Ex}
+	Что будет, если $|z| = 1$?
+\end{Ex}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k(k + 1)} = 1$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} \frac{1}{k!} = e$, $\sum_{k=0}^{\infty} \frac{a^k}{k!} = e^a$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} \frac{(-1)^k}{(2k)!}\alpha^{2k} = \cos \alpha$ 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k} = 1 + \frac{1}{2} + \frac{1}{3} + ... = \infty$ 
+\end{Example}
+
+\begin{Rem}
+	$H_m = \sum_{k=1}^{m} \frac{1}{k}$ -- гармонические суммы. 
+\end{Rem}
+
+\begin{Property}
+	Если $\sum_{k=1}^{\infty} a_k$ сходится, то $\forall m \in \N \ \sum_{k=m}^{\infty} a_k$ тоже сходится.
+		Верно и что если $\exists m \in \N \ \sum_{k=m}^{\infty} a_k$ сходится, то и $\sum_{k=1}^{\infty} a_k$ сходится.
+\end{Property}
+
+\begin{proof}
+	$\sum_{k=1}^{n} a_k = \sum_{k=1}^{m - 1} a_k + \sum_{k=m}^{n} a_k$. Перейдем к пределу по $n \to \infty$. 
+\end{proof}
+
+\begin{Property}
+	Если $\sum_{k=1}^{\infty} a_k$ сходится, то $\sum_{k=m}^{\infty} a_k \xrightarrow[m \to \infty]{} 0$  
+\end{Property}
+
+\begin{proof}
+	$\sum_{k=m}^{\infty} a_k = \sum_{k=1}^{\infty} a_k - \sum_{k=1}^{m - 1} a_k \xrightarrow[m \to \infty]{}0$ 
+\end{proof}
+
+\begin{Property}[Линейность суммирования]
+	Пусть $\sum_{k=1}^{\infty} a_k, \sum_{k=1}^{\infty} b_k$ -- сходятся, то $\sum_{k=1}^{\infty} (\alpha a_k + \beta b_k)$ сходится.  
+		$\alpha, \beta \in \R$ или $\C$ и $\sum_{k=1}^{\infty} (\alpha a_k + \beta b_k) = \alpha \sum_{k=1}^{\infty} a_k + \beta \sum_{k=1}^{\infty} b_k$ 
+\end{Property}
+
+\begin{Rem}
+	Если $\sum_{k=1}^{\infty} a_k$ расходится, $\sum_{k=1}^{\infty} b_k$ сходится, то $\sum_{i=0}^{\infty} (a_k + b_k)$ расходится   
+\end{Rem}
+
+\begin{proof}
+	$a_k = (a_k + b_k) - b_k$ 
+\end{proof}
+
+\begin{Property}
+	$z_k = x_k + y_k, x_k, y_k \in \R$. $\sum_{k=1}^{\infty} z_k$ сходится $\EQ \sum_{k=1}^{\infty} x_k$ и $\sum_{k=1}^{\infty} y_k$ сходится.    
+\end{Property}
+
+\begin{Property}[Монотонность]
+	$a_k, b_k \in \R, \sum_{k=1}^{\infty} a_k$ и $\sum_{k=1}^{\infty} b_k$ из $\overline{\R}$ и $a_k \leqslant b_k \ \forall k \in \N$. Тогда 
+	\[\sum_{k=1}^{\infty} a_k \leqslant \sum_{k=1}^{\infty} b_k\]    
+\end{Property}
+
+\begin{Thm}[Критерий Больцано-Коши]
+	Пусть есть ряд $\sum_{k=1}^{\infty} a_k$. \\
+	$\sum_{k=1}^{\infty} a_k$ сходится $\EQ \forall \varepsilon > 0 \ \exists N : \forall n > N \ \forall p \in \N \ \left|\sum_{k=n + 1}^{n + p}a_k\right| < \varepsilon$  
+\end{Thm} 
+
+\begin{proof}
+	$S_n = \sum_{k=1}^{n} a_k$ сходится, т.е.
+	\[\forall \varepsilon > 0 \ \exists N : \forall m, n > N \ |S_m - S_n| < \varepsilon\]
+	Возьмем $m = n + p$. 
+\end{proof}
+
+\begin{Rem}
+	Необходимое условие сходимости ряда следует отсюда.
+\end{Rem}
+
+\Subsection{Группировка слагаемых}
+
+Пусть $\sum_{k=1}^{\infty} a_k, \{n_j\}_{j = 1}^\infty$ -- подпоследовательность натуральных чисел, $n_0 = 0$
+
+\[A_j = \sum_{k=n_j + 1}^{n_{j + 1}} a_k, \quad j \in \N\]
+$\sum_{j=0}^{\infty} A_j$ -- получен из $\sum_{k=1}^{\infty} a_k$ при помощи группировки.
+
+\begin{Thm}[Группировка членов ряда]
+	\begin{MyList}
+		\item Если $\sum_{k=1}^{\infty} a_k = S \ \left(S \in \overline{R} \cup \{\infty\} \text{ или } S \in \C \cup \{\infty\}\right)$.
+		Тогда
+		\[\sum_{j=1}^{A_j} = S\]
+		\item $\sum_{j=1}^{\infty} A_j = S$, и $a_n \to 0$ и $\exists L \in \N : $ в каждом $A_j$ не более чем $L$ штук $a_k$.
+		Тогда \[\sum_{i=0}^{\infty} a_k = S\]
+
+		\item $a_k \in \R, \sum_{j=1}^{\infty} A_j = S \in \overline{R}$ и все $a_k$ из одной группы одного знака. Тогда
+		\[\sum_{k=1}^{\infty} a_k = S\]
+	\end{MyList}
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item $S_n = \sum_{k=1}^{n} a_k, T_m = \sum_{j=1}^{m} A_j$. $T_m$ -- подпоследовательность $S_n \ \left(T_m = S_{n_{m + 1}}\right)$
+		\item По определению сходимости ряда:
+		\[\forall \varepsilon > 0 \ \exists N : \forall m > N \ |S_{n_m} - S| < \frac{\varepsilon}{2}\]
+		А также 
+		\[\exists K : \forall k > K \ |a_k| < \frac{\varepsilon}{2L}\]
+		Возьмем $M = \max \{K, n_{N + 1}\}$ и $n_m \leqslant n < n_{m + 1}$ 
+		Тогда
+		\begin{align*}
+			|S_n - S| &\leqslant |S_n - S_{n_m}| + |S_{n_m} - S| = \left|\sum_{k=n_m + 1}^{n} a_k\right| + |S_{n_m} - S| \leqslant \\
+			&\leqslant \sum_{k=n_m + 1}^{n} |a_k| + |S_{n_m} - S| < \frac{\varepsilon}{2L} \cdot L + \frac{\varepsilon}{2} = \varepsilon
+		\end{align*}
+
+		\item Возьмем $\varepsilon > 0 \ \exists M : \forall m > M \ |S_{n_m} - S| < \varepsilon$. Пусть $N = n_{m + 1}$. Возьмем $n_m \leqslant n < n_{m + 1}$.
+		Если $a_{n_m + 1}, a_{n_m + 2}, ..., a_{n_{m + 1}} \geqslant 0$.
+		Тогда 
+		\[S_{n_m} \leqslant S_n \leqslant S_{n_{m + 1}}\]
+		Если $a_{n_m + 1}, a_{n_m + 2}, ..., a_{n_{m + 1}} \leqslant 0$, то знаки в другую сторону.
+		\[|S_n - S| \leqslant \max \left\{ |S_{n_m} - S|, |S_{n_{m + 1}} - S|\right\}\]
+	\end{MyList}
+\end{proof}
+
+\Subsection{Ряды с неотрицательными слагаемыми}
+
+\begin{Lm}
+	Если $a_k \geqslant 0 \ \forall k \in \N$, то
+	\[\sum_{k=1}^{\infty} a_k \text{ сходится } \EQ S_n \text{ ограничена сверху}\] 
+\end{Lm}
+
+\begin{proof}
+	$S_n$ неубывает, поэтому $S_n$ сходится $\EQ S_n$ ограничена сверху 
+\end{proof}
+
+\begin{Rem}
+	Если $a_k \geqslant 0 \ \forall k \in \N$, то 
+	\[\exists \lim S_n = S \in \overline{R} \qquad (S = \sup S_n)\]
+	Достаточно ограниченности сверху подпоследовательности $S_n$.
+\end{Rem}
+
+\begin{Thm}[Признак сравнения]
+	$a_k, b_k \geqslant 0, a_k = O(b_k)$ при $k \to \infty$. Тогда
+	\begin{MyList}
+		\item Если $\sum_{k=1}^{\infty} b_k$ сходится, то $\sum_{k=1}^{\infty} a_k$ сходится
+		\item Если $\sum_{k=1}^{\infty} a_k$ расходится, то $\sum_{k=1}^{\infty} b_k$ расходится.    
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	$\exists N \in \N, A > 0 : a_K \leqslant A b_k$. Тогда
+	\[\sum_{k=N}^{\infty} a_k \leqslant A \sum_{k=N}^{\infty} b_k < +\infty\] 
+\end{proof}
+
+\begin{Cons}[Признак сравнения в предельной форме]
+	$a_k \geqslant, b_k > 0$ и $\exists \lim_{k \to \infty} \frac{a_k}{b_k} = l \in [0, +\infty]$
+	\begin{MyList}
+		\item Если $l \in [0, +\infty)$ и $\sum_{k=1}^{\infty} b_k$ сходится, то $\sum_{k=1}^{\infty} a_k$ сходится.
+		\item Если $l \in (0, +\infty]$ и $\sum_{k=1}^{\infty} a_k$ сходится, то $\sum_{k=1}^{\infty} b_k$ сходится.
+		\item Если $l \in (0, +\infty)$, то $\sum_{k=1}^{\infty} a_k$ и $\sum_{k=1}^{\infty} b_k$ сходятся или расходятся одновременно.        
+	\end{MyList} 
+\end{Cons}
+
+\begin{proof}
+	\begin{MyList}
+		\item $\left\{ \frac{a_k}{b_k}\right\}$ ограничена + теорема.
+		\item Если $l > 0$, то $a_k > 0$ с некоторого места, поэтому поменяем ролями $a_k$ и $b_k$.
+		\item Следует из 1 и 2.  
+	\end{MyList}
+\end{proof}
+
+\begin{Cons}
+	$a_k \thicksim b_k, k \to \infty$, то $\sum_{k=1}^{\infty} a_k$ и $\sum_{k=1}^{\infty} b_k$ сходятся или расходятся одновременно.   
+\end{Cons}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha}$. При $\alpha < 1$ расходится, т.к. $\frac{1}{k^\alpha} \geqslant \frac{1}{k}$.
+	С другой стороны, при $\alpha \geqslant 2$ сходится, т.к. $\frac{1}{k^\alpha} \leqslant \frac{1}{k^2} \thicksim \frac{1}{k(k + 1)}$.
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{k^5}{5^k}$ сходится, т.к.
+	\[\lim_{k \to \infty} \frac{ \frac{k^5}{5^k}}{\frac{1}{k^2}} = \lim_{k \to \infty} \frac{k^7}{5^k} = 0\] 
+\end{Example}
+
+\begin{Rem}
+	$\sum_{k=1}^{\infty} a_k \thicksim \sum_{k=1}^{\infty} b_k$ -- плохая запись!!! 
+\end{Rem}
+
+\begin{Thm}[Радикальный признак Коши]
+	$a_k \geqslant 0, \exists \overline{\lim}_{k \to \infty} \sqrt[k]{a_k} = K$. Тогда
+	\begin{MyList}
+		\item Если $K > 1$ то $\sum_{k=1}^{\infty} a_k$ расходится.
+		\item Если $K < 1$, то $\sum_{k=1}^{\infty} a_k$ сходится  
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Т.к. $K > 1$, то бесконечно много $\sqrt[k]{a_k} > 1 \SO a_k > 1 \SO a_k \not\to 0$.
+		\item Возьмем $\varepsilon = \frac{1 - k}{2} > 0$. Начиная с некоторого номера все $\sqrt[n]{a_n} < K + \varepsilon = \frac{1 + K}{2} \in (0, 1) \SO a_n \leqslant \left( \frac{1 + K}{2}\right)^n $ и $\sum_{n=1}^{\infty} \left( \frac{1 + K}{2}\right)^n$ сходится (геометрическая прогрессия).  
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	Если $k = 1$, то бывает и сходимость, и расходимость. Например,
+	\[\sum_{n=1}^{\infty} \frac{1}{n} \text{ расходится}, \quad \lim_{n \to \infty} \sqrt[n]{\frac{1}{n}} = 1\]
+	С другой стороны
+	\[\sum_{n=1}^{\infty} \frac{1}{n^2} \text{ сходится}, \quad \lim_{n \to \infty} \sqrt[n]{\frac{1}{n}} = 1\]
+\end{Rem}
+
+\begin{Thm}[Признак Даламбера]
+	$a_k > 0$ и $\exists \lim_{n \to \infty} \frac{a_{n + 1}}{a_n} = D$. Тогда
+	\begin{MyList}
+		\item Если $D > 1$, то $\sum_{k=1}^{\infty} a_k$ расходится
+		\item Если $D < 1$, то $\sum_{k=1}^{\infty} a_k$ сходится
+	\end{MyList} 
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item С некоторого номера $ \frac{a_{n + 1}}{a_n} > 1$, т.е. $a_{n + 1} > a_n > a_N \ \forall n > N$.
+		Тогда $a_n \not\to 0$.
+
+		\item Пусть $\varepsilon = \frac{1 - D}{2} > 0$. Начиная с некоторого номера $ \frac{a_{n + 1}}{a_n} < D + \varepsilon = \frac{1 + D}{2} \in (0, 1) \SO a_{n + 1} < \frac{1 + D}{2} \cdot a_n$. Для $m > N$ 
+		\[a_m < \frac{1 + D}{2} \cdot a_{m - 1} < \left( \frac{1 + D}{2}\right)^2 a_{m - 2} < ... < \left( \frac{1 + D}{2}\right)^{m - N} a_N\]
+		Т.е. мы оценили $a_m$ сверху членами геометрической прогрессии.
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	$D = 1$.
+	\[\sum_{n=1}^{\infty} \frac{1}{n} \text{ расходится}, \quad \frac{a_{n + 1}}{a_n} = \frac{n}{n + 1} \to 1\]
+	С другой стороны
+	\[\sum_{n=1}^{\infty} \frac{1}{n^2} \text{ сходится}, \quad \frac{a_{n + 1}}{a_n} = \frac{n^2}{(n + 1)^2} \to 1\] 
+\end{Rem}
+
+\begin{Rem}
+	Эти два признака можно сформулировать и без использования пределов.
+\end{Rem}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{a^k}{k!}, a > 0$. Используя признак Даламбера
+	\[ \frac{a^{k + 1}}{(k + 1)!} \cdot \frac{k!}{a^k} = \frac{a}{k + 1} \to 0\] 
+	По признаку Коши
+	\[\sqrt[k]{ \frac{a^k}{k!}} = \frac{a}{\sqrt[k]{k!}} \to 0\] 
+\end{Example}
+
+\begin{Rem}
+	$a_n > 0$. Если $\exists D = \lim_{n \to \infty} \frac{a_{n + 1}}{a_n} \SO \exists K = \lim_{n \to \infty} \sqrt[n]{a_n} = D$.
+	Обратное неверно!
+\end{Rem}
+
+\begin{Ex}
+	Доказать.
+\end{Ex}
+
+\begin{Thm}
+	$f$ монотонна на $[1, +\infty)$. Тогда
+	$\sum_{k=1}^{\infty} f(k)$ сходится или расходится одновременно с $\int_1^\infty f(x)\,dx$ 
+\end{Thm}
+
+\begin{proof} 
+	Пусть $f$ невозрастает, $f \geqslant 0$.
+
+	\begin{figure}[H]
+		\centering
+		\def\svgwidth{.35\columnwidth}
+		\input{img/series_and_intergrals.pdf_tex}
+	\end{figure}
+
+	\[f(k + 1) \leqslant \int_{k}^{k + 1} f \leqslant f(k)\]
+	Просуммируем эти неравенства:
+	\begin{equation} \label{thm:integral_test}
+		\sum_{k=1}^{n} f(k + 1) \leqslant \int_{1}^{n + 1} f \leqslant \sum_{k=1}^{n} f(k)
+	\end{equation}
+	и перейдем к пределу при $n \to \infty$ 
+\end{proof}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha}, \alpha \in (1, 2)$. $\int_{1}^{\infty} \frac{1}{x^\alpha}\,dx$ сходится, поэтому сходится и ряд.  
+\end{Example}
+
+\begin{Ex}
+	$\sum_{k=1}^{\infty} \frac{1}{k^\alpha \ln^\beta k}$. При каких $\alpha$ и $\beta$ сходится? 
+\end{Ex}
+
+\begin{Rem}
+	Пусть $f \geqslant 0, f$ убывает на $[1; + \infty)$. Обозначим
+	$$A_n = \sum_{k=1}^{n} f(k) - \int_{1}^{n+1} f$$
+	Последовательность $\{A_n\}$ возрастает:
+	\[A_{n+1} - A_n = f(n+1) - \int_{n+1}^{n+2} f \geqslant 0\]
+	Кроме того, по неравенствам (\ref{thm:integral_test})
+	\[0 \leqslant A_n = f(1) + \sum_{k=2}^{n+1} f(k) - f(n+1) - \int_{1}^{n+1} f \leqslant f(1) - f(n+1) \leqslant f(1)\]
+	поэтому последовательность $\{A_n\}$ ограничена, а значит существует конечный неотрицательный предел $\{A_n\}$. Обозначим его $c$. Тогда справедлива асимптотическая формула: 
+	\[\sum_{k=1}^{n} f(k) = \int_{1}^{n+1} f + c + \varepsilon_n, \quad \varepsilon_n \underset{n \to \infty}{\to} 0\]
+	Если ряд расходится (и интеграл), то
+	$$\sum_{k=1}^{n} f(k) \sim \int_{1}^{n+1} f$$
+\end{Rem}
+
+\begin{Example}
+	$H_n = \sum_{k=1}^{n} \frac{1}{k} = \int_{1}^{n+1} \frac{1}{x}dx + \gamma + \varepsilon_n = 
+	\ln (n+1) + \gamma + \varepsilon_n = \Bigg| ln(n+1) - \ln n = \ln (1 + \frac{1}{n}) \to 0 \Bigg| = \ln n + \gamma + \delta_n \Rightarrow H_n \sim \ln n$\\
+	$\gamma = 0,577215$
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{1}{k^{\alpha}}, \alpha \in (0;1)$\\
+	$\sum_{k=1}^{n} \frac{1}{k^{\alpha}} = \int_{1}^{n+1} \frac{1}{x^{\alpha}} dx + c_{\alpha} + \varepsilon_n = 
+	\Bigg| \int_{1}^{n+1} \frac{1}{x^{\alpha}}dx = \frac{(n+1)^{1-\alpha}-1}{1-\alpha} =  \frac{n^{1-\alpha}}{1-\alpha}
+	+ o(1) - \frac{1}{1-\alpha}\Bigg| = \frac{n^{1-\alpha}}{1-\alpha} + d_{\alpha} + \delta_n$\\
+	$\sum_{k=1}^{n} \frac{1}{k^{\alpha}} \sim \frac{n^{1-\alpha}}{1-\alpha}$
+\end{Example}
+
+\begin{Ex}
+	$\sum_{k=1}^{\infty} \frac{1}{k^{\alpha}}, \alpha > 1$
+\end{Ex}
+
+\begin{Rem}
+	$\int_{n+1}^{\infty} f \leqslant \sum_{k=n+1}^{\infty} f(k) \leqslant \int_{n}^{\infty} f$ (Посмотреть на примере 3, как
+	ведет себя "хвостик")
+\end{Rem}
+
+\Subsubsection{Ряды с произвольными членами}	
+\begin{Def} 
+	$\sum_{k=1}^{\infty} a_k$ сходится абсолютно, если $\sum |a_k| сходится$
+\end{Def} 
+
+\begin{Rem}
+	$\sum a_k, \sum b_k$ -- сходится абсолютно. 
+	$\alpha, \beta \in \R (\C)$, то $\sum (\alpha a_k + \beta b_k)$ -- сходится абсолютно\\ 
+\end{Rem}
+
+\begin{proof}
+	$|\alpha a_k + \beta b_k| \leqslant |\alpha||a_k|+|\beta||b_k|$ + признак сравнения
+\end{proof}
+
+\begin{Rem}
+	$\sum_{k=1}^{\infty} z_k, z_k \in \C, z_k = x_k + y_k, x_k, y_k \in \R$\\
+	$\sum_{k=1}^{\infty} z_k$ сходится абсолютно $\Leftrightarrow \sum x_k, \sum y_k$  сходится абсолютно
+\end{Rem}
+
+\begin{proof}
+	$|x_k|, |y_k| \leqslant |z_k| \leqslant |x_k| + |y_k|$ 
+\end{proof}
+
+\begin{Rem}
+	$$\left| \sum_{k=1}^{\infty}  \right|\leqslant \sum_{k=1}^{\infty} |a_k|$$
+\end{Rem}
+
+\begin{Cons}
+	Если ряд сходится абсолютно, то он сходится. 
+\end{Cons}
+
+\begin{proof}
+	$x_+ = \max\{x,0\}, x = x_+-x_-$\\
+	$x_- = \max \left\{ -x, 0\right\}, |x| = x_+ + x_-, |x| \geqslant x_{\pm} \geqslant 0$\\ \\
+	1. $a_k \in \R\\ 
+	\sum_{k=1}^{\infty} |a_k|$ сходится $\Rightarrow \sum_{k=1}^{\infty} a_{k+}$ и 
+	$\sum_{k=1}^{\infty} a_k$ сходится $\Rightarrow \sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} a_{k+} - 
+	\sum_{k=1}^{\infty} a_k$ сходится \\ \\
+	2. $a_k \in \C, a_k = x_k + i y_k$\\
+	$\sum |a_k|$ сходится $\Rightarrow \sum x_k, \sum y-k$ абсолютно сходится $\Rightarrow
+	\sum x_k, \sum y_k$ сходится $\Rightarrow \sum a_k$ 
+\end{proof}
+
+\begin{Rem}
+	$\sum a_k$ -- сходится условно, $\sum b_k$ сходится абсолютно $\Rightarrow
+	\sum_{k=1}^{\infty} (a_k + b_k)$ - сходится условно
+\end{Rem}
+
+\begin{Thm}[Радикальный признак Коши абсолютной сходимости] 
+	$K = \overline{\lim} \sqrt[n]{|a_n|}$
+	\begin{enumerate}
+		\item $k > 1$, то $\sum a_k$
+		\item $k<1$, то $\sum a_k$ сходится абсолютно 
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	$k>1 \Rightarrow |a_n| \cancel{\to} 0 \Rightarrow a_n \cancel{\to} \Rightarrow \sum a_n$ расходится
+	$k < 1 \Rightarrow \sum |a_k|$ сходится
+\end{proof}
+
+\begin{Thm}[Признак Даламбера абсолютной сходимости]
+	$a_k \neq 0, \mathcal{D} = \lim \frac{|a_{k+1}|}{|a_k|}$ -- существует 
+	\begin{enumerate}
+		\item $\mathcal{D} > 1 \Rightarrow \sum a_k$ расходится
+		\item $\mathcal{D} < 1 \Rightarrow \sum a_k$ сходится абсолютно
+	\end{enumerate}
+\end{Thm} 
+
+\begin{proof}
+	Аналогично
+\end{proof}
+
+\begin{Lm}[Преобразования Абеля]
+	Договорися, что $\sum_{k=m}^{n} a_k$ при $m > n$\\
+	$\{a_k\}$ и $\{b_k\}$ из $\R (\C)$\\
+	$A_0 \in \R (\C)$\\
+	$A_k = \sum_{j=1}^{k} a_j + A_0$. Тогда
+	$\sum_{k=1}^{\infty} a_k b_k = A_n b_n - A_0 b_1 + \sum_{k=1}^{n-1} A_k (b_k - b_{k+1})$
+\end{Lm}
+
+\begin{proof}
+	$\sum_{k=1}^{n} a_kb_k = \sum_{k=1}^{n} (A_k - A_{k-1}) b_k = \sum_{k=1}^{n} A_kb_k - \sum_{k=1}^{n} A_{k-1} b_k =
+	\sum_{k=1}^{n} A_k b_k - \sum_{k=0}^{n-1} A_k b_{k+1} = A_n b_n - A_0 b_1 + \sum_{k=1}^{n-1} A_k(b_k - b_{k+1})$
+\end{proof}
+
+\begin{Thm}[Признак Дирихле] 
+	$\{a_k\} \in \R (\C), \{b_k\} \in \R$ -- монотонно убывает. 
+	Если $A_n = \sum_{k=1}^{n} a_k$ ограничена, $b_n \to 0$, то $\sum_{k=1}^{\infty} a_kb_k$ сходится 
+\end{Thm} 
+
+\begin{proof}
+	$A_0 = 0$. Применим Преобразование Абеля: $\underset{\to \sum_{k=1}^{infty} a_kb_k}{\sum_{k=1}^{n} a_kb_k} = \underset{\to 0}{A_nb_n}   + \underset{\to 0}{\sum_{k=1}^{n-1} A_k(b_k - b_{k+1})}$
+	Покажем, что $*$ сходится абсолютно.\\
+	$\exists M: \forall k \ |A_k| \leqslant M$, $b_k - b_{k+1}$ одного знака.\\
+	$\sum_{k=1}^{\infty} |A_k(b_k - b_{k+1})| \leqslant M \sum_{k=1}^{\infty} |b_k - b_{k+1}| = 
+	M |b_1 - \lim_{n \to \infty} b_n| = M(b_1)$
+\end{proof}
+
+\begin{Thm}[Признак Абеля] 
+	$\{a_k\}$ из $\R (\C), \{b_k\}$ из $\R$ -- монотонная
+	Если $\sum a_k$ сходится, последовательность $b_k$ ограничена, то $\sum_{k=1}^{\infty} a_k b_k$ сходится
+\end{Thm} 
+
+\begin{proof}
+	$\exists$ конечный $\lim b_n = \alpha$\\
+	$\{a_k\}$ и $\{b_n - \alpha\}$ -- удовлетворяют предыдущей теореме $\Rightarrow
+	\sum_{k=1}^{\infty} a_k (b_k - \alpha)$ -- сходится\\
+	$\sum_{k=1}^{\infty} a_k b_k = \sum_{k=1}^{\infty} a_k (b_k - \alpha) + \alpha \sum_{k=1}^{\infty} a_k$
+\end{proof}
+
+\begin{Def}
+	$\sum_{k=1}^{\infty} (-1)^k b_k$ или $\sum_{k=1}^{\infty} (-1)^{k - 1} b_k$, если $b_k$ одного знака, называется \textit{знакочередующимися}.   
+\end{Def}
+
+\begin{Thm}[Признак Лейбница]
+	Пусть $\{b_n\}$ монотонна, $b_n \to 0$. Тогда ряд $\sum_{k=1}^{\infty} (-1)^{k} b_k$ сходится. 
+\end{Thm}
+
+\begin{proof}
+	Пусть $b_k \geqslant 0$. Рассмотрим последовательность $\{S_{2m}\}$. Она убывает, т.к.
+	\[S_{2m} - S_{2(m - 1)} = b_{2m} - b_{2m - 1} \leqslant 0\]
+	и ограничена снизу, поскольку
+	\[S_{2m} = -b_1 + (b_2 - b_3) + (b_4 - b_5) + ... + (b_{2m - 2} - b_{2m - 1}) + b_{2m} \geqslant -b_1 + b_{2m} \geqslant -b_1\]	
+	Поэтому существует конечный $\lim_{m \to \infty} S_{2m} = S$. Но тогда
+	\[S_{2m + 1} = S_{2m} - b_{2m + 1} \xrightarrow[]{} S\]
+	т.к. $b_{2m + 1} \to 0$.
+\end{proof}
+
+\begin{Rem}
+	Признак Лейбница следует из принципа Дирихле, если положить $a_k = (-1)^k$. 
+\end{Rem}
+
+\begin{Rem}
+	Поскольку
+	\[S_{2m} = (-b_1 + b_2) + ... + (- b_{2m - 1} + b_{2m}) \leqslant 0 \quad \text{и} \quad S_{2m} \geqslant -b_1\]
+	то, по теореме о предельном переходе в неравенстве $-b_1 \leqslant S \leqslant 0$.  
+\end{Rem}
+
+\begin{Rem}
+	Рассмотрим остаток лейбницевского ряда $S - S_n$. Тогда
+	\[-b_1 \leqslant (-1) (S - S_n) \leqslant 0\]
+	Для доказательства нужно применить замечание 1 к остатку ряда.
+\end{Rem}
+
+\begin{Example}
+	Рассмотрим ряд $\sum_{k=1}^{\infty} \frac{(-1)^{k - 1}}{k^\alpha}$. При $\alpha > 1$ он сходится абсолютно, т.к.
+	\[\left| \frac{(-1)^{k - 1}}{k^\alpha}\right| = \frac{1}{k^\alpha}\]
+	При $\alpha \in (0, 1]$ он абсолютно не сходится, но сходится по признаку Лейбница.
+\end{Example}
+
+\begin{Example}
+	Найдем сумму ряда
+	\[\sum_{k=1}^{\infty} \frac{(-1)^{k - 1}}{k} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + ...\]
+	Заметим, что 
+	\begin{align*}
+		S_{2n} &= H_{2n} - 2 \cdot \left(\frac{1}{2} + \frac{1}{4} + \frac{1}{6} + ... + \frac{1}{2n}\right) = H_{2n} - H_n = \\
+		&= \ln 2n + \gamma + \delta_{2n} - (\ln n + \gamma + \delta_n) \\
+		&= \ln 2 + \delta_{2n} - \delta_n \to \ln 2
+	\end{align*}   
+\end{Example}
+
+\begin{Example}
+	Рассмотрим ряд
+	\[\sum_{k=1}^{\infty} c_k = 1 - \frac{1}{2} - \frac{1}{4} + \frac{1}{3} - \frac{1}{6} - \frac{1}{8} + \frac{1}{5} - \frac{1}{10} - \frac{1}{12} + ...\]
+	Он получен из ряда $\sum_{k=1}^{\infty} \frac{(-1)^{k - 1}}{k}$ перестановкой членов. 
+	Обозначим частичные суммы этих рядов $T_n$ и $S_n$ соответственно. Тогда
+
+	\begin{align*}
+		T_{3m} &= \sum_{k=1}^{m} \left(\frac{1}{2k - 1} - \frac{1}{4k - 2} - \frac{1}{4k}\right) = \\
+		&= \sum_{k=1}^{m} \left(\frac{1}{4k - 2} - \frac{1}{4k}\right) = \\
+		&= \frac{1}{2} \sum_{k=1}^{m} \left(\frac{1}{2k - 1} - \frac{1}{2k}\right) = \frac{1}{2} S_{2m} \xrightarrow[m \to \infty]{} \frac{1}{2} \ln 2 \\
+		T_{3m + 1} &=  T_{3m} + \frac{1}{2m + 1} \xrightarrow[m \to \infty]{} \frac{1}{2} \ln 2 \\
+		T_{3m + 2} &= T_{3m + 1} - \frac{1}{4m + 2} \xrightarrow[m \to \infty]{} \frac{1}{2} \ln 2
+	\end{align*}
+	Значит, $\sum_{k=1}^{\infty} c_k = \frac{\ln 2}{2}$, то есть сумма после перестановки слагаемые поменялась. 
+\end{Example}
+
+\begin{Def}
+	$\PHI : \N \to \N$ (биекция). Тогда мы будем говорить, что ряд
+	\[\sum_{n=1}^{\infty} a_{\PHI(k)}\] 
+	получен перестановкой слагаемых ряда $\sum_{n=1}^{\infty} a_n$. 
+\end{Def}
+
+\begin{Thm}[Перестановка членов абсолютно сходящегося ряда]
+	Пусть ряд $\sum_{n=1}^{\infty} a_n$ сходится абсолютно к $S$, $\PHI : \N \to \N$ (биекция). 
+	Тогда ряд $\sum_{n=1}^{\infty} a_{\PHI(n)}$ сходится абсолютно к $S$.  
+\end{Thm}
+
+\begin{proof}
+	\begin{MyList}
+		\item Пусть $a_k \geqslant 0$. Обозначим
+		\[S_n = \sum_{k=1}^{n} a_k, \qquad T_n = \sum_{k=1}^{n} a_{\PHI(k)}\]
+		Для всех $n$ верно
+		\[T_n \leqslant S_m \leqslant S\]
+		где $m = \max \{\PHI(1), ..., \PHI(n)\}$ $\SO T_n \leqslant S$, т.е. перестановка не увеличивает сумму ряда.  
+		Применим к новому ряду $\PHI^{-1} : \N \to \N$. Но такая перестановка тоже не увеличит сумму ряда, а значит $S \leqslant T$.
+
+		\item Пусть $a_k \in \R$. Рассмотрим $a_{k\pm}, a_{\PHI(k)\pm}$. 
+		Ряды $\sum_{k=1}^{\infty} a_{k+}$ и $\sum_{k=1}^{\infty} a_{k-}$ сходятся. По доказанному, $a_{\PHI(k)\pm}$ сходятся к тем же суммам. Тогда
+		\[\sum_{k=1}^{\infty} a_{\PHI(k)} = \sum_{k=1}^{\infty} a_{\PHI(k)+} - \sum_{k=1}^{\infty} a_{\PHI(k)-} = \sum_{k=1}^{\infty} a_{k+} - \sum_{k=1}^{\infty} a_{k-} = \sum_{k=1}^{\infty} a_k\]  
+		
+		\item Пусть $a_k \in \C$, $a_k = x_k + i \cdot y_k$. По замечанию к определению абсолютной сходимости ряды с вещественными $x_k$ и $y_k$ абсолютно сходятся.
+		По доказанному их суммы не меняются при перестановке, откуда
+		\[\sum_{k=1}^{\infty} a_{\PHI(k)} = \sum_{k=1}^{\infty} x_{\PHI(k)} + i \sum_{k=1}^{\infty} y_{\PHI(k)} = \sum_{k=1}^{\infty} x_k + i \sum_{k=1}^{\infty} y_k = \sum_{k=1}^{\infty} a_k\]
+	\end{MyList}
+\end{proof}
+
+\begin{Rem}
+	Перестановка членов расходящегося положительного ряда приводит к расходящемуся положительному ряду. 
+	Действительно, если бы ряд после перестановки сходился, то теореме сходился бы и исходный ряд.
+\end{Rem}
+
+\begin{Rem}
+	Если ряд $\sum_{k=1}^{\infty} a_k, a_k \in \R$ сходится условно, то ряды $\sum_{k=1}^{\infty} a_{k+}$ и $\sum_{k=1}^{\infty} a_{k-}$ расходятся.   
+\end{Rem}
+
+\begin{proof}
+	Если бы они оба сходились, то сходился бы и ряд $\sum_{k=1}^{\infty} |a_k|$ как сумма двух сходящихся.
+	Если бы один из них сходился, а другой расходился, то расходился бы и исходный ряд как разность сходящегося и расходящегося. 
+\end{proof}
+
+\begin{Thm}[Римана. Перестановка членов условно сходящегося ряда]
+	Пусть ряд $\sum_{k=1}^{\infty} a_k, a_k \in \R$ сходится условно. Тогда $\forall S \in \overline{\R} \ \exists \PHI : \N \to \N : \sum_{k=1}^{\infty} a_{\PHI(k)} = S$.
+	Более того, существует перестановка, после которой ряд вообще не будет иметь суммы. 
+\end{Thm}
+
+\begin{proof}
+	Для определенности докажем теорему, когда $S \in [0, +\infty)$.
+	Пусть $\{b_p\}$ и $\{c_q\}$ -- подпоследовательности всех неотрицательных и всех отрицательных членов ряда; $b_p = a_{n_p}, c_q = a_{m_q}$. 
+	По предыдущему замечанию оба ряда $\sum_{p=1}^{\infty} b_p$ и $\sum_{q=1}^{\infty} c_q$ расходятся. 
+	Положим $p_0 = q_0 = 0$.  Обозначим через $p_1$ наименьшее натуральное число, для которого
+	\[\sum_{p=1}^{p_1} b_p > S\]
+	то есть
+	\[\sum_{p=1}^{p_1} b_p \leqslant S < \sum_{p=1}^{p_1} b_p\]
+	Затем обозначим через $q_1$ наименьшее число, для которого
+	\[\sum_{q=1}^{q_1} c_q < S - \sum_{p=1}^{p_1} b_p\]
+	то есть
+	\[\sum_{p=1}^{p_1}b_p + \sum_{q=1}^{q_1} c_q < S \leqslant \sum_{p=1}^{p_1} b_p + \sum_{q=1}^{q_1} c_q \]
+	Такие $p_1$ и $q_1$ найдутся в силу расходимости рядов $\sum_{p=1}^{\infty} b_p$ и $\sum_{q=1}^{\infty} c_q$.
+	Продолжим построение неограниченно. Пусть номера $p_1, ..., p_{s - 1}, q_1, ..., q_{s - 1}$ уже выбраны. Обозначим через $p_s$ наименьшее натуральное число, для которого
+	\[\sum_{p=1}^{p_s} b_p > S - \sum_{q=1}^{q_{s - 1}} c_q\]
+	то есть
+	\[\sum_{p=1}^{p_s - 1} b_p + \sum_{q=1}^{q_{s - 1}} c_q \leqslant S < \sum_{p=1}^{p_s} b_p + \sum_{q=1}^{q_{s - 1}} c_q\]
+	Затем обозначим через $q_s$ наименьшее натуральное число, для которого $\sum_{q=1}^{q_s} c_q < S - \sum_{p=1}^{p_s} b_p$
+	то есть
+	\[\sum_{p=1}^{p_s} b_p + \sum_{q=1}^{q_s} c_q < S \leqslant \sum_{p=1}^{p_s} b_p + \sum_{q=1}^{q_s - 1} c_q\]
+	Такие $p_s$ и $q_s$ найдутся в силу расходимости рядов $\sum_{p=1}^{\infty} b_p$ и $\sum_{q=1}^{\infty} c_q$.
+	
+	Ряд 
+	\begin{multline}\label{series:crazy_series}
+		b_1 + ... + b_{p_1} + c_1 + ... + c_{q_1} + ... + b_{p_{s - 1} + 1} + ... + b_{p_s} + c_{q_{s - 1}} + ... + c_{q_s} + ...
+	\end{multline}
+	получен из исходного ряда перестановкой. Докажем, что он сходится к $S$. Сгруппировав члены одного знака, мы получим ряд
+	\[B_1 + C_1 + ... + B_s + C_s + ...\]
+	где $B_s = \sum_{p=p_{s - 1} + 1}^{p_s} b_p, C_s = \sum_{q=q_{s - 1} + 1}^{q_s} c_q$. Обозначим его частные суммы через $T_n$.
+	По построению $0 < T_{2s - 1} - S \leqslant b_{p_s}, c_{q_s} \leqslant T_{2s} - S < 0$. Поскольку ряд $\sum_{k=1}^{\infty} a_k$ сходится к, $b_{p_s}$ и $c_{q_s}$ стремятся к нулю.
+	Следовательно, $T_n \to S$. По теореме о группировке членов ряда и ряд (\ref{series:crazy_series}) сходится к $S$. 
+\end{proof}
+
+\gdef\AuthorName{Ксения Кузьмина}
+
+\Subsubsection{Произведение рядов}
+
+\begin{Def} 
+	$\displaystyle \sum_{k=1}^{n} a_k \cdot \sum_{k=1}^{m} b_k = \sum_{k=1}^{n} \sum_{j=1}^{m} a_kb_j$ 
+	-- произведение частичных сумм.  
+\end{Def} 
+
+\begin{Def} 
+	$\displaystyle \sum_{k=1}^{\infty} a_k, \ \sum_{j=1}^{\infty} b_k$\\
+	Возьмем биекцию $\gamma: \N \to \N \times \N$. Такая биекция существует, так как 
+	декартово произведение счетных множеств это тоже счетное множество.\\
+	$\gamma = (\varphi, \psi)$\\
+	Тогда $\displaystyle \sum_{l=1}^{\infty} a_{\varphi(l)}b_{\psi (l)}$ -- произведение рядов
+	$\sum a_k$ и $\sum b_k$
+\end{Def} 
+
+\begin{Thm}[Коши об умножении рядов] 
+	Пусть есть $\sum_{k=1}^{\infty} a_k, \ \sum_{k=1}^{\infty} b_k$ и оба абсолютно сходятся к суммам 
+	$A$ и $B$. Тогда при любой нумерации произведение будет абсолютно сходиться к $A \cdot B$ 
+\end{Thm} 
+
+\begin{proof}
+	Пусть есть $\gamma = (\varphi, \psi): \N \to \N^2$ -- биекция.\\
+	$A^* = \sum_{k=1}^{\infty} |a_k|, \ B^* = \sum_{k=1}^{\infty} |b_k|$\\
+	Возьмем $N \in \N$ и посмотрим на такую частичную сумму $\displaystyle \sum_{l=1}^{N} |a_{\varphi (l)} b_{\psi (l)}|
+	\leqslant \sum_{k=1}^{\max \varphi (l)} |a_k| \cdot \sum_{k=1}^{\max \psi (l)}  |b_k| \leqslant\\
+	\leqslant A^* \cdot B^*$. При каждом $N$ частичная сумма ряда будет ограничена. Тогда ряд $\sum_{l=1}^{\infty} 
+	a_{\varphi (l)} b_{\psi (l)}$ сходится абсолютно. А в абсолютно сходящихся можно менять нумерацию.\\
+	Рассмотрим какую-то нумерацию. Например, "по квадратам".\\
+	$S_{n^2} = \sum_{k,l = 1}^{n} a_k b_k = \sum_{k=1}^{n} a_k \cdot \sum_{k=1}^{n} b_k 
+	\underset{n \to \infty}{\to} A \cdot B$. 
+\end{proof}
+
+\begin{Rem}
+	$\sum_{k=1}^{\infty} a_k, \sum_{k=1}^{\infty} b_k$ -- сходятся к $A$ и $B$, то их произведение 
+	"по квадратам" сходится к $AB$ (даже без абсолютной сходимости). 
+\end{Rem}
+
+\begin{proof}
+	Упражнение. 
+\end{proof}
+
+\begin{Def} 
+	Ряд $\sum_{k=1}^{\infty} c_k$, где $c_k = \sum_{j=1}^{k} a_j b_{k+1-j}$ называется 
+	произведением $\sum a_k$ и $\sum b_k$ по Коши. ("По диагонали")\\
+	Иногда нумеруют с нуля $\sum_{k=0}^{\infty} a_k$ и $\sum_{k=0}^{\infty} b_k$. Тогда запись 
+	будет следующая: $c_k = \sum_{j=0}^{k} a_j b_{k-j}$
+\end{Def} 
+
+\begin{Cons}
+	Если $\sum a_k$ и $\sum b_k$ абсолютно сходятся к $A$ и $B$, то их произведение по Коши 
+	абсолютно сходится по к $AB$	
+\end{Cons}
+
+\begin{Example}
+	$\sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{\sqrt{k}}$\\
+	"Квадрат по Коши": $c_k = \sum_{j=1}^{k} \frac{(-1)^{j-1}}{\sqrt{j}} \cdot \frac{(-1)^{k-j}}{\sqrt{k+1-j}} =
+	(-1)^{k=1} \sum_{j=1}^{k} \frac{1}{\sqrt{j (k+1-j)}}$\\
+	$|c_k| \geqslant \sum_{j=1}^{k} \frac{1}{\sqrt{k} \cdot \sqrt{k}} = 1 \Rightarrow c_k \cancel{\to} 0$
+\end{Example}
+
+\begin{Rem}
+	Если $\sum a_k$ и $\sum b_k$ сходятся, причем хотя бы один абсолютно, то их произведение по Коши 
+	тоже сходится. 
+\end{Rem}
+
+\begin{Rem}
+	Если $\sum a_k$ и $\sum b_k$ сходится к $A$ и $B$, и их произведение по Коши сходится к C, то 
+	$C = A \cdot B$
+\end{Rem}
+
+\begin{Example}
+	Возьмем два расходящихся ряда.\\
+	$a_k = 
+	\begin{cases}
+		1, k = 0\\
+		2^{k-1}, k \in \N
+	\end{cases}, b_k = 
+	\begin{cases}
+		1, j = 0\\
+		-1, j \in \N 
+	\end{cases}$\\
+	$c_0 = 1, \ c_k = \sum_{l=0}^{k} a_l b_{k-l} = -1 - \sum_{l=1}^{k-1} 2^{l-1} + 2^{k-1} = 0$
+\end{Example}
+
+\Subsection{Функциональные последовательности и ряды}
+
+\begin{Def}[Предел комплексной функции]
+	$f: \C \to \C$\\
+	$\displaystyle \lim_{z \to z_0} f(z) = A$\\
+	$\forall \varepsilon > 0 \exists \delta: \forall z: |z - z_0| < \delta \ |f(z) - A| < \varepsilon$
+\end{Def} 
+
+\begin{Rem}
+	Мы говорим о вещественных функциях, но почти все это можно переносить на функции
+	комплексно-значного аргумента. 
+	$X \in \R (\C)$\\
+	$f: X \to \R (\C)$
+\end{Rem}
+
+\begin{Def} 
+	$X$ -- множество. $f_n, f: X \to \R (\C)$\\
+	$\{f_n(x)\}_{n=1}^{\infty}$ сходится к функции $f$ на множестве $X$ поточечно, если 
+	$\forall x \in X \ \{f_n(x)\}$ сходится к $f(x)$ как числовая последовательность.\\
+	$\forall x \in X \ f_n (x) \underset{n \to \infty}{\to} f(x)$\\
+	Обозначение: $f_n (x) \underset{n \to \infty}{\overset{X}{\to}} f(x)$\\
+	В кванторах: $\forall x \in X \forall \varepsilon > 0 \exists N \in \N: \forall n > N |f_n(x) - f(x)| < \varepsilon$
+\end{Def} 
+
+\begin{Example}
+	$X = [0;1], f_n(x) = x^n$\\
+	$f(x) = \begin{cases}
+		0, x \in [0; 1)\\
+		1, x = 1
+	\end{cases}$\\ 
+	$f_n \overset{X}{\to} f$
+\end{Example}
+
+\begin{Def}
+	$X$ -- множество, $f_n, f: X \to \R (\C),\\
+	\{f_n\}$ сходится к $f$ равномерно на $X$, если 
+	$\forall \varepsilon> 0 \exists N \in \N \forall n > N \forall x \in X |f_n(x) - f(x)| < \varepsilon$\\
+	Обозначение: $f_n \underset{n \to \infty}{\overset{X}{\rightrightarrows}} f$
+\end{Def}
+
+\begin{Rem}
+	Если $f_n$ сходится равномерно, значит сходится поточечно. Наоборот неверно. 
+\end{Rem}
+
+\begin{Rem}
+	Как и для числовых послеодовательностей можно писать $\forall n \geqslant N$ или $|-| \leqslant \varepsilon$
+\end{Rem}
+
+\begin{Example}
+	$f_n(x) \equiv c_n$\\
+	Если $c_n \to c$, то $f_n(x) \rightrightarrows f(x) = c$ на любом множестве. 
+\end{Example}
+
+\begin{Rem}
+	Если $f: X \to \C$, то равномерная сходимость $\{f_n\}$ равносильна одновременной равномерной сходимости
+	$\{Re f_n\}$ и $\{Im f_n\}$
+\end{Rem}
+
+\begin{Def} 
+	$\{f_n\}_{n=1}^{\infty}$ -- функциональная последовательность, $f_n: X \to \R (\C)$\\
+	$\displaystyle \sum_{n=1}^{\infty} f_n(x)$ -- функциональный ряд\\
+	$\sum_{n=1}^{\infty} f_n(x)$  сходится поточечно, если $S_n(x) = \sum_{n=1}^{N} f_n(x)$ сходится 
+	поточечно.\\
+	$E = \{x \in X: \sum_{n=1}^{\infty} f_n(x) \text{ сходится }\}$ -- множество сходимости\\
+	$\displaystyle \sum_{n=1}^{\infty} = S(x) = \lim_{n \to \infty} S_n(x)$\\
+	$\sum_{n=1}^{\infty} f_n(x)$ сходится равномерно, если $S_n(x)$ сходится равномерно.\\
+	Запись равномерной сходимости в кванторах: $\forall \varepsilon > 0 \ \exists N \in \N \ \ \forall n > N
+	 \ \ | \underbrace{\sum_{k=n+1}^{\infty} f_k(x)}_{\text{ остаток ряда }}| < \varepsilon$
+\end{Def} 
+
+\begin{Rem}
+	$f_n \overset{X}{\rightrightarrows} f \Leftrightarrow \underset{x\in X}{\sup} |f_n(x) - f(x)| 
+	\underset{n \to \infty}{\to}  0$
+\end{Rem}
+
+\begin{proof}
+	$\forall x \in X |f_n(x) - f(x)| \leqslant \varepsilon \Leftrightarrow \underset{x\in X}{\sup} 
+	|f_n(x) - f(x)| \leqslant \varepsilon$
+\end{proof}
+
+\begin{Example}
+	$f_n = x^n$ на $[0;1], f(x) = \begin{cases}
+		0, x \in [0;1)\\
+		1, x = 1
+	\end{cases}$\\
+	Посмотрим на $\underset{x\in X}{\sup}  |f_n(x) - f(x)| = \underset{[0;1)}{\sup} |x^n| = 1 
+	\cancel{\to} 0$
+	\begin{Rem}
+		$X_0 \subset X$\\
+		Если $f_n \overset{X}{\rightrightarrows} f$, то $f_n \overset{X_0}{\rightrightarrows} f$\\
+		Если $f_n \cancel{\overset{X_0}{\rightrightarrows}} f$, то $f_n \cancel{\overset{X}{\rightrightarrows}} f$
+	\end{Rem} 
+	$X = [0; \lambda], \lambda < 1$ -- сходится равномерно.\\
+	$\underset{x \in [0;\lambda]}{\sup} |f_n(x) - f(x)| = \underset{x \in [0;\lambda]}{\sup} |x^n| = \lambda^n 
+	\underset{n \to \infty}{\to}  0$ 
+\end{Example}
+
+\begin{Rem}
+	$f_n \overset{X}{\rightrightarrows} f$, $g_n \overset{X}{\rightrightarrows} g$,
+	$\alpha, \beta \in \R (\C)$, тогда $\alpha f_n + \overset{X}{\rightrightarrows} \alpha f + \beta g$ 
+\end{Rem}
+
+\begin{proof}
+	Упражнение. (Неравенство треугольника для sup)
+\end{proof}
+
+\begin{Rem}
+	$f_n \overset{X}{\rightrightarrows} f$ и $g$ ограничена на $X$, тогда 
+	$f_n g \overset{X}{\rightrightarrows} f \cdot g$
+\end{Rem}
+
+\begin{Thm}[Критерий Больцано-Коши] 
+	$X, f_n: X \to \R (\C)$\\
+	$f_n$ равномерно сходится на $X \Leftrightarrow \forall \varepsilon > 0 \exists N:
+	\forall n, m > N \forall x \in X |f_n(x) - f_m(x)| < \varepsilon$
+\end{Thm} 
+
+\begin{Rem}
+	Можно записать $\forall n > N$ и $\forall m |f_n(x) - f_{n+m}(x)| < \varepsilon$
+\end{Rem}
+
+\begin{proof}
+	$\Rightarrow.$ Пусть $f: f_n \overset{X}{\rightrightarrows} f$, тогда 
+	$\forall \varepsilon > 0 \exists N: \forall n > N \forall x \in X: |f_n(x) - f(x)| < \frac{\varepsilon}{2}, 
+	|f_{n+m} - f(x)| < \frac{\varepsilon}{2}$\\
+	$|f_n - f_{n+m}| \leqslant |f_n - f| + |f_{n+m} - f| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon$\\
+	$\Leftarrow. \ \forall \varepsilon > 0 \exists N: \forall n > N$ и $\forall m \in \N \forall x \in X 
+	|f_{n+m}(x) - f_n(x)| < \varepsilon$\\
+	Фиксируем $x_0 \in X$. Получим числовую последовательность (есть критерий Коши) $\Rightarrow 
+	f_n(x) \overset{X}{\to} f(x)$\\
+	$|f_{n+m} (x) - f_n(x)|< \varepsilon$\\ при $m \to \infty \ \ |f(x) - f_n(x)| < \varepsilon$
+\end{proof}
+
+\begin{Thm}[Критерий Больцано-Коши для рядов]
+	$X, f_n: X \to \R (\C)$. Тогда 
+	$\sum_{n=1}^{\infty} f_n$ равномерно сходится на $X \Leftrightarrow \forall \varepsilon > 0 \exists N: \forall n > N
+	\forall p \in \N \underbrace{|S_{n+p} - S_n|}_{\sum_{k=n+1}^{n+p} f_k(x)} < \varepsilon$
+\end{Thm}
+
+\begin{proof}
+	Аналогично. 
+\end{proof}
+
+\begin{Cons}
+	$\sum_{n=1}^{\infty} f_n$ сходится равномерно $\Rightarrow f_n \rightrightarrows 0$
+\end{Cons}
+
+\begin{Example}
+	$f_n(x) = \frac{nx}{1 + n^2x^2}, X = \R$\\
+	$f(x) = 0, f_n \overset{\R}{\to} 0$\\
+	Но $f_n(x) \cancel{\overset{\R}{\rightrightarrows}} 0$\\
+	Рассмотрим $[0;1]: \underset{x \in [0;1]}{\sup} |f_n(x) - f(x)| = 
+	\underset{x \in [0;1]}{\sup} \frac{nx}{1+n^2x^2} \geqslant \frac{1}{2} \cancel{\to} 0$\\
+\end{Example}
+
+\begin{Example}
+	$f_n(x) = \frac{n^2}{n^2 + x^2}, x = [-1; 1]$\\
+	$f(x) = 1$
+	$f_n(x) - f(x) = \left| \frac{n^2 - n^2 - x^2}{n^2 + x^2}  \right| = \frac{x^2}{n^2 + x^2} \leqslant
+	\frac{x^2}{n^2} \leqslant \frac{1}{n^2}$\\
+	$\underset{E}{\sup} |f_n - f| \leqslant \frac{1}{n^2} \to 0$\\
+	$f_n(x) \overset{X}{\rightrightarrows} f(x)$
+\end{Example}
+
+\begin{Example}
+	$f_n(x) = x^n - x^{n+1}, x = [0;1)$\\
+	$f(x) = 0$\\
+	$\underset{x \in [0;1)}{\sup} |x^n - x^{n+1}| = f_n (\frac{n}{n+1}) = 
+	\left(\frac{n}{n+1}\right)^n - \left(\frac{n}{n+1}\right)^{n+1} = 
+	\left(\frac{n}{n+1}\right)^n \cdot (1 - \frac{n}{n+1}) \to 0 \Rightarrow f_n \overset{[0;1)}{\rightrightarrows} f$\\ \\
+	$f'_n(x) = nx^{n-1} - (n+1) x^n = nx^{n-1} (1 - x \cdot \frac{n+1}{n}) = 0$ при $\frac{n}{n+1}, 0$.
+	$f_n$ возрастает до $\frac{n}{n+1}$ и убывает дальше. 
+\end{Example}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} x^k, X = [0;1)$\\
+	$S(x) = \frac{1}{1-x}$ -- поточечно. 
+	$f_n(x) = x^k \overset{X}{\cancel{\rightrightarrows}} 0$/ Не выполнено необходимое условие равномерной 
+	сходимости. 
+\end{Example}
+
+\begin{Thm}[Признак Вейерштрасса]
+	$f_n: X \to \R (\C)$ и $|f_n(x)| \leqslant a_n$ и $\sum_{n=1}^{\infty} a_n$ сходится, тогда
+	$\sum_{n=1}^{\infty} f_n(x)$ сходится равномерно и абсолютно. 
+\end{Thm}
+
+\begin{proof}
+	$\forall x \in X \ \ \ |f_{n + 1}(x) + f_{n + 2}(x) + ... + f_{n + m}(x)| \leqslant a_{n + 1} + a_{n + 2} + ... + a_{n + m}$.\\
+	По критерию Больцано-Коши для $\sum_{n = 1}^{\infty} a_n \ \ \forall \varepsilon > 0 \exists N: \ \forall n > N \ |a_{n + 1} + a_{n + 2} + ... + a_{n + m}| < \varepsilon$.
+\end{proof}
+
+\begin{Example}
+	$\displaystyle \sum_{n = 1}^{\infty} \frac{\sin n x}{n^2}$ сходится абсолютно и равномерно, т.к. $\displaystyle \left| \frac{\sin n x}{n^2} \right| \leqslant \frac1{n^2}$.
+\end{Example}
+
+\begin{Rem}
+	Другими словами, если члены функционального ряда мажорируются членами сходящегося числового ряда, то функциональный ряд равномерно сходится.
+\end{Rem}
+
+\begin{Def}[Равномерная ограниченность]
+	Последовательность функций \\
+	$g_n: X \to \R(\C)$ называется \textit{равномерно ограниченной} на $X$, если последовательность норм $g_n$ ограничена.
+	
+	Последнее равносильно тому, что 
+	$$\exists M \in [0; +\infty) \ \forall n \in \N \ \forall x \in X \ |f_n(x)| \leqslant M.$$
+\end{Def}
+
+\begin{Thm}[Признаки Дирихле и Абеля равномерной сходимости рядов]
+    Пусть $X$ -- множество, $f_k : X \to \R (\C), g_k : X \to \R.$
+
+    \textbf{1. Признак Дирихле.} Если
+    \begin{MyList}
+        \item последовательность $F_n = \displaystyle \sum_{k = 1}^{n} f_k$ равномерно ограничена на $X$;
+        \item при любом $x \in X$ последовательность $\{g_k(x)\}$ монотонна и $g_n \rightrightarrows 0 (X)$,
+    \end{MyList} 
+    то ряд $\displaystyle \sum_{k = 1}^{\infty}f_k g_k$ равномерно сходится на $X$. 
+
+    \textbf{2. Признак Абеля.} Если
+    \begin{MyList}
+        \item ряд $\displaystyle \sum_{k = 1}^{\infty} f_k$ равномерно сходится на $X$;
+        \item при любом $x \in X$ последовательность $\{g_k (x) \}$ монотонна и $\{g_k\}$ равномерно ограничена на $X$, 
+    \end{MyList} 
+    то ряд $\displaystyle \sum_{k = 1}^{\infty} f_k g_k$ равномерно сходится на $X$. 
+\end{Thm}
+
+\begin{proof}
+    В обоих случаях проверим выполнение условия Больцано-Коши равномерной сходимости ряда $\displaystyle \sum_{k = 1}^{\infty} f_k g_k$. Возьмём $\varepsilon > 0$.
+    \begin{MyList}
+        \item При каждом $x \in X$ применим преобразование Абеля, положив $a_k = f_k (x), b_k = g_k (x), A_0 = 0$. Тогда $A_k = F_k(x)$. В силу равномерной ограниченности последовательности $\{ F_n\}$ 
+        $$\exists K > 0 \ \forall k \in \N \ \forall x \in X \ |F_k (x)| \leqslant K,$$
+        а в силу равномерного стремления $g_n$ к нулю
+        \[\exists N \ \forall k > N \ \forall x \in X \ |g_k(x)| < \frac{\varepsilon}{4K}.\]
+        По следствию преобразования Абеля при всех $m, n > N, \ m > n, \ x \in X$
+        \[ \left|\sum_{k = n + 1}^{m} f_k(x)g_k(x) \right| < 4K \cdot \frac{\varepsilon}{4K} =  \varepsilon.\]
+        \item Снова применим при каждом $x \in X$ преобразование Абеля, положив на этот раз $a_k = f_k(x), b_k = g_k(x), A_0 = \displaystyle \sum_{j = 1}^{\infty} f_j (x)$.
+        Тогда $A_k = - \displaystyle \sum_{j = k + 1}^{\infty} f_j (x)$ есть остаток равномерно сходящегося ряда. В силу равномерной ограниченности последовательности $\{ g_k \}$
+        \[ \exists L > 0  \ \forall k \in \N \ \forall x \in X \ |g_k(x)| \leqslant L,\]
+        а в силу равномерного стремления остатка ряда к нулю
+        \[ \exists N \ \forall k > N \ \forall x \in X \ \left|\sum_{j = k + 1}^{\infty} f_j (x)\right| < \frac{\varepsilon}{4L}.\]
+        По следствию преобразования Абеля при всех $m, n > N, \ m > n, \ x \in X$
+        \[ \left|\sum_{k = n + 1}^{m} f_k(x) g_k (x) \right| < 4 \cdot \frac{\varepsilon}{4L} \cdot L = \varepsilon.\]
+    \end{MyList}
+\end{proof}
+
+\begin{Rem}
+    Напоминим, что ряд вида $\displaystyle \sum_{k = 1}^{\infty} (-1)^{k - 1}b_k$ или $\displaystyle \sum_{k = 1}^{\infty}(-1)^k b_k$, где $b_k \geqslant 0$ при всех $k$, называется \textit{знакочередующимся}. 
+\end{Rem}
+
+\begin{Cons}[Признак Лейбница равномерной сходимости рядов]
+    Пусть $X$ -- множество, $g_k : X \to \R$, при любом $x \in X$ последовательность $\{ g_k(x) \}$ монотонна, $g_n \rightrightarrows 0(X).$ Тогда ряд 
+    $\displaystyle \sum_{k = 1}^{\infty} (-1)^{k - 1} g_k$ равномерно сходится на $X$.
+\end{Cons}
+
+\begin{Rem}
+    Признак Лейбница следует из признака Дирихле, если положить $f_k (x) = (-1)^{k - 1}$ при всех $x \in X$.
+\end{Rem}
+
+\Subsection{Свойства равномерно сходящихся последовательностей и рядов}
+
+\begin{Thm}[Перестановка пределов]
+	Пусть $D \subset \R, x_0$ -- предельная точка $D$, $f, f_n : D \to \R \ (\C)$ и
+	\begin{MyList}
+		\item $f_n \overset{D}{\rightrightarrows} f$
+		\item $\forall n \in \N \ \exists \lim_{x \to x_0} f_n(x) = A_n \in \R \ (\C)$
+	\end{MyList}  
+	Тогда $\exists \lim_{n \to \infty} A_n, \exists \lim_{x \to x_0} f(x)$ -- конечные и совпадают, то есть
+	\[\lim_{n \to \infty} \lim_{x \to x_0} f_n(x) = \lim_{x \to x_0} \lim_{n \to \infty}f_n(x)\]
+\end{Thm}
+
+\begin{proof}
+	Зафиксируем $\varepsilon > 0$. Тогда
+	\[\exists N : \forall m, n > N \ \forall x \in D \ |f_n(x) - f_m(x)| < \varepsilon\]
+	Перейдем к пределу при $x \to x_0$. Тогда $|A_n - A_m| \leqslant \varepsilon \SO A_n$ сходится в себе $\SO A_n$ сходится к $A$.
+
+	Докажем, что $f(x) \xrightarrow[x \to x_0]{} A$. По $\varepsilon > 0$ подберем номер $L$ такой, что
+	\[\forall l > L \ \forall x \in D \ |f_l(x) - f(x)| < \frac{\varepsilon}{3}\]
+	и номер $K$, что
+	\[\forall k > k \ |A_k - A| < \frac{\varepsilon}{3}\]
+	Положим $M = 1 + \max \{L, K\}$. Тогда при любом $x \in D$ 
+	\[|f_M(x) - f(x)| < \frac{\varepsilon}{3}, \qquad |A_M - A| < \frac{\varepsilon}{3}\]
+	По определению предела функции найдется такая окрестность $V_{x_0}$ точки $x_0$, что 
+	\[\forall x \in \dot{V}_{x_0} \cap D \ |f_M(x) - A_M| < \frac{\varepsilon}{3}\]
+	Тогда при любом $x \in \dot{V}_{x_0} \cap D$
+	\[|f(x) - A| \leqslant |f(x) - f_M(x)| + |f_M(x) - A_M| + |A_M - A| < \varepsilon\]
+	В силу произвольности $\varepsilon$ это и значит, что $f(x) \xrightarrow[x \to x_0]{} A_0$.  
+\end{proof}
+
+\begin{Thm}[Почленный переход к пределу]
+	Пусть $D \subset \R, x_0$ -- предельная точка $D$, $f_k : D \to \R \ (\C)$ и
+	\begin{MyList}
+		\item ряд $\sum_{k=1}^{\infty} f_k$ равномерно сходится на $D$ к сумме $S$
+		\item $\forall k \in \N \ \exists \lim_{x \to x_0} f_k(x) = a_k \in \R \ (\C)$.  
+	\end{MyList}
+	Тогда ряд $\sum_{k=1}^{\infty} a_k$ сходится к некоторой сумме $A$, а предел $\lim_{x \to x_0} S(x)$ существует и равен $A$, то есть
+	\[\lim_{x \to x_0} \sum_{k=1}^{\infty} f_k(x) = \sum_{k=1}^{\infty} \lim_{x \to x_0} f_k(x)\]  
+\end{Thm}
+
+\begin{Cons}[Непрерывность предельной функции в точке]
+	Пусть $D \subset \R, x_0 \in D, f, f_n : D \to \R \ (\C)$ и
+	\begin{MyList}
+		\item $f_n \overset{D}{\rightrightarrows} f$  
+		\item все функции $f_n$ непрерывны в точке $x_0$ 
+	\end{MyList} 
+	Тогда функция $f$ непрерывна в точке $x_0$.
+\end{Cons}
+
+\begin{proof}
+	Для изолированной точки $x_0$ утверждение тривиально. Если $x_0$ -- предельная точка $D$, то $A_n = f_n(x_0)$. Поэтому
+	\[\lim_{x \to x_0} f(x) = \lim_{n \to \infty} A_n = f(x_0)\]
+	что и означает непрерывность $f$ в точке $x_0$.
+\end{proof}
+
+\begin{Cons}[Непрерывность суммы ряда в точке]
+	Пусть $D \subset \R, x_0 \in D, f_k : D \to \R \ (\C)$ и
+	\begin{MyList}
+		\item ряд $\sum_{k=1}^{\infty} f_k$ равномерно сходится на $D$ к сумме $S$
+		\item все функции $f_k$ непрерывны в точке $x_0$ 
+	\end{MyList} 
+	Тогда функция $S$ непрерывна в точке $x_0$.
+\end{Cons}
+
+\begin{Cons}[Непрерывность предельной функции на множестве]
+	Пусть $D \subset R, f, f_n : D \to \R \ (\C)$ и
+	\begin{MyList}
+		\item $f_n \overset{D}{\rightrightarrows} f$
+		\item все функции $f_n$ непрерывны на $D$  
+	\end{MyList} 
+	Тогда функция $f$ непрерывна на $D$. \\
+	Другими словами, равномерный предел последовательности непрерывных функций непрерывен.
+\end{Cons}
+
+\begin{Cons}[Непрерывность суммы ряда на множестве, Стокса-Зейделя]
+	Пусть $D \subset \R, f_k : D \to \R \ (\C)$ и
+	\begin{MyList}
+		\item ряд $\sum_{k=1}^{\infty} f_k$ равномерно сходится на $D$ к сумме $S$
+		\item все функции $f_k$ непрерывны на $D$ 
+	\end{MyList} 
+	Тогда функция $S$ непрерывна на $D$. 
+
+	Другими словами, сумма равномерно сходящегося ряда непрерывных функция непрерывна.
+\end{Cons}
+
+\begin{Prop}
+	Равномерная сходимость -- не необходимое условие. Например
+	\[f_n(x) = \sqrt{n} x(1 - x^2)^n\]
+\end{Prop}
+
+\begin{Thm}[Признак Дини]
+	Пусть $f, f_n \in C[A, B], f_n \to f \ \forall x \in [A, B], \{f_n(x)\}$ -- возрастает. Тогда $f_n \overset{[A, B]}{\rightrightarrows}f$. 
+\end{Thm}
+
+\begin{Thm}[Предельный переход под знаком интеграла]
+	Пусть $f_n \in C[a, b], f_n \rightrightarrows f$ на $[a, b]$. Тогда $\int_{a}^{b} f_n \xrightarrow[n \to \infty]{} \int_{a}^{b} f$, то есть
+	\[\lim_{n \to \infty} \int_{a}^{b} f_n = \int_{a}^{b} \lim_{n \to \infty} f_n\] 
+\end{Thm}
+
+\begin{proof}
+	$f \in C[a, b] \SO \int_{a}^{b} f$ имеет смысл. Возьмем $\varepsilon > 0$. 
+	По определению равномерной сходимости существует такое $N \in \N$, что
+	\[\forall n > N, x \in [a, b] \ |f_n(x) - f(x)| < \frac{\varepsilon}{b - a}\]
+	Поэтому для всех $n > N$
+	\[\left|\int_{a}^{b} f_n - \int_{a}^{b} f\right| = \left|\int_{a}^{b} (f_n - f)\right| \leqslant \int_{a}^{b} |f_n - f| < \frac{\varepsilon}{b - a}(b - a) = \varepsilon\]
+\end{proof}
+
+\begin{Thm}[Почленное интегрирование равномерно сходящихся рядов]
+	Пусть $f_k \in C[a, b]$, ряд $\sum_{k=1}^{f_k}$ равномерно сходится на $[a, b]$. Тогда
+	\[\int_{a}^{b} \sum_{k=1}^{\infty} f_k = \sum_{k=1}^{\infty} \int_{a}^{b} f_k\] 
+	Другими словами, равномерно сходящийся ряд непрерывных функций можно интегрировать почленно.
+\end{Thm}
+
+\begin{Example}
+	Последовательность $f_n(x) = n^2 x(1 - x^2)^n$ поточечно стремится к нулю на $[0, 1]$. В то же время
+	\[\int_{0}^{1} f_n = n^2 \int_{0}^{1} x(1 - x^2)^n \,dx = n^2 \left[- \frac{(1 - x^2)^{n + 1}}{2(n + 1)}\right]_0^1 = \frac{n^2}{2n + 2} \xrightarrow[n \to \infty]{} +\infty\]  
+\end{Example}
+
+\begin{Example}
+	Ряд $\sum_{k=0}^{\infty} (-1)^k x^k$ сходится к сумме $\frac{1}{1 + x}$ на $(-1, 1)$. При $x = 1$ он расходится, но его почленное интегрирование по отрезку $[0, 1]$ приводит к верному равенству:
+	
+	\[\int_{0}^{1} \frac{dx}{1 + x} = \ln 2, \quad \sum_{k=0}^{\infty} (-1)^k \int_{0}^{1} x^k \,dx = \sum_{k=0}^{\infty} \frac{(-1)^k}{k + 1} = \ln 2\]
+\end{Example}
+
+\begin{Thm}[Предельный переход под знаком производной]
+	Пусть $E$ -- ограниченный промежуток, $f_n, \PHI : E \to \R$, функции $f_n$ дифференцируемы на $E$, $f_n' \rightrightarrows \PHI$ на $E$ и существует $c \in E$ такое, что последовательность $\{f_n(c)\}$ сходится.
+	Тогда
+	\begin{MyList}
+		\item Последовательность $\{f_n\}$ равномерно сходится на $E$ к некоторой функции $f$
+		\item $f$ дифференцируема на $E$ 
+		\item $f' = \PHI$ 
+	\end{MyList}
+	Равенство $f' = \PHI$ можно записать в виде
+	\[\left(\lim_{n \to \infty} f_n\right)' = \lim_{n \to \infty} f_n'\]
+\end{Thm}
+
+\begin{proof}
+	Зафиксируем $x_0 \in E$ и положим
+	\[g_n(x) = g_{n, x_0}(x) = \frac{f_n(x) - f_n(x_0)}{x - x_0}, \quad x \in E \setminus \{x_0\}\]
+	Докажем, что последовательность $\{g_n\}$ равномерно сходится на $E \setminus \{x_0\}$. 
+	Для любых $m, n \in \N, x \in E \setminus \{x_0\}$ по формуле Лагранжа, примененной к функции $f_n - f_m$, найдется такое $\xi$ между $x$ и $x_0$, что
+	\[(g_n - g_m)(x) = \frac{(f_n - f_m)(x) - (f_n - f_m)(x_0)}{x - x_0} = (f_n - f_m)' (\xi)\]
+	Поэтому
+	\[\sup_{E \setminus \{x_0\}} |g_n - g_m| \leqslant \sup_E |f_n' - f_m'|\]
+	Последовательность $\{f_n'\}$ равномерно сходится и, значит, равномерно сходится в себе на $E$.
+	Следовательно, последовательность $\{g_n\}$ равномерно сходится в себе на $E \setminus \{x_0\} \SO$ по критерию Больцано-Коши она равномерно сходится на $E \setminus \{x_0\}$. 
+
+	В частности, при $x_0 = c$ последовательность $\{g_{n, c}\}$ равномерно сходится на $E \setminus \{c\}$. Поскольку умножение на ограниченную функцию $x \mapsto x - c$ не нарушает равномерной сходимости,
+	последовательность $\{f_n - f_n(c)\}$ также равномерно сходится на $E \setminus \{c\}$. Так как в точке $c$ все ее члены равны нулю, она равномерно сходится на $E$.
+	По условию последовательность $\{f_n(c)\}$ сходится. Тогда и последовательность
+	\[f_n = \left(f_n - f_n(c)\right) + f_n(c)\] 
+	равномерно сходится на $E$ как сумма двух равномерно сходящихся последовательностей. Первый пункт теоремы доказан.
+
+	Обозначим $f = \lim f_n$. Снова зафиксируем $x_0 \in E$ и положим
+	\[h(x) = \frac{f(x) - f(x_0)}{x - x_0}\]
+	По доказанному $g_n \overset{E \setminus \{x_0\}}{\rightrightarrows} h$, а по определению производной $g_n(x) \xrightarrow[x \to x_0]{} f_n'(x_0)$. Тогда существует предел $\lim_{x \to x_0} h(x)$ и
+	\[\lim_{x \to x_0} h(x) = \lim_{n \to \infty} f_n'(x_0) = \PHI(x_0)\]
+	По определению производной $f'(x_0)$ существует и равняется $\PHI(x_0)$.
+	В силу произвольности $x_0$ второе и третье утверждения теоремы доказаны.  
+\end{proof}
+
+\begin{Thm}[Почленное дифференцирование рядов]
+	Пусть $E$ -- ограниченный промежуток, функции $f_k$ дифференцируемы на $E$, ряд $\sum_{k=1}^{\infty} f_k'$ равномерно сходится на $E$ и существует такое $c \in E$, что ряд $\sum_{k=1}^{\infty} f_k(c)$ сходится. 
+	Тогда 
+	\begin{MyList}
+		\item Ряд $\sum_{k=1}^{\infty} f_k$ равномерно сходится на $E$
+		\item Его сумма дифференцируема на $E$
+		\item $\left(\sum_{k=1}^{\infty} f_k\right)' = \sum_{k=1}^{\infty} f_k'$  
+	\end{MyList}
+\end{Thm}
+
+\begin{Example}
+	Ряд $\sum_{k=1}^{\infty} 1$ расходится, а ряд $\sum_{k=1}^{\infty} 1' = \sum_{k=1}^{\infty} 0$ сходится равномерно на любом промежутке.  
+\end{Example}
+
+\begin{Example}
+	Последовательность $f_n(x) = \frac{\sin nx}{nx}$ равномерно сходится к $0$ на $\R$, так как $||f_n|| = \frac{1}{n} \to 0$. Однако, последовательность $f_n'(x) = \cos nx$ не имеет предела при $\frac{x}{2\pi} \notin \Z$.  
+\end{Example}
+
+\begin{Example}
+	Последовательность $f_n(x) = \frac{x^{n + 1}}{n + 1}$ равномерно сходится к $0$ на $[0, 1]$, так как $||f_n|| = \frac{1}{n + 1} \to 0$. Последовательность же $f_n'(x) = x^n$ сходится на $[0, 1]$ неравномерно, и в точке $1$ ее предел равен $1$, а не $0$.  
+\end{Example}
+
+\begin{Example}
+	Пусть $f_0$ -- 1-периодическая функция, а ее сужение на $[0, 1]$ задается равенством
+	\[f_0(x) = \begin{cases}
+		x, &\left[0, \frac{1}{2}\right], \\
+		1 - x, &\left[\frac{1}{2}, 1\right].
+	\end{cases}\]
+	Положим $f_k(x) = \frac{1}{4^k}f_0(4^k x), f = \sum_{k=0}^{\infty} f_k$. 
+	По признаку Вейерштрасса ряд равномерно сходится на $\R$, так как $||f_k|| = \frac{1}{2 \cdot 4^k}$ и $\sum_{k=0}^{\infty} \frac{1}{2 \cdot 4^k} < +\infty$. Кроме того, $f_k \in C(\R)$. Следовательно, $f \in C(\R)$.
+	
+	Докажем, что $f$ не дифференцируема ни в одной точке. Упражнение :)
+\end{Example}
+
+\Subsection{Степенные ряды}
+
+\begin{Def}[Степенной ряд]
+	Ряд вида 
+	\[\sum_{n=1}^{\infty} c_n(z - a)^n\]
+	где $c_n, a, z \in \C$, называется степенным рядом. Числа $c_n$ называются его коэффициентами, а $a$ -- центром. 
+\end{Def}
+
+\begin{Def}[Радиус сходимости]
+	Величина $R \in [0, +\infty]$ называется \textit{радиусом сходимости} ряда, если
+	\begin{MyList}
+		\item $\forall z : |z - a| < R$ ряд сходится
+		\item $\forall z : |z - a| > R$ ряд расходится 
+	\end{MyList} 
+\end{Def}
+
+\begin{Rem}
+	Далее будем считать, что $\frac{1}{0} = +\infty, \frac{1}{+\infty} = 0$ 
+\end{Rem}
+
+\begin{Thm}[Формула Коши-Адамара]
+	Всякий степенной ряд имеет радиус сходимости, и он выражается формулой
+	\[R = \frac{1}{\displaystyle{\overline{\lim}_{n \to \infty} \sqrt[n]{|c_n|}}}\]
+\end{Thm}
+
+\begin{proof}
+	Пусть $z \neq a$. Воспользуемся радикальным признаком Коши. Вынося положительный не зависящий от $n$ множитель $|z - a|$ за знак верхнего предела, имеем
+	\[K = \overline{\lim} \sqrt[n]{|c_n(z - a)^n|} = \overline{\lim} \left(|z - a| \sqrt[n]{|c_n|}\right) = |z - a| \overline{\lim} \sqrt[n]{|c_n|}\] 
+	Если $|z - a| < R$, то $K < 1$, и ряд сходится, а если $|z - a| > R$, то $K > 1$, и ряд расходится.
+\end{proof}
+
+\begin{Rem}
+	По признаку Коши при $|z - a| < R$ ряд сходится абсолютно.
+\end{Rem}
+
+\begin{Def}[Круг сходимости]
+	Пусть дан степенной ряд, $R$ -- его радиус сходимости. Множество
+	\[V_a(R) = \{z \in \C : |z - a| < R\}\]
+	называется \textit{кругом сходимости} ряда. 
+\end{Def}
+
+\begin{Rem}
+	Часто радиус сходимости можно найти не только по формуле Коши-Адамара, но и с помощью признака Даламбера. Именно,
+	\[R = \lim_{n \to \infty} \left| \frac{c_n}{c_{n + 1}}\right|\]
+	если предел в правой части существует.
+\end{Rem}
+
+\begin{Example}
+	$\sum_{k=0}^{\infty} z^k = \frac{1}{1 - z}, \quad |z| < 1$
+	При $|z| \geqslant 1$ ряд расходится. Поэтому радиус сходимости этого ряда равен $1$, а множество сходимости совпадает с кругом сходимости. 
+\end{Example}
+
+\begin{Example}
+	Радиус сходимости ряда $\sum_{k=1}^{\infty} \frac{z^k}{k^2}$ равен 1. На окружности $|z| = 1$ он абсолютно сходится.
+\end{Example}
+
+\begin{Example}
+	Ряд $\sum_{k=1}^{\infty} \frac{x^k}{k}$ сходится при $|x| < 1$ и расходится при $|x| > 1$. При $x = -1$ то ряд -- гармонический, а значит он расходится.
+	При $x = -1$ ряд сходится по признаку Лейбница. 
+\end{Example}
+
+\begin{Ex}
+	$\sum_{k=1}^{\infty} \frac{z^k}{k!}$ 
+\end{Ex}
+
+\begin{Ex}
+	$\sum_{k=0}^{\infty} k! z^k$ 
+\end{Ex}
+
+\begin{Thm}[Равномерная сходимость степенных рядов]
+	Пусть дан степенной ряд, $R \in (0, +\infty]$ -- его радиус сходимости. 
+	Тогда для любого $r \in (0, R)$ ряд равномерно сходится в круге $\overline{V_a(r)}$ (круг с границей).
+\end{Thm}
+
+\begin{proof}
+	Если $|z - a| \leqslant r$, то
+	\[|c_k (z - a)^k| \leqslant |c_k| r^k\]	
+	$z = r$ -- внутри круга сходимости $\SO$ $\sum_{k=0}^{\infty} c_k r^k$ сходится абсолютно.
+	Значит, по признаку Вейерштрасса исходный ряд сходится равномерно в круге $\overline{V_a(r)}$.  
+\end{proof}
+
+\begin{Cons}
+	Сумма степенного ряда непрерывна в круге сходимости.
+\end{Cons}
+
+\begin{Thm}[Теорема Абеля о степенных рядах]
+	Пусть дан вещественный степенной ряд, $R \in (0, +\infty)$ -- его радиус сходимости.
+	Если ряд сходится при $x = a + R$ или $x = a - R$, то он равномерно сходится на $[a, a + R]$ или $[a - R, a]$ соответственно,
+	а его сумма непрерывна в точке $a + R$ слева (соответственно, в точке $a - R$ справа).  
+\end{Thm}
+
+\begin{proof}
+	Не умаляя общности, можно считать, что $a = 0$.
+	\[a_k \cdot x^k = a_k \cdot R^kj \cdot \left(\frac{x}{R}\right)^k\]
+	Поскольку ряд $\sum_{k=0}^{\infty} a_k R^k$ сходится равномерно на $[0, R]$. Последовательность $\left\{\left(\frac{x}{R}\right)k\right\}$ равномерно ограничена на $[0, R]$ и убывает в силу неравенства $0 \leqslant \frac{x}{R} \leqslant 1$.
+	Следовательно, по признаку Абеля ряд $\sum_{k=0}^{\infty} a_k x^k$ равномерно сходится на $[0, R]$. И применить теорему Стокса-Зейделяю  
+\end{proof}
+
+\begin{Cons}[Интегрирование степенных рядов]
+	Пусть дан вещественный степенной ряд $\displaystyle \sum_{k = 0}^{\infty} c_k (x-a)^k$, $R \in (0; + \infty]$ -- его радиус сходимости. Тогда ряд $\displaystyle \sum_{k = 0}^{\infty} c_k (x-a)^k$ можно интегрировать почленно по любому отрезку, лежащему в интервале сходимости: если $[A; B] \subset (a - R; a+ R)$, то 
+	\[ \int_{A}^{B} \sum_{k = 0}^{\infty} c_k (x - a)^k \,dx  = \sum_{k = 0}^{\infty} c_k \frac{(B - a)^{k + 1} - (A - a)^{k + 1}}{k + 1} \ \ \ (*).\]
+	Если, кроме того, ряд $\displaystyle \sum_{k = 0}^{\infty} c_k (x-a)^k$ сходится при $x = a + R$ или $x = a - R$, то равенство $(*)$ верно и при $B = a  + R$ или $A = a - R$ соответственно.
+\end{Cons}
+
+\begin{proof}
+	Не уменьшая общности, можно считать, что $a = 0$. Обозначим $r = \max \{ |A|, |B| \}$. Тогда 
+	\[ [A, B] \subset [-r, r] \subset (-R, R).\]
+	По теореме о равномерном сходимости степенных рядов ряд $\displaystyle \sum_{k = 0}^{\infty} c_k (x-a)^k$, $R \in (0; + \infty]$ равномерно сходится на $[A, B]$. Следовательно, его можно интегрировать по $[A, B]$ почленно.
+	
+	Если $B = R$, то ряд равномерно сходится на отрезке $[0, B]$ по теореме Абеля о степенных рядах, а на отрезке с концами $A$ и $0$ -- по теореме о равномерной сходимости степенных рядов. Поэтому ряд равномерно сходится на $[A, B]$. Аналогично рассматривается случай $A = -R$. 
+\end{proof}
+
+\begin{Def}
+    $f: D \subset \C \to \C$. $a$ -- внутренняя точка $D$.
+    Если $\exists \displaystyle \lim_{z \to a}\frac{f(z) - f(a)}{z - a}$, то  $f$ дифференцируема в точке $a$  и обозначается $f'(a)$.
+\end{Def}
+
+\begin{Example}
+	$f(z) = z^n, \ n \in \N \backslash \{0\}$.\\
+	$n = 0 \ \ f'(z) = 0 \ \ \forall z \in \C$ \\
+	$n \in \N \ \displaystyle \frac{z^n - a^n}{z - a} = z^{n - 1} + z^{n -2}a + z^{n - 3}a^2 + ... + a^{n - 1} \xrightarrow[z \to a]{} n a^{n - 1}$ \\
+	$(z^n)' = n z^{n - 1}$ в $\C$.\\
+	При $n \in \Z \backslash \{ \N \cup \{ 0\}\} \ \ (z^n)' = nz^{n-1}$ в $\C \backslash \{0\}$.
+\end{Example}
+
+\begin{Lm}[Радиусы сходимости рядов]
+	$$\sum_{k = 0}^{\infty} c_k  (z - a)^k, \sum_{k = 1}^{\infty}c_k k (z - a)^{k-1}, \sum_{k = 0}^{\infty} \frac{c_k}{k + 1} (z - a)^{k+1} $$ равны.
+\end{Lm}
+
+\begin{proof}
+	По формуле Коши-Адамара достаточно.
+    $$\overline{\lim} \sqrt[n]{|c_n|} = \overline{lim} \sqrt[n]{|c_n| n}.$$
+	Т.к. $\sqrt[n]{n} \to 1$, то $$\exists N: \sqrt[n]{|c_n|} \leqslant \sqrt[n]{n|c_n|} \leqslant (1 + \varepsilon) \sqrt[n]{|c_n|}.$$
+\end{proof}
+
+\begin{Thm}[Дифференцирование степенных рядов]
+	$R \in (0; + \infty]$ -- ряд сходимости $\displaystyle\sum_{k = 0}^{\infty} c_k (z-a)^k = f(z)$, \\
+	Тогда $f$ -- бесконечно дифференцируема $V_a (R)$  и ряд можно дифференцировать почленно сколько угодно раз.
+	$$f^{(m)} (z) = \sum_{k = m}^{\infty} k(k-1)...(k-m+1) c_k (z-a)^{k - m}, \ |z - a| < R$$ 
+\end{Thm}
+
+\begin{proof}
+    $m = 1:$\\
+    $$\frac{f(z) - f(z_1)}{z - z_1} = \sum_{k = 1}^{\infty} c_k \frac{(z- a)^k - (z_1 - a)^k}{(z-a) - (z_1 - a)} =$$
+    $$ = \sum_{k = 1}^{\infty} c_k \left( (z-a)^{k - 1} + (z -a)^{k - 2} (z_1 - a) - (z-a)^{k - 3}(z_1 - a)^2 + ... + (z_1 - a)^{k - 1}\right)$$  
+	$z \neq z_1; z_1, z \in V_a(\rho), \rho < R$\\
+	$$|c_{k_0} \left((z-a)^{k_0 - 1} + (z-a)^{k_0-2}(z_1 - a) + ... + (z_1 - a)^{k_0 - 1}\right) | \leqslant |c_{k_0}| k_0 \rho^{k_0 - 1}.$$
+	По признаку Вейерштрасса ряд сходится равномерно в $\overline{V_a}(\rho)$. 
+\end{proof}
+
+\begin{Thm}[Единственность разложения функции в степенной ряд]
+	$R \in (0; +\infty]$ -- радиус сходимости ряда $f(z) = \displaystyle\sum_{k = 0}^{\infty} c_k(z- a)^k, |z - a| < R$.\\
+	Тогда коэффициенты определяются единственным образом:
+	$$c_k = \frac{f^{(k)}(a)}{k!}$$
+\end{Thm}
+
+\begin{proof}
+	$$f^{(m)}(z) = \sum_{k = m}^{\infty} k(k-1)...(k- (m- 1)) c_k (z - a)^{k - m}, \ |z - a| < R$$
+	При $z = a$
+    $$f^{(m)}(a) = c_m \cdot m!$$
+\end{proof}
+
+\begin{Def}
+	$f$ имеет производную всех порядков в точке $a$. \\
+	Ряд $\displaystyle \sum_{k = 0}^{\infty} \frac{f^{(k)}(a)}{k!}$ -- ряд Тейлора функции $f$ с центром в точке $a$.
+\end{Def}
+
+\begin{Rem}
+	Частичные суммы -- многочлены Тейлора. \\ 
+	$z = a$ -- ряд Маклорена.
+\end{Rem}
+
+\begin{Example}
+	\begin{MyList}
+		\item Ряд сходится к $f$.\\
+		$\displaystyle \frac{1}{1 + x} = \sum_{k = 0}^{\infty} (-1)^kx^k, \ |x| < 1$.	    
+		\item Ряд расходится.\\
+		$\displaystyle \frac{1}{1+x}, \ |x| \geqslant 1$.\\
+		$\displaystyle \frac{1}{1 + x^2} = \sum_{k = 0}^{\infty} (-1)^k x^{2k}$ \ \ сходится при $x^2 < 1$.\\
+		$\displaystyle \frac{1}{1 + z^2}$ -- не опр. при $z = i$ или $-i$.
+		\item Ряд сходится, но не к $f$.\\
+		$f(x) = \begin{cases}
+			e^{-\frac{1}{x^2}}, x \neq 0 \\
+			0, x = 0
+		\end{cases}$,\\ 
+		$f \in C^{\infty}(\R \backslash \{ 0\})$\\
+		$f^{(n)}(x) = e^{-\frac1{-x^2}} P_n\left(\frac{1}{x}\right)$, где $P_n$ -- некоторый многочлен.\\
+		$n = 1 \ \ \frac{2}{x^3}e^{-\frac{1}{x^2}}$.\\
+		$f^{(n+1)} (x) = \left(P_n\left(\frac{1}{x}\right) e^{- \frac{1}{x^2}}\right)' = \underbrace{\left(P_n\left(\frac{1}{x}\right) \cdot \frac{-1}{x^2} + \frac2{x^3} \cdot P_n\left(\frac1{x}\right)\right)}_{P_{n+1}\left(\frac1{x}\right)}e^{-\frac1{x^2}}$.\\
+		В нуле: $\displaystyle\lim_{x \to 0} \frac{f(x) - f(0)}{x - 0} = \lim_{x\to 0} \frac{e^{-\frac1{x^2}}}{x} \underset{y = \frac{1}{x^2}}{=} \lim_{y \to \infty} \sqrt[]{y} \cdot e^{-y} = 0 \Rightarrow f'(0) = 0$.\\
+		$f''(0) = \displaystyle\lim_{x\to 0} \frac{f'(x) - f'(0)}{x - 0} = \lim \frac{\frac{2}{x^3} e^{-\frac{1}{x^2}}}{x} = 0$.\\
+		$f^{(m)} (0) = 0$.\\
+		$$f(x) = \underbrace{\sum_{k =0}^{\infty} \frac{f^{(k)}(0)}{k!}x^k}_{\text{сумма} = 0}$$
+	\end{MyList}
+\end{Example}
+
+\begin{Thm}[Признак разложимости в ряд Тейлора]
+	$f \in C^{\infty} \langle A; B \rangle; \ x, a \in \langle A; B \rangle, x \neq a. \\ \exists M > 0: \ \forall n \in \N  \ \ |f^{(n)} (x)| \leqslant M$ на $\widetilde{\Delta}_{a, x}$. \\
+    Тогда
+	$$\sum_{k = 0}^{\infty} \frac{f^{(k)} (a)}{k!} (x - a)^k = f(x)$$.
+\end{Thm}
+
+\begin{proof}
+	(из I семестра) $$|f(x) - T_{a, n} f(x)| \leqslant \frac{M}{(n+1)!} |x - a|^{n + 1}$$ и устремить $n \to \infty$.
+\end{proof}
+
+\begin{Def}
+	$-\infty \leqslant A < B \leqslant + \infty, f: (A;B) \to \R, \ a \in (A; B)$. Функция $f$ -- \textit{аналитическая}, если раскладывается в степенной ряд в окрестности $a$.
+	$$\mathcal{A}(A; B) \subsetneqq C^{\infty}(A;B)$$
+\end{Def}
+
+\Subsection{Разложения элементарных функций}
+
+\begin{Def}
+    При $z \in \C$
+    $$e^z = \sum_{k = 0}^{\infty} \frac{z^k}{k!}$$
+    $$sin z = \sum_{k = 0}^{\infty} \frac{(-1)^k}{(2k + 1)!}z^{2k + 1}$$
+    $$cos z = \sum_{k = 0}^{\infty} \frac{(-1)^k}{(2k)!}z^{2k}$$
+\end{Def}
+
+\begin{Thm}[Т1]
+    Функции $\exp, \sin, \cos$ бесконечно дифференцируемы на $\C$ и 
+    $$(e^z)' = e^z, \ (\sin z)' = \cos z, \ (\cos z)' = - \sin z$$.
+\end{Thm}
+
+\begin{proof}
+    Сумма степенного ряда бесконечно дифференцируема в круге сходимости. Продиффиренцируем:
+    $$(e^z)' = \sum_{k = 1}^{\infty} \frac{k z^{k - 1}}{k!} = \sum_{k = 1}^{\infty} \frac{z^{k - 1}}{(k - 1)!} = \sum_{k = 0}^{\infty} \frac{z^k}{k!} = e^z$$
+    $$(\sin z)' = \sum_{k = 0}^{\infty} \frac{(-1)^k(2k+1)}{(2k+1)!}z^{2k} = \sum_{k = 0}^{\infty} \frac{(-1)^k}{(2k)!}z^{2k} = \cos z$$
+    $$(\cos z)' = \sum_{k = 1}^{\infty} \frac{(-1)^k 2k}{(2k)!}z^{2k - 1} = \sum_{k = 1}^{\infty} \frac{(-1)^k}{(2k - 1)!} z^{2k - 1} = \sum_{k = 0}^{\infty} \frac{(-1)^{k + 1}}{(2k + 1)!} z^{2k + 1} = -\sin z.$$
+\end{proof}
+
+\begin{Thm}[Т2. Основное свойство степени]
+    $$e^{z_1 + z_2} = e^{z_1}e^{z_2}.$$
+\end{Thm}
+
+\begin{proof}
+    $$e^{z_1}e^{z_2} = \left(\sum_{k=0}^{\infty}\frac{z_1^k}{k!}\right) \left( \sum_{i = 0}^{\infty} \frac{z_2^j}{j!} \right) = \sum_{k = 0}^{\infty} \sum_{j = 0}^{\infty} \frac{z_1^j}{j!} \frac{z_2^{k - j}}{(k - j)!} = \sum_{k = 0}^{\infty} \frac{1}{k!} \sum_{j = 0}^{\infty} C_k^j z_1^j z_2^{k - j} = \sum_{k = 0}^{\infty} \frac{(z_1 + z_2)^k}{k!} = e^{z_1 +z_2}$$
+\end{proof}
+
+\begin{Thm}[Т3]
+    Синус -- нечетная функция, косинус -- четная.
+\end{Thm}
+
+\begin{proof}
+    Это свойство очевидно из определения.
+\end{proof}
+
+\begin{Thm}[Т4. Формулы Эйлера]
+    $$e^{iz} = \cos z - i\sin z$$
+    $$\cos z = \frac{e^{iz} + e^{-iz}}{2}$$
+    $$\sin z = \frac{e^{iz} - e^{-iz}}{2i}$$
+\end{Thm}
+
+\begin{proof}
+    $i^{2k} = (-1)^k$, запишем разложения синуса и косинуса в виде:
+    $$\cos z = \sum_{k = 0}^{\infty} \frac{(iz)^{2k}}{(2k)!}, \ \ \ \ i\sin z = \sum_{k = 0}^{\infty} \frac{(iz)^{2k + 1}}{(2k + 1)!}$$
+    сложим их, получим степенной ряд для $e^{iz}$.\\
+    Для доказательства второй и третьей формулы Эйлера заменим $z$ на $-z$ и воспользуемся свойством \textbf{T3}:
+    $$e^{-iz} = \cos z - i\sin z.$$
+    Остаётся взять полусумму выражений для $e^{iz}$ и $e^{-iz}$ и их полуразность, делённую на $i$.
+\end{proof}
+
+\begin{Rem}
+    Укажем частные случаи формулы Эйлера:
+    \[ e^{i\pi} = -1, \ \ e^{ \frac{i\pi}{2}} =i, \ \ e^{-\frac{i\pi}{2}} = -i.\]
+    Комплексное число может быть записано в алгебраическом форме:
+    \[ z = x + iy, \ \ x = \Real z, \ \ y = \Imag z\]
+    и в тригонометрической форме 
+    \[ z = r(\cos \varphi + i \sin \varphi), \ \ r = |z|, \ \ \varphi \in \Arg x.\]
+    По формуле Эйлера последнее выражение можно переписать в виде
+    \[ z = re^{i\varphi}, \ \ r = |z|, \ \ \varphi \in \Arg z. \]
+    Такая форма записи комплексного числа называется \textit{показательной}. 
+\end{Rem}
+
+\begin{Thm}[Т5]
+    Тождества для тригонометрических функций остаются справедливыми при комплексных значениях аргумента.
+    Например, $$\cos(z_1 +z_2) = \cos z_1 \cos z_2 - \sin z_1 \sin z_2.$$
+\end{Thm}
+
+\begin{proof}
+    По формулам Эйлера и основному свойству степени
+    $$\cos z_1 \cos z_2 - \sin z_1 \sin z_2 = $$
+    $$= \frac{e^{iz_1} +e^{-iz_1}}{2} \cdot \frac{e^{iz_2} + e^{-iz_2}}{2} - \frac{e^{iz_1} - e^{-iz_1}}{2i} \cdot \frac{e^{iz_2} - e^{-iz_2}}{2i} =$$
+    $$= \frac{1}{4} \left( e^{i(z_1 + z_2)} + e^{i(z_1 - z_2)} + e^{i(z_2 - z_1)} + e^{-i(z_1 + z_2)} \right) +$$
+    $$+ \frac{1}{4} \left( e^{i(z_1 + z_2)} - e^{i(z_1 - z_2)} - e^{i(z_2 - z_1)} + e^{-i(z_1 + z_2)} \right) =$$
+    $$= \frac{e^{i(z_1 + z_2)} + e^{-i(z_1 + z_2)}}{2} = \cos(z_1 + z_2)$$
+\end{proof}
+
+\begin{Def}
+    Функции $\ch$ и $\sh$, опеределяемые формулами
+    $$\ch z = \frac{e^z + e^{-z}}{2}, \ \ \ \sh z = \frac{e^z - e^{-z}}{2},$$
+    называются \textit{гиперболическим косинусом} и \textit{гиперболичесим синусом}.   
+\end{Def}
+
+\begin{Rem}
+    По формулам Эйлера
+    $$\ch z = \cos iz, \ \ \cos z = \ch iz, \ \ i\sh z = \sin iz, \ \ i \sin z = \sh iz.$$
+    отсюда получаются разложения гиперболических функций в степянные ряды 
+    $$\ch z = \sum_{k = 0}^{\infty} \frac{z^{2k}}{(2k)!}, \ \ \ \sh z = \sum_{k = 0}^{\infty} \frac{z^{2k + 1}}{(2k + 1)!},$$
+    абсолютно сходящиеся на $\C$. Производные этих функций равны 
+    $$(\sh z)' = \ch z, \ \ \ (\ch z)' = \sh z.$$
+    На рис.2 изображены графики гиперболических функций вещественной переменной.
+\end{Rem}
+
+\begin{figure*}[h]
+	\centering
+	\def\svgwidth{0.35\columnwidth}
+	\input{img/sh_ch.pdf_tex}
+	\caption{Гиперболический косинус и синус}
+\end{figure*}
+
+\begin{Thm}[T6]
+    Функции $\cos$ и $\sin$ не ограничены на $\C$.
+\end{Thm}
+
+\begin{proof}
+    $\alpha \in \R$.
+    $$\cos i\alpha =ch \alpha \xrightarrow[\alpha \to \pm\infty]{} +\infty, \ \ \ 
+    |\sin i \alpha| = |\sh \alpha| \xrightarrow[\alpha \to \pm \infty]{} + \infty$$
+\end{proof}
+
+\begin{Thm}[T7]
+    $e^z$ не имеет нулей. $\sin z$ и $\cos z$ не имеют нулей не из $\R$.
+\end{Thm}
+
+\begin{proof}
+    $z = x + iy; \ x, y \in \R$.\\
+    $$|e^z| = |e^x e^{iy}| = e^x > 0.$$
+    $\cos z = 0$. В силу Т5 и связи между тригонометрическими и гиперболическими функциями:
+    $$\cos (x + iy) = \cos x \cos iy - \sin x \sin iy = \cos x \ch y - i\sin x \sh y$$
+    $$\begin{cases}
+        \Real(...) = \cos x \ch y = 0 \\
+        \Imag (...) = \sin x \sh y = 0
+    \end{cases} \Rightarrow 
+    \begin{cases}
+        x = \frac{\pi}{2} + \pi k, k \in \Z \\
+        y = 0
+    \end{cases}$$
+\end{proof}
+
+\begin{Thm}[Т8]
+    $e^z$ имеет периоды $2 \pi ki, \ k \in \Z \backslash \{ 0 \} $ и не имеет других периодов.\\
+    $\sin z, \cos z$ имеют периоды $2\pi k, \ k \in \Z \backslash \{ 0\}$ и не имеют других периодов.
+\end{Thm}
+
+\begin{proof}
+    По формуле Эйлера $$e^{2 \pi ik} = \cos 2\pi k + i \sin 2 \pi k = 1.$$
+    $$\Rightarrow e^{z + 2 \pi ik} = e^z.$$
+    Докажем, что других периодов нет. Пусть $T = 2\pi ik$ -- период.
+    $e^{z + T} = e^z \ \forall z \in \C$. При $z = 0: \ e^T = 1$. Пусть $T = \alpha + \beta i, \ \alpha, \beta \in \R$, тогда 
+    $e^{\alpha}e^{i\beta} = 1$. Если $e^{\alpha} = 1$, тогда $\alpha = 0$; $e^{i\beta} = 1$. По формуле Эйлера 
+    \[ e^{i \beta} = \cos \beta + i \sin \beta = 1\]
+    $\Rightarrow \cos \beta = 1, \sin \beta = 0 \Rightarrow \beta = 2 \pi k, \ k \in \Z$. 
+\end{proof}
+
+\begin{Cons}
+    $$ \tg z = \frac{\sin z}{\cos z}, \ \ z \neq \frac{\pi}{2} + k \pi, k \in \Z,$$
+    $$ \ctg z \frac{\cos z}{\sin z}, \ \ z \neq k \pi, k \in \Z.$$
+\end{Cons}  
+
+\Subsubsection{Логарифм и арктангенс}
+
+\begin{Rem}
+    \[ \frac{1}{1 - x} = \sum_{k = 0}^{\infty} x^k, \ |x| < 1.\]
+    Заменим $x$ на $-x$:
+    \[ \frac{1}{1 + x} = \sum_{k = 0}^{\infty} (-1)^k x^k, \ |x| < 1.\]
+    Проинтегрируем $\displaystyle \int_{0}^{t} ... \,dx$.
+    \[ \ln (1 + t) = \sum_{k = 0}^{\infty} (-1)^k \frac{t^{k+1}}{k + 1} = \sum_{k = 1}^{\infty} \frac{(-1)^{k - 1}t^k}{k} = t - \frac{t^2}{2} + \frac{t^3}{3} - \frac{t^4}{4} + ... \]
+    При $t = 1$ сходится по признаку Лейбница. \\
+    По Теореме Абеля:
+    \[ \ln 2 = \sum_{k = 1}^{\infty} \frac{(-1)^{ k - 1}}{k} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + ... \]
+    \[ \ln (1 - t) = - \sum_{k = 1}^{\infty} \frac{t^k}{k} = - (t - \frac{t^2}{2} + \frac{t^3}{3} - \frac{t^4}{4} + ...), \ \ -1 \leqslant t < 1. \]
+    \[ \frac{1}{2}(\ln (1 + t) - \ln (1 - t)) = \sum_{k = 0}^{\infty} \frac{t^{2k + 1}}{2k + 1}, \ \ |t|< 1 \]
+    Подставим $\displaystyle t = \frac{}{1n + 1}$, где $n \in \N$. 
+    \[ \frac{1}{2} \ln \frac{1 + \frac{1}{2n + 1}}{1 - \frac{1}{2n + 1}} = \frac{1}{2} \ln (1 + \frac{1}{n}) = \frac{1}{2n + 1} \sum_{k = 0}^{\infty} \frac{1}{(2k + 1)(2n + 1)^{2k}}\] 
+\end{Rem}
+
+\begin{Thm}[Формула Стирлинга]
+    $\forall n \in \N \ \ \exists \theta \in (0; 1)$
+    \[ n! = \sqrt{2 \pi n} \left(\frac{n}{e}\right)^n e^{\frac{\theta}{12n}}\]
+    \[ \left(n! \sim \sqrt{2 \pi n} \left(\frac{n}{e}\right)^n\right)\]
+\end{Thm}
+
+\begin{proof}
+    \[ \left(n + \frac{1}{2} \right) \ln \left(1 + \frac{1}{n}\right) = 1 + \sum_{k = 1}^{\infty} \frac{1}{(2k + 1)(2n + 1)^{2k}}\]
+    \[ 1 < \left(n + \frac{1}{2}\right) \ln \left(1 + \frac{1}{n}\right) < 1 + \frac{1}{3} \sum_{k = 1}^{\infty} \frac{1}{(2n + 1)^{2k}} = 1 + \frac{1}{3} \frac{\frac{1}{(2n + 1)^2}}{1 - \left(\frac{1}{2n + 1}\right)^2} = 1 + \frac{1}{3} \frac{1}{4n^2 + 4n} = 1 + \frac{1}{12n(n + 1)}\]
+    \[ e < \left(1 + \frac{1}{n}\right)^{n + \frac{1}{2}} < e^{1 + \frac{1}{12n(n + 1)}}\]
+    Пусть $a_n = \displaystyle \frac{n! e^n}{n ^{n + \frac{1}{2}}}$
+    \[ \frac{a_n}{a_{n + 1}} = \frac{1}{e} \cdot \frac{1}{n + 1} \cdot \frac{\left(n + 1\right)^{n + 1 + \frac{1}{2}}}{n^{n + \frac{1}{2}}} = \frac{1}{e} \cdot \left(1 + \frac{1}{n}\right)^{n + \frac{1}{2}},\]
+    откуда
+    \[ 1 <  \frac{a_n}{a_{n +1}} < e^{\frac{1}{12n(n + 1)}} = \frac{e^{\frac{1}{12n}}}{e^{\frac{1}{12(n + 1)}}}.\]
+    Левое неравенство означает, что последовательность $\{a_n\}$ строго убывает, а правое -- что последовательность $\{ \displaystyle a_n \cdot e^ {-\frac{1}{12n}}\}$ строго возрастает. Т.к. $\displaystyle e^{- \frac{1}{12n}} \to 1$, 
+    то по теореме о пределе монотонной последовательности обе последовательности сходятся к общему пределу, причём 
+    \[ \exists \lim a_n = a: \ \displaystyle a_n \cdot e^{- \frac{1}{12n}} < a < a_n.\]
+    Другими словами,
+    \[ e^{\frac{0}{12n}} = 1 < \frac{a_n}{a} < e^{\frac{1}{12n}} \Rightarrow a_n = a \cdot e^{\frac{\theta_n}{12n}}, \ \ \theta_n \in (0, 1).\] 
+    \[ n! = a \cdot \left(\frac{n}{e}\right)^n \sqrt{n} e^{\frac{\theta_n}{12n}}.\]
+    \[ \pi = \lim \frac{1}{n} \cdot \left( \frac{(2n)!!}{(2n - 1)!!}\right)^2 = \lim \frac{1}{n} \cdot \frac{(2^n n!)^2}{\left(\frac{(2n)!}{(2n)!!}\right)} = \lim \frac{1}{n} \left(\frac{2^{2n} (n!)^2}{(2n)!}\right)^2 =\]
+    \[ \lim \frac{1}{n} \left(\frac{2^{2n} \cdot a^2 \left(\frac{n}{e}\right)^{2n} \cdot n \cdot e^{\frac{\theta_n}{6n}}}{a \cdot \left( \frac{2n}{e}\right)^{2n} \cdot \sqrt{2n} e^{\frac{\theta_n'}{24n}}}\right)^2 = \lim \frac{1}{n} \left( \frac{a \cdot \sqrt{n}}{\sqrt{2}}e^{\alpha_n}\right)^2 = \lim \frac{a^2}{2} e^{2\alpha_n} \underset{\alpha_n \to 0}{=} \frac{a^2}{2}.\]
+    \[ \Rightarrow \frac{a^2}{2} = \pi \Leftrightarrow a = \sqrt{2 \pi} \]
+\end{proof}
+
+\begin{Prop}
+	$\frac{1}{1 + t} = 1 - t + t^2 - t^3 + ... = \sum_{k=0}^{\infty} (-1)^k t^k, t \in (-1;1)$\\
+	$t = p^2 \ \ \frac{1}{1+ p^2} = \sum_{k=0}^{\infty} (-1)^k p^{2k}, |p| < 1$\\
+	Проинтегрируем: $x \in (-1;1) \int_{0}^{x} \arctg x = \sum_{k=0}^{\infty} (-1)^k \cdot \frac{x^{2k+1}}{2k+1}, |x| < 1$\\
+	На границе круга сходимости: при $-1$ или $1$. Если $x = 1$, то это сумма обратных нечетных чисел со знакочередованием. 
+	Применяем признак Лейбница, ряд сходится.\\
+	$x = -1$ -- тоже сходится.\\
+	Подставим $x = 1$, посмотрим, что получится. $\arctg 1 = \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + ... $. Этот ряд убывает очень медленно.\\
+	Поэтому если хочется посчитать число пи, этот способ работает, но он медленный.\\
+	Побыстрее это можно сделать в другой точке: $x = \frac{1}{\sqrt{3}} \ \ \arctan \frac{1}{\sqrt{3}} = \frac{\pi}{6} = \frac{1}{\sqrt{3}} (1 - \frac{1}{3 \cdot 3} + \frac{1}{5 \cdot 3^2} - \frac{1}{7 \cdot 3^3})$
+\end{Prop}
+
+\Subsection{Степенная функция}
+
+\begin{Def} 
+	$(1+x)^{\alpha}$ при $\alpha \in \N$ получается бином Ньютона.\\ 
+	Обобщенные биноминальные коэффициенты: $C_{\alpha}^{k} = \frac{\alpha(\alpha-1)...(\alpha-k+1)}{k!}$\\
+	$C_{\alpha}^{0}=1$
+\end{Def} 
+
+\begin{Thm} 
+    $\alpha \in \R, x \in (-1; 1) \Rightarrow (1+x)^{\alpha} = \sum_{k=0}^{\infty} C_{\alpha}^{k} x^k$
+\end{Thm} 
+
+\begin{proof}
+    $\alpha \in \N_0$ -- знаем.\\
+    Пусть $\alpha$ не такие. Через формулу Даламбера: $\displaystyle R = \lim_{n \to \infty} \Bigg|\frac{C_{\alpha}^n}{C_{\alpha}^{n+1}}\Bigg| = \lim_{} \Bigg|\frac{n+1}{\alpha - n}\Bigg| = 1$.
+    Радиус сходимости -- 1. 
+    Обозначим $\sum_{k=0}^{\infty} C_{\alpha}^k x^k = S(x)$\\
+    $S'(x) = \sum_{k=0}^{\infty} C_{\alpha}^{k} \cdot kx^{k-1}$\\
+    Запишем такое равенство: $xS'(x) = \sum_{k=0}^{\infty} C_{\alpha}^k k x^k$\\
+    $S'(x) = \sum_{k=0}^{\infty} C_{\alpha}^{k+1} \cdot (k+1) x^k$\\
+    Посмотрим, что такое $C_{\alpha}^{k+1} (k+1) = \frac{\alpha (\alpha-1)...(\alpha-k+1)(\alpha-k)}{k!}  = (\alpha - k) C_{\alpha}^k$
+
+    $xS'(x) = \sum_{k=0}^{\infty} C_{\alpha}^k k x^k, \ S'(x) = \sum_{k=0}^{\infty} C_{\alpha}^{k+1} \cdot (k+1) x^k \Rightarrow (1+x)S'(x) = \alpha S(x)$\\
+    $g(x) = \frac{S(x)}{(1+x)^{\alpha}}$\\
+    $g'(x) = \frac{S'(x)(1+x)^{\alpha} - S(x) \cdot \alpha(1+x)^{\alpha - 1}}{(1+x)^{2\alpha}} = \frac{S'(x)(1+x) - S(x) \cdot \alpha}{(1+x)^{\alpha+1}} = 0$\\
+    Значит, функция $g \equiv const$\\
+    $g(0) = \frac{1}{1} \Rightarrow g(x) \equiv 1$
+\end{proof}
+
+\begin{Example}
+    $\alpha = \frac{1}{2}: \ \sqrt{1+x} = (1+x)^{\frac{1}{2}}$\\
+    $C_{\frac{1}{2}}^k = \frac{\frac{1}{2} (\frac{1}{2}-1)...(\frac{1}{2}-k+1)}{k!} = \frac{(-1)^{k-1}(2k-3)!!}{(2k)!!}$\\
+    $C_{\frac{1}{2}}^1 = \frac{1}{2}$\\
+    $\left((2k-1)\frac{(2k-3)!!}{(2k)!!} \sim \frac{1}{\sqrt{k}} \cdot c\right)$
+\end{Example}
+
+\begin{Ex}
+    $\alpha = - \frac{1}{2}$
+    Этот случай важный! $\frac{1}{\sqrt{1+x}} = \sum_{k=0}^{\infty} A_k \cdot x^k$\\
+    Почему это важно? Сделаем замену: $x = - t^2$\\
+    $\frac{1}{\sqrt{1-t^2}} = ..., |t| < 1$\\
+    $\arcsin x = ...$
+\end{Ex}
+
+\begin{Rem}
+    $\alpha \in \N_0$ ограничения на $x$ излишни. 
+\end{Rem}
+
+\begin{Rem}[Поведение на концах]
+    $\alpha \geqslant 0$ абсолютная сходимости $x \pm 1$\\
+    $\alpha \in (-1; 0) \ \ x = -1$ расходится, при $x = 1$ сходится условно.
+    $\alpha \leqslant -1$ расходится $x = \pm 1$
+\end{Rem}
+
+\Subsection{Бесконечные произведения}
+
+\begin{Def} 
+    $\prod_{n=1}^{\infty} p_n$\\
+    $P_N = \prod_{n=1}^N p_n$\\
+    $\displaystyle \exists$ конечный $\lim_{N \to \infty} P_N = P \neq 0$
+\end{Def} 
+
+\begin{Thm}[Необходимое условие сходимости] 
+    $\prod_{n=1}^{\infty}$ сходится $\Rightarrow  p_n \to 1$ 
+\end{Thm} 
+
+\begin{proof}
+    $\lim p_n = \lim \frac{P_n}{P_{n-1}} = \frac{\lim P_n}{\lim P_{n-1}} = \frac{P}{P} = 1$ 
+\end{proof}
+
+\begin{Rem}
+    Начиная с некоторого момента, знак у $p_n$ стабилизируется. Это важно, так как можно откинуть конечное число множителей, оно не будет влиять на сходимость. 
+\end{Rem}
+
+\begin{Example}
+    $\prod_{n=2}^{\infty} \frac{n^2 - 1}{n^2}$\\
+    $P_N = \prod_{n=2}^N \frac{n^2 - 1}{n^2} = \frac{(2-1)(2+1)}{2 \cdot 2} \cdot \frac{(3-1)(3+1)}{3 \cdot 3} \cdot \frac{(4-1)(4+1)}{4 \cdot 4} \cdot ... \cdot \frac{(N-1)(N+1)}{N \cdot N} 
+    = \frac{1}{2} \cdot \frac{N+1}{N} \to \frac{1}{2}$
+\end{Example}
+
+\begin{Example}
+    $\prod_{n=1}^{\infty} \frac{e^{\frac{1}{n}}}{1 + \frac{1}{n}} = \frac{e^1 \cdot e^{\frac{1}{2}} \cdot e^{\frac{1}{3}} \cdot ... \cdot e^{\frac{1}{N}}}{...} $
+    $P_N = \frac{e^{\sum_{n=1}^{N} \frac{1}{n}}}{N+1}$
+    Домножим и поделим: $\frac{e^{\sum_{n=1}^{N} \frac{1}{n}}}{N+1} \cdot \frac{N}{N} = \frac{N}{e^{\ln N}} = \frac{N}{N+1} \cdot e^{\sum_{n=1}^{N} \frac{1}{n} - \ln N} \to e^{\gamma}$, где $\gamma$ -- постоянная Эйлера.  
+\end{Example}
+
+\begin{Thm} 
+    $\prod_{n=1}^{\infty} (1+ \alpha_n)$ сходится $\Leftrightarrow \sum_{n=1}^{\infty} \ln (1+\alpha_n)$ сходится\\
+    $p_n = 1 + \alpha_n$
+\end{Thm} 
+
+\begin{proof}
+    $S_N = \ln P_N$\\
+    $P_N = e^{S_N}$\\
+    $\Rightarrow. \prod_{n=1}^{\infty} (1+ \alpha_n)$ сходится... %TODO
+    $\Leftarrow. \sum_{n=1}^{\infty} \ln (1+\alpha_n)$ %TODO
+\end{proof}
+
+\begin{Rem}
+    Теперь говорим в терминах того, что $1+\alpha_n \to 1 \Leftrightarrow$ сходимости. 
+\end{Rem}
+
+\begin{Thm} 
+    Все $a_n$ одного знака. Тогда $\prod_{n=1}^{\infty} (1+ \alpha_n)$ сходится $\Leftrightarrow \sum a_n$ сходится.  
+\end{Thm} 
+
+\begin{proof}
+    Упражнение
+\end{proof}
+
+\begin{Def} 
+    $\prod (1+ \alpha_n)$ сходится абсолютно, если сходится $\prod (1 + |a_n|)$
+\end{Def} 
+
+\begin{Thm}
+    $\prod (1+ \alpha_n)$ абсолютно сходится $\Leftrightarrow$ абсолютно сходится $\sum a_n$ и/или $\sum \ln(1+a_n)$
+\end{Thm}
+
+\begin{proof}
+    Упражнение
+\end{proof}
+
+\begin{Rem}
+    Условная сходимость по аналогии. 
+\end{Rem}
+
+\begin{Rem}
+    Говорят о числовых произведениях, функциональные произведения это нечто странное. 
+\end{Rem}
+
+\Subsection{Метод обобщенного суммирования}
+
+\begin{Example}
+    $S_1  = 1 - 1 + 1 - 1 + ...$. В нашем понимании такой ряд не сходится. Можно было бы расставить скобочки и получить ноль. Но мы так делать не можем.
+    Половина частичных сумм будет 0, половина частичных сумм равна 1. Разумно было бы получить $\frac{1}{2}$. 
+    Можно записать эту сумму как $S_1 = 1 - 1 + 1 - 1 + ... = 1 - S_1$\\
+    $S_1 = \frac{1}{2}$\\
+    Знаем такую формулу: $\frac{1}{1+x} = 1 - x + x^2 - x^3 + ...$. Подставив $x = 1$ получим искомый ряд. 
+    Идея неплоха, но $\frac{1+x+x^2+...+x^{n-1}}{1 + x + x^2 + ... + x^{m-1}}$. Домножим и числитель и знаменатель  на $1-x$\\
+    $\frac{1+x+x^2+...+x^{n-1}}{1 + x + x^2 + ... + x^{m-1}} = \frac{1-x^n}{1-x^m} = (1-x^n)(1 + x^n + x^{2m} + ...) = 1 - x^n + x^m - x^n x^{2m} + ...$. 
+    А что будет слева, если $x = 1$ подставить? Получим $\forall m,n \in \N \backslash {1} \frac{n}{m} = 1 - 1 + 1 - 1 +...$ -- любое рациональное число. 
+\end{Example}
+
+\begin{Example}
+    Хотим посчитать такую сумму: $S_2 = 1 - 2 + 3 - 4 + 5 - 6...$
+    $S_2 + S_2 = 1 - 2 + 3 - 4 + 5 -6 + ... + 1 - 2 + 3 - 4 + 5 + ... = S_1 \Rightarrow S_2 = \frac{1}{4}$
+    $S_3 = 1 + 2 + 3 + 4 + 5 +...$. Что такое $S_3 - S_2 = 1 + 2 + 3 + 4 + 5 + ... - 1 + 2 - 3 + 4 - 5 + ... = 4 S_3 \Rightarrow 3 S_3 = - S_2$\\
+    $S_3 = - \frac{1}{12}$
+\end{Example}
+
+\begin{Def} 
+    $\sum_{n=1}^{\infty} a_n = A (M)$ -- суммирование по обобщенному методу $M$\\
+
+    Наложим некоторые ограничения на обобщенные методы: 
+    \begin{enumerate}
+        \item Линейность. $\sum a_n = A (M), \sum b_n = B (M)$\\
+        $\forall \alpha, \beta \in \R \ \ \sum (\alpha a_n + \beta b_n) = \alpha A + \beta B (M)$
+        \item Регулярность: $\sum a_n = A \Rightarrow \sum a_n = A (M)$
+        \item Эффективность. Мы не можем использовать метод только для одного ряда. 
+    \end{enumerate}
+\end{Def} 
+
+\begin{Example}
+    \begin{enumerate}
+        \item Метод степенных рядов (Пуассона-Абеля)
+        $\sum_{n=1}^{\infty} a_n$. Построим $\sum a_n x^{n-1}$\\
+        $\sum a_n = S (П-А), если \forall x \in (0,1) \ \sum a_n x^{n-1} = S(x) \ \lim_{x \to 1-} S(x) = S$\\
+        Регулярность следует из теоремы Абеля. 
+        \item Метод средних арифметических (Чезаро)\\
+        $\sum_{n=1}^{\infty} a_n, S_N = \sum_{n=1}^{\infty} a_n, \sigma_n = \frac{S_1 + S_2 + ... + S_n}{n}$\\
+        $\sum a_n = S (Ch) \Leftrightarrow \lim \sigma_n = S$. 
+        Линейность очевидна. Докажем регулярность. 
+
+        \begin{proof}
+            $\lim S_n = S \Rightarrow \lim \sigma_n = S$. Посчитаем $|\sigma_n - S| = \frac{|S_1 - S + S_2 - S + ... + S_n - S|}{n} \leqslant 
+            \frac{|S_1 - S| + |S_2 - S| + ... + |S_n - S|}{n}  = \underbrace{\frac{|S_1 - S|+...+|S_{N-1} - S|}{n}}_{< \frac{\varepsilon}{2}} + 
+            \underbrace{\frac{|S_n - S| + ... + |S_N - S|}{n}}_{< \frac{\varepsilon}{2} \cdot \frac{n - N + 1}{n} } $
+        \end{proof}
+    \end{enumerate}
+\end{Example}
+
+\begin{Thm}[Фробениуса] 
+    $\sum a_n = S(Ch) \Rightarrow \sum a_n = S(П-А)$
+\end{Thm} 
+
+\begin{Example}
+    Показать, что обратное неверно. Посчитать $1 - 2 + 3 - 4 + ...$
+\end{Example}
+
+\Subsection{Ряды Фурье}
+
+\begin{Rem}
+    Раскладываем $2 \pi$ периодичные функции
+\end{Rem}
+
+\begin{Def}
+    $A \sin (\omega x + \varphi)$ -- гармоника\\
+    $A $ -- амплитуда\\
+    $\varphi $ -- начальная фаза\\
+    $\omega$ -- частота\\
+\end{Def}
+
+\begin{Prop}
+	$f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} (a_n \cos nx + b_n \sin nx)$\\
+    Будем считать, что функция $f$ идеальна и ряд равномерно сходится на промежутке от $- \pi$ до $\pi \ ([0; 2\pi])$. 
+    Тогда проинтегрируем ряд $\int_{0}^{2\pi} f(x) \, dx = \pi \cdot a_0$\\
+    $a_0 = \frac{1}{\pi} \int_{0}^{2\pi} f(x) dx$\\
+    $\int_{0}^{2\pi} \cos nx f(x) dx = \pi a_n$\\
+    $\frac{1}{\pi} \int_{0}^{2\pi} \cos nx f(x) dx = a_n$
+\end{Prop}
+
+\begin{Rem}
+    $a \cos x + b \sin x = \sqrt{a^2 + b^2} (\sin \varphi \cos x + \sin x \cos \varphi) = \sqrt{a^2 + b^2} \sin (\varphi + x)$
+\end{Rem}
+
+\begin{Example}
+    $a_0 - \frac{1}{\pi} = \int_{-\pi}^{\pi} f(x) dx = 0$\\
+	$a_1 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos x \, dx = 0$\\
+	$a_n = 0$\\
+	$b_1 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin x dx = \frac{2}{\pi} \int_{0}^{\pi} f(x) \sin x \, dx = \frac{1}{2} \int_{0}^{\pi} \sin x \, dx = 1$\\
+	$b_n = \begin{cases}
+		\frac{1}{n}, n - \text{нечетно}\\
+		0, n - \text{четно}
+	\end{cases}$
+	$f(x) \sim 1 \cdot \sin x + \frac{1}{3} \sin 3x + \frac{1}{5} \sin 5x + ...$
+\end{Example}
+
+\end{document}
