@@ -1,0 +1,67 @@
+%% Creator: Inkscape 1.1.1 (3bf5ae0d25, 2021-09-20), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'curve_table.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{588.43125979bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.47662909)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{img/curve_table.pdf}}%
+    \put(0.29259708,0.26364022){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}эллипс\end{tabular}}}}%
+    \put(0.45910252,0.26417942){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}мнимый эллипс\end{tabular}}}}%
+    \put(0.49623844,0.1405637){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}гипербола\end{tabular}}}}%
+    \put(0.49345495,0.01834864){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}парабола\end{tabular}}}}%
+    \put(0.80668075,0.29953964){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}пара мнимых \\пересекающихся прямых\end{tabular}}}}%
+    \put(0.80686958,0.17371467){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}пара пересекающихся \\прямых\end{tabular}}}}%
+    \put(0.64055037,0.03846522){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}пара \\параллельных \\прямых\end{tabular}}}}%
+    \put(0.77263318,0.03910366){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}пара мнимых\\параллельных \\прямых\end{tabular}}}}%
+    \put(0.89846129,0.04315131){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}пара \\совпадающих \\прямых\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
