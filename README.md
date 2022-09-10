@@ -12,3 +12,7 @@
 - [Алгебра](https://github.com/ch3zych3z/spbu-se-mathematics/blob/master/conspects/algebra/term-2/conspect.pdf)
 - [Дискретная математика](https://github.com/ch3zych3z/spbu-se-mathematics/blob/master/conspects/discrete-mathematics/term-2/conspect.pdf)
 - [Геометрия](https://github.com/ch3zych3z/spbu-se-mathematics/blob/master/conspects/geometry/term-2/conspect.pdf)
+
+## 3 семестр
+
+- [Матанализ](https://github.com/ch3zych3z/spbu-se-mathematics/blob/mathematical-analysis/conspects/mathematical-analysis/term-3/lecture-notes.pdf)
