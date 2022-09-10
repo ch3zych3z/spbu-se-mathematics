@@ -1,0 +1,365 @@
+\input{preamble.tex}
+
+\begin{document}
+    \Header
+
+    \BeginConspect
+
+    \Section{Метрические пространства}{}{Илья Дудников}
+
+    Пусть $X$ -- некоторое множество. Зададим функцию $\rho : X \times X \to \R$.
+    \begin{Def}[Метрика]
+        $\rho$ называется метрикой, если выполняются следующие три свойства:
+        \begin{MyList}
+            \item $\rho (x, y) \geqslant 0 \ \forall x, y \in X$
+            \item[] $\rho(x, y) = 0 \EQ x = y$
+            \item $\forall x, y \in X \ \rho (x, y) = \rho (y, x)$ 
+            \item $\forall x, y, z \in X \ \rho (x, y) \leqslant \rho(x, z) + \rho(z, y)$ -- неравенство треугольника. 
+        \end{MyList}
+    \end{Def} 
+
+    \begin{Def}[Метрическое пространство]
+        Пара $(X, \rho)$ называется \textit{метрическим пространством}.
+    \end{Def}
+
+    \begin{Example}
+        Метрика на $\R^2$: $\rho_2 (x, y) = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}$ 
+    \end{Example}
+
+    \begin{Example}
+        Метрика на $\R^d$: $\rho_2 (x, y) = \sqrt{\sum_{i=1}^{d} (x_i - y_i)^2}$ 
+    \end{Example}
+
+    \begin{Example}[Дискретная метрика]
+        Пусть $X$ -- некоторое множество. Зададим 
+        \[\rho (x, y) = \begin{cases}
+            0, &x = y \\
+            1, &x\neq y
+        \end{cases}\]
+        Действительно, все свойства выполняются, поэтому $\rho$ -- метрика.
+    \end{Example}
+
+    \begin{Example}[Манхэттенская метрика]
+        В $\R^2$:
+        \[\rho_1(x, y) = |x_1 - y_1| + |x_2 - y_2|\]
+
+        \begin{figure}[H]
+            \centering
+            \def\svgwidth{.3\columnwidth}
+            \input{img/Manhattan_distance.pdf_tex}
+        \end{figure}
+    \end{Example}
+
+    \begin{Example}
+        $\rho_\infty(x, y) = \max \{|x_1 - y_1|, |x_2 - y_2|\}$ 
+    \end{Example}
+
+    \begin{Example}
+        Рассмотрим $C[a, b]$. Тогда $\rho (f, g) = \int_{a}^{b} |f - g|$ -- метрика.
+    \end{Example}
+
+    \begin{notation}[Открытый шар]
+        $B_r(a) = \left\{x \in X, \ \rho (x, a) < r\right\}$
+    \end{notation}
+
+    \begin{notation}[Замкнутый шар]
+        $\overline{B}_r(a) = \left\{x \in X, \ \rho(x, a) \leqslant r\right\}$
+    \end{notation}
+
+    \begin{notation}[Сфера]
+        $S_r(a) = \{x \in X, \ \rho(x, a) = r\}$
+    \end{notation}
+
+    \begin{Example}
+        В дискретной метрике при $r < 1$ замкнутый шар $\overline{B}_r(a)$ включает только одну точку -- $a$, 
+        а при $r \geqslant 1$ -- всё множество $X$.
+    \end{Example}
+
+    \begin{Example}
+        Замкнутый шар в манхэттенской метрике: 
+        \begin{figure}[H]
+            \centering
+            \def\svgwidth{.3\columnwidth}
+            \input{img/manhattan_closed_ball.pdf_tex}
+        \end{figure}
+    \end{Example}
+
+    \begin{Example}
+        Замкнутый шар в $\rho_\infty$: 
+        \begin{figure}[H]
+            \centering
+            \def\svgwidth{.3\columnwidth}
+            \input{img/rho_infty_closed_ball.pdf_tex}
+        \end{figure}
+    \end{Example}
+
+    \begin{Prop}
+        Пусть $B_{r_1}(a)$ и $B_{r_2}(a)$ -- шары. Тогда 
+        \[B_{r_1}(a) \cap B_{r_2}(a) = B_{\min (r_1, r_2)} (a)\]
+    \end{Prop}
+
+    \begin{proof}
+        Возьмем $x \in B_{r_1} (a) \cap B_{r_2} (a)$. Тогда $\rho(x, a) < r_1$ и $\rho(x, a) < r_2$, значит $\rho(x, a) < \min (r_1, r_2)$.  
+    \end{proof}
+
+    \begin{Prop}
+        $\forall a \neq b \ \exists r : \overline{B}_r(a) \cap \overline{B}_r(b) = \varnothing$.
+    \end{Prop}
+
+    \begin{proof}
+        Возьмем $r = \frac{\rho(a, b)}{3}$. Предположим, что пересечение непусто, т.е. $\exists x  : x \in \overline{B}_r(a)$ и $x \in \overline{B}_r(b)$.
+        Тогда 
+        \[\rho(a, b) \leqslant \rho(a, x) + \rho(x, b) \leqslant \frac{\rho(a, b)}{3} + \frac{\rho(a, b)}{3}\]   
+    \end{proof}
+
+    \begin{notation}
+        $V_x$ -- окрестность точки $x$ (шар).
+    \end{notation}
+
+    \begin{notation}
+        $\dot{V}_x$ -- проколотая окрестность $x$ (шар, не содержащий точку $x$).
+    \end{notation}
+
+    \begin{Def}[Внутренняя точка множества] 
+        Пусть $A \subset X$. Точка $a$ называется \textit{внутренней} точкой $A$, если $\exists V_a \subset A$.
+    \end{Def}
+
+    \begin{Def}[Внешняя точка множества]
+        Пусть $A \subset X$. Тогда точка $b$ называется \textit{внешней} точкой $A$, если $b$ -- внутренняя точка $X \setminus A$. 
+    \end{Def}
+
+    \begin{Def}[Граничная точка множества]
+        Пусть $A \subset X$. Тогда $c$ является \textit{граничной} точкой множества $A$, если она не является ни внутренней, ни внешней.
+        Иначе, точка $c$ назывется граничной, если
+        \[\forall V_c \ \exists x, y \in V_c : x \in A \wedge y \in X \setminus A\]        
+    \end{Def}
+
+    \begin{Def}[Открытое множество]
+        Множество $A \subset X$ называется \textit{открытым}, если любая его точка -- внутренняя.
+    \end{Def}
+
+    \begin{Thm}[Об открытых множествах]
+        \begin{MyList}
+            \item $\varnothing$ и $X$ -- открытые множества
+            \item Объединение любого числа открытых множеств -- открытое множество
+            \item Пересечение конечного числа открытых множеств -- открытое множество
+            \item Открытый шар -- это открытое множество  
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item Очевидно
+            \item Пусть $B = \bigcup_{\alpha \in I} A_\alpha$. Возьмем $x \in B$. Тогда $\exists \beta \in I : x \in A_\beta$. Т.к. $A_\beta$ -- открытое множество, то 
+            $x$ принадлежит $A_\beta$ с какой-то своей окрестностью, а значит она принадлежит и всему объединению с этой окрестностью.
+
+            \item Пусть $B = \bigcap_{i = 1}^n A_i$. Возьем $x \in B$. Тогда $x \in A_i \ \forall i$. Точка $x$ принадлежит всем $A_i$ с какой-то круговой окрестностью $r_i$. Тогда она принадлежит пересечению с круговой окрестностью $\min r_i$.    
+            \item Рассмотрим $B_R(a) = \{x \in X, \ \rho(x, a) < R\}$. Пусть точка $x \in B_R(a), \ \rho(x, a) < R$. Положим $r = R - \rho(x, a)$. Возьмем $y$ из окрестности $x$ радиуса $r$. Тогда в силу неравенства треугольника
+            \[\rho(a, y) \leqslant \rho(a, x) + \rho(x, y) < \rho(a, x) + R - \rho(x, a) = R\]
+            \begin{figure}[H]
+                \centering
+                \def\svgwidth{.3\columnwidth}
+                \input{img/open_ball_theorem.pdf_tex}
+            \end{figure}
+
+            А значит $\forall y \in V_r(x) \ y \in B_R(a)$, т.е. любая точка $x \in B_R(a)$ принадлежит шару $B_R(a)$ с какой-то своей окрестностью.
+        \end{MyList}
+    \end{proof}
+
+    \begin{Rem}
+        Конечность в пункте 3 существенна: рассмотрим $\bigcap_{n = 1}^\infty \left(-\frac{1}{n}; 1\right) = [0, 1)$. 
+    \end{Rem}
+
+    \begin{notation}
+        $\Int A$ -- множество всех внутренних точек множества $A$. 
+    \end{notation}
+
+    \begin{Thm}[Свойства]
+        \begin{MyList}
+            \item $\Int A \subset A$
+            \item $\Int A = \bigcup$ всех открытых множеств, которые содержатся в $A$
+            \item $\Int A$ -- открытое множество
+            \item $A$ -- открытое $\EQ A = \Int A$
+            \item $A \subset B \SO \Int A \subset \Int B$
+            \item $\Int (A \cap B) \stackrel{?}{=} \Int A \cap \Int B$
+            \item $\Int (\Int A) = \Int A$   
+        \end{MyList}
+    \end{Thm}
+
+    \begin{Def}[Замкнутое множество]
+        Множество $A \subset X$ называется \textit{замкнутным}, если $X \setminus A$ -- открыто.
+    \end{Def}
+
+    \begin{Thm}[О замкнутых множествах]
+        \begin{MyList}
+            \item $\varnothing, \ X$ -- замкнутые множества.
+            \item Пересечение любого числа замкнутых множеств -- замкнутое множество
+            \item Конечное объединение замкнутых множеств -- замкнутое множество
+            \item Замкнутый шар -- это замкнутое множество.
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        Из предыдущей теоремы + формул де-Моргана.
+        \TODO
+        \begin{MyList}
+            \item[4] Пусть $r = \rho (x, a) - R$. Возьмем $y$ из окрестности $x$. Тогда
+            \[\rho (a, y) \geqslant -\rho(a, x) + \rho(x, y) > R\]
+        \end{MyList}
+    \end{proof}
+
+    \begin{Rem}
+        Конечность в пункте 3 существенна: $\bigcup \left[\frac{1}{n}; 1\right] = (0; 1]$ -- незамкнутое множество.
+    \end{Rem}
+
+    \begin{notation}[Замыкание множества]
+        $\Cl A$ -- пересечение всех замкнутых множеств, которые содержат $A$. 
+    \end{notation}
+
+    \begin{Example}
+        $\Cl (0, 1) = [0, 1]$. 
+    \end{Example}
+
+    \begin{Thm}[Свойства]
+        \begin{MyList}
+            \item $A \subset \Cl A$
+            \item $\Cl A$ -- замкнутое множество
+            \item $A$ -- замкнуто $\EQ A = \Cl A$.
+            \item $A \subset B \SO \Cl A \subset \Cl B$
+            \item $\Cl (A \cup B) = \Cl A \cup \Cl B$
+            \item $\Cl (\Cl A) = \Cl A$      
+        \end{MyList}
+    \end{Thm}
+
+    \begin{Thm}
+        $x \in \Cl A \EQ \forall r > 0 \ B_r(x) \cap A \neq \varnothing$. 
+    \end{Thm}
+
+    \begin{proof}
+        Докажем, что $x \notin \Cl A \EQ \exists r > 0 \ B_r(x) \cap A = \varnothing$.
+        \[x \in \left(X \setminus \Cl A\right) \EQ x \in \Int (X \setminus A)\]
+    \end{proof}
+
+    Пусть $A'$ -- множество предельных точек $A$. Тогда
+    \begin{Thm}[Свойства]
+        \begin{MyList}
+            \item $\Cl A = A \cup A'$ 
+            \item $A \subset B \SO A' \subset B'$ 
+            \item $A$ -- замкнуто $\EQ A' \subset A$
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item[3] $A$ -- замкнуто $\EQ \Cl A = A, \ \Cl A = A \cup A'$.
+        \end{MyList}
+    \end{proof}
+
+    \begin{Thm}
+        $x \in A' \EQ \forall B_r(x)$ содержит бесконечно много точек из $A$.
+    \end{Thm}
+
+    \Subsection{Нормированные пространства}
+
+    Пусть $X$ -- векторное пространство над $\R$.
+    \begin{Def}[Норма]
+        Функция $||\cdot|| : X \to \R$ называется \textit{нормой}, если выпоняются следующие свойства:
+        \begin{MyList}
+            \item $||x|| \geqslant 0$
+            \item[] $||x|| = 0 \EQ x = 0$
+            \item $||\lambda x|| = |\lambda| \cdot ||x||, \ \lambda \in \R$
+            \item $||x + y|| \leqslant ||x|| + ||y||$.  
+        \end{MyList}
+    \end{Def}
+
+    \begin{Example}
+        $||x||_1 = |x_1| + |x_2|$
+    \end{Example}
+
+    \begin{Example}
+        $||x||_2 = \sqrt{x_1^2 + x_2^2}$ 
+    \end{Example}
+
+    \begin{Example}
+        $||x||_\infty = \max_{i \in \{1, ...\}} |x_i|$
+    \end{Example}
+
+    \begin{Example}
+        $C[a, b]$, $||f|| = \max_{x \in [a, b)} |f|$ 
+    \end{Example}
+
+    \begin{Def}[Скалярное произведение]
+        $\langle \cdot, \cdot \rangle : X \times X \to \R$ -- скалярное произведение, если выполняются:
+        \begin{MyList}
+            \item $\langle x, x\rangle \geqslant 0$ 
+            \item[] $\langle x, x\rangle = 0 \EQ = x = 0$
+            \item $\langle x + y, z\rangle = \langle x, z\rangle + \langle y, z\rangle$
+            \item $\langle x, y\rangle = \langle y, x\rangle$
+            \item $\langle \lambda x, y\rangle = \lambda \langle x, y\rangle$. 
+        \end{MyList} 
+    \end{Def}
+
+    \begin{Ex}
+        Вспомнить неравенство Коши-Буняковского
+    \end{Ex}
+
+    \begin{Prop}
+        $||x|| = \sqrt{\langle x, x\rangle}$
+    \end{Prop}
+
+    \begin{proof}
+        1-2 очевидно.
+        \begin{MyList}
+            \item[3.]
+            \begin{align*}
+                \langle x + y, x + y \rangle \leqslant \langle x, x\rangle + \langle y, y\rangle + 2\sqrt{\langle x, x\rangle \cdot \langle y, y\rangle}
+            \end{align*}
+            С другой стороны:
+            \[\langle x + y, x + y \rangle = \langle x, x\rangle + \langle y, y\rangle + 2 \langle x, y\rangle\]
+        \end{MyList}
+    \end{proof}
+
+    \begin{Def}[Полное пространство]
+        Пространство называется \textit{полным}, если в нем любая фундаментальная последовательность сходится.
+    \end{Def}
+
+    \begin{Ex}
+        Доказать, что $\R^2, \R^3, \R^n$ -- полные пространства.
+    \end{Ex}
+
+    \begin{notation}
+        $\overline{\R}^d = \R^d \cup \{\infty\}$ 
+    \end{notation}
+
+    \begin{Rem}
+        Под $V_\infty$ будем понимать $\{x : ||x|| > \delta\}$. 
+    \end{Rem}    
+    
+    \begin{Thm}[Сходимость и покоординатная сходимость]
+        $x^i \in \R^d$ ($x^i = (x_1^i, x_2^i, ..., x_d^i)$). Рассмотрим последовательность $\{x^i\}_{i = 1}^\infty$. Тогда 
+        равносильны утверждения: 
+
+        \begin{MyList}
+            \item $\{x^i\}_{i = 1}^\infty$ -- сходится
+            \item $\{x^i\}_{i = 1}^\infty$ сходится покоординатно.  
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item[] 1 $\SO$ 2.
+            \[\forall \varepsilon > 0 \ \exists N : \forall n > N \ ||x^n - a|| < \varepsilon\]
+
+            \[x_k^n - a_k| \leqslant ||x^n - a||\]
+
+            \item[] 2 $\SO$ 1. 
+            \[\sqrt{(x_1^n - a_1)^2 + (x_2^n - a_2)^2 + ... + (x_d^n - a_d)^2}\]
+        \end{MyList}
+    \end{proof}
+
+    \begin{Rem}
+        $x^k = \left(k \cos \frac{\pi k}{2}, k \sin \frac{\pi k}{2}\right)$ 
+    \end{Rem}
+
+    
+\end{document}
