@@ -181,7 +181,7 @@
             \item $\Int A$ -- открытое множество
             \item $A$ -- открытое $\EQ A = \Int A$
             \item $A \subset B \SO \Int A \subset \Int B$
-            \item $\Int (A \cap B) \stackrel{?}{=} \Int A \cap \Int B$
+            \item $\Int (A \cap B) = \Int A \cap \Int B$
             \item $\Int (\Int A) = \Int A$   
         \end{MyList}
     \end{Thm}
@@ -200,11 +200,22 @@
     \end{Thm}
 
     \begin{proof}
-        Из предыдущей теоремы + формул де-Моргана.
-        \TODO
         \begin{MyList}
-            \item[4] Пусть $r = \rho (x, a) - R$. Возьмем $y$ из окрестности $x$. Тогда
-            \[\rho (a, y) \geqslant -\rho(a, x) + \rho(x, y) > R\]
+            \item Очевидно
+            \item Пусть $B = \bigcap_{\alpha \in I} A_\alpha$. Тогда
+            \[X \setminus B = X \setminus \left(\bigcap_{\alpha \in I} A_\alpha\right) = \bigcup_{\alpha \in I} \left(X \setminus A_\alpha\right)\]
+            Поскольку $\forall \alpha \in I \ A_\alpha$ -- замкнутое, т.е. $X \setminus A_\alpha$ -- открытое, то $X \setminus B$ -- открытое (по теореме об открытых множествах), значит $B$ -- замкнутое множество.
+            \item Доказывается аналогично предыдущему пункту.
+            \item Рассмотрим $\overline{B}_R(a)$. Возьмем $x \in X \setminus \overline{B}_R(a)$ и $y$ из окрестности $x$, т.е. $y \in B_r(x)$, где $r = \rho(a, x) - R$.
+            По неравенству треугольника:
+            \[\rho(a, x) \leqslant \rho(a, y) + \rho(y, x)\]
+            Поэтому
+            \[\rho (a, y) \geqslant r + R - \rho(y, x) > R\]
+            \begin{figure}[H]
+                \centering
+                \def\svgwidth{.3\columnwidth}
+                \input{img/closed_ball_theorem.pdf_tex}
+            \end{figure}
         \end{MyList}
     \end{proof}
 
@@ -251,7 +262,7 @@
 
     \begin{proof}
         \begin{MyList}
-            \item[3] $A$ -- замкнуто $\EQ \Cl A = A, \ \Cl A = A \cup A'$.
+            \item[3.] $A$ -- замкнуто $\EQ \Cl A = A, \ \Cl A = A \cup A'$.
         \end{MyList}
     \end{proof}
 
