@@ -162,7 +162,7 @@
                 \input{img/open_ball_theorem.pdf_tex}
             \end{figure}
 
-            А значит $\forall y \in V_r(x) \ y \in B_R(a)$, т.е. любая точка $x \in B_R(a)$ принадлежит шару $B_R(a)$ с какой-то своей окрестностью.
+            А значит $\forall y \in V_x(r) \ y \in B_R(a)$, т.е. любая точка $x \in B_R(a)$ принадлежит шару $B_R(a)$ с какой-то своей окрестностью.
         \end{MyList}
     \end{proof}
 
@@ -222,6 +222,36 @@
     \begin{Rem}
         Конечность в пункте 3 существенна: $\bigcup \left[\frac{1}{n}; 1\right] = (0; 1]$ -- незамкнутое множество.
     \end{Rem}
+
+    Пусть $E \subset \R^n, \ F \subset E$.
+
+    \begin{Def}
+        Точка $a \in F$ называется внутренней для $F$ в $E$, если $\exists V_a^E \subset F$.
+    \end{Def}
+
+    \begin{Def}
+        $F$ называется открытым в $E$, если все его точки внутренние в $E$.
+    \end{Def}
+
+    \begin{Rem}
+        Если множество $E$ открыто, то ничего не изменилось. Если же множество $E$ не открыто, то мы получаем новые определения. 
+    \end{Rem}
+
+    \begin{Example}
+        Множество $(0, 1) \cap \Q$ открыто в $\Q$.
+    \end{Example}
+
+    \begin{Example}
+        $(1, 2]$ открыто в $(0, 2]$.  
+    \end{Example}
+
+    \begin{Rem}
+        Множество $F$ открыто в $E \EQ \exists G$ -- открытое в $\R^n : F = E \cap G$. 
+    \end{Rem}
+
+    \begin{Example}
+        $(0, 1]$ -- замкнуто в $(0, 2]$.
+    \end{Example}
 
     \begin{notation}[Замыкание множества]
         $\Cl A$ -- пересечение всех замкнутых множеств, которые содержат $A$. 
@@ -346,12 +376,12 @@
         Под $V_\infty$ будем понимать $\{x : ||x|| > \delta\}$. 
     \end{Rem}    
     
-    \begin{Thm}[Сходимость и покоординатная сходимость]
+    \begin{Thm}[Сходимость и покоординатная сходимость] \label{thm:convergence}
         $x^i \in \R^d$ ($x^i = (x_1^i, x_2^i, ..., x_d^i)$). Рассмотрим последовательность $\{x^i\}_{i = 1}^\infty$. Тогда 
         равносильны утверждения: 
 
         \begin{MyList}
-            \item $\{x^i\}_{i = 1}^\infty$ -- сходится
+            \item $\{x^i\}_{i = 1}^\infty$ сходится
             \item $\{x^i\}_{i = 1}^\infty$ сходится покоординатно.  
         \end{MyList}
     \end{Thm}
@@ -361,7 +391,7 @@
             \item[] 1 $\SO$ 2.
             \[\forall \varepsilon > 0 \ \exists N : \forall n > N \ ||x^n - a|| < \varepsilon\]
 
-            \[x_k^n - a_k| \leqslant ||x^n - a||\]
+            \[|x_k^n - a_k| \leqslant ||x^n - a||\]
 
             \item[] 2 $\SO$ 1. 
             \[\sqrt{(x_1^n - a_1)^2 + (x_2^n - a_2)^2 + ... + (x_d^n - a_d)^2}\]
@@ -369,8 +399,252 @@
     \end{proof}
 
     \begin{Rem}
-        $x^k = \left(k \cos \frac{\pi k}{2}, k \sin \frac{\pi k}{2}\right)$ 
+        Если $\lim_{k \to \infty} x^k = \infty$, то координатные последовательности $\{x^k\}$ могут и не иметь предела. Пусть, например, последовательность в $\R^2$ определяется формулой 
+        \[x^k = \left(k \cos \frac{\pi k}{2}, k \sin \frac{\pi k}{2}\right)\]
+        Тогда 
+        \[||x^k|| \sqrt{k^2 \cos^2 \frac{\pi k}{2} + k^2 \sin^2 \frac{\pi k}{2}} = k \to +\infty\]
+        То есть $x^k \to \infty$. Тем не менее, последовательности $x_1^k = k \cos \frac{\pi k}{2}$ и $x_2^k = k \sin \frac{\pi k}{2}$ предела не имеют. 
     \end{Rem}
 
+    \begin{Thm}[Арифметические действия и пределы]
+        Пусть $\{x^k\}, \ \{y^k\} \subset \R^n$, $\lim x^k = a, \ \lim y^k = b$. Тогда
+        \begin{MyList}
+            \item $\lim(x^k + y^k) = a + b$
+            \item Пусть $\{\lambda_n\}$ -- последовательность из $\R$, $\lim \lambda_k = \lambda$. Тогда
+            \[\lim \lambda_k x_k = \lambda a\] 
+            \item $\lim ||x^k|| = ||a||$
+            \item $\lim \langle x^k, y^k\rangle = \langle a, b\rangle$
+        \end{MyList} 
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item По теореме \ref{thm:convergence} для любого $i = 1, ..., n$
+            \[\lim_{k \to \infty} x_i^k = a_i, \quad \lim_{k \to \infty} y_i^k = b_i\]
+            Тогда $\lim_{k \to \infty} (x_i^k + y_i^k) = a_i + b_i$. Применяя теорему \ref{thm:convergence} еще раз, получаем, что
+            $\lim_{k \to \infty} (x^k + y^k) = a + b$.
+            \item[4.] Заметим, что 
+            \begin{align*}
+                \frac{1}{4} (||a + b|| - ||a - b||) &= \frac{1}{4}(\langle a + b, a + b\rangle - \langle a - b, a - b\rangle) = \\
+                &= \frac{1}{4} (4 \langle a, b\rangle) = \langle a, b\rangle
+            \end{align*}
+            Применяя пункты 1 и 3, получаем нужное утверждение.
+        \end{MyList}
+    \end{proof}
+
+    \begin{Def}[Ограниченное множество]
+        Множество $E$ называется ограниченным в $\R^n$, если $\exists c : E \subset V_0(c)$,
+        т.е. $\forall x \in E \ ||x|| < c$.
+    \end{Def}
+
+    \begin{Rem}
+        Ограниченность множества в $\R^n$ равносильна следующему условию:
+        \[\sup_{x \in E} ||x|| < +\infty\]
+    \end{Rem}
+
+    \begin{Def}
+        Проекцией $E \subset \R^n$ будем называть $E_i = \{x_i : x \in E\}$. 
+    \end{Def}
+
+    \begin{Rem}
+        Ограниченность множества $E$ равносильна ограниченности всех проекций.
+    \end{Rem}
+
+    \begin{Thm}[Принцип выбора Больцано-Вейерштрасса]
+        Пусть $\{x^k\}$ -- последовательность в $\R^n$. Тогда
+        \begin{MyList}
+            \item Если $\{x^k\}$ ограничена, то из неё можно выделить сходящуюся подпоследовательность.
+            \item Если $\{x^k\}$ не ограничена, то из неё можно выделить подпоследовательность, стремящуюся к $\infty$.
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item $\{x_1^k\}$ -- ограниченная последовательность в $\R \SO \exists x_1^{r_k}$ -- сходящаяся подпоследовательность (по принципу выбора Больцано-Коши для числовых последовательностей).
+            Рассмотрим теперь $\{x_2^{r_k}\}$ -- ограничена в $\R \SO \exists \{x_2^{s_k}\}$ -- сходящаяся подпоследовательность, где $\{s_k\}$ -- подпоследовательность $\{r_k\}$.
+            После $n$-ного шага мы построили последовательность $\{x_n^{l_k}\} \SO \{x^{l_k}\}$ сходится.
+        
+            \item Можем построить $\{x^{r_k}\} : ||x^{r_k}|| > k$. Будем выбирать $r_1 < r_2 < r_3 < ...$. 
+        \end{MyList}
+    \end{proof}
     
+    \begin{Thm}[Критерий Больцано-Коши]
+        Пусть $\{x^k\}$ -- последовательность из $\R^n$. Тогда равносильны следующие условия:
+        \begin{MyList}
+            \item $\{x^k\}$ -- сходится
+            \item $\forall \varepsilon > 0 \ \exists N : \forall m, n > N \ ||x^m - x^n|| < \varepsilon$.
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        Заметим, что 
+        \[|x_i| \leqslant ||x|| \leqslant \sqrt{n} \cdot \max_{i \in [1, n]} |x_i|\]
+        \begin{MyList}
+            \item[] $1 \SO 2$. Поскольку $\{x^k\}$ сходится, то 
+            \[\forall i = 1..n \ \forall \varepsilon > 0 \ \exists N : \forall n, m > N \ |x_i^m - x_i^n| < \frac{\varepsilon}{\sqrt{n}}\]
+            Тогда
+            \[||x^n - x^m|| < \sqrt{n} \cdot \frac{\varepsilon}{\sqrt{n}}\]
+
+            \item[] $2 \SO 1$.
+            \[|x_i^m - x_i^n| \leqslant ||x_i^m - x_i^n|| \leqslant \varepsilon\]
+        \end{MyList}
+    \end{proof}
+
+    \begin{Def}[Покрытие]
+        $\Omega$ -- семейство множеств из $\R^n$. $\Omega$ называется \textit{покрытием}  множества $E \subset \R^n$, если $E \subset \bigcup_{A \in \Omega} A$. 
+    \end{Def}
+
+    \begin{Def}[Открытое покрытие]
+        Если все множества из $\Omega$ открытые, то $\Omega$ называется \textit{открытым} покрытием.
+    \end{Def}
+
+    \begin{Def}
+        Пусть $\widetilde{\Omega}$ -- подсемейство $\Omega$, которое также покрывает $E$. Тогда $\widetilde{\Omega}$ называется \textit{подпокрытием} $\Omega$. 
+    \end{Def}
+
+    \begin{Def}
+        Множество $E$ называется \textit{компактным}, если из любого его открытого покрытия можно выбрать конечное подпокрытие.
+    \end{Def}
+
+    \begin{Example}
+        $(0, 1)$ -- не компакт. $\Omega = \{\left(\frac{1}{n}, 1\right), n \in \N\}$ -- покрытие $(0, 1)$. Из него нельзя выбрать конечное подпокрытие $(0, 1)$.
+    \end{Example}
+
+    \begin{Def}
+        Пусть $a, b \in \R^n : a_1 \leqslant b_1, a_2 \leqslant b_2, ..., a_n \leqslant b_n$. 
+        Тогда \textit{замкнутым параллелепипедом} будем называть следующее множество:
+        \[[a; b] = [a_1, b_1] \times [a_2, b_2] \times ... \times [a_n, b_n]\]  
+
+        \textit{Открытым параллелепипедом} называется множество:
+        \[(a; b) = (a_1, b_1) \times (a_2, b_2) \times ... \times (a_n, b_n)\]
+    \end{Def}
+
+    \begin{Ex}
+        Открытый параллелепипед -- открытое множество, замкнутый параллелепипед -- замкнутое множество.
+    \end{Ex}
+
+    \begin{Def}[Диаметр множества]
+        $\displaystyle \diam E = \sup_{x, y \in E} ||x - y||$ 
+    \end{Def}
+
+    \begin{Thm}[О стягивающихся параллелепипедах]
+        Рассмотрим параллелепипеды $P_k \subset \R^n$ -- замкнутые, $P_1 \supset P_2 \supset P_3 \supset ..., \ \diam P_k \xrightarrow[k \to \infty]{}0$.
+        Тогда существует только одна точка, принадлежащая всем параллелепипедам.
+    \end{Thm}
+
+    \begin{Thm}
+        Замкнутый куб в $\R^n$ является компактом.
+    \end{Thm}
+
+    \begin{Lm}
+        $E \subset \R^n$. $E$ замкнуто $\EQ \forall$ сходящаяся последовательность в $E$ имеет пределом точку из $E$. 
+    \end{Lm}
+
+    \begin{proof}
+        $\SO$. Пусть $\{x^k\}_{k = 1}^\infty$ -- последовательность в $E$, $a \in \R^n$, $\lim_{k \to \infty} x_k = a$. Покажем, что $a \in E$.
+        Если это не так, то $a \in \R^n \setminus E$, и в силу открытости $\R^n \setminus E$ найдется окрестность $V_a$ точки $a$, лежащая в $\R^n \setminus E$. 
+        По определению предела при всех достаточно больших $k \in \N$ справедливо включение $x^k \in V_a \subset \R^n \setminus E$. С другой стороны, $x^k \in E \ \forall k \in \N$, и мы получаем противоречие. 
+
+        $\Leftarrow$. $E' \subset E \SO E$ -- замкнуто.
+    \end{proof}
+
+    \begin{Lm}
+        Замкнутое подмножество компакта -- компакт.
+    \end{Lm}
+
+    \begin{proof}
+        Пусть $F$ -- замнутое подмножество компакта $E$, $\Omega$ -- открытое покрытие $F$. Покажем, что из $\Omega$ можно выбрать конечное подпокрытие.
+        Добавляя к $\Omega$ множество $\R^n \setminus F$, мы получим открытое покрытие компакта $E$. Выберем из этого покрытия конечное подсемейство $\widetilde{\Omega}$, которое также покрывает $E$.
+        Если множество $\R^n \setminus F$ входит в $\widetilde{\Omega}$, удалим его оттуда. Мы получим конечное подпокрытие $\Omega$ множества $F$. 
+    \end{proof}
+
+    \begin{Thm}
+        Пусть $E \subset \R^n$. Тогда равносильны следующие условия:
+        \begin{MyList}
+            \item $E$ -- компакт
+            \item $E$ ограничено и замкнуто
+            \item Из любой последовательности в $E$ можно выбрать подпоследовательность, сходящуюся к точке из $E$.
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item[] $3 \SO 2$. Пусть $\{x^k\}$ -- последовательность в $E$, сходящаяся к некоторой точке $a \in \R^n$. 
+            Из условия 3) вытекает, что у $\{x^k\}$ есть подпоследовательность, предел которой лежит в $E$. Но любая подпоследовательность $\{x^k\}$ сходится к $a$, откуда $a \in E \SO E$ замкнуто.
+
+            Докажем теперь ограниченность. Если $E$ не ограничено, то по любому $k \in \N$ найдется $x^k \in E$, для которого $||x^k|| \geqslant k$. 
+            Но тогда $x^k \to \infty$ при $k \to \infty$ $\SO$ все подпоследовательности $\{x^k\}$ также стремятся к бесконечности. Получили противоречие с условием 3). 
+
+            \item[] $2 \SO 1$. $E$ ограничено $\SO \exists c : [-c, c]^n \supset E$. Тогда $E$ -- замкнутое подмножество компакта $\SO E$ -- компакт.
+            \item[] $1 \SO 3$. Пусть $a$ -- предел последовательности из $E$, но $a \notin E$. Положим $\Omega = \{\R^n \setminus \overline{B}_\varepsilon(a)\}$.
+            Тогда $\bigcup_{A \in \Omega} A = \R^n \setminus \{a\} \SO \Omega$ -- покрытие $E$. 
+            Пусть $\widetilde{\Omega}$ -- произвольное конечное подсемейство $\Omega$. Тогда, для некоторого $m \in \N$ и положительных чисел
+            $\varepsilon_1, ..., \varepsilon_m$
+            \[\widetilde{\Omega} = \left\{\R^n \setminus \overline{B}_{\varepsilon_k}(a)\right\}_{k = 1}^m\]   
+            Множество $B(a) = \displaystyle{\bigcap_{k = 1}^m}B_{\varepsilon_k}(a)$ является окрестность точки $a$. Заметим, что
+            \[\bigcup_{A \in \widetilde{\Omega}}A = \R^n \setminus \bigcap_{k = 1}^m \overline{B}_{\varepsilon_k}(a) \subset \R^n \setminus B(a)\]
+            Таким образом, множество $\widetilde{\Omega}$ не покрывает $E$, что противоречит компактности $E$. 
+        \end{MyList}
+    \end{proof}
+
+    \Subsection{Отображения}
+    
+    $f : E \subset \R^n \to \R^m$.
+
+    \begin{Example}
+        $m = 1$ -- функция нескольких переменных. $f(x_1, x_2, ..., x_n)$.
+    \end{Example}
+
+    \begin{Example}
+        $n = 1$ -- вектор-функция. $(f_1(x), f_2(x), ..., f_m(x)) = f(x)$.
+    \end{Example}
+
+    \begin{Def}
+        Отображение $f$ называется \textit{ограниченным}, если
+        \[\sup_{x \in E} ||f(x)|| < +\infty\] 
+    \end{Def}
+
+    \begin{Rem}
+        Ограниченность $f$ равносильна ограниченности координатных функций.
+    \end{Rem}
+
+    \begin{Def}[Предел по Коши]
+        $f : E \subset \R^n \to \R^m$, $a$ -- предельная точка $E$, ($a \in \overline{R}^n$).
+        \[\lim_{x \to a}f(x) = A \EQ \forall \varepsilon > 0 \ \exists \delta > 0 : \forall x \in E \cap \dot{B}_\delta(a) \ f(x) \in B_\varepsilon(A)\]
+        Иначе, пусть $a \in \R^n, A \in \R^m$. Тогда $A$ -- предел, если 
+        \[\forall \varepsilon > 0 \ \exists \Delta > 0 : \forall x \in E 0 < ||x - a|| < \delta \ ||f(x) - A|| < \varepsilon\] 
+    \end{Def}
+
+    \begin{Def}[Предел по Гейне]
+        $f : E \subset \R^n \to \R^m$, $a$ -- предельная точка $E$. 
+        Тогда $\lim_{x \to a} f(x) = A$, если
+        \[\forall \{x^n\} \ x^k \to a, \ x^k \neq a, \ x^k \in E \ \lim f(x_k) = A\]
+    \end{Def}
+
+    \begin{Thm}[Эквивалентность определений предела]
+        Пусть $f : E \subset \R^n \to \R^m$, точка $a \in \overline{\R^n}$ является предельной для $E$, $A \in \overline{\R^m}$. Тогда равносильны утверждения:
+        \begin{MyList}
+            \item $\displaystyle{\lim_{x \to a}} f(x) = A$ в смысле Коши
+            \item $\displaystyle{\lim_{x \to a}} f(x) = A$ в смысле Гейне 
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        $1) \SO 2)$. Пусть $A$ -- предел $f$ в смысле Коши. Возьмем последовательность $\{x^k\}_{k = 1}^\infty$ в $E \setminus \{a\}$, стремящуюся к $a$.
+        В силу 1) по любому $\varepsilon > 0$ можно подобрать $\delta > 0$, для которого
+        \[f(x) \in V_A(\varepsilon) \quad \forall x \in \dot{V}_a(\delta) \cap E\]
+        Поскольку $x^k \to a$, существует такое $N \in \N$, что при всех $k > N$ справедливо включение $x^k \in V_a(\delta)$. Кроме того, $x^k \in E \setminus \{a\}$, откуда $x^k \in \dot{V}_a(\delta) \cap E$.
+        Поэтому 
+        \[f(x^k) \in V_A(\varepsilon) \quad \forall k > N\]
+        Таким образом, $f(x^k) \to A$ при $k \to \infty$, то есть $\lim_{x \to a} f(x) = A$ и в смысле Гейне.
+        
+        $2) \SO 1)$. Пусть $A$ -- предел $f$ по Гейне. Докажем, что предел $f$ в смысле Коши также существует и равен $A$.
+        Действительно, если это не так, то
+        \[\exists \varepsilon : \forall \delta > 0 \ \exists x \in \dot{V}_a(\delta) \cap E : f(x) \notin V_A(\varepsilon)\]
+        Положим 
+        \[F = \{x \in E \setminus \{a\}: f(x) \notin V_A(\varepsilon)\}\]
+        Таким образом, $\dot{V}_a(\delta) \cap F = \varnothing$ при любом $\delta > 0$, то есть $a$ является предельной точкой $F$
+        $\SO$ найдется последовательность $\{x^k\}_{k = 1}^\infty$ в $F$, стремящаяся к $a$. Тогда $\lim_{k \to \infty} f(x^k) = A$, что невозможно, т.к. $f(x^k) \notin V_A(\varepsilon)$ при всех $k \in \N$. 
+         
+    \end{proof}
 \end{document}
