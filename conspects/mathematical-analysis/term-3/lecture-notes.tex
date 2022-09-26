@@ -599,7 +599,7 @@
         $n = 1$ -- вектор-функция. $(f_1(x), f_2(x), ..., f_m(x)) = f(x)$.
     \end{Example}
 
-    \begin{Def}
+    \begin{Def}[Ограниченное отображение]
         Отображение $f$ называется \textit{ограниченным}, если
         \[\sup_{x \in E} ||f(x)|| < +\infty\] 
     \end{Def}
@@ -645,6 +645,274 @@
         \[F = \{x \in E \setminus \{a\}: f(x) \notin V_A(\varepsilon)\}\]
         Таким образом, $\dot{V}_a(\delta) \cap F = \varnothing$ при любом $\delta > 0$, то есть $a$ является предельной точкой $F$
         $\SO$ найдется последовательность $\{x^k\}_{k = 1}^\infty$ в $F$, стремящаяся к $a$. Тогда $\lim_{k \to \infty} f(x^k) = A$, что невозможно, т.к. $f(x^k) \notin V_A(\varepsilon)$ при всех $k \in \N$. 
-         
     \end{proof}
+
+    \begin{Thm}[Единственность предела отображения]
+        Пусть $f : \R^n \to \R^m$, $A, B \in \overline{\R^m}$, $\lim_{x \to a} f(x) = A, \ \lim_{x \to a} f(x) = B$. Тогда $A = B$.  
+    \end{Thm}
+
+    \begin{Thm}
+        Пусть $f : \R^n \to \R^m$, $A \in \R^m$. Тогда равносильны следующие условия:
+        \begin{MyList}
+            \item $\lim_{x \to a} f(x) = A$ 
+            \item $\lim_{x \to a} f_i(x) = A_i$
+        \end{MyList}
+    \end{Thm}
+
+    \begin{Example}
+        Пусть
+        \[f(x) = \begin{cases}
+            \frac{xy}{x^2 + y^2}, &x^2 + y^2 \neq 0 \\
+            0, &x^2 + y^2 = 0
+        \end{cases}\]
+        Положим
+        \[z^k = \left(\frac{1}{k}, 0\right), \quad w^k = \left(\frac{1}{k}, \frac{1}{k}\right), \quad (k \in \N)\]
+        Тогда $z^k \to (0, 0)$ и $w^k \to (0, 0)$ при $k \to \infty$. Кроме того,
+        \[f(z^k) \to 0, \quad f(w^k) = \frac{1 / k^2}{2 / k^2} \to \frac{1}{2}\]
+        Если бы предел $f$ в точке $(0, 0)$ существовал, то он был бы равен одновременно $0$ и $\frac{1}{2}$, что невозможно.  
+    \end{Example}
+
+    \begin{Example}
+        Пусть
+        \[\lim_{(x, y) \to (0, 0)} \frac{x^2 - y^2}{x^2 + y^2}\]
+        Заметим, что 
+        \[\lim_{x \to 0} \lim_{y \to 0} f(x, y) = 1, \quad \lim_{y \to 0}\lim_{x \to 0} f(x, y) = -1\]
+        $\left(\frac{1}{k}, 0\right), \left(0, \frac{1}{k}\right)$ -- по Гейне предела не существует.
+    \end{Example}
+
+    \begin{Thm}[Арифметические действия с пределами]
+        Пусть $E \subset \R^n$, $f, g : E \to \R^m$, $a \in \overline{\R^n}$,
+        $\lim_{x \to a} f(x) = A$, $\lim_{x \to a} g(x) = B$, $A, B \in \R^m$ . Тогда
+        \begin{MyList}
+            \item $\lim_{x \to a} f(x) + g(x) = A + B$
+            \item Если $\lambda \in \R$, то $\lim_{x \to a} \lambda f(x) = \lambda A$  
+            \item[2'.] Если $\lambda(x) : E \to \R$, $\lim_{x \to a} \lambda(x) = \alpha \in \R$, то 
+            \[\lim_{x \to a} \lambda(x) f(x) = \alpha A\]
+            \item $\langle f, g\rangle \xrightarrow[x \to a]{} \langle A, B\rangle$
+            \item Если $m = 1$, $B \neq 0$, то $\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{A}{B}$ 
+        \end{MyList}
+    \end{Thm}
+
+    \begin{Thm}[Предел композиции]
+        Пусть $E \subset \R^n$, $F \subset \R^m$, $f : E \to F$, $g : F \to \R^s$, 
+        $\lim_{x \to a} f(x) = b, \lim_{x \to b} g(x) = c$. Тогда
+        \[\lim_{x \to a} g(f(x)) = c\] 
+    \end{Thm}
+
+    \begin{Thm}[Критерий Больцано-Коши]
+        Пусть $E \subset \R^n$, $a \in \overline{\R^n}$ -- предельная точка $E$, $f : E \to \R^m$. 
+        Тогда равносильны следующие условия:
+        \begin{MyList}
+            \item $f$ имеет пределом в точке $a$ точку в $\R^m$ 
+            \item $\forall \varepsilon > 0 \ \exists V_a : \forall x_1, x_2 \in V_a \cap E \ ||f(x_1) - f(x_2)|| < \varepsilon$
+        \end{MyList}
+    \end{Thm}
+
+    \Subsection{Непрерывность отображений}
+
+    \begin{Def}[Непрерывные отображения]
+        $E \subset \R^n$, $f : E \to \R^m$, $a \in \R^n$. Отображение $f$ называется \textit{непрерывным} в точке $a$, если 
+        \[\forall \varepsilon > 0 \ \exists \delta : \forall x \in E \cap V_\delta(a) \ f(x) \in V_\varepsilon (f(a))\]
+    \end{Def}
+
+    \begin{Rem}
+        Если точка $a$ -- изолированная точка $E$, то отображение в $a$ всегда непрерывно.
+    \end{Rem}
+
+    \begin{Rem}[Непрерывность на языке неравенств]
+        \[\forall \varepsilon > 0 \ \exists \delta > 0 : \forall x \ ||x - a|| < \delta \ ||f(x) - f(a)|| < \varepsilon\]
+    \end{Rem}
+
+    \begin{Rem}
+        $f$ непрерывна $\EQ$ все её координатные функции непрерывны.
+    \end{Rem}
+
+    \begin{Thm}[Непрерывность композиции]
+        Пусть $E \subset \R^n$, $F \subset \R^m$, $f : E \to F$, $g : F \to \R^s$, 
+        Если $f$ непрерывно в точке $a$ и $g$ непрерывно в точке $f(a)$, то $g \circ f$ непрерывно в точке $a$.
+    \end{Thm}
+
+    \begin{proof}
+        Пусть $\{x^k\}_{k = 1}^\infty$ -- последовательность в $E$, стремящаяся к $a$. Тогда
+        \[f(x^k) \to f(a), \quad g(f(x^k)) \to g(f(a))\]
+        Таким образом, $g(f(x^k)) \to (g \circ f)(a)$ при $k \to \infty$, что и означает непрерывность $g \circ f$ в точке $a$. 
+    \end{proof}
+
+    \begin{Thm}
+        Пусть $E \subset \R^n$, $f, g : E \to \R^m$ непрерывны в точке $a \in E$. Тогда 
+        \begin{MyList}
+            \item $f + g$ непрерывно в точке $a$
+            \item Если функция $\lambda : E \to \R$ непрерывна в точке $a$, то $\lambda f$ непрерывно в точке $a$
+            \item $f \cdot g$ непрерывно в точке $a$
+            \item Если $m = 1$ и $g(a) \neq 0$, то функция $\frac{f}{g}$ непрерывна в точке $a$.
+        \end{MyList}
+    \end{Thm}
+    
+    \begin{Def}[Непрерывное на множестве отображение]
+        Будем называть отображение $f : E \to \R^m$, $E \subset \R^n$ \textit{непрерыным на } $E$, если оно непрерывно в каждой точке $E$. 
+    \end{Def}
+
+    \begin{notation}
+        $C(E \to \R^m)$, $C(E, \R^m)$, $C(\R^n, \R^m)$.
+    \end{notation}
+
+    \begin{Thm}[Непрерывный образ компакта]
+        Пусть $E \subset \R^n$ -- компактное, $f$ непрерывно на $E$.
+        Тогда образ множества $E$ -- компакт.
+        Таким образом, непрерывный образ компакта -- компакт.
+    \end{Thm}
+
+    \begin{proof}
+        Рассмотри $f(E) \subset \R^m$. Пусть $\{y_k\} \in f(E)$ .
+        Тогда $\exists x_k \in E : f(x_k) = y_k$. Поскольку $E$ -- компакт, то $\exists \{x_{k_l}\} : \lim_{l \to \infty} x_{k_l} = a \in E$.
+        Рассмотрим теперь последовательность $y_{k_l} = f(x_{k_l})$. При $l \to \infty$ она стремится к $f(a)$ (по непрерывности). $a \in E \SO f(a) \in f(E)$ 
+    \end{proof}
+
+    \begin{Thm}[Вейерштрасса]
+        Пусть $E \subset \R^n$, $f : E \to \R^m$ -- непрерывна на $E$, $E$ -- компакт.
+        Тогда 
+        \begin{MyList}
+            \item $f$ ограничена на $E$
+            \item Если $m = 1$, то $f$ достигает своего наибольшего и наименьшего значения.
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList}
+            \item По предыдущей теореме.
+            \item Положим
+            \[M = \sup_{x \in E} f(x) \in \R\]
+            Построим последовательность $\{y_k\} : M - \frac{1}{k} < y_k \leqslant M$, $y_k \in f(E)$.
+            $y_k \to M \SO M \in E \SO M = \displaystyle \max_{x \in E} f(x) \in \R$.
+        \end{MyList}
+    \end{proof}
+
+    \begin{Rem}
+        Любой отрезок в $\R^n$ есть компакт.
+        \[\Delta_{a, b} = \{a + t(b - a), \ t \in [0, 1], \ a, b \in \R^n\}\]
+    \end{Rem}
+
+    \begin{Thm}
+        Пусть $E \subset \R^n$, $f : E \to \R^m$. Тогда равносильны следующие условия
+        \begin{MyList}
+            \item $f$ непрерывно на $E$
+            \item $\forall $ открытого $G \subset \R^m \ f^{-1}(G)$ открыто в $E$.
+        \end{MyList}
+    \end{Thm}
+
+    \Subsection{Линейные отображения}
+
+    \begin{Def}
+        Пусть $E \subset \R^n$, $T : E \to \R^m$. Будем называть отображение $f$ \textit{линейным}, если 
+        $\forall x, y \in E, \ \forall \alpha, b \in \R$ 
+        \[T(\alpha x + \beta y) = \alpha T(x) + \beta T(y)\]
+    \end{Def} 
+
+    \begin{notation}
+        $T(x) = T_x$
+    \end{notation}
+
+    \begin{notation}
+        $\mathbb{O}_x = 0 \ \forall x \in \R^m$
+    \end{notation}
+
+    \begin{notation}
+        $x_k = \begin{pmatrix}
+        k \\ 
+        k \\ 
+        \vdots \\ 
+        k
+        \end{pmatrix}$, $T(x_k) = k \cdot T(x_1)$  
+    \end{notation}
+
+    \begin{Rem}[Композиция линейных операторов]
+        Если $S \in \mathcal{L} (\R^n, \R^m)$, $T \in \mathcal{L}(\R^m, \R^l)$ 
+        Тогда $T(S(x)) \in \mathcal{L} (\R^n, \R^l)$. 
+    \end{Rem}    
+
+    \begin{Thm}
+        Пусть $T \in \mathcal{L}(\R^n, \R^m)$. Тогда
+        \begin{MyList} 
+            \item $T$ непрерывен на $\R^n$
+            \item $\exists C \geqslant 0 : ||T_x|| \leqslant C \cdot ||x|| \ \forall x \in \R^n$
+            \item Пусть $E$ -- ограниченное подмножество $\R^n$. Тогда $T(E)$ ограничен в $\R^m$.
+        \end{MyList}
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList} 
+            \item[2.] Ранее было доказано, что сфера $S = \{x \in \R^n : ||x|| = 1\}$ компактна в $\R^n$. Положим
+            \[C = \sup_{x \in S} ||T_x||\]
+            Так как сам оператор $T$ непрерывен, то по теореме Вейерштрасса $C < +\infty$. При $x = 0$ требуемое неравенство очевидно. 
+            Для $x \neq 0$ положим $z = \frac{x}{||x||}$. Тогда $z \in S$, и в силу линейности $T$ 
+            \[||T_x|| = ||T(z||x||) = ||T_z|| \cdot ||x|| \leqslant C \cdot ||x||\]
+            \item Пусть множество $E$ ограничено в $\R^n$. Тогда существует такое $\delta > 0$, что $E \subset V_\delta(0)$. По предыдущему пункту,
+            \[||T_x|| \leqslant C ||x|| \leqslant C \delta\]    
+            Поэтому $T(E) \subset V_{C \delta}(0)$, что и дает ограниченность $T(E)$.
+        \end{MyList}
+    \end{proof}
+
+    \begin{Def}[Операторная норма]
+        $||T|| = \displaystyle{\sup \frac{||T_x||}{||x||}, \ x \in \R^n \setminus \{0\}}$.
+    \end{Def}
+
+    \begin{Rem}
+        Если нам удалось подобрать $C$, что выполняется неравенство из пункта 2 теоремы, то $||T|| \leqslant C$. 
+        Если же для какого-то $x \in \R^n \setminus \{0\}$ верно неравенство $||T_x|| \geqslant C||x||$, то $||T|| \geqslant C$.
+    \end{Rem}
+
+    \begin{Rem}
+        $||T|| = \displaystyle{\sup_{||x|| = 1} ||T_x|| = \sup_{||x|| \leqslant 1} ||T_x||}$
+    \end{Rem}
+
+    \begin{proof}
+        Пусть $A = \displaystyle{\sup_{||x|| = 1} ||T_x||}$, $B = \displaystyle{\sup_{||x|| \leqslant 1} ||T_x||}$ 
+        \begin{MyList} 
+            \item $A \leqslant B $ -- очевидно.
+            \item \[
+                ||T|| = \sup_{x \neq 0} \frac{||T_x||}{||x||} = \sup_{x \neq 0} \left|\left|T\left(\frac{x}{||x||}\right)\right|\right| = A
+            \]
+            \item \[||T|| = \sup_{x \neq 0} \frac{||T_x||}{||x||} \geqslant \sup_{0 < ||x|| \leqslant 1} \frac{||T_x||}{||x||} \geqslant \sup_{||x|| \leqslant 1} ||T_x|| = B\]
+        \end{MyList}
+    \end{proof}
+
+    \begin{Thm}
+        Операторная норма -- это действительно норма.
+    \end{Thm}
+
+    \begin{proof}
+        \begin{MyList} 
+            \item Неравенство $||T|| \geqslant 0$ очевидно. Если $||T|| = 0$, то 
+            \[||T_x|| \leqslant ||T|| \cdot ||x|| = 0 \quad \forall x \in \R^n\]
+            откуда $T_x = 0$ для любых $x \in \R^n$, поэтому $T = \mathbb{O}$ 
+            \item $||\lambda T|| = \displaystyle{\sup_{||x|| = 1} || \lambda T(x)||}$
+            \item Возьмем $x : ||x|| = 1$. Тогда
+            \[||T + S|| = \sup_{||x|| = 1} ||T_x + S_x|| \leqslant \sup_{||x|| = 1} (||T_x|| + ||S_x||)\leqslant \sup_{||x|| = 1} ||T_x|| + \sup_{||x|| = 1} ||S_x||\]
+        \end{MyList}
+    \end{proof}
+
+    \begin{Thm}[Оценка нормы линейного оператора]
+        $T \in \mathcal{L}(\R^n, \R^m)$, $A$ -- матрица оператора $T$.
+        Тогда
+        \[||T|| \leqslant \sqrt{\sum_{i = 1}^m \sum_{j = 1}^n a_{ij}^2}\]
+    \end{Thm}
+
+    \begin{proof}
+        Хотим доказать, что $\forall x \in \R^n$ 
+        \[||T_x|| \leqslant \sqrt{\sum_{i = 1}^m \sum_{j = 1}^n a_{ij}^2} \cdot ||x||\]
+        \[||T_x||^2 = \sum_{i=1}^{m} (T_i(x))^2 = \sum_{i=1}^{m} \left(\sum_{j=1}^{n} a_{ij} \cdot x\right)^2 \leqslant \sum_{i=1}^{m} \left(\sum_{j=1}^{n} (a_{ij})^2 \cdot \sum_{j=1}^{n} x_j^2\right)\]
+    \end{proof}
+
+    \begin{Thm}
+        Пусть $A$ -- матрица размером $n \times n$. Тогда равносильны следующие утверждения:
+        \begin{MyList} 
+            \item $\det A \neq 0$ 
+            \item Неоднородная система
+            \[A \cdot x = y, \quad y - n \times 1\]
+            имеет единственное решение при каждом $y \in \R^n$
+            \item Однородная система 
+            \[A \cdot x = 0\]
+            имеет только нулевое решение.
+        \end{MyList}
+    \end{Thm}
 \end{document}
